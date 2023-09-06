@@ -1,0 +1,6 @@
+TE DOEN
+
+- MiniLibX werkend op mac en linux in cmake/makefile
+- handleiding voor Albert voor git mergen (OPTIONAL)
+- parser naar list of structs
+- tracer (eerst maar eens een plane?)
