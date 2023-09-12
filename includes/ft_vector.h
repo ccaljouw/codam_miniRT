@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   miniRT.h                                           :+:    :+:            */
+/*   ft_vector.h                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/12 18:31:01 by ccaljouw      ########   odam.nl         */
+/*   Created: 2023/09/12 17:21:26 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/12 17:30:10 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef FT_VECTOR_H
+# define FT_VECTOR_H
 
-# include "MLX42.h"
-# include "libft.h"
-#include "errors.h"
-#include "parser.h"
-
-void	exit_error(char *error_msg, t_scene *data);
-t_scene	*init_scene(char *file);
+typedef struct xyz_s
+{
+	float	x;
+	float	y;
+	float	z;
+}			t_xyz;
 
 #endif

@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   miniRT.h                                           :+:    :+:            */
+/*   parse.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/12 18:31:01 by ccaljouw      ########   odam.nl         */
+/*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/12 18:48:54 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "../../includes/miniRT.h"
 
-# include "MLX42.h"
-# include "libft.h"
-#include "errors.h"
-#include "parser.h"
+#include <stdio.h> //remove
 
-void	exit_error(char *error_msg, t_scene *data);
-t_scene	*init_scene(char *file);
+void	parse_type(char *line, t_scene *data)
+{
+	int		i;
+	char	**args;
+	// char	*type[6] = {"A", "C", "L", "sp", "pl", "cy"};
 
-#endif
+	i = 0;
+	args = ft_split(line, ' ');
+	if (!args)
+		exit_error(ERROR_MEM, data);
+	while (args[i]) {
+		printf("%s\n", args[i++]);
+	}
+	free(args);
+}

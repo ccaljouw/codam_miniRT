@@ -12,7 +12,7 @@ LIBMLX		:= ./libs/MLX42
 LIBS		:= $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a
 HEADERS		:= -I $(LIBFT)  -I $(LIBMLX)/include/MLX42
 
-OBJ 		:= $(addprefix obj/, main.o utils.o)
+OBJ 		:= $(addprefix obj/, main.o utils.o parse/parse.o parse/unique.o parse/shapes.o)
 
 all: $(NAME)
 

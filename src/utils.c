@@ -6,14 +6,17 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/12 16:54:29 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/12 18:15:04 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-void	exit_error(char *error_msg)
+void	exit_error(char *error_msg, t_scene *data)
 {
 	ft_putendl_fd(error_msg, 2);
+	(void)data; //remove
+	// if (data)
+	// 		cleanup data
 	exit (1);
 }
