@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/12 16:53:16 by ccaljouw      ########   odam.nl         */
+/*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/12 16:54:29 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-void	check_args(int argc, char **argv)
+void	exit_error(char *error_msg)
 {
-	int	i;
-
-	i = 0;
-	if (argc != 2)
-		exit_error(ERROR_ARGS);
-	while (argv[1][i] != '\0')
-		i++;
-	if (ft_strncmp(argv[1] + (i - 3), ".rt", 4) != 0)
-		exit_error(ERROR_PATH);
-}
-
-int	main(int argc, char **argv)
-{
-	check_args(argc, argv);
-	return (0);
+	ft_putendl_fd(error_msg, 2);
+	exit (1);
 }

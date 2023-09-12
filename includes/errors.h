@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:09:09 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/12 16:37:46 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/12 16:55:49 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 # define ERROR_MEM "Error\nMemory allocation error"
 # define ERROR_MLX "Error\nError in MLX42 function"
-# define ERROR_PATH "Error\nUnable to open rt file. \
-					Please check path and file permissions"
+# define ERROR_PATH "Error\nUnable to open input file. \
+Please check path, extention and file permissions"
+# define ERROR_ARGS "Error\nIncorrect number of arguments"
 # define ERROR_TYPE "Error\nUnsupported type provided"
 # define ERROR_AMB "Error\nIncorrect parameters provided for Ambient Lightning"
 # define ERROR_CAM "Error\nIncorrect parameters provided for Camera"

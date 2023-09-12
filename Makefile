@@ -1,3 +1,8 @@
+BOLD	:= \033[1m
+GREEN	:= \033[32;1m
+BLUE	:= \033[34;1m
+RESET	:= \033[0m
+
 NAME 		:= miniRT
 CC 			:= gcc
 CFLAGS 		:= -Wall -Wextra -Werror
@@ -7,41 +12,45 @@ LIBMLX		:= ./libs/MLX42
 LIBS		:= $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a
 HEADERS		:= -I $(LIBFT)  -I $(LIBMLX)/include/MLX42
 
-OBJ 		:= $(addprefix obj/, main.o)
+OBJ 		:= $(addprefix obj/, main.o utils.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIBS)
-	$(CC) $(CFLAGS) $(CODAMFLAGS) $^ -o $@
-	@echo miniRT made.
+$(NAME): $(LIBS) $(OBJ) 
+	@$(CC) $(CFLAGS) $(CODAMFLAGS) $^ -o $@
+	@echo "$(GREEN)$(BOLD)miniRT made$(RESET)"
 
 bonus: $(OBJ) $(LIBS)
-	$(CC) $(CFLAGS) $(CODAMFLAGS) $^ -o $@
+	@$(CC) $(CFLAGS) $(CODAMFLAGS) $^ -o $@
 
 carien: $(OBJ) $(LIBS)
-	$(CC) $(CFLAGS) -lglfw -L /opt/homebrew/Cellar/glfw/3.3.8/lib/ $^ -o $@
+	@$(CC) $(CFLAGS) -lglfw -L /opt/homebrew/Cellar/glfw/3.3.8/lib/ $^ -o $@
 
 $(LIBS): 
 	@$(MAKE) -C $(LIBFT)
 	@$(MAKE) -C $(LIBMLX)
 
-obj/%.o : src/%.c
+$(OBJ): obj/%.o : src/%.c
 	@mkdir -p $(dir $@)
-	@echo Creating miniRT object: $@ "\x1b[1A\x1b[M"
+	@echo "$(BLUE)Compiling $(notdir $<):$(RESET)"
 	$(CC) $(CFLAGS) -c $^ -o $@ $(HEADERS)
 
 clean:
-	rm -rf obj/
+	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"
+	@rm -rf obj/
 	@$(MAKE) -C $(LIBFT) clean
 	@$(MAKE) -C $(LIBMLX) clean
 
 fclean: clean
-	@echo Cleaning miniRT objects
 	@rm -f $(NAME)
 	@rm -f home
 	@$(MAKE) -C $(LIBFT) fclean
 	# @$(MAKE) -C $(LIBMLX) fclean
 
-re: fclean all
+re: 
+	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"
+	@rm -f $(NAME)
+	@rm -rf obj/
+	@$(MAKE) all;
 
 .PHONY: all bonus clean fclean re
