@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   miniRT.h                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/12 16:41:24 by ccaljouw      ########   odam.nl         */
+/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/12 16:39:26 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#ifndef MINIRT_H
+# define MINIRT_H
 
-int	main(int argc, char **argv)
-{
-	return (0);
-}
+#include "errors.h"
+#include "parser.h"
+#include "types.h"
+
+#endif
