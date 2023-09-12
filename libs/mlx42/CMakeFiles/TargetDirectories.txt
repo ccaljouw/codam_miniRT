@@ -1,0 +1,3 @@
+/Users/ccaljouw/Documents/miniRT/libs/mlx42/CMakeFiles/mlx42.dir
+/Users/ccaljouw/Documents/miniRT/libs/mlx42/CMakeFiles/edit_cache.dir
+/Users/ccaljouw/Documents/miniRT/libs/mlx42/CMakeFiles/rebuild_cache.dir

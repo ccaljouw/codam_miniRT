@@ -1,0 +1,9 @@
+general reference: https://www.atlassian.com/git/tutorials
+
+Create your own branch to work on:
+Git checkout works hand-in-hand with git branch. The git branch command can be used to create a new branch. 
+When you want to start a new feature, you create a new branch off main using 
+		git main <new_branch> 
+Once created you can then use 
+		git checkout <new_branch> 
+to switch to that branch. 

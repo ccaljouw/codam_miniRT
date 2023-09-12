@@ -21,6 +21,7 @@ NAME			= fdf
 CC				= cc
 CCFLAGS			= -Wall -Werror -Wextra
 MLXFLAGS		= -L /usr/local/lib -lglfw -framework Cocoa -framework IOKit -framework OpenGL 
+# MLXFLAGS		= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 
 RM				= rm -rf
 
