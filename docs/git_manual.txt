@@ -1,9 +1,26 @@
 general reference: https://www.atlassian.com/git/tutorials
 
-Create your own branch to work on:
-Git checkout works hand-in-hand with git branch. The git branch command can be used to create a new branch. 
-When you want to start a new feature, you create a new branch off main using 
-		git main <new_branch> 
-Once created you can then use 
-		git checkout <new_branch> 
-to switch to that branch. 
+CREATE BRANCH:
+
+1. Create a new branch off main using 
+	git branch <new_branch> 
+2. Once created you can then use 
+	git checkout <new_branch> 
+to switch to that branch (Use git status to check that you are now on the new branch).
+
+3. First time pushing new commits:
+	git push --set-upstream origin <new_branch>
+
+MERGING TESTED WORK TO MAIN:
+1. merge master into working branch
+	use 
+		git fetch --all 
+	to make sure you get the latest status on your local system
+	make sure you are on the working branch (check with git status)
+	use
+		git merge main --no-commit
+2. fix merge conflicts and commit and push changes on the working branch.
+3. merge working branch into master
+		git checkout main
+		git merge <working branch>
+	this should not provide any merge conflicts.
