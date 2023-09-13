@@ -6,19 +6,41 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/12 22:12:13 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/13 08:03:04 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
+void	set_xyz(char *param, t_xyz *position)
+{
+	(void)param;
+	(void)position;
+	printf("set xyz\n");
+}
+
+void	set_rgb(char *param, uint32_t *rgb)
+{
+	(void)param;
+	(void)rgb;
+	printf("set rbg\n");
+}
+
+float	to_float(char *param)
+{
+	float n;
+	n = 0;
+	(void)param;
+	printf("convert to float\n");
+	return n;
+}
+
 void	parse_type(char *line, t_scene *data)
 {
-	int		i;
-	char	**param;
-	char	*type[6] = {"A", "C", "L", "sp", "pl", "cy"};
-	static 	t_function *parse[6] = {parse_ambient, parse_camera, parse_light, \
-									parse_sphere, parse_plane, parse_cylinder};
+	int			i;
+	char		**param;
+	static char	*type[6] = {"A", "C", "L", "sp", "pl", "cy"};
+	static t_f	*parse[6] = {ambient, camera, light, sphere, plane, cylinder};
 
 	i = 0;
 	param = ft_split(line, '\t');
@@ -30,7 +52,7 @@ void	parse_type(char *line, t_scene *data)
 		{
 			parse[i](param, data);
 			ft_putstr_fd(line, 1);
-			break;
+			break ;
 		}
 		i++;
 	}

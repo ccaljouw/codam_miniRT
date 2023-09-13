@@ -1,6 +1,9 @@
 TE DOEN
 
-- MiniLibX werkend op mac en linux in cmake/makefile
-- handleiding voor Albert voor git mergen (OPTIONAL)
-- parser naar list of structs
+- MiniLibX werkend op mac en linux in cmake/makefile 
+- handleiding voor Albert voor git mergen (OPTIONAL) --Carien
+- parser naar list of structs --Carien
 - tracer (eerst maar eens een plane?)
+
+LATER DOEN
+- delete functies voor alle types

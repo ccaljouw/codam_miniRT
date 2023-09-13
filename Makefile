@@ -17,23 +17,24 @@ OBJ 		:= $(addprefix obj/, main.o utils.o parse/parse.o parse/unique.o parse/sha
 
 all: $(NAME)
 
-$(NAME): $(LIBS) $(OBJ) 
+$(NAME): $(LIBS) $(OBJ)
 	@$(CC) $(CFLAGS) $(CODAMFLAGS) $^ -o $@
 	@echo "$(GREEN)$(BOLD)miniRT made$(RESET)"
 
 bonus: $(OBJ) $(LIBS)
 	@$(CC) $(CFLAGS) $(CODAMFLAGS) $^ -o $@
 
-carien: $(OBJ) $(LIBS)
-	@$(CC) $(CFLAGS) -lglfw -L /opt/homebrew/Cellar/glfw/3.3.8/lib/ $^ -o $@
+carien: $(LIBS) $(OBJ)
+	$(CC) $(CFLAGS) -lglfw -L /opt/homebrew/Cellar/glfw/3.3.8/lib/ $^ -o $(NAME)
+	@echo "$(GREEN)$(BOLD)miniRT made$(RESET)"
 
 $(LIBS): 
 	@$(MAKE) -C $(LIBFT)
-	# @$(MAKE) -C $(LIBMLX)
+	@$(MAKE) -C $(LIBMLX)
+	@echo "$(BLUE)Compiling object files miniRT:$(RESET)"
 
 $(OBJ): obj/%.o : src/%.c
 	@mkdir -p $(dir $@)
-	@echo "$(BLUE)Compiling $(notdir $<):$(RESET)"
 	$(CC) $(CFLAGS) -c $^ -o $@ $(HEADERS)
 
 clean:
@@ -46,7 +47,7 @@ fclean: clean
 	@rm -f $(NAME)
 	@rm -f home
 	@$(MAKE) -C $(LIBFT) fclean
-	# @$(MAKE) -C $(LIBMLX) fclean
+	@$(MAKE) -C $(LIBMLX) fclean
 
 re: 
 	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"
