@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 09:30:37 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/13 09:36:56 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,12 @@
 #include <stdio.h> 													// for testing purposes only
 uint32_t get_gradient_value(uint32_t x, uint32_t y, t_scene *data)  // for testing purposes only
 {
-	uint32_t	color;
 	uint32_t 	r;
 	uint32_t	g;
-	uint32_t	b;
-	uint32_t	a;
 	
 	r = (uint32_t)round(((double)x / (double)data->image->width) * 255);
 	g = (uint32_t)round(((double)y / (double)data->image->height) * 255);
-	b = 0;
-	a = 255;
-	color = (r << 24 | g << 16 | b << 8 | a);
-	return color;
+	return (r << 24 | g << 16 | 0 << 8 | 255);
 }
 
 void ft_setpixels(void* param)

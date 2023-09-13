@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 00:25:50 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/13 09:46:12 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	sphere(char **param, t_scene *data)
 	new_sphere = malloc(sizeof(t_sphere));
 	if (!new_node || !new_sphere)
 		exit_error(ERROR_MEM, NULL, data);
-	set_xyz(param[1], new_sphere->center);
+	set_xyz(param[1], new_sphere->center, data);
 	new_sphere->diameter = to_float(param[2]);
-	set_rgb(param[3], new_sphere->rgb);
+	set_rgb(param[3], new_sphere->rgb, data);
 	// if (!new_sphere->center || !new_sphere->diameter || !new_sphere->rgb)
 	// 	exit_error(ERROR_SPHERE, NULL, data);
 	new_node->content = (void *)new_sphere;
@@ -52,9 +52,9 @@ void	plane(char **param, t_scene *data)
 	new_plane = malloc(sizeof(t_plane));
 	if (!new_node || !new_plane)
 		exit_error(ERROR_MEM, NULL, data);
-	set_xyz(param[1], new_plane->point);
-	set_xyz(param[2], new_plane->normal_v);
-	set_rgb(param[3], new_plane->rgb);
+	set_xyz(param[1], new_plane->point, data);
+	set_xyz(param[2], new_plane->normal_v, data);
+	set_rgb(param[3], new_plane->rgb, data);
 	// if (!new_plane->point || !new_plane->normal_v || !new_plane->rgb)
 	// 	exit_error(ERROR_PLANE, NULL, data);
 	new_node->content = (void *)new_plane;
@@ -77,11 +77,11 @@ void	cylinder(char **param, t_scene *data)
 	new_cylinder = malloc(sizeof(t_cylinder));
 	if (!new_node || !new_cylinder)
 		exit_error(ERROR_MEM, NULL, data);
-	set_xyz(param[1], new_cylinder->center);
-	set_xyz(param[2], new_cylinder->axis_v);
+	set_xyz(param[1], new_cylinder->center, data);
+	set_xyz(param[2], new_cylinder->axis_v, data);
 	new_cylinder->diameter = to_float(param[3]);
 	new_cylinder->height = to_float(param[4]);
-	set_rgb(param[5], new_cylinder->rgb);
+	set_rgb(param[5], new_cylinder->rgb, data);
 	// if (!new_cylinder->center || !new_cylinder->axis_v || \
 	// 	!new_cylinder->diameter || !new_cylinder->height || !new_cylinder->rgb)
 	// 	exit_error(ERROR_CYLINDER, NULL, data);

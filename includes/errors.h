@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:09:09 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/12 21:31:13 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/13 09:44:38 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ Please check path, extention and file permissions"
 # define ERROR_PLANE "Incorrect parameters provided for Plane"
 # define ERROR_CYLINDER "Incorrect parameters provided for Cylinder"
 # define ERROR_SCENE "Incorrect scene provided"
+# define ERROR_XYZ "Incorrect coordinates provided"
+# define ERROR_RGB "Incorrect RGB values provided"
 
 #endif

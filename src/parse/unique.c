@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 00:25:34 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/13 09:45:20 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ambient(char **param, t_scene *data)
 	if (!data->ambient)
 		exit_error(ERROR_MEM, NULL, data);
 	data->ambient->ratio = to_float(param[1]);
-	set_rgb(param[2], data->ambient->rgb);
+	set_rgb(param[2], data->ambient->rgb, data);
 	// if (!data->ambient->ratio || !data->ambient->rgb)
 	// 	exit_error(ERROR_AMB, NULL, data);
 	ft_putstr_fd("\033[34;1mAmbient lightning config: \033[0m", 1);
@@ -46,8 +46,8 @@ void	camera(char **param, t_scene *data)
 	data->camera = malloc(sizeof(t_camera));
 	if (!data->camera)
 		exit_error(ERROR_MEM, NULL, data);
-	set_xyz(param[1], data->camera->view_point);
-	set_xyz(param[2], data->camera->orientation_v);
+	set_xyz(param[1], data->camera->view_point, data);
+	set_xyz(param[2], data->camera->orientation_v, data);
 	data->camera->fov = to_float(param[3]);
 	// if (!data->camera->view_point || !data->camera->orientation_v || !data->camera->fov)
 	// 	exit_error(ERROR_CAM, NULL, data);
@@ -68,9 +68,9 @@ void	light(char **param, t_scene *data)
 	data->light = malloc(sizeof(t_light));
 	if (!data->light)
 		exit_error(ERROR_MEM, NULL, data);
-	set_xyz(param[1], data->light->light_point);
+	set_xyz(param[1], data->light->light_point, data);
 	data->light->brightness = to_float(param[2]);
-	set_rgb(param[3], data->light->rgb);
+	set_rgb(param[3], data->light->rgb, data);
 	// if (!data->light->light_point || !data->light->brightness || !data->light->rgb)
 	// 	exit_error(ERROR_LIGHT, NULL, data);;
 	ft_putstr_fd("\033[34;1mLigt config:\t\t  \033[0m", 1);
