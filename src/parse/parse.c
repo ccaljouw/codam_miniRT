@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 11:59:40 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/13 12:21:47 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	set_rgb(char *param, uint32_t *rgb, t_scene *data)
 	rgb[0] = ft_atou_base(input[0], "0123456789", "");
 	rgb[1] = ft_atou_base(input[1], "0123456789", "");
 	rgb[2] = ft_atou_base(input[2], "0123456789", "");
-	printf("rbg set to:%u, %u, %u\n", rgb[0], rgb[1], rgb[2]);
+	printf("rbg set to:%u, %u, %u\n", rgb[0], rgb[1], rgb[2]); // testing
 	if ((!rgb[0] && ft_strcmp(input[0], "0")) \
 			|| (!rgb[1] && ft_strcmp(input[1], "0")) \
-			|| (!rgb[2] && ft_strcmp(input[2], "0")) )
+			|| (!rgb[2] && ft_strcmp(input[2], "0")))
 		exit_error(ERROR_RGB, NULL, data);
 	if (rgb[0] > 255 || rgb[1] > 255 || rgb[2] > 255)
 		exit_error(ERROR_RGB, NULL, data);
@@ -60,13 +60,13 @@ void	set_rgb(char *param, uint32_t *rgb, t_scene *data)
 
 float	to_float(char *param, t_scene *data)
 {
-	int		i;
 	int		j;
+	int		i;
 	double	d;
 	int		neg;
 
-	i = 0;
 	j = 0;
+	i = 0;
 	neg = 1;
 	if (param[j] == '-' && param[j++])
 		neg = -1;
@@ -82,8 +82,8 @@ float	to_float(char *param, t_scene *data)
 	while (d >= 1)
 		d /= 10;
 	d += i;
-	printf("set to float:%f\n", d * neg);
-	return (float)(d * neg);
+	printf("set to float:%f\n", d * neg); // testing
+	return ((float)(d * neg));
 }
 
 void	parse_type(char *line, t_scene *data)

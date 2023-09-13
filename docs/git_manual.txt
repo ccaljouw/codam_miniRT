@@ -19,8 +19,10 @@ MERGING TESTED WORK TO MAIN:
 	make sure you are on the working branch (check with git status)
 	use
 		git merge main --no-commit
-2. fix merge conflicts and commit and push changes on the working branch.
-3. merge working branch into master
+2. fix merge conflicts (easy when using vscode..).
+3. commit and push changes on the working branch.
+4. merge working branch into master
 		git checkout main
+		git pull (to be absolutely sure u have the latest version)
 		git merge <working branch>
 	this should not provide any merge conflicts.

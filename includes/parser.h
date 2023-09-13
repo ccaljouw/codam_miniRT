@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 11:46:46 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/13 12:26:43 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 # include "types.h"
 
 # ifndef BUFFER_SIZE
-#  define  BUFFER_SIZE 80
+#  define BUFFER_SIZE 81
 # endif
 
-#define WIDTH  512
-#define HEIGHT 512
+# define WIDTH  512
+# define HEIGHT 512
 
 typedef struct s_scene
 {

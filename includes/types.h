@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 08:05:54 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/13 12:24:12 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ typedef struct camera_s
  * @brief Light (id: "L")
  * @param	light_point (t_xyz *) x,y,z coordinates of the light point
  * @param	brightness (float) the light brightness ratio in range [0.0,1.0]
- * @param	rgb	(uint32_t[3]) R,G,B colors in range [0-255] (unused in mandatory part)
+ * @param	rgb	(uint32_t[3]) R,G,B colors 
+ * 			in range [0-255] (unused in mandatory part)
  */
 typedef struct light_s
 {

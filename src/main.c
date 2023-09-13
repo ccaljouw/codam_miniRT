@@ -6,36 +6,36 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 09:36:56 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/13 12:28:05 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 #include <fcntl.h>
 
-#include <stdio.h> 													// for testing purposes only
-uint32_t get_gradient_value(uint32_t x, uint32_t y, t_scene *data)  // for testing purposes only
+#include <stdio.h> 														// for testing purposes only
+uint32_t	get_gradient_value(uint32_t x, uint32_t y, t_scene *data)	// for testing purposes only
 {
-	uint32_t 	r;
+	uint32_t	r;
 	uint32_t	g;
-	
+
 	r = (uint32_t)round(((double)x / (double)data->image->width) * 255);
 	g = (uint32_t)round(((double)y / (double)data->image->height) * 255);
 	return (r << 24 | g << 16 | 0 << 8 | 255);
 }
 
-void ft_setpixels(void* param)
+void	ft_setpixels(void *param)
 {
-	t_scene	*data;
-	uint32_t x;
-	uint32_t y;
-	
+	t_scene		*data;
+	uint32_t	x;
+	uint32_t	y;
+
 	x = 0;
 	y = 0;
 	data = (t_scene *)param;
-	while(x <= data->image->width - 1)
+	while (x <= data->image->width - 1)
 	{
-		while(y <= data->image->height - 1)
+		while (y <= data->image->height - 1)
 		{
 			mlx_put_pixel(data->image, x, y, get_gradient_value(x, y, data));
 			y++;
@@ -90,7 +90,8 @@ int	main(int argc, char **argv)
 
 	check_args(argc, argv);
 	scene = init_scene(argv[1]);
-	if (!(scene->mlx = mlx_init(WIDTH, HEIGHT, "COLOR GRADIENT", true)))
+	scene->mlx = mlx_init(WIDTH, HEIGHT, "COLOR GRADIENT", true);
+	if (!scene->mlx)
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
 	scene->image = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
 	if (!scene->image)

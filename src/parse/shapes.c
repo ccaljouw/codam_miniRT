@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 11:47:40 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/13 12:22:11 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	sphere(char **param, t_scene *data)
 	int			i;
 
 	i = 0;
-	while(param[i])
+	while (param[i])
 		i++;
 	if (i != 4)
 		exit_error(ERROR_SPHERE, "incorrect number of arguments", data);
@@ -42,7 +42,7 @@ void	plane(char **param, t_scene *data)
 	int			i;
 
 	i = 0;
-	while(param[i])
+	while (param[i])
 		i++;
 	if (i != 4)
 		exit_error(ERROR_PLANE, "incorrect number of arguments", data);
@@ -65,7 +65,7 @@ void	cylinder(char **param, t_scene *data)
 	int			i;
 
 	i = 0;
-	while(param[i])
+	while (param[i])
 		i++;
 	if (i != 6)
 		exit_error(ERROR_CYLINDER, "incorrect number of arguments", data);
