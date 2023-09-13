@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 09:46:12 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/13 11:47:40 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ void	sphere(char **param, t_scene *data)
 	if (!new_node || !new_sphere)
 		exit_error(ERROR_MEM, NULL, data);
 	set_xyz(param[1], new_sphere->center, data);
-	new_sphere->diameter = to_float(param[2]);
+	new_sphere->diameter = to_float(param[2], data);
 	set_rgb(param[3], new_sphere->rgb, data);
-	// if (!new_sphere->center || !new_sphere->diameter || !new_sphere->rgb)
-	// 	exit_error(ERROR_SPHERE, NULL, data);
 	new_node->content = (void *)new_sphere;
 	ft_lstadd_back(&data->spheres, new_node);
 	ft_putstr_fd("\033[34;1mSphere config:\t\t  \033[0m", 1);
@@ -55,8 +53,6 @@ void	plane(char **param, t_scene *data)
 	set_xyz(param[1], new_plane->point, data);
 	set_xyz(param[2], new_plane->normal_v, data);
 	set_rgb(param[3], new_plane->rgb, data);
-	// if (!new_plane->point || !new_plane->normal_v || !new_plane->rgb)
-	// 	exit_error(ERROR_PLANE, NULL, data);
 	new_node->content = (void *)new_plane;
 	ft_lstadd_back(&data->planes, new_node);
 	ft_putstr_fd("\033[34;1mPlane config:\t\t  \033[0m", 1);
@@ -79,12 +75,9 @@ void	cylinder(char **param, t_scene *data)
 		exit_error(ERROR_MEM, NULL, data);
 	set_xyz(param[1], new_cylinder->center, data);
 	set_xyz(param[2], new_cylinder->axis_v, data);
-	new_cylinder->diameter = to_float(param[3]);
-	new_cylinder->height = to_float(param[4]);
+	new_cylinder->diameter = to_float(param[3], data);
+	new_cylinder->height = to_float(param[4], data);
 	set_rgb(param[5], new_cylinder->rgb, data);
-	// if (!new_cylinder->center || !new_cylinder->axis_v || \
-	// 	!new_cylinder->diameter || !new_cylinder->height || !new_cylinder->rgb)
-	// 	exit_error(ERROR_CYLINDER, NULL, data);
 	new_node->content = (void *)new_cylinder;
 	ft_lstadd_back(&data->cylinders, new_node);
 	ft_putstr_fd("\033[34;1mCylinder config:\t  \033[0m", 1);

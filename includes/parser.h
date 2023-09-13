@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 09:41:59 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/13 11:46:46 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef void	t_f(char **param, t_scene *data);
 void	parse_type(char *line, t_scene *data);
 void	set_xyz(char *param, t_xyz *position, t_scene *data);
 void	set_rgb(char *param, uint32_t *rgb, t_scene *data);
-float	to_float(char *param);
+float	to_float(char *param, t_scene *data);
 void	ambient(char **param, t_scene *data);
 void	camera(char **param, t_scene *data);
 void	light(char **param, t_scene *data);

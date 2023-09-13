@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 10:05:24 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/13 11:59:40 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,12 @@ void	set_xyz(char *param, t_xyz *position, t_scene *data)
 		i++;
 	if (i != 3)
 		exit_error(ERROR_XYZ, NULL, data);
-	(void)position;
-	printf("set xyz\n");
+	position = malloc(sizeof(t_xyz));
+	if (!position)
+		exit_error(ERROR_MEM, NULL, data);
+	position->x = to_float(input[0], data);
+	position->y = to_float(input[1], data);
+	position->z = to_float(input[2], data);
 }
 
 void	set_rgb(char *param, uint32_t *rgb, t_scene *data)
@@ -54,13 +58,32 @@ void	set_rgb(char *param, uint32_t *rgb, t_scene *data)
 		exit_error(ERROR_RGB, NULL, data);
 }
 
-float	to_float(char *param)
+float	to_float(char *param, t_scene *data)
 {
-	float n;
-	n = 0;
-	(void)param;
-	printf("convert to float\n");
-	return n;
+	int		i;
+	int		j;
+	double	d;
+	int		neg;
+
+	i = 0;
+	j = 0;
+	neg = 1;
+	if (param[j] == '-' && param[j++])
+		neg = -1;
+	while (ft_isdigit(param[j]))
+		i = (i * 10) + (param[j++] - '0');
+	if (param[j] == '.')
+		j++;
+	else if (param[j])
+		exit_error(ERROR_F, NULL, data);
+	d = 0.0;
+	while (param[j] && ft_isdigit(param[j]))
+		d = (d * 10) + (param[j++] - '0');
+	while (d >= 1)
+		d /= 10;
+	d += i;
+	printf("set to float:%f\n", d * neg);
+	return (float)(d * neg);
 }
 
 void	parse_type(char *line, t_scene *data)
