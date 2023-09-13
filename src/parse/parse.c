@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 12:21:47 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/13 12:30:50 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	set_rgb(char *param, uint32_t *rgb, t_scene *data)
 	rgb[0] = ft_atou_base(input[0], "0123456789", "");
 	rgb[1] = ft_atou_base(input[1], "0123456789", "");
 	rgb[2] = ft_atou_base(input[2], "0123456789", "");
-	printf("rbg set to:%u, %u, %u\n", rgb[0], rgb[1], rgb[2]); // testing
+	// printf("rbg set to:%u, %u, %u\n", rgb[0], rgb[1], rgb[2]); // testing
 	if ((!rgb[0] && ft_strcmp(input[0], "0")) \
 			|| (!rgb[1] && ft_strcmp(input[1], "0")) \
 			|| (!rgb[2] && ft_strcmp(input[2], "0")))
@@ -82,7 +82,7 @@ float	to_float(char *param, t_scene *data)
 	while (d >= 1)
 		d /= 10;
 	d += i;
-	printf("set to float:%f\n", d * neg); // testing
+	// printf("set to float:%f\n", d * neg); // testing
 	return ((float)(d * neg));
 }
 

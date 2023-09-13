@@ -25,4 +25,5 @@ MERGING TESTED WORK TO MAIN:
 		git checkout main
 		git pull (to be absolutely sure u have the latest version)
 		git merge <working branch>
+		git push
 	this should not provide any merge conflicts.

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 12:22:59 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/13 12:30:58 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	camera(char **param, t_scene *data)
 	data->camera->fov = ft_atoi(param[3]);
 	if (!data->camera->fov && !ft_strcmp(param[3], "0"))
 		exit_error("incorrect fov", NULL, data);
-	printf("set to int:%d\n", data->camera->fov); // testing
+	// printf("set to int:%d\n", data->camera->fov); // testing
 	ft_putstr_fd("\033[34;1mCamera config:\t\t  \033[0m", 1);
 }
 

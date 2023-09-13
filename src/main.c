@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 12:28:05 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/13 13:32:53 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(scene->mlx, ft_setpixels, scene);
 	mlx_loop(scene->mlx);
 	mlx_terminate(scene->mlx);
+	// cleanup scene
 	return (0);
 }
