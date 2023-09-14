@@ -6,17 +6,17 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 10:58:21 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 11:16:55 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
 /**
- * @brief Creates and initiates ambient lighting in the scene
+ * @brief Initialises ambient lighting in the scene.
  * Only one object of this type can be present in the scene.
  * @param param (char **) tab separated string input.
- * @param data (t_scene) passed to clean up when input is invallid
+ * @param data (t_scene) passed to clean up when input is invallid.
  */
 void	ambient(char **param, t_scene *data)
 {
@@ -38,10 +38,10 @@ void	ambient(char **param, t_scene *data)
 }
 
 /**
- * @brief Creates and initiates the camera in the scene
+ * @brief Initialises the camera in the scene.
  * Only one object of this type can be present in the scene.
  * @param param (char **) tab separated string input.
- * @param data (t_scene) passed to clean up when input is invallid
+ * @param data (t_scene) passed to clean up when input is invallid.
  */
 void	camera(char **param, t_scene *data)
 {
@@ -67,10 +67,10 @@ void	camera(char **param, t_scene *data)
 }
 
 /**
- * @brief Creates and initiates the light in the scene.
+ * @brief Initialises the light in the scene.
  * Only one object of this type can be present in the scene.
  * @param param (char **) tab separated string input.
- * @param data (t_scene) passed to clean up when input is invallid
+ * @param data (t_scene) passed to clean up when input is invallid.
  */
 void	light(char **param, t_scene *data)
 {

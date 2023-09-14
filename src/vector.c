@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:31:28 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 10:49:02 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 11:18:18 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  */
 t_xyz	v_create(float x, float y, float z)
 {
-	t_xyz new;
+	t_xyz	new;
 
 	new.x = x;
 	new.y = y;
@@ -39,8 +39,8 @@ t_xyz	v_create(float x, float y, float z)
  */
 t_xyz	v_add(t_xyz a, t_xyz b)
 {
-	t_xyz new;
-	
+	t_xyz	new;
+
 	new.x = a.x + b.x;
 	new.y = a.y + b.y;
 	new.z = a.z + b.z;
@@ -56,7 +56,7 @@ t_xyz	v_add(t_xyz a, t_xyz b)
  */
 t_xyz	v_subtract(t_xyz a, t_xyz b)
 {
-	t_xyz new;
+	t_xyz	new;
 
 	new.x = a.x - b.x;
 	new.y = a.y - b.y;
@@ -73,7 +73,7 @@ t_xyz	v_subtract(t_xyz a, t_xyz b)
  */
 t_xyz	vs_mulitply(t_xyz a, float b)
 {
-	t_xyz new;
+	t_xyz	new;
 
 	new.x = a.x * b;
 	new.y = a.y * b;
@@ -91,7 +91,7 @@ t_xyz	vs_mulitply(t_xyz a, float b)
  */
 float	v_dot(t_xyz a, t_xyz b)
 {
-	float new;
+	float	new;
 
 	new = a.x * b.x + a.y * b.y + a.z * b.z;
 	return (new);
@@ -107,7 +107,7 @@ float	v_dot(t_xyz a, t_xyz b)
 t_xyz	v_cross(t_xyz a, t_xyz b)
 {
 	t_xyz	new;
-	
+
 	new.x = a.y * b.z - b.y * a.z;
 	new.y = b.x * a.z - a.x * b.z;
 	new.z = a.x * b.y - b.x * a.y;

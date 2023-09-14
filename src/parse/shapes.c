@@ -6,17 +6,17 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 10:56:03 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 11:16:39 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
 /**
- * @brief Creates and initiates a sphere in the scene
+ * @brief Initialises a sphere in the scene.
  * 
  * @param param (char **) tab separated string input.
- * @param data (t_scene) passed to clean up when input is invallid
+ * @param data (t_scene) passed to clean up when input is invallid.
  */
 void	sphere(char **param, t_scene *data)
 {
@@ -42,10 +42,10 @@ void	sphere(char **param, t_scene *data)
 }
 
 /**
- * @brief Creates and initiates a plane in the scene
+ * @brief Initialises a plane in the scene.
  * 
  * @param param (char **) tab separated string input.
- * @param data (t_scene) passed to clean up when input is invallid
+ * @param data (t_scene) passed to clean up when input is invallid.
  */
 void	plane(char **param, t_scene *data)
 {
@@ -71,10 +71,10 @@ void	plane(char **param, t_scene *data)
 }
 
 /**
- * @brief Creates and initiates a cylinder in the scene
+ * @brief Initialises a cylinder in the scene.
  * 
  * @param param (char **) tab separated string input.
- * @param data (t_scene) passed to clean up when input is invallid
+ * @param data (t_scene) passed to clean up when input is invallid.
  */
 void	cylinder(char **param, t_scene *data)
 {

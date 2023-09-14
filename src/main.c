@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 11:00:39 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 11:03:41 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	check_args(int argc, char **argv)
 /**
  * @brief initiates the scene based on the file contents
  * 
- * @param file input file with .rt extension
+ * @param file (char **) input file with .rt extension
  * @return t_scene* 
  */
 t_scene	*init_scene(char *file)

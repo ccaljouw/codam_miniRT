@@ -6,9 +6,8 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:17:05 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 08:22:12 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 11:18:44 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
-
