@@ -6,13 +6,17 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 14:38:15 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 15:08:04 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 16:55:26 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.h"
+# include "../includes/test.h"
 
 int main(void)
 {
+	int i;
+
+	i = 1;
+	i += cameratest(i);
 	return (0);
 }

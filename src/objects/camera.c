@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 11:23:58 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 13:28:54 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 17:09:13 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ void	cameraGeometry(t_camera *cam)
 	
 	cam->screenU = v_cross(cam->principal_axis, cam->orientation_v);
 	v_normalize(&cam->screenU);
-	cam->screenV = v_cross(cam->screenCentre, cam->principal_axis);
+	cam->screenV = v_cross(cam->screenU, cam->principal_axis);
 	v_normalize(&cam->screenV);
 	
 	cam->screenCentre = v_add(cam->view_point, v_mulitply(cam->principal_axis, cam->plane_dist));
 
-	cam->screenU = v_mulitply(cam->screenU, cam->c_height);
-	cam->screenV = v_mulitply(cam->screenCentre, cam->c_height);
+	cam->screenU = v_mulitply(cam->screenU, cam->c_width);
+	cam->screenV = v_mulitply(cam->screenV, cam->c_height);
 }
 
 /**
