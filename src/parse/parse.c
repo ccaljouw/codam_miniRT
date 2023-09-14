@@ -6,15 +6,17 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 12:30:50 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/14 10:11:41 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-void	set_xyz(char *param, t_xyz *position, t_scene *data)
+
+t_xyz	set_xyz(char *param, t_scene *data)
 {
 	char	**input;
+	t_xyz	position;
 	int		i;
 
 	i = 0;
@@ -25,12 +27,9 @@ void	set_xyz(char *param, t_xyz *position, t_scene *data)
 		i++;
 	if (i != 3)
 		exit_error(ERROR_XYZ, NULL, data);
-	position = malloc(sizeof(t_xyz));
-	if (!position)
-		exit_error(ERROR_MEM, NULL, data);
-	position->x = to_float(input[0], data);
-	position->y = to_float(input[1], data);
-	position->z = to_float(input[2], data);
+	position = v_create(to_float(input[0], data), to_float(input[1], data), \
+				to_float(input[2], data));
+	return (position);
 }
 
 void	set_rgb(char *param, uint32_t *rgb, t_scene *data)

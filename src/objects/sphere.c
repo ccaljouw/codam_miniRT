@@ -1,23 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_vector.h                                        :+:    :+:            */
+/*   sphere.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
+/*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/12 17:21:26 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/12 17:30:10 by ccaljouw      ########   odam.nl         */
+/*   Created: 2023/09/14 08:17:05 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/09/14 08:22:12 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_VECTOR_H
-# define FT_VECTOR_H
+#include "../../includes/miniRT.h"
 
-typedef struct xyz_s
-{
-	float	x;
-	float	y;
-	float	z;
-}			t_xyz;
-
-#endif

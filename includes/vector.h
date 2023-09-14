@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   miniRT.h                                           :+:    :+:            */
+/*   vector.h                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 08:33:30 by cariencaljo   ########   odam.nl         */
+/*   Created: 2023/09/12 17:21:26 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/14 09:17:34 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef VECTOR_H
+# define VECTOR_H
 
-# include "MLX42.h"
-# include "libft.h"
-# include "errors.h"
-# include "parser.h"
-# include "vector.h"
-# include <stdbool.h>
-# include <stdlib.h>
+# include <math.h>
 
-# include <stdio.h> //remove
+typedef struct xyz_s
+{
+	double	x;
+	double	y;
+	double	z;
+}			t_xyz;
 
-void	exit_error(char *error_msg, char *optional_str, t_scene *data);
-t_scene	*init_scene(char *file);
+t_xyz	v_create(double x, double y, double z);
+t_xyz	v_add(t_xyz a, t_xyz b);
+t_xyz	v_subtract(t_xyz a, t_xyz b);
+t_xyz	vs_mulitply(t_xyz a, double b);
+double	v_dot(t_xyz a, t_xyz b);
+t_xyz	v_cross(t_xyz a, t_xyz b);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 12:30:58 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/14 10:10:50 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	camera(char **param, t_scene *data)
 	data->camera = malloc(sizeof(t_camera));
 	if (!data->camera)
 		exit_error(ERROR_MEM, NULL, data);
-	set_xyz(param[1], data->camera->view_point, data);
-	set_xyz(param[2], data->camera->orientation_v, data);
+	data->camera->view_point = set_xyz(param[1], data);
+	data->camera->orientation_v = set_xyz(param[2], data);
 	data->camera->fov = ft_atoi(param[3]);
 	if (!data->camera->fov && !ft_strcmp(param[3], "0"))
 		exit_error("incorrect fov", NULL, data);
@@ -68,7 +68,7 @@ void	light(char **param, t_scene *data)
 	data->light = malloc(sizeof(t_light));
 	if (!data->light)
 		exit_error(ERROR_MEM, NULL, data);
-	set_xyz(param[1], data->light->light_point, data);
+	data->light->light_point = set_xyz(param[1], data);
 	data->light->brightness = to_float(param[2], data);
 	set_rgb(param[3], data->light->rgb, data);
 	ft_putstr_fd("\033[34;1mLigt config:\t\t  \033[0m", 1);
