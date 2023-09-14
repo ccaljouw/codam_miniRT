@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 21:59:05 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 22:25:32 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,8 @@
 bool	test_intersection(t_ray castRay, t_xyz *intPoint, t_xyz localNormal, int *localColor)
 {
 	t_xyz	vhat;
-	t_xyz	temp;
-	// float	a;
-	float	b;
-	float	c;
-	float	intTest;
-	float	testSqrt;
+	t_xyz	abc;
+	float	intersection;
 	float	t1;
 	float	t2;
 	
@@ -38,30 +34,21 @@ bool	test_intersection(t_ray castRay, t_xyz *intPoint, t_xyz localNormal, int *l
 	(void)localColor;
 	vhat = v_copy(castRay.p1_p2);
 	v_normalize(&vhat);
-	
 	//compute values a, b and c
-	// a = 1.0;
-	b = 2.0 * v_dot(castRay.p1, vhat);
-	c = v_dot(castRay.p1, castRay.p1) - 1.0;
-	
-	// test for intersection
-	intTest = (b * b) - 4 * c;
-	if (intTest > 0.0)
+	abc = v_create(1.0, 2.0 * v_dot(castRay.p1, vhat), v_dot(castRay.p1, castRay.p1) - 1.0);
+	intersection = (abc.y * abc.y) - 4 * abc.x * abc.z;
+	if (intersection > 0.0)
 	{
-		testSqrt = sqrt(intTest);
-		t1 = (-b + testSqrt) / 2.0;
-		t2 = (-b - testSqrt) / 2.0;
+		t1 = (-abc.y + sqrt(intersection)) / 2.0;
+		t2 = (-abc.y - sqrt(intersection)) / 2.0;
 		if (t1 < 0 || t2 < 0)
 			return false;
 		else
 		{
 			if (t1 < t2)
-				temp = v_add(castRay.p1, v_mulitply(vhat, t1));
+				v_copyValues(v_add(castRay.p1, v_mulitply(vhat, t1)), intPoint);
 			else
-				temp = v_add(castRay.p1, v_mulitply(vhat, t2));
-			intPoint->x = temp.x;
-			intPoint->y = temp.y;
-			intPoint->z = temp.z;
+				v_copyValues(v_add(castRay.p1, v_mulitply(vhat, t2)), intPoint);
 			return true;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 11:23:58 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 22:11:57 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 22:27:12 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ void	init_camera(char **param, t_scene *scene)
 	scene->camera->c_width = 0.2; //change?
 	scene->camera->c_height = 0.2; //change?
 	cameraGeometry(scene->camera);
-	print_camera(*(scene->camera)); //testing
+	// print_camera(*(scene->camera)); //testing
 	ft_putstr_fd("\033[34;1mCamera config:\t\t  \033[0m", 1);
 }

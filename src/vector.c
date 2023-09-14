@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:31:28 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 18:06:39 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 22:21:51 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,19 @@ t_xyz	v_copy(t_xyz a)
 	new.y = a.y;
 	new.z = a.z;
 	return (new);
+}
+
+/**
+ * @brief  copies values from a into pointer b
+ * 
+ * @param a (t_xyz)
+ * @param b (t_xyz *)
+ */
+void	v_copyValues(t_xyz a, t_xyz *b)
+{
+	b->x = a.x;
+	b->y = a.y;
+	b->z = a.z;
 }
 
 /**
