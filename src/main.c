@@ -6,14 +6,12 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 16:44:03 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 20:05:14 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 #include <fcntl.h>
-
-#include <stdio.h> 														// for testing purposes only
 
 /**
  * @brief checks that there are 2 arguments provided 
@@ -64,7 +62,7 @@ t_scene	*init_scene(char *file)
 	close(fd);
 	// if (!scene->ambient || !scene->camera || !scene->light)
 	// 	exit_error(ERROR_SCENE, "not all required elements provided", scene);
-	ft_putendl_fd("\033[32;1mScene set up\n\033[0m", 2);
+	ft_putendl_fd("\033[32;1m\nScene set up\n\033[0m", 2);
 	return (scene);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 16:43:37 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 20:21:23 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param param (char **) tab separated string input.
  * @param scene (t_scene) passed to clean up when input is invallid.
  */
-void	ambient(char **param, t_scene *scene)
+void	init_ambient(char **param, t_scene *scene)
 {
 	int	i;
 
@@ -38,41 +38,12 @@ void	ambient(char **param, t_scene *scene)
 }
 
 /**
- * @brief Initialises the camera in the scene.
- * Only one object of this type can be present in the scene.
- * @param param (char **) tab separated string input.
- * @param scene (t_scene) passed to clean up when input is invallid.
- */
-void	camera(char **param, t_scene *scene)
-{
-	int	i;
-
-	if (scene->camera)
-		exit_error(ERROR_SCENE, "redefinition of camera", scene);
-	i = 0;
-	while (param[i])
-		i++;
-	if (i != 4)
-		exit_error(ERROR_SPHERE, "incorrect number of arguments", scene);
-	scene->camera = malloc(sizeof(t_camera));
-	if (!scene->camera)
-		exit_error(ERROR_MEM, NULL, scene);
-	scene->camera->view_point = set_xyz(param[1], scene);
-	scene->camera->orientation_v = set_xyz(param[2], scene);
-	scene->camera->fov = ft_atoi(param[3]);
-	if (!scene->camera->fov && !ft_strcmp(param[3], "0"))
-		exit_error("incorrect fov", NULL, scene);
-	// printf("set to int:%d\n", scene->camera->fov); // testing
-	ft_putstr_fd("\033[34;1mCamera config:\t\t  \033[0m", 1);
-}
-
-/**
  * @brief Initialises the light in the scene.
  * Only one object of this type can be present in the scene.
  * @param param (char **) tab separated string input.
  * @param scene (t_scene) passed to clean up when input is invallid.
  */
-void	light(char **param, t_scene *scene)
+void	init_light(char **param, t_scene *scene)
 {
 	int	i;
 
@@ -88,6 +59,6 @@ void	light(char **param, t_scene *scene)
 		exit_error(ERROR_MEM, NULL, scene);
 	scene->light->light_point = set_xyz(param[1], scene);
 	scene->light->brightness = to_float(param[2], scene);
-	set_rgb(param[3], scene->light->rgb, scene);
+	set_rgb(param[3], &scene->light->color, scene);
 	ft_putstr_fd("\033[34;1mLigt config:\t\t  \033[0m", 1);
 }

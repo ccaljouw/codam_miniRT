@@ -26,12 +26,16 @@ else
 endif
 
 MAIN		:= obj/main.o
-OBJ 		:= $(addprefix obj/, utils.o parse/parse.o parse/unique.o parse/shapes.o vector.o objects/object.o objects/camera.o)
-TEST_OBJ	:= $(addprefix testing/obj/, util.o)
+OBJ 		:= $(addprefix obj/, \
+				utils.o vector.o \
+				$(addprefix parse/, parse.o unique.o shapes.o) \
+				$(addprefix objects/, general.o camera.o sphere.o) \
+				)
+TEST_OBJ	:= $(addprefix testing/obj/, utils.o camera.o)
 
 all: $(NAME)
 
-$(NAME): $(LIBS) $(MAIN) $(OBJ)
+$(NAME): $(LIBS) $(MAIN) $(OBJ) $(TEST_OBJ)
 	@$(CC) $(CFLAGS) $(LIBFLAGS) $^ -o $@
 	@echo "$(GREEN)$(BOLD)miniRT made$(RESET)"
 
@@ -66,14 +70,15 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -f home
+	@rm -f ./test
 	@$(MAKE) -C $(LIBFT) fclean
 	@$(MAKE) -C $(LIBMLX) fclean
 
 re: 
 	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"
 	@rm -f $(NAME)
+	@rm -f ./test
 	@rm -rf obj/
 	@$(MAKE) all;
 
-.PHONY: all bonus clean fclean re
+.PHONY: all test bonus clean fclean re

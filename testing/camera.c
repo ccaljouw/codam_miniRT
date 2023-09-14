@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 15:51:04 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 17:04:00 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 17:22:39 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 int	cameratest(int testnr)
 {
 	t_camera	*cam;
+	int			test;
+	char		*temp[3];
 	
-	printf("\033[34;1m----------------\033[0m\n");
-	printf("\033[34;1m  CAMERA TESTS\033[0m\n");
-	printf("\033[34;1m----------------\033[0m\n");
+	test = testnr;
+	printf("\033[34;1m--------------------\033[0m\n");
+	printf("\033[34;1m    CAMERA TESTS\033[0m\n");
+	printf("\033[34;1m--------------------\033[0m\n");
 	cam = malloc(sizeof(t_camera));
 	if (!cam)
 		exit_error(ERROR_MEM, NULL, NULL);
@@ -29,8 +32,15 @@ int	cameratest(int testnr)
 	cam->c_width = 1.0;
 	cam->c_height = 1.0;
 	cameraGeometry(cam);
-	compare(vtostr(cam->screenCentre), "0.000,1.000,0.000", testnr++);
-	compare(vtostr(cam->screenU), "1.000,0.000,0.000", testnr++);
-	compare(vtostr(cam->screenV), "0.000,0.000,1.000", testnr++);
-	return (1);
+	temp[0] = vtostr(cam->screenCentre);
+	temp[1] = vtostr(cam->screenU);
+	temp[2] = vtostr(cam->screenV);
+	compare(temp[0], "0.000,1.000,0.000", test++);
+	compare(temp[1], "1.000,0.000,0.000", test++);
+	compare(temp[2], "0.000,0.000,1.000", test++);
+	free(temp[0]);
+	free(temp[1]);
+	free(temp[2]);
+	free(cam);
+	return (test - testnr);
 }

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 13:09:34 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 20:19:46 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ typedef struct camera_s
 	int		fov;
 	t_xyz	look_at;
 	float	plane_dist;
-	int		c_width;
-	int		c_height;
-
+	float	c_width;
+	float	c_height;
 	t_xyz	principal_axis;
 	t_xyz	screenU;
 	t_xyz	screenV;
@@ -54,27 +53,27 @@ typedef struct camera_s
  * @brief Light (id: "L")
  * @param	light_point (t_xyz) x,y,z coordinates of the light point
  * @param	brightness (float) the light brightness ratio in range [0.0,1.0]
- * @param	rgb	(uint32_t[3]) R,G,B colors 
+ * @param	color (uint32_t) R,G,B colors 
  * in range [0-255] (unused in mandatory part)
  */
 typedef struct light_s
 {
 	t_xyz		light_point;
 	float		brightness;
-	uint32_t	rgb[3];	
+	uint32_t	color;	
 }				t_light;
 
 /**
  * @brief Sphere (id: "sp")
  * @param	*center (t_xyz) x,y,z coordinates of the sphere center
  * @param	diameter (float) the sphere diameter
- * @param	rgb	(uint32_t[3]) R,G,B colors in range [0-255]
+ * @param	color (uint32_t) R,G,B colors in range [0-255]
  */
 typedef struct s_sphere
 {
 	t_xyz		center;
 	float		diameter;
-	uint32_t	rgb[3];
+	uint32_t	color;
 }			t_sphere;
 
 /**
@@ -82,13 +81,13 @@ typedef struct s_sphere
  * @param	point (t_xyz) x,y,z coordinates of a point in the plane
  * @param	normal_v (t_xyz) 33d normalized normal vector. 
  * 					In range [-1,1] for each x,y,z axis:
- * @param	rgb	(uint32_t[3]) R,G,B colors in range [0-255]
+ * @param	color (uint32_t) R,G,B colors in range [0-255]
  */
 typedef struct s_plane
 {
 	t_xyz		point;
 	t_xyz		normal_v;
-	uint32_t	rgb[3];
+	uint32_t	color;
 }				t_plane;
 
 /**
@@ -98,7 +97,7 @@ typedef struct s_plane
  * 					In range [-1,1] for each x,y,z axis
  * @param	diameter (float) the cylinder diameter
  * @param	height (float) the cylinder height
- * @param	rgb (uint32_t[3]) R,G,B colors in range [0-255]
+ * @param	color (uint32_t) R,G,B colors in range [0-255]
  */
 typedef struct s_cylinder
 {
@@ -106,7 +105,7 @@ typedef struct s_cylinder
 	t_xyz		axis_v;
 	float		diameter;
 	float		height;
-	uint32_t	rgb[3];
+	uint32_t	color;
 }				t_cylinder;
 
 #endif

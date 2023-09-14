@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:31:28 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 13:13:50 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 18:06:39 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@ t_xyz	v_create(float x, float y, float z)
 	new.x = x;
 	new.y = y;
 	new.z = z;
+	return (new);
+}
+
+/**
+ * @brief Creates and returs a copy of the provided vector
+ * 
+ * @param a (t_xyz);
+ * @return t_xyz 
+ */
+t_xyz	v_copy(t_xyz a)
+{
+	t_xyz	new;
+
+	new.x = a.x;
+	new.y = a.y;
+	new.z = a.z;
 	return (new);
 }
 

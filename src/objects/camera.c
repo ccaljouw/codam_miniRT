@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 11:23:58 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 17:09:13 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 20:13:09 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	set_camera(t_camera *cam)
 	cam->look_at = v_create(0.0, 0.0, 0.0);
 	// cam->orientation_v read from file
 	cam->plane_dist = 1;
-	cam->c_width = 1;
-	cam->c_height = 1;
+	cam->c_width = 0.25; //change
+	cam->c_height = (16.0/9.0); //change
 	
 }
 
@@ -50,32 +50,35 @@ void	cameraGeometry(t_camera *cam)
 }
 
 /**
- * @brief 
- * 1. comput the location of the screen point in world coordinates
- * 2. use this point and the pamera position to comput the ray
- * 
- * @param screen_x (float)
- * @param screen_y (float)
- * @return t_ray 
+ * @brief Initialises the camera in the scene.
+ * Only one object of this type can be present in the scene.
+ * @param param (char **) tab separated string input.
+ * @param scene (t_scene) passed to clean up when input is invallid.
  */
-t_ray	generate_ray(t_camera *cam, float screen_x, float screen_y)
+void	init_camera(char **param, t_scene *scene)
 {
-	t_ray	new;
-	t_xyz	screenWorldPart1;
-	t_xyz	screenWorldCoord;
-	
-	screenWorldPart1 = v_add(cam->screenCentre, v_mulitply(cam->screenU, screen_x));
-	screenWorldCoord = v_add(screenWorldPart1, v_mulitply(cam->screenV, screen_y));
-	new = ray(cam->view_point, screenWorldCoord);
-	return (new);
-}
+	int	i;
 
-t_ray	ray(t_xyz p1, t_xyz p2)
-{
-	t_ray	ray;
-
-	ray.p1 = p1;
-	ray.p2 = p2;
-	ray.p1_p2 = v_subtract(p2, p1);
-	return (ray);
+	if (scene->camera)
+		exit_error(ERROR_SCENE, "redefinition of camera", scene);
+	i = 0;
+	while (param[i])
+		i++;
+	if (i != 4)
+		exit_error(ERROR_SPHERE, "incorrect number of arguments", scene);
+	scene->camera = malloc(sizeof(t_camera));
+	if (!scene->camera)
+		exit_error(ERROR_MEM, NULL, scene);
+	scene->camera->view_point = set_xyz(param[1], scene);
+	scene->camera->orientation_v = set_xyz(param[2], scene);
+	scene->camera->fov = ft_atoi(param[3]);
+	if (!scene->camera->fov && !ft_strcmp(param[3], "0"))
+		exit_error("incorrect fov", NULL, scene);
+	scene->camera->look_at = v_create(0.0, 0.0, 0.0);
+	scene->camera->plane_dist = 1; //change?
+	scene->camera->c_width = 0.25; //change?
+	scene->camera->c_height = 0.25; //change?
+	cameraGeometry(scene->camera);
+	print_camera(*(scene->camera)); //testing
+	ft_putstr_fd("\033[34;1mCamera config:\t\t  \033[0m", 1);
 }

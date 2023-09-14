@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 12:06:12 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 20:21:05 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	parse_type(char *line, t_scene *scene);
 t_xyz	set_xyz(char *param, t_scene *scene);
 void	set_rgb(char *param, uint32_t *rgb, t_scene *scene);
 float	to_float(char *param, t_scene *scene);
-void	ambient(char **param, t_scene *scene);
-void	camera(char **param, t_scene *scene);
-void	light(char **param, t_scene *scene);
-void	sphere(char **param, t_scene *scene);
-void	plane(char **param, t_scene *scene);
-void	cylinder(char **param, t_scene *scene);
+void	init_ambient(char **param, t_scene *scene);
+void	init_camera(char **param, t_scene *scene);
+void	init_light(char **param, t_scene *scene);
+void	init_sphere(char **param, t_scene *scene);
+void	init_plane(char **param, t_scene *scene);
+void	init_cylinder(char **param, t_scene *scene);
 
 #endif
