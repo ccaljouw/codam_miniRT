@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:17:05 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 20:25:48 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 22:10:20 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,11 @@ void render(void *param)
 	t_scene		*scene;
 	uint32_t	x;
 	uint32_t	y;
+	uint32_t	color;
+	float		newA;
 	float	xFact;
 	float	yFact;
+	float	dist;
 	// float	minDist;
 	// float	maxDist;
 	t_ray	*cameraRay;
@@ -127,8 +130,13 @@ void render(void *param)
 			normX = ((float)x * xFact) - 1.0;
 			normY = ((float)y * yFact) - 1.0;
 			generate_ray(scene->camera, normX, normY, cameraRay);
-			if (test_intersection(*cameraRay, intPoint, localNormal, localColor))
-				mlx_put_pixel(scene->image, x, y, sphere->color);
+			if (test_intersection(*cameraRay, &intPoint, localNormal, localColor))
+			{
+				dist = v_magnitude(v_subtract(intPoint, cameraRay->p1));
+				newA = 255 - ((dist -9) / 0.94605) * 255;
+				color = (sphere->rgb[0] << 24 | sphere->rgb[1] << 16 | sphere->rgb[2] << 8 | (uint32_t)newA);
+				mlx_put_pixel(scene->image, x, y, color);
+			}
 			else
 				mlx_put_pixel(scene->image, x, y, 0 << 24 | 0 << 16 | 0 << 8 | 255);
 			y++;

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 20:21:23 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 20:57:27 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ void	init_light(char **param, t_scene *scene)
 		exit_error(ERROR_MEM, NULL, scene);
 	scene->light->light_point = set_xyz(param[1], scene);
 	scene->light->brightness = to_float(param[2], scene);
-	set_rgb(param[3], &scene->light->color, scene);
+	set_rgb(param[3], scene->light->rgb, scene);
 	ft_putstr_fd("\033[34;1mLigt config:\t\t  \033[0m", 1);
 }

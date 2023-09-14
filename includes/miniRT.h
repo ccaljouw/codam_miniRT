@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 19:21:11 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 21:06:31 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ bool	generate_ray(t_camera *cam, float screen_x, float screen_y, t_ray *cameraRa
 t_ray	ray(t_xyz p1, t_xyz p2);
 void	cameraGeometry(t_camera *cam);
 bool	close_points(float f1, float f2);
-bool	test_intersection(t_ray ray, t_xyz intPoint, t_xyz localNormal, int *localColor);
+bool	test_intersection(t_ray ray, t_xyz *intPoint, t_xyz localNormal, int *localColor);
 
 #endif

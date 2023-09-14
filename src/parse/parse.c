@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 20:20:54 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 20:56:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@ t_xyz	set_xyz(char *param, t_scene *scene)
 void	set_rgb(char *param, uint32_t *rgb, t_scene *scene)
 {
 	char		**input;
-	uint32_t	r;
-	uint32_t	g;
-	uint32_t	b;
 	int		i;
 
 	i = 0;
@@ -62,17 +59,16 @@ void	set_rgb(char *param, uint32_t *rgb, t_scene *scene)
 		i++;
 	if (i != 3)
 		exit_error(ERROR_RGB, NULL, scene);
-	r = ft_atou_base(input[0], "0123456789", "");
-	g = ft_atou_base(input[1], "0123456789", "");
-	b = ft_atou_base(input[2], "0123456789", "");
+	rgb[0] = ft_atou_base(input[0], "0123456789", "");
+	rgb[1] = ft_atou_base(input[1], "0123456789", "");
+	rgb[1] = ft_atou_base(input[2], "0123456789", "");
 	// printf("rbg set to:%u, %u, %u\n", r, g, b); // testing
-	if ((!r && ft_strcmp(input[0], "0")) \
-			|| (!g && ft_strcmp(input[1], "0")) \
-			|| (!b && ft_strcmp(input[2], "0")))
+	if ((!rgb[0] && ft_strcmp(input[0], "0")) \
+			|| (!rgb[1]  && ft_strcmp(input[1], "0")) \
+			|| (!rgb[1] && ft_strcmp(input[2], "0")))
 		exit_error(ERROR_RGB, NULL, scene);
-	if (r > 255 || g > 255 || b > 255)
+	if (rgb[0] > 255 || rgb[1]  > 255 || rgb[1] > 255)
 		exit_error(ERROR_RGB, NULL, scene);
-	*rgb = (r << 24 | g << 16 | b << 8 | 255);
 	free(input);
 }
 

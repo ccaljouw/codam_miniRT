@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 20:22:08 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 20:57:16 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_plane(char **param, t_scene *scene)
 		exit_error(ERROR_MEM, NULL, scene);
 	new_plane->point = set_xyz(param[1], scene);
 	new_plane->normal_v = set_xyz(param[2], scene);
-	set_rgb(param[3], &new_plane->color, scene);
+	set_rgb(param[3], new_plane->rgb, scene);
 	new_node->content = (void *)new_plane;
 	ft_lstadd_back(&scene->planes, new_node);
 	ft_putstr_fd("\033[34;1mPlane config:\t\t  \033[0m", 1);
@@ -66,7 +66,7 @@ void	init_cylinder(char **param, t_scene *scene)
 	new_cylinder->axis_v = set_xyz(param[2], scene);
 	new_cylinder->diameter = to_float(param[3], scene);
 	new_cylinder->height = to_float(param[4], scene);
-	set_rgb(param[5], &new_cylinder->color, scene);
+	set_rgb(param[5], new_cylinder->rgb, scene);
 	new_node->content = (void *)new_cylinder;
 	ft_lstadd_back(&scene->cylinders, new_node);
 	ft_putstr_fd("\033[34;1mCylinder config:\t  \033[0m", 1);
