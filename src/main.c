@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 10:15:32 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 11:00:39 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ void	ft_setpixels(void *param)
 	}
 }
 
+/**
+ * @brief checks that there are 2 arguments provided 
+ * and that argv[1] has an .rt extension
+ * @param argc 
+ * @param argv 
+ */
 void	check_args(int argc, char **argv)
 {
 	int	i;
@@ -58,6 +64,12 @@ void	check_args(int argc, char **argv)
 		exit_error(ERROR_PATH, NULL, NULL);
 }
 
+/**
+ * @brief initiates the scene based on the file contents
+ * 
+ * @param file input file with .rt extension
+ * @return t_scene* 
+ */
 t_scene	*init_scene(char *file)
 {
 	t_scene	*scene;

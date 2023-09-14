@@ -6,18 +6,24 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 10:10:50 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 10:58:21 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
+/**
+ * @brief Creates and initiates ambient lighting in the scene
+ * Only one object of this type can be present in the scene.
+ * @param param (char **) tab separated string input.
+ * @param data (t_scene) passed to clean up when input is invallid
+ */
 void	ambient(char **param, t_scene *data)
 {
 	int	i;
 
 	if (data->ambient)
-		exit_error(ERROR_SCENE, "redefinition of ambient lightning", data);
+		exit_error(ERROR_SCENE, "redefinition of ambient lighting", data);
 	i = 0;
 	while (param[i])
 		i++;
@@ -28,9 +34,15 @@ void	ambient(char **param, t_scene *data)
 		exit_error(ERROR_MEM, NULL, data);
 	data->ambient->ratio = to_float(param[1], data);
 	set_rgb(param[2], data->ambient->rgb, data);
-	ft_putstr_fd("\033[34;1mAmbient lightning config: \033[0m", 1);
+	ft_putstr_fd("\033[34;1mAmbient lighting config: \033[0m", 1);
 }
 
+/**
+ * @brief Creates and initiates the camera in the scene
+ * Only one object of this type can be present in the scene.
+ * @param param (char **) tab separated string input.
+ * @param data (t_scene) passed to clean up when input is invallid
+ */
 void	camera(char **param, t_scene *data)
 {
 	int	i;
@@ -54,6 +66,12 @@ void	camera(char **param, t_scene *data)
 	ft_putstr_fd("\033[34;1mCamera config:\t\t  \033[0m", 1);
 }
 
+/**
+ * @brief Creates and initiates the light in the scene.
+ * Only one object of this type can be present in the scene.
+ * @param param (char **) tab separated string input.
+ * @param data (t_scene) passed to clean up when input is invallid
+ */
 void	light(char **param, t_scene *data)
 {
 	int	i;

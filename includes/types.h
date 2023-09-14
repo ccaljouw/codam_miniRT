@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 10:08:44 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 10:56:50 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "vector.h"
 
 /**
- * @brief Ambient lightning (id: "A")
+ * @brief Ambient lighting (id: "A")
  * @param	ratio (float) ambient lighting ratio in range [0.0,1.0]
  * @param	rgb	(uint32_t[3]) R,G,B colors in range [0-255]
  */

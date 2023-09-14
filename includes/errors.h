@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:09:09 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/13 11:41:05 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/14 10:56:50 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 Please check path, extention and file permissions"
 # define ERROR_ARGS "Incorrect number of arguments"
 # define ERROR_TYPE "Unsupported type provided"
-# define ERROR_AMB "Incorrect parameters provided for Ambient Lightning"
+# define ERROR_AMB "Incorrect parameters provided for Ambient lighting"
 # define ERROR_CAM "Incorrect parameters provided for Camera"
 # define ERROR_LIGHT "Incorrect parameters provided for Light"
 # define ERROR_SPHERE  "Incorrect parameters provided for Sphere"

@@ -6,13 +6,21 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:31:28 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 09:55:08 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 10:49:02 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-t_xyz	v_create(double x, double y, double z)
+/**
+ * @brief Creates new vector (t_xyz) with input values x, y, and z
+ * 
+ * @param x (float)
+ * @param y (float)
+ * @param z (float)
+ * @return t_xyz 
+ */
+t_xyz	v_create(float x, float y, float z)
 {
 	t_xyz new;
 
@@ -22,6 +30,13 @@ t_xyz	v_create(double x, double y, double z)
 	return (new);
 }
 
+/**
+ * @brief Creates new vector (t_xyz), the sum of vector a and vector b
+ * 
+ * @param a (t_xyz)
+ * @param b (t_xyz)
+ * @return t_xyz 
+ */
 t_xyz	v_add(t_xyz a, t_xyz b)
 {
 	t_xyz new;
@@ -32,6 +47,13 @@ t_xyz	v_add(t_xyz a, t_xyz b)
 	return (new);
 }
 
+/**
+ * @brief Creates new vector (t_xyz), the result of vector a minus vector b
+ * 
+ * @param a (t_xyz)
+ * @param b (t_xyz)
+ * @return t_xyz 
+ */
 t_xyz	v_subtract(t_xyz a, t_xyz b)
 {
 	t_xyz new;
@@ -42,7 +64,14 @@ t_xyz	v_subtract(t_xyz a, t_xyz b)
 	return (new);
 }
 
-t_xyz	vs_mulitply(t_xyz a, double b)
+/**
+ * @brief Creates new vector (t_xyz), the result of vector a * scaler b
+ * 
+ * @param a (t_xyz)
+ * @param b (float)
+ * @return t_xyz 
+ */
+t_xyz	vs_mulitply(t_xyz a, float b)
 {
 	t_xyz new;
 
@@ -52,14 +81,29 @@ t_xyz	vs_mulitply(t_xyz a, double b)
 	return (new);
 }
 
-double	v_dot(t_xyz a, t_xyz b)
+/**
+ * @brief Creates scalar number (float), dot product of vector a and vector b.
+ * The dot product, also called scalar product, is a measure of how closely 
+ * two vectors align, in terms of the directions they point.
+ * @param a (t_xyz)
+ * @param b (t_xyz)
+ * @return float
+ */
+float	v_dot(t_xyz a, t_xyz b)
 {
-	double new;
+	float new;
 
 	new = a.x * b.x + a.y * b.y + a.z * b.z;
 	return (new);
 }
 
+/**
+ * @brief Creates new vector (t_xyz), cross product of vector a and vector b.
+ * It results in a vector that is perpendicular to both vectors.
+ * @param a (t_xyz)
+ * @param b (t_xyz)
+ * @return t_xyz 
+ */
 t_xyz	v_cross(t_xyz a, t_xyz b)
 {
 	t_xyz	new;
