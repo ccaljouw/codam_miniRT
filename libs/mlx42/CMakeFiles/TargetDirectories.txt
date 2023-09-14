@@ -1,3 +1,7 @@
-/Users/ccaljouw/Documents/miniRT/libs/mlx42/CMakeFiles/mlx42.dir
-/Users/ccaljouw/Documents/miniRT/libs/mlx42/CMakeFiles/edit_cache.dir
-/Users/ccaljouw/Documents/miniRT/libs/mlx42/CMakeFiles/rebuild_cache.dir
+/Users/albertvanandel/Documents/CODAM/minirt/libs/mlx42/CMakeFiles/mlx42.dir
+/Users/albertvanandel/Documents/CODAM/minirt/libs/mlx42/CMakeFiles/edit_cache.dir
+/Users/albertvanandel/Documents/CODAM/minirt/libs/mlx42/CMakeFiles/rebuild_cache.dir
+/Users/albertvanandel/Documents/CODAM/minirt/libs/mlx42/CMakeFiles/list_install_components.dir
+/Users/albertvanandel/Documents/CODAM/minirt/libs/mlx42/CMakeFiles/install.dir
+/Users/albertvanandel/Documents/CODAM/minirt/libs/mlx42/CMakeFiles/install/local.dir
+/Users/albertvanandel/Documents/CODAM/minirt/libs/mlx42/CMakeFiles/install/strip.dir

@@ -7,13 +7,13 @@ RESET	:= \033[0m
 NAME 		:= miniRT
 CC 			:= gcc
 CFLAGS 		:= -Wall -Wextra -Werror
-CODAMFLAGS  := -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+CODAMFLAGS  := -lglfw -framework Cocoa -framework OpenGL -framework IOKit
 LIBFT	 	:= ./libs/libft
 LIBMLX		:= ./libs/MLX42
 LIBS		:= $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a
 HEADERS		:= -I $(LIBFT)  -I $(LIBMLX)/include/MLX42
 
-OBJ 		:= $(addprefix obj/, main.o utils.o parse/parse.o parse/unique.o parse/shapes.o)
+OBJ 		:= $(addprefix obj/, main.o utils.o parse/parse.o parse/unique.o parse/shapes.o vector.o)
 
 all: $(NAME)
 
