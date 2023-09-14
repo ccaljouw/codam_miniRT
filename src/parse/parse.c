@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 10:52:55 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 11:50:02 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
  * @brief Returns the xyz object based on string input
  * 
  * @param param (char **) comma seperated string input ("x,y,z")
- * @param data (t_scene) passed to clean up when input is invallid
+ * @param scene (t_scene) passed to clean up when input is invallid
  * @return t_xyz 
  */
-t_xyz	set_xyz(char *param, t_scene *data)
+t_xyz	set_xyz(char *param, t_scene *scene)
 {
 	char	**input;
 	t_xyz	position;
@@ -28,13 +28,13 @@ t_xyz	set_xyz(char *param, t_scene *data)
 	i = 0;
 	input = ft_split(param, ',');
 	if (!input)
-		exit_error(ERROR_MEM, NULL, data);
+		exit_error(ERROR_MEM, NULL, scene);
 	while (input[i])
 		i++;
 	if (i != 3)
-		exit_error(ERROR_XYZ, NULL, data);
-	position = v_create(to_float(input[0], data), to_float(input[1], data), \
-				to_float(input[2], data));
+		exit_error(ERROR_XYZ, NULL, scene);
+	position = v_create(to_float(input[0], scene), to_float(input[1], scene), \
+				to_float(input[2], scene));
 	free(input);
 	return (position);
 }
@@ -44,9 +44,9 @@ t_xyz	set_xyz(char *param, t_scene *data)
  * 
  * @param param (char **) comma seperated string input ("r,g,b")
  * @param rgb (int[3]) pointer to store the result
- * @param data (t_scene) passed to clean up when input is invallid
+ * @param scene (t_scene) passed to clean up when input is invallid
  */
-void	set_rgb(char *param, uint32_t *rgb, t_scene *data)
+void	set_rgb(char *param, uint32_t *rgb, t_scene *scene)
 {
 	char	**input;
 	int		i;
@@ -54,11 +54,11 @@ void	set_rgb(char *param, uint32_t *rgb, t_scene *data)
 	i = 0;
 	input = ft_split(param, ',');
 	if (!input)
-		exit_error(ERROR_MEM, NULL, data);
+		exit_error(ERROR_MEM, NULL, scene);
 	while (input[i])
 		i++;
 	if (i != 3)
-		exit_error(ERROR_RGB, NULL, data);
+		exit_error(ERROR_RGB, NULL, scene);
 	rgb[0] = ft_atou_base(input[0], "0123456789", "");
 	rgb[1] = ft_atou_base(input[1], "0123456789", "");
 	rgb[2] = ft_atou_base(input[2], "0123456789", "");
@@ -66,9 +66,9 @@ void	set_rgb(char *param, uint32_t *rgb, t_scene *data)
 	if ((!rgb[0] && ft_strcmp(input[0], "0")) \
 			|| (!rgb[1] && ft_strcmp(input[1], "0")) \
 			|| (!rgb[2] && ft_strcmp(input[2], "0")))
-		exit_error(ERROR_RGB, NULL, data);
+		exit_error(ERROR_RGB, NULL, scene);
 	if (rgb[0] > 255 || rgb[1] > 255 || rgb[2] > 255)
-		exit_error(ERROR_RGB, NULL, data);
+		exit_error(ERROR_RGB, NULL, scene);
 	free(input);
 }
 
@@ -76,10 +76,10 @@ void	set_rgb(char *param, uint32_t *rgb, t_scene *data)
  * @brief Returs a float based on string input
  * 
  * @param param (char **) string input ("0.0")
- * @param data 	(t_scene) passed to clean up when input is invallid
+ * @param scene 	(t_scene) passed to clean up when input is invallid
  * @return float 
  */
-float	to_float(char *param, t_scene *data)
+float	to_float(char *param, t_scene *scene)
 {
 	int		j;
 	int		i;
@@ -96,7 +96,7 @@ float	to_float(char *param, t_scene *data)
 	if (param[j] == '.')
 		j++;
 	else if (param[j])
-		exit_error(ERROR_F, NULL, data);
+		exit_error(ERROR_F, NULL, scene);
 	d = 0.0;
 	while (param[j] && ft_isdigit(param[j]))
 		d = (d * 10) + (param[j++] - '0');
@@ -111,9 +111,9 @@ float	to_float(char *param, t_scene *data)
  * @brief Takes an input line and parses this into the correct type
  * 
  * @param line (char **) input line
- * @param data (t_scene) passed to clean up when input is invallid
+ * @param scene (t_scene) passed to clean up when input is invallid
  */
-void	parse_type(char *line, t_scene *data)
+void	parse_type(char *line, t_scene *scene)
 {
 	int			i;
 	char		**param;
@@ -123,18 +123,18 @@ void	parse_type(char *line, t_scene *data)
 	i = 0;
 	param = ft_split(line, '\t');
 	if (!param)
-		exit_error(ERROR_MEM, NULL, data);
+		exit_error(ERROR_MEM, NULL, scene);
 	while (i < 6)
 	{
 		if (!ft_strcmp(type[i], param[0]))
 		{
-			parse[i](param, data);
+			parse[i](param, scene);
 			ft_putstr_fd(line, 1);
 			break ;
 		}
 		i++;
 	}
 	if (i == 6)
-		exit_error(ERROR_SCENE, line, data);
+		exit_error(ERROR_SCENE, line, scene);
 	free(param);
 }

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 10:56:50 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 13:09:34 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,26 @@ typedef struct ambient_s
 
 /**
  * @brief Camera (id: "C")
- * @param	view_point (t_xyz) x,y,z coordinates of the view point
+ * @param	view_point (t_xyz) x,y,z coordinates of the camera's origing
  * @param	orientation_v (t_xyz) 3d normalized orientation vector. 
- * 						In range [-1,1] for each x,y,z axis
+ * In range [-1,1] for each x,y,z axis
  * @param	fov	(int) Horizontal field of view in degrees in range [0,180]
+ * @param	principal_axis (t_xyz) vector from camera positon to lookAt position
  */
 typedef struct camera_s
 {
 	t_xyz	view_point;
 	t_xyz	orientation_v;
 	int		fov;
+	t_xyz	look_at;
+	float	plane_dist;
+	int		c_width;
+	int		c_height;
+
+	t_xyz	principal_axis;
+	t_xyz	screenU;
+	t_xyz	screenV;
+	t_xyz	screenCentre;
 }			t_camera;
 
 /**
@@ -45,7 +55,7 @@ typedef struct camera_s
  * @param	light_point (t_xyz) x,y,z coordinates of the light point
  * @param	brightness (float) the light brightness ratio in range [0.0,1.0]
  * @param	rgb	(uint32_t[3]) R,G,B colors 
- * 			in range [0-255] (unused in mandatory part)
+ * in range [0-255] (unused in mandatory part)
  */
 typedef struct light_s
 {

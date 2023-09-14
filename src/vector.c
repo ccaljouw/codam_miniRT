@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:31:28 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 11:18:18 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 13:13:50 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_xyz	v_subtract(t_xyz a, t_xyz b)
  * @param b (float)
  * @return t_xyz 
  */
-t_xyz	vs_mulitply(t_xyz a, float b)
+t_xyz	v_mulitply(t_xyz a, float b)
 {
 	t_xyz	new;
 
@@ -112,4 +112,17 @@ t_xyz	v_cross(t_xyz a, t_xyz b)
 	new.y = b.x * a.z - a.x * b.z;
 	new.z = a.x * b.y - b.x * a.y;
 	return (new);
+}
+
+float	v_magnitude(t_xyz a)
+{
+	return (sqrt(pow(a.x, 2) + pow(a.y,2) + pow(a.z, 2)));
+}
+
+void	v_normalize(t_xyz *a)
+{
+	float mag = v_magnitude(*a);
+	a->x /= mag;
+	a->y /= mag;
+	a->z /= mag;
 }

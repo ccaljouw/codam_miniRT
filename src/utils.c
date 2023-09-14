@@ -6,13 +6,13 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/12 23:39:25 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 14:02:41 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-void	exit_error(char *error_msg, char *optional_str, t_scene *data)
+void	exit_error(char *error_msg, char *optional_str, t_scene *scene)
 {
 	ft_putendl_fd("\033[31;1mError", 2);
 	ft_putstr_fd(error_msg, 2);
@@ -21,8 +21,8 @@ void	exit_error(char *error_msg, char *optional_str, t_scene *data)
 		ft_putendl_fd(optional_str, 2);
 	else
 		ft_putchar_fd('\n', 2);
-	(void)data; //remove
-	// if (data)
-	// 		cleanup data
+	(void)scene; //remove
+	// if (scene)
+	// 		cleanup scene
 	exit (1);
 }
