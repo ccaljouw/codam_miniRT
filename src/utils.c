@@ -6,11 +6,27 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 17:25:52 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 22:07:45 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
+
+
+/**
+ * @brief swap t1 and t2
+ * 
+ * @param t0 
+ * @param t1 
+ */
+void	swap(float *x1, float *x2)
+{
+	float temp;
+
+	temp = *x1;
+	*x1 = *x2;
+	*x2 = temp;
+}
 
 void	exit_error(char *error_msg, char *optional_str, t_scene *scene)
 {

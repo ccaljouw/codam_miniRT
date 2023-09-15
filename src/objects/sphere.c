@@ -6,26 +6,12 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/15 22:01:14 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 22:07:06 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-/**
- * @brief swap t1 and t2
- * 
- * @param t0 
- * @param t1 
- */
-void	swap(float *t0, float *t1)
-{
-	float temp;
-
-	temp = *t0;
-	*t0 = *t1;
-	*t1 = temp;
-}
 
 bool solveQuadratic(float a, float b, float c, t_t *t)
 {
