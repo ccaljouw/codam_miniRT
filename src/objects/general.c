@@ -6,31 +6,11 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:17:05 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/15 21:12:48 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 21:32:10 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
-
-#include <stdio.h> 														// for testing purposes only
-uint32_t	get_gradient_value(uint32_t x, uint32_t y, t_scene *scene)	// for testing purposes only
-{
-	uint32_t	r;
-	uint32_t	g;
-
-	r = (uint32_t)round(((float)x / (float)scene->image->width) * 255);
-	g = (uint32_t)round(((float)y / (float)scene->image->height) * 255);
-	return (r << 24 | g << 16 | 0 << 8 | 255);
-}
-
-// uint32_t	get_color(uint32_t x, uint32_t y, t_scene *scene)
-// {
-// 	t_ray	cameraRay;
-// 	t_xyz	intPoint;
-// 	t_xyz	localNormal;
-// 	int		localColor[3];
-
-// }
 
 /**
  * @brief tests whether two floating points are close to being equal
@@ -64,11 +44,6 @@ bool	generate_ray(t_camera *cam, float screen_x, float screen_y, t_ray *cameraRa
 	cameraRay->p1 = v_copy(cam->view_point);
 	cameraRay->p2 = v_copy(screenWorldCoord);
 	cameraRay->p1_p2 = v_subtract(cameraRay->p2, cameraRay->p1);
-	
-	// printf("WorldCoord\t:");
-	// print_vector(screenWorldCoord);
-	// printf("P1_P2\t\t:");
-	// print_vector(cameraRay->p1_p2);
 	return (1);
 }
 
@@ -97,7 +72,6 @@ void	render_sphere(t_scene *scene, t_sphere *sphere)
 	float		xFact;
 	float		yFact;
 	t_ray		*cameraRay;
-	t_xyz		localNormal;
 	int			localColor;
 	float		normX;
 	float		normY;
@@ -107,7 +81,6 @@ void	render_sphere(t_scene *scene, t_sphere *sphere)
 
 	xFact = 1.0 / ((float)scene->image->width / 2);
 	yFact = 1.0 / ((float)scene->image->height / 2);
-	localNormal = v_create(0.0, 0.0, 0.0);
 	cameraRay = malloc(sizeof(t_ray));
 	if (!cameraRay)
 		exit_error(ERROR_MEM, NULL, scene);	
@@ -118,7 +91,7 @@ void	render_sphere(t_scene *scene, t_sphere *sphere)
 			normX = ((float)x * xFact) - 1.0;
 			normY = ((float)y * yFact) - 1.0;
 			generate_ray(scene->camera, normX, normY, cameraRay);
-			if (test_spIntersection(*cameraRay, localNormal, &localColor, sphere))
+			if (test_spIntersection(*cameraRay, &localColor, sphere))
 				mlx_put_pixel(scene->image, x, y, localColor);
 			else
 				mlx_put_pixel(scene->image, x, y, 0 << 24 | 0 << 16 | 0 << 8 | 255);

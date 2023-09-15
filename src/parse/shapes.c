@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 20:57:16 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 21:25:56 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,33 @@ void	init_cylinder(char **param, t_scene *scene)
 	new_node->content = (void *)new_cylinder;
 	ft_lstadd_back(&scene->cylinders, new_node);
 	ft_putstr_fd("\033[34;1mCylinder config:\t  \033[0m", 1);
+}
+
+/**
+ * @brief Initialises a sphere in the scene.
+ * 
+ * @param param (char **) tab separated string input.
+ * @param scene (t_scene) passed to clean up when input is invallid.
+ */
+void	init_sphere(char **param, t_scene *scene)
+{
+	t_list		*new_node;
+	t_sphere	*new_sphere;
+	int			i;
+
+	i = 0;
+	while (param[i])
+		i++;
+	if (i != 4)
+		exit_error(ERROR_SPHERE, "incorrect number of arguments", scene);
+	new_node = malloc(sizeof(t_list));
+	new_sphere = malloc(sizeof(t_sphere));
+	if (!new_node || !new_sphere)
+		exit_error(ERROR_MEM, NULL, scene);
+	new_sphere->center = set_xyz(param[1], scene);
+	new_sphere->diameter = to_float(param[2], scene);
+	set_rgb(param[3], new_sphere->rgb, scene);
+	new_node->content = (void *)new_sphere;
+	ft_lstadd_back(&scene->spheres, new_node);
+	ft_putstr_fd("\033[34;1mSphere config:\t\t  \033[0m", 1);
 }

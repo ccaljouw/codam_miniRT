@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 20:53:55 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 21:37:44 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ typedef struct s_cylinder
 	float		height;
 	uint32_t	rgb[3];
 }				t_cylinder;
+
 
 #endif

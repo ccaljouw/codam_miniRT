@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/15 19:47:59 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 21:40:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include <stdio.h> //remove
 
 # define EPSILON exp(-21)
-# define PI 3.141592653589793238462643383279502884197
 
 typedef struct s_ray
 {
@@ -34,14 +33,19 @@ typedef struct s_ray
 	t_xyz	p1_p2;
 }	t_ray;
 
+typedef struct s_t
+{
+	float	t0;
+	float	t1;
+}			t_t;
+
 void	exit_error(char *error_msg, char *optional_str, t_scene *data);
 t_scene	*init_scene(char *file);
 void	render_sphere(t_scene *scene, t_sphere *sphere);
-bool test_spIntersection(t_ray castRay, t_xyz localNormal, int *localColor, t_sphere *sphere);
+bool 	test_spIntersection(t_ray castRay, int *localColor, t_sphere *sphere);
 bool	generate_ray(t_camera *cam, float screen_x, float screen_y, t_ray *cameraRay);
 t_ray	ray(t_xyz p1, t_xyz p2);
 void	cameraGeometry(t_camera *cam);
 bool	close_points(float f1, float f2);
-bool	test_intersection(t_ray castRay, t_xyz localNormal, int *localColor, t_sphere *sphere);
 
 #endif

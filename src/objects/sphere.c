@@ -6,12 +6,18 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/15 21:16:17 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 22:01:14 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
+/**
+ * @brief swap t1 and t2
+ * 
+ * @param t0 
+ * @param t1 
+ */
 void	swap(float *t0, float *t1)
 {
 	float temp;
@@ -21,7 +27,7 @@ void	swap(float *t0, float *t1)
 	*t1 = temp;
 }
 
-bool solveQuadratic(float a, float b, float c, float *t0, float *t1)
+bool solveQuadratic(float a, float b, float c, t_t *t)
 {
 	float discr;
 	float q;
@@ -31,8 +37,8 @@ bool solveQuadratic(float a, float b, float c, float *t0, float *t1)
 		return false;
 	else if (discr == 0)
 	{
-		*t0 = -0.5 * b / a;
-		*t1 = *t0;
+		t->t0 = -0.5 * b / a;
+		t->t1 = t->t0;
 	}
 	else
 	{
@@ -40,58 +46,84 @@ bool solveQuadratic(float a, float b, float c, float *t0, float *t1)
 			q = -0.5 * (b + sqrt(discr));
 		else
 			q = -0.5 * (b - sqrt(discr));
-		*t0 = q / a;
-		*t1 = c / q;
+		t->t0 = q / a;
+		t->t1 = c / q;
 	}
 	return true;	
 }
 
-bool test_spIntersection(t_ray castRay, t_xyz localNormal, int *localColor, t_sphere *sphere)
+bool	sphere_0(t_t *t, t_xyz _L, t_xyz _D, t_sphere *sphere)
 {
-	t_xyz _L;
-	t_xyz _D;
 	float t_ca;
 	float t_hc;
 	float d2;
-	float t0;
-	float t1;
+	
+	t_ca = v_dot(_L, _D);
+	if (t_ca < 0)
+		return false;
+	
+	d2 = v_dot(_L, _L) - (t_ca * t_ca);
+	if (d2 > pow(sphere->diameter/2, 2))
+		return false;
+	
+	t_hc = sqrt(pow(sphere->diameter/2, 2) - d2);
+	t->t0 = t_ca - t_hc;
+	t->t1 = t_ca + t_hc;
+	if (t->t0 > t->t1)
+		swap(&t->t0, &t->t1);
+	if (t->t0 < 0)
+	{
+		t->t0 = t->t1;
+		if (t->t0 < 0)
+			return false;
+	}
+	return true;
+}
+
+bool	sphere_offCentre(t_t *t, t_ray castRay, t_sphere *sphere)
+{
+	t_xyz _D;
 	float a;
 	float b;
 	float c;
 	
-	(void)localNormal;
+	_D = v_copy(castRay.p1_p2);
+	v_normalize(&_D);
+	a = v_dot(castRay.p1_p2, castRay.p1_p2);
+	b = v_dot(v_subtract(castRay.p1, sphere->center), v_mulitply(_D, 2.0));
+	c = v_dot(v_subtract(castRay.p1, sphere->center), v_subtract(castRay.p1, sphere->center)) - pow(sphere->diameter / 2, 2);
+	if (!solveQuadratic(a, b, c, t))
+		return false;
+	if (t->t0 > t->t1)
+		swap(&t->t0, &t->t1);
+	if (t->t0 < 0)
+	{
+		t->t0 = t->t1;
+		if (t->t0 < 0)
+			return false;
+	}
+	return true;
+}
+
+bool	test_spIntersection(t_ray castRay, int *localColor, t_sphere *sphere)
+{
+	t_xyz 	_L;
+	t_xyz 	_D;
+	t_t		t;
 	
 	_L = v_subtract(sphere->center , castRay.p1);
 	_D = v_copy(castRay.p1_p2);
 	v_normalize(&_D);
+	t.t0 = 0;
+	t.t1 = 0;
 	if (sphere->center.x == 0 && sphere->center.y == 0 && sphere->center.z == 0)
 	{
-		t_ca = v_dot(_L, _D);
-		if (t_ca < 0)
+		if (sphere_0(&t, _L, _D, sphere) == false)
 			return false;
-		
-		d2 = v_dot(_L, _L) - (t_ca * t_ca);
-		if (d2 > pow(sphere->diameter/2, 2))
-			return false;
-		
-		t_hc = sqrt(pow(sphere->diameter/2, 2) - d2);
-		t0 = t_ca - t_hc;
-		t1 = t_ca + t_hc;
 	}
 	else
 	{
-		a = v_dot(castRay.p1_p2, castRay.p1_p2);
-		b = v_dot(v_subtract(castRay.p1, sphere->center), v_mulitply(_D, 2.0));
-		c = v_dot(v_subtract(castRay.p1, sphere->center), v_subtract(castRay.p1, sphere->center)) - pow(sphere->diameter / 2, 2);
-		if (!solveQuadratic(a, b, c, &t0, &t1))
-			return false;
-	}
-	if (t0 > t1)
-		swap(&t0, &t1);
-	if (t0 < 0)
-	{
-		t0 = t1;
-		if (t0 < 0)
+		if (sphere_offCentre(&t, castRay, sphere) == false)
 			return false;
 	}
 	// keep track of t0 for rendering multiple objects
@@ -99,83 +131,3 @@ bool test_spIntersection(t_ray castRay, t_xyz localNormal, int *localColor, t_sp
 	return true;
 }
 
-// /**
-//  * @brief tests for intersection (based on hardcoded sphere)
-//  * 
-//  * @param castRay (t_xyz) ray cast from the camera viewpoint
-//  * @param intPoint (t_xyz) point of intersection
-//  * @param localNormal 
-//  * @param localColor 
-//  * @return true 
-//  * @return false 
-//  */
-// bool	test_intersection(t_ray castRay, t_xyz localNormal, int *localColor, t_sphere *sphere)
-// {
-// 	t_xyz	vhat;
-// 	t_xyz	abc;
-// 	t_xyz	intPoint;
-// 	float	intersection;
-// 	float	t1;
-// 	float	t2;
-// 	// float	minDist;
-// 	// float	maxDist;
-// 	float	dist;
-// 	float	newA;
-	
-// 	(void)localNormal;
-// 	// minDist = exp(6);
-// 	// maxDist = 0.0;
-// 	vhat = v_copy(castRay.p1_p2);
-// 	v_normalize(&vhat);
-// 	abc = v_create(1.0, 2.0 * v_dot(castRay.p1, vhat), v_dot(castRay.p1, castRay.p1) - 1.0);
-// 	intersection = (abc.y * abc.y) - 4 * abc.x * abc.z;
-// 	if (intersection > 0.0)
-// 	{
-// 		t1 = (-abc.y + sqrt(intersection)) / 2.0;
-// 		t2 = (-abc.y - sqrt(intersection)) / 2.0;
-// 		if (t1 < 0 || t2 < 0)
-// 			return false;
-// 		else
-// 		{
-// 			if (t1 < t2)
-// 				intPoint = v_copy(v_add(castRay.p1, v_mulitply(vhat, t1)));
-// 			else
-// 				intPoint = v_copy(v_add(castRay.p1, v_mulitply(vhat, t2)));
-// 			dist = v_magnitude(v_subtract(intPoint, castRay.p1));
-// 			newA = 255 - ((dist -9) / 0.94605) * 255;
-// 			*localColor = (sphere->rgb[0] << 24 | sphere->rgb[1] << 16 | sphere->rgb[2] << 8 | (uint32_t)newA);
-// 			return true;
-// 		}
-// 	}
-// 	else
-// 		return false;
-// }
-
-/**
- * @brief Initialises a sphere in the scene.
- * 
- * @param param (char **) tab separated string input.
- * @param scene (t_scene) passed to clean up when input is invallid.
- */
-void	init_sphere(char **param, t_scene *scene)
-{
-	t_list		*new_node;
-	t_sphere	*new_sphere;
-	int			i;
-
-	i = 0;
-	while (param[i])
-		i++;
-	if (i != 4)
-		exit_error(ERROR_SPHERE, "incorrect number of arguments", scene);
-	new_node = malloc(sizeof(t_list));
-	new_sphere = malloc(sizeof(t_sphere));
-	if (!new_node || !new_sphere)
-		exit_error(ERROR_MEM, NULL, scene);
-	new_sphere->center = set_xyz(param[1], scene);
-	new_sphere->diameter = to_float(param[2], scene);
-	set_rgb(param[3], new_sphere->rgb, scene);
-	new_node->content = (void *)new_sphere;
-	ft_lstadd_back(&scene->spheres, new_node);
-	ft_putstr_fd("\033[34;1mSphere config:\t\t  \033[0m", 1);
-}
