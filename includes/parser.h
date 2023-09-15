@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/14 13:00:41 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/15 10:48:45 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@ typedef struct s_scene
 	t_list		*cylinders;
 }				t_scene;
 
-typedef void	t_f(char **param, t_scene *data);
+typedef void	t_f(char **param, t_scene *scene);
 
-void	parse_type(char *line, t_scene *data);
-t_xyz	set_xyz(char *param, t_scene *data);
-void	set_rgb(char *param, uint32_t *rgb, t_scene *data);
-float	to_float(char *param, t_scene *data);
-void	ambient(char **param, t_scene *data);
-void	camera(char **param, t_scene *data);
-void	light(char **param, t_scene *data);
-void	sphere(char **param, t_scene *data);
-void	plane(char **param, t_scene *data);
-void	cylinder(char **param, t_scene *data);
+void	parse_type(char *line, t_scene *scene);
+t_xyz	set_xyz(char *param, t_scene *scene);
+void	set_rgb(char *param, uint32_t *rgb, t_scene *scene);
+float	to_float(char *param, t_scene *scene);
+void	init_ambient(char **param, t_scene *scene);
+void	init_camera(char **param, t_scene *scene);
+void	init_light(char **param, t_scene *scene);
+void	init_sphere(char **param, t_scene *scene);
+void	init_plane(char **param, t_scene *scene);
+void	init_cylinder(char **param, t_scene *scene);
 
 #endif
