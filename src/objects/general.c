@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:17:05 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 22:52:49 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 21:12:48 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,14 @@ void	render_sphere(t_scene *scene, t_sphere *sphere)
 	cameraRay = malloc(sizeof(t_ray));
 	if (!cameraRay)
 		exit_error(ERROR_MEM, NULL, scene);	
-	while (x <= scene->image->width - 1)
+	while (x < scene->image->width)
 	{
-		while (y <= scene->image->height - 1)
+		while (y < scene->image->height)
 		{
 			normX = ((float)x * xFact) - 1.0;
 			normY = ((float)y * yFact) - 1.0;
 			generate_ray(scene->camera, normX, normY, cameraRay);
-			if (test_intersection(*cameraRay, localNormal, &localColor, sphere))
+			if (test_spIntersection(*cameraRay, localNormal, &localColor, sphere))
 				mlx_put_pixel(scene->image, x, y, localColor);
 			else
 				mlx_put_pixel(scene->image, x, y, 0 << 24 | 0 << 16 | 0 << 8 | 255);

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 20:21:05 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 11:07:15 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_scene
 	t_ambient	*ambient;
 	t_camera	*camera;
 	t_light		*light;
+	// create linked list with objects in stead of seperate linked lists
+	// add types to type sturcts
 	t_list		*spheres;
 	t_list		*planes;
 	t_list		*cylinders;

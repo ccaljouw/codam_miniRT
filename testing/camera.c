@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 15:51:04 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/15 10:42:48 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 18:35:06 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	cameratest(int testnr)
 {
 	t_camera	*cam;
 	int			test;
-	char		*temp[3];
 	
 	test = testnr;
 	printf("\033[34;1m--------------------\033[0m\n");
@@ -33,12 +32,9 @@ int	cameratest(int testnr)
 	cam->c_height = 1.0;
 	cameraGeometry(cam);
 	// print_camera(*cam);
-	compare(tostr(cam->screenCentre), "0.000,1.000,0.000", test++);
+	compare(vtostr(cam->screenCentre), "0.000,1.000,0.000", test++);
 	compare(vtostr(cam->screenU), "1.000,0.000,0.000", test++);
 	compare(vtostr(cam->screenV), "0.000,0.000,1.000", test++);
-	free(temp[0]);
-	free(temp[1]);
-	free(temp[2]);
 	free(cam);
 	return (test - testnr);
 }

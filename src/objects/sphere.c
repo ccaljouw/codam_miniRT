@@ -6,63 +6,150 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 22:53:09 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 21:16:17 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-/**
- * @brief tests for intersection (based on hardcoded sphere)
- * 
- * @param castRay (t_xyz) ray cast from the camera viewpoint
- * @param intPoint (t_xyz) point of intersection
- * @param localNormal 
- * @param localColor 
- * @return true 
- * @return false 
- */
-bool	test_intersection(t_ray castRay, t_xyz localNormal, int *localColor, t_sphere *sphere)
+void	swap(float *t0, float *t1)
 {
-	t_xyz	vhat;
-	t_xyz	abc;
-	t_xyz	intPoint;
-	float	intersection;
-	float	t1;
-	float	t2;
-	// float	minDist;
-	// float	maxDist;
-	float	dist;
-	float	newA;
+	float temp;
+
+	temp = *t0;
+	*t0 = *t1;
+	*t1 = temp;
+}
+
+bool solveQuadratic(float a, float b, float c, float *t0, float *t1)
+{
+	float discr;
+	float q;
 	
-	(void)localNormal;
-	// minDist = exp(6);
-	// maxDist = 0.0;
-	vhat = v_copy(castRay.p1_p2);
-	v_normalize(&vhat);
-	abc = v_create(1.0, 2.0 * v_dot(castRay.p1, vhat), v_dot(castRay.p1, castRay.p1) - 1.0);
-	intersection = (abc.y * abc.y) - 4 * abc.x * abc.z;
-	if (intersection > 0.0)
+	discr = b * b - 4 * a * c;
+	if (discr < 0)
+		return false;
+	else if (discr == 0)
 	{
-		t1 = (-abc.y + sqrt(intersection)) / 2.0;
-		t2 = (-abc.y - sqrt(intersection)) / 2.0;
-		if (t1 < 0 || t2 < 0)
-			return false;
-		else
-		{
-			if (t1 < t2)
-				intPoint = v_copy(v_add(castRay.p1, v_mulitply(vhat, t1)));
-			else
-				intPoint = v_copy(v_add(castRay.p1, v_mulitply(vhat, t2)));
-			dist = v_magnitude(v_subtract(intPoint, castRay.p1));
-			newA = 255 - ((dist -9) / 0.94605) * 255;
-			*localColor = (sphere->rgb[0] << 24 | sphere->rgb[1] << 16 | sphere->rgb[2] << 8 | (uint32_t)newA);
-			return true;
-		}
+		*t0 = -0.5 * b / a;
+		*t1 = *t0;
 	}
 	else
-		return false;
+	{
+		if (b > 0)
+			q = -0.5 * (b + sqrt(discr));
+		else
+			q = -0.5 * (b - sqrt(discr));
+		*t0 = q / a;
+		*t1 = c / q;
+	}
+	return true;	
 }
+
+bool test_spIntersection(t_ray castRay, t_xyz localNormal, int *localColor, t_sphere *sphere)
+{
+	t_xyz _L;
+	t_xyz _D;
+	float t_ca;
+	float t_hc;
+	float d2;
+	float t0;
+	float t1;
+	float a;
+	float b;
+	float c;
+	
+	(void)localNormal;
+	
+	_L = v_subtract(sphere->center , castRay.p1);
+	_D = v_copy(castRay.p1_p2);
+	v_normalize(&_D);
+	if (sphere->center.x == 0 && sphere->center.y == 0 && sphere->center.z == 0)
+	{
+		t_ca = v_dot(_L, _D);
+		if (t_ca < 0)
+			return false;
+		
+		d2 = v_dot(_L, _L) - (t_ca * t_ca);
+		if (d2 > pow(sphere->diameter/2, 2))
+			return false;
+		
+		t_hc = sqrt(pow(sphere->diameter/2, 2) - d2);
+		t0 = t_ca - t_hc;
+		t1 = t_ca + t_hc;
+	}
+	else
+	{
+		a = v_dot(castRay.p1_p2, castRay.p1_p2);
+		b = v_dot(v_subtract(castRay.p1, sphere->center), v_mulitply(_D, 2.0));
+		c = v_dot(v_subtract(castRay.p1, sphere->center), v_subtract(castRay.p1, sphere->center)) - pow(sphere->diameter / 2, 2);
+		if (!solveQuadratic(a, b, c, &t0, &t1))
+			return false;
+	}
+	if (t0 > t1)
+		swap(&t0, &t1);
+	if (t0 < 0)
+	{
+		t0 = t1;
+		if (t0 < 0)
+			return false;
+	}
+	// keep track of t0 for rendering multiple objects
+	*localColor = (sphere->rgb[0] << 24 | sphere->rgb[1] << 16 | sphere->rgb[2] << 8 | 255);
+	return true;
+}
+
+// /**
+//  * @brief tests for intersection (based on hardcoded sphere)
+//  * 
+//  * @param castRay (t_xyz) ray cast from the camera viewpoint
+//  * @param intPoint (t_xyz) point of intersection
+//  * @param localNormal 
+//  * @param localColor 
+//  * @return true 
+//  * @return false 
+//  */
+// bool	test_intersection(t_ray castRay, t_xyz localNormal, int *localColor, t_sphere *sphere)
+// {
+// 	t_xyz	vhat;
+// 	t_xyz	abc;
+// 	t_xyz	intPoint;
+// 	float	intersection;
+// 	float	t1;
+// 	float	t2;
+// 	// float	minDist;
+// 	// float	maxDist;
+// 	float	dist;
+// 	float	newA;
+	
+// 	(void)localNormal;
+// 	// minDist = exp(6);
+// 	// maxDist = 0.0;
+// 	vhat = v_copy(castRay.p1_p2);
+// 	v_normalize(&vhat);
+// 	abc = v_create(1.0, 2.0 * v_dot(castRay.p1, vhat), v_dot(castRay.p1, castRay.p1) - 1.0);
+// 	intersection = (abc.y * abc.y) - 4 * abc.x * abc.z;
+// 	if (intersection > 0.0)
+// 	{
+// 		t1 = (-abc.y + sqrt(intersection)) / 2.0;
+// 		t2 = (-abc.y - sqrt(intersection)) / 2.0;
+// 		if (t1 < 0 || t2 < 0)
+// 			return false;
+// 		else
+// 		{
+// 			if (t1 < t2)
+// 				intPoint = v_copy(v_add(castRay.p1, v_mulitply(vhat, t1)));
+// 			else
+// 				intPoint = v_copy(v_add(castRay.p1, v_mulitply(vhat, t2)));
+// 			dist = v_magnitude(v_subtract(intPoint, castRay.p1));
+// 			newA = 255 - ((dist -9) / 0.94605) * 255;
+// 			*localColor = (sphere->rgb[0] << 24 | sphere->rgb[1] << 16 | sphere->rgb[2] << 8 | (uint32_t)newA);
+// 			return true;
+// 		}
+// 	}
+// 	else
+// 		return false;
+// }
 
 /**
  * @brief Initialises a sphere in the scene.
