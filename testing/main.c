@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 14:38:15 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 19:10:53 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 10:38:45 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,5 @@ int main(void)
 	// atexit(leaks);
 	i = 1;
 	i += cameratest(i);
-	printf("%f\n", 1e6);
-	printf("%f\n", exp(6));
 	return (0);
 }

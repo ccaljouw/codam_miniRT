@@ -6,35 +6,40 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 22:25:32 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 22:53:09 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
 /**
- * @brief tests for intersection
+ * @brief tests for intersection (based on hardcoded sphere)
  * 
  * @param castRay (t_xyz) ray cast from the camera viewpoint
- * @param intPoint 
+ * @param intPoint (t_xyz) point of intersection
  * @param localNormal 
  * @param localColor 
  * @return true 
  * @return false 
  */
-bool	test_intersection(t_ray castRay, t_xyz *intPoint, t_xyz localNormal, int *localColor)
+bool	test_intersection(t_ray castRay, t_xyz localNormal, int *localColor, t_sphere *sphere)
 {
 	t_xyz	vhat;
 	t_xyz	abc;
+	t_xyz	intPoint;
 	float	intersection;
 	float	t1;
 	float	t2;
+	// float	minDist;
+	// float	maxDist;
+	float	dist;
+	float	newA;
 	
 	(void)localNormal;
-	(void)localColor;
+	// minDist = exp(6);
+	// maxDist = 0.0;
 	vhat = v_copy(castRay.p1_p2);
 	v_normalize(&vhat);
-	//compute values a, b and c
 	abc = v_create(1.0, 2.0 * v_dot(castRay.p1, vhat), v_dot(castRay.p1, castRay.p1) - 1.0);
 	intersection = (abc.y * abc.y) - 4 * abc.x * abc.z;
 	if (intersection > 0.0)
@@ -46,9 +51,12 @@ bool	test_intersection(t_ray castRay, t_xyz *intPoint, t_xyz localNormal, int *l
 		else
 		{
 			if (t1 < t2)
-				v_copyValues(v_add(castRay.p1, v_mulitply(vhat, t1)), intPoint);
+				intPoint = v_copy(v_add(castRay.p1, v_mulitply(vhat, t1)));
 			else
-				v_copyValues(v_add(castRay.p1, v_mulitply(vhat, t2)), intPoint);
+				intPoint = v_copy(v_add(castRay.p1, v_mulitply(vhat, t2)));
+			dist = v_magnitude(v_subtract(intPoint, castRay.p1));
+			newA = 255 - ((dist -9) / 0.94605) * 255;
+			*localColor = (sphere->rgb[0] << 24 | sphere->rgb[1] << 16 | sphere->rgb[2] << 8 | (uint32_t)newA);
 			return true;
 		}
 	}

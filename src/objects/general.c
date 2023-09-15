@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:17:05 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 22:10:20 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/14 22:52:49 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,36 +90,24 @@ t_ray	ray(t_xyz p1, t_xyz p2)
 	return (ray);
 }
 
-void render(void *param)
+void	render_sphere(t_scene *scene, t_sphere *sphere)
 {
-	t_scene		*scene;
 	uint32_t	x;
 	uint32_t	y;
-	uint32_t	color;
-	float		newA;
-	float	xFact;
-	float	yFact;
-	float	dist;
-	// float	minDist;
-	// float	maxDist;
-	t_ray	*cameraRay;
-	t_xyz	intPoint;
-	t_xyz	localNormal;
-	int		localColor[3];
-	float	normX;
-	float	normY;
+	float		xFact;
+	float		yFact;
+	t_ray		*cameraRay;
+	t_xyz		localNormal;
+	int			localColor;
+	float		normX;
+	float		normY;
 
-	scene = (t_scene *)param;
-	t_sphere *sphere = (t_sphere *)scene->spheres->content; 
 	x = 0;
 	y = 0;
 
 	xFact = 1.0 / ((float)scene->image->width / 2);
 	yFact = 1.0 / ((float)scene->image->height / 2);
-	// minDist = exp(6);
-	// maxDist = 0.0;
 	localNormal = v_create(0.0, 0.0, 0.0);
-	intPoint = v_create(0.0, 0.0, 0.0);
 	cameraRay = malloc(sizeof(t_ray));
 	if (!cameraRay)
 		exit_error(ERROR_MEM, NULL, scene);	
@@ -130,13 +118,8 @@ void render(void *param)
 			normX = ((float)x * xFact) - 1.0;
 			normY = ((float)y * yFact) - 1.0;
 			generate_ray(scene->camera, normX, normY, cameraRay);
-			if (test_intersection(*cameraRay, &intPoint, localNormal, localColor))
-			{
-				dist = v_magnitude(v_subtract(intPoint, cameraRay->p1));
-				newA = 255 - ((dist -9) / 0.94605) * 255;
-				color = (sphere->rgb[0] << 24 | sphere->rgb[1] << 16 | sphere->rgb[2] << 8 | (uint32_t)newA);
-				mlx_put_pixel(scene->image, x, y, color);
-			}
+			if (test_intersection(*cameraRay, localNormal, &localColor, sphere))
+				mlx_put_pixel(scene->image, x, y, localColor);
 			else
 				mlx_put_pixel(scene->image, x, y, 0 << 24 | 0 << 16 | 0 << 8 | 255);
 			y++;

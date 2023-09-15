@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 15:51:04 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 17:22:39 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 10:42:48 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,10 @@ int	cameratest(int testnr)
 	cam->c_width = 1.0;
 	cam->c_height = 1.0;
 	cameraGeometry(cam);
-	temp[0] = vtostr(cam->screenCentre);
-	temp[1] = vtostr(cam->screenU);
-	temp[2] = vtostr(cam->screenV);
-	compare(temp[0], "0.000,1.000,0.000", test++);
-	compare(temp[1], "1.000,0.000,0.000", test++);
-	compare(temp[2], "0.000,0.000,1.000", test++);
+	// print_camera(*cam);
+	compare(tostr(cam->screenCentre), "0.000,1.000,0.000", test++);
+	compare(vtostr(cam->screenU), "1.000,0.000,0.000", test++);
+	compare(vtostr(cam->screenV), "0.000,0.000,1.000", test++);
 	free(temp[0]);
 	free(temp[1]);
 	free(temp[2]);

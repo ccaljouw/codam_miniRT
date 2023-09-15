@@ -6,22 +6,11 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 11:23:58 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 22:27:12 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 10:36:23 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
-
-void	set_camera(t_camera *cam)
-{
-	// cam->viewpoint read from file;
-	cam->look_at = v_create(0.0, 0.0, 0.0);
-	// cam->orientation_v read from file
-	cam->plane_dist = 1;
-	cam->c_width = 0.25; //change
-	cam->c_height = (16.0/9.0); //change
-	
-}
 
 /**
  * @brief 

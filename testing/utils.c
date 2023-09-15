@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 14:03:11 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 20:01:17 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 10:42:16 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,7 @@ void	print_vector(t_xyz vector)
 
 char	*vtostr(t_xyz vector)
 {
-	char *str;
-	
-	str = malloc(sizeof(char) * 50);
-	snprintf(str, 50, "%.3f,%.3f,%.3f", vector.x, vector.y, vector.z);
-	return (str);
+	return (ft_msprintf("%.3f,%.3f,%.3f", vector.x, vector.y, vector.z));
 }
 
 void	compare(char *result, char *check, int test)
@@ -52,4 +48,5 @@ void	compare(char *result, char *check, int test)
 		printf("\033[32;1mTest %3d:\tOK!\n\033[0m", test);
 	else
 		printf("\033[31;1mTest %3d:\tKO!\033[0m\n   expected:\t%s\n   result:\t%s\n", test, check, result);
+	free(result);
 }

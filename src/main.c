@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 20:05:14 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/15 10:09:53 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ t_scene	*init_scene(char *file)
 	while (1)
 	{
 		line = get_next_line(fd);
-		if (line)
+		if (line) // close fd if error in line
 			parse_type(line, scene);
 		else // what if error in gnl?
 			break ;
 	}
 	close(fd);
-	// if (!scene->ambient || !scene->camera || !scene->light)
+	// if (!scene->ambient || !scene->camera)
 	// 	exit_error(ERROR_SCENE, "not all required elements provided", scene);
 	ft_putendl_fd("\033[32;1m\nScene set up\n\033[0m", 2);
 	return (scene);
@@ -76,6 +76,7 @@ int	main(int argc, char **argv)
 	if (!scene->mlx)
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
 	scene->image = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
+	render_sphere(scene, scene->spheres->content);
 	if (!scene->image)
 	{
 		mlx_close_window(scene->mlx);
@@ -86,7 +87,7 @@ int	main(int argc, char **argv)
 		mlx_close_window(scene->mlx);
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
 	}
-	mlx_loop_hook(scene->mlx, render, scene);
+	// mlx_loop_hook(scene->mlx, render_sphere, scene);
 	mlx_loop(scene->mlx);
 	mlx_terminate(scene->mlx);
 	// cleanup scene
