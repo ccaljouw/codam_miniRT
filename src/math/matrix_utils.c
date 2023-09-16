@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:32:58 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/16 15:07:16 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/16 15:23:04 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,28 +64,23 @@ t_m44	m44_init(void)
  * @param matrix 
  * @return float** 
  */
-t_m44	*m44_copy(t_m44	matrix)
+void	m44_copy(t_m44	src, t_m44 *dst)
 {
 	int		rows;
 	int		cols;
-	t_m44	*res;
 
 	rows = 0;
 	cols = 0;
-	res = malloc(sizeof(t_m44));
-	if (res == NULL)
-		return (NULL);
 	while (rows < 4)
 	{
 		while (cols < 4)
 		{
-			res->arr[rows][cols] = matrix.arr[rows][cols];
+			dst->arr[rows][cols] = src.arr[rows][cols];
 			cols++;
 		}
 		cols = 0;
 		rows++;
 	}
-	return (res);
 }
 
 /**
