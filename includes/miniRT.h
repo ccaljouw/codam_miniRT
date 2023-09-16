@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/15 10:48:34 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/16 15:06:08 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "test.h"
 # include <stdbool.h>
 # include <stdlib.h>
+# include "matrix.h"
 
 # include <stdio.h> //remove
 
