@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 17:21:26 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/16 14:13:19 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/16 14:26:31 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 /**
  * @brief struct with points x, y and z. Can be used to represent 
- * either a point, vector or normal
+ * either a point(p), vector(v) or normal(n)
  */
 typedef struct xyz_s
 {
