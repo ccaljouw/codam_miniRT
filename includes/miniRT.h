@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/16 14:58:38 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/16 15:33:41 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "test.h"
 # include <stdbool.h>
 # include <stdlib.h>
+# include "matrix.h"
 
 # include <stdio.h> //remove
 
