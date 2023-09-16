@@ -10,11 +10,13 @@ CFLAGS 		:= -Wall -Wextra -Werror
 LIBFT	 	:= ./libs/libft
 LIBMLX		:= ./libs/MLX42
 LIBS		:= $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a
-HEADERS		:= -I $(LIBFT)  -I $(LIBMLX)/include/MLX42
+HEADERS		:= -I $(LIBFT)  -I $(LIBMLX)/include/MLX42 -I includes/
 TEST		?= 0;
 
 ifeq ($(USER), cariencaljouw)
 	LIBFLAGS 	= -lglfw -L /opt/homebrew/Cellar/glfw/3.3.8/lib/ -framework Cocoa -framework OpenGL -framework IOKit
+else ifeq ($(USER), albertvanandel)
+	LIBFLAGS 	= -lglfw  -framework Cocoa -framework OpenGL -framework IOKit	
 else
 	LIBFLAGS	= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 endif
@@ -26,10 +28,10 @@ else
 endif
 
 MAIN		:= obj/main.o
-OBJ 		:= $(addprefix obj/, \
-				utils.o vector.o \
+OBJ 		:= $(addprefix obj/, utils.o\
 				$(addprefix parse/, parse.o unique.o shapes.o) \
 				$(addprefix objects/, general.o camera.o sphere.o) \
+				$(addprefix math/, matrix_transformations.o matrix_utils.o vector.o) \
 				)
 TEST_OBJ	:= $(addprefix testing/obj/, utils.o camera.o)
 
