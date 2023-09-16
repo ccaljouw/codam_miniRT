@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/15 10:09:32 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/16 19:47:29 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	parse_type(char *line, t_scene *scene)
 		if (!ft_strcmp(type[i], param[0]))
 		{
 			parse[i](param, scene);
-			ft_putstr_fd(line, 1);
+			ft_putendl_fd(line, 1);
 			break ;
 		}
 		i++;

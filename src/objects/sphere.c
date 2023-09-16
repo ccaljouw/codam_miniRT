@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/16 14:27:15 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/16 20:24:11 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,12 @@ bool	sphere0(t_t *t, t_xyz vL, t_xyz vD, t_sphere *sphere)
 	return true;
 }
 
-bool	sphereOffCentre(t_t *t, t_ray castRay, t_sphere *sphere)
+bool	sphereOffCentre(t_t *t, t_ray castRay, t_sphere *sphere, t_xyz nD)
 {
-	t_xyz nD;
 	float a;
 	float b;
 	float c;
 	
-	nD = v_normalize(castRay.p1_p2);
 	a = v_dot(castRay.p1_p2, castRay.p1_p2);
 	b = v_dot(v_subtract(castRay.p1, sphere->pC), v_mulitply(nD, 2.0));
 	c = v_dot(v_subtract(castRay.p1, sphere->pC), v_subtract(castRay.p1, sphere->pC)) - pow(sphere->radius, 2);
@@ -90,7 +88,7 @@ bool	sphereOffCentre(t_t *t, t_ray castRay, t_sphere *sphere)
 	return true;
 }
 
-bool	test_spIntersection(t_ray castRay, int *localColor, t_sphere *sphere)
+bool	test_spIntersection(t_ray castRay, int *localColor, t_sphere *sphere, float *intPoint)
 {
 	t_xyz 	vL;
 	t_xyz 	nD;
@@ -98,8 +96,8 @@ bool	test_spIntersection(t_ray castRay, int *localColor, t_sphere *sphere)
 	
 	vL = v_subtract(sphere->pC , castRay.p1);
 	nD = v_normalize(castRay.p1_p2);
-	t.t0 = 0;
-	t.t1 = 0;
+	t.t0 = INFINITY;
+	t.t1 = INFINITY;
 	if (sphere->pC.x == 0 && sphere->pC.y == 0 && sphere->pC.z == 0)
 	{
 		if (sphere0(&t, vL, nD, sphere) == false)
@@ -107,10 +105,10 @@ bool	test_spIntersection(t_ray castRay, int *localColor, t_sphere *sphere)
 	}
 	else
 	{
-		if (sphereOffCentre(&t, castRay, sphere) == false)
+		if (sphereOffCentre(&t, castRay, sphere, nD) == false)
 			return false;
 	}
-	// keep track of t0 for rendering multiple objects
+	*intPoint = t.t0;
 	*localColor = (sphere->rgb[0] << 24 | sphere->rgb[1] << 16 | sphere->rgb[2] << 8 | 255);
 	return true;
 }

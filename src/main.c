@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/15 10:09:53 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/16 19:46:02 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ t_scene	*init_scene(char *file)
 	{
 		line = get_next_line(fd);
 		if (line) // close fd if error in line
+		{
+			line[ft_strlen(line) - 1] = '\0';
 			parse_type(line, scene);
+		}
 		else // what if error in gnl?
 			break ;
 	}
@@ -76,7 +79,7 @@ int	main(int argc, char **argv)
 	if (!scene->mlx)
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
 	scene->image = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
-	render_sphere(scene, scene->spheres->content);
+	render(scene);
 	if (!scene->image)
 	{
 		mlx_close_window(scene->mlx);

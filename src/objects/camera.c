@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 11:23:58 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/16 13:05:20 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/16 16:44:05 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	init_camera(char **param, t_scene *scene)
 		exit_error(ERROR_MEM, NULL, scene);
 	scene->camera->view_point = set_xyz(param[1], scene);
 	scene->camera->orientation_v = set_xyz(param[2], scene);
-	scene->camera->fov = ft_atoi(param[3]);
+	scene->camera->fov = to_float(param[3], scene);
 	if (!scene->camera->fov && !ft_strcmp(param[3], "0"))
 		exit_error("incorrect fov", NULL, scene);
 	scene->camera->look_at = v_create(0.0, 0.0, 0.0);
