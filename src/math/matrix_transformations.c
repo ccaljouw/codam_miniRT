@@ -6,52 +6,69 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:28:29 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/16 15:07:12 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/17 00:01:45 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "fdf.h"
 #include "miniRT.h"
 
+static t_m44	m44_rotate_axis(float angle, char axis);
+
+void	m44_rotate(t_m44 *matrix, float x, float y, float z)
+{
+	if (x > 0)
+		*matrix = m44_dot_product(*matrix, m44_rotate_axis(x, 'x'));
+	if (y > 0)
+		*matrix = m44_dot_product(*matrix, m44_rotate_axis(y, 'y'));
+	if (z > 0)
+		*matrix = m44_dot_product(*matrix, m44_rotate_axis(z, 'z'));
+}
+
 /**
- * @brief Rotate matrix over axis [axis] with angle [angle] (in degrees)
+ * @brief Return a rotation matrix for the given angle, rotated 
+ * 		by the angle in degrees
  * 
  * @param matrix 
- * @param angle 
- * @param axis 
+ * @param angle angle in degrees
+ * @param axis axis to rotate on
  */
-void	m44_rotate(t_m44 *matrix, float angle, char axis)
+static t_m44	m44_rotate_axis(float angle, char axis)
 {
+	t_m44	matrix;
+
+	matrix = m44_init();
 	if (axis == 'x')
 	{
-		matrix->arr[1][1] = cos(ft_rad(angle));
-		matrix->arr[1][2] = sin(ft_rad(angle));
-		matrix->arr[2][1] = -1 * sin(ft_rad(angle));
-		matrix->arr[2][2] = cos(ft_rad(angle));
+		matrix.arr[1][1] = cos(ft_rad(angle));
+		matrix.arr[1][2] = sin(ft_rad(angle));
+		matrix.arr[2][1] = -1 * sin(ft_rad(angle));
+		matrix.arr[2][2] = cos(ft_rad(angle));
 	}
 	if (axis == 'y')
 	{
-		matrix->arr[0][0] = cos(ft_rad(angle));
-		matrix->arr[0][2] = -1 * sin(ft_rad(angle));
-		matrix->arr[2][0] = sin(ft_rad(angle));
-		matrix->arr[2][2] = cos(ft_rad(angle));
+		matrix.arr[0][0] = cos(ft_rad(angle));
+		matrix.arr[0][2] = -1 * sin(ft_rad(angle));
+		matrix.arr[2][0] = sin(ft_rad(angle));
+		matrix.arr[2][2] = cos(ft_rad(angle));
 	}
 	if (axis == 'z')
 	{
-		matrix->arr[0][0] = cos(ft_rad(angle));
-		matrix->arr[0][1] = sin(ft_rad(angle));
-		matrix->arr[1][0] = -1 * sin(ft_rad(angle));
-		matrix->arr[1][1] = cos(ft_rad(angle));
+		matrix.arr[0][0] = cos(ft_rad(angle));
+		matrix.arr[0][1] = sin(ft_rad(angle));
+		matrix.arr[1][0] = -1 * sin(ft_rad(angle));
+		matrix.arr[1][1] = cos(ft_rad(angle));
 	}
+	return (matrix);
 }
 
 /**
  * @brief Scale matrix
  * 
  * @param matrix 
- * @param x 
- * @param y 
- * @param z 
+ * @param x multiply x by this value
+ * @param y multiply y by this value
+ * @param z multiply z by this value
  */
 void	m44_scale(t_m44 *matrix, float x, float y, float z)
 {
@@ -64,9 +81,9 @@ void	m44_scale(t_m44 *matrix, float x, float y, float z)
  * @brief Translate matrix
  * 
  * @param matrix 
- * @param x 
- * @param y 
- * @param z 
+ * @param x movement across x axis
+ * @param y movement across y axis
+ * @param z movement across z axis
  */
 void	m44_translate(t_m44 *matrix, float x, float y, float z)
 {

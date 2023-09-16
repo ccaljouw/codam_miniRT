@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 22:32:55 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/16 15:23:11 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/17 00:02:09 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,20 @@ void	m44_copy(t_m44	src, t_m44 *dst);
 t_m44	m44_dot_product(t_m44 m1, t_m44 m2);
 void	m44_multiply_vec3(t_m44 matrix, t_xyz *point);
 
-
 // MATRIX TRANSFORMATIONS
 
-void	m44_rotate(t_m44 *matrix, float angle, char axis);
+void	m44_rotate(t_m44 *matrix, float x, float y, float z);
 void	m44_scale(t_m44 *matrix, float x, float y, float z);
 void	m44_translate(t_m44 *matrix, float x, float y, float z);
 
-// THIS SHOULD BE IN MATH.H
+// MATRIX INVERSION
+
+int		m44_invert(t_m44 input, t_m44 *result);
+int		m44_is_identity_matrix(t_m44 matrix);
+
+// OTHER UTILS (could be put in generic util file)
 
 float	ft_rad(float angle);
+void	swap_floats(float *a, float *b);
 
 #endif

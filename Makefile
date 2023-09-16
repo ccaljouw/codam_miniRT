@@ -32,7 +32,7 @@ OBJ 		:= $(addprefix obj/, \
 				utils.o vector.o \
 				$(addprefix parse/, parse.o unique.o shapes.o) \
 				$(addprefix objects/, general.o camera.o sphere.o) \
-				$(addprefix math/, matrix_transformations.o matrix_utils.o ) \
+				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o) \
 				)
 TEST_OBJ	:= $(addprefix testing/obj/, utils.o camera.o)
 

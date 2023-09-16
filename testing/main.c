@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:38:15 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/16 15:24:51 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/16 23:56:59 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ int main(void)
 
 	t_m44	test;
 	t_m44	p_test;
+	t_m44	invert;
 	t_xyz	point;
 
 	test = m44_init();
 	m44_copy(test, &p_test);
 	m44_print(test);
 	m44_print(p_test);
-	m44_rotate(&test, 23.0, 'x');
-	m44_rotate(&p_test, 23.0, 'z');
+	m44_rotate(&test, 23.0, 20.0, 100.0);
+	m44_rotate(&p_test, 23.0, 20.0, 100.0);
+	ft_printf("after rotate\n");
 	m44_print(test);
 	m44_print(p_test);
-	// prod = 
 	point = v_create(1.0, 2.0, 3.0);
 	m44_print(m44_dot_product(p_test, test));
 	print_vector(point);
@@ -46,6 +47,20 @@ int main(void)
 	m44_print(p_test);
 	m44_copy(test, &p_test);
 	m44_print(p_test);
-	// free(p_test);
+	m44_invert(p_test, &invert);
+	m44_print(invert);
+	ft_printf("first invert\n");
+	m44_print(m44_dot_product(p_test, invert));
+	m44_scale(&test, 10, 10, 10);
+	ft_printf("scaled\n");
+	m44_print(test);
+	m44_translate(&test, 10, 10, 10);
+	ft_printf("translated\n");
+	m44_print(test);
+	m44_invert(test, &invert);
+	ft_printf("scaled inverted\n");
+	m44_print(invert);
+	ft_printf("last invert\n");
+	m44_print(m44_dot_product(test, invert));
 	return (0);
 }
