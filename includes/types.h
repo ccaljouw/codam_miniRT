@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/15 21:37:44 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/16 14:05:29 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,15 @@ typedef struct light_s
 
 /**
  * @brief Sphere (id: "sp")
- * @param	*center (t_xyz) x,y,z coordinates of the sphere center
+ * @param	pC (t_xyz) x,y,z coordinates of the sphere center
  * @param	diameter (float) the sphere diameter
  * @param	rgb	(uint32_t[3]) R,G,B colors in range [0-255]
  */
 typedef struct s_sphere
 {
-	t_xyz		center;
+	t_xyz		pC;
 	float		diameter;
+	float		radius;
 	uint32_t	rgb[3];
 }			t_sphere;
 

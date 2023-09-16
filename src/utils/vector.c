@@ -6,11 +6,11 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:31:28 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/14 22:21:51 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/16 14:13:51 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 
 /**
  * @brief Creates new vector (t_xyz) with input values x, y, and z
@@ -60,7 +60,8 @@ void	v_copyValues(t_xyz a, t_xyz *b)
 }
 
 /**
- * @brief Creates new vector (t_xyz), the sum of vector a and vector b
+ * @brief Creates new vector (t_xyz), 
+ * the sum of vector a and vector b
  * 
  * @param a (t_xyz)
  * @param b (t_xyz)
@@ -77,7 +78,8 @@ t_xyz	v_add(t_xyz a, t_xyz b)
 }
 
 /**
- * @brief Creates new vector (t_xyz), the result of vector a minus vector b
+ * @brief Creates new vector (t_xyz), 
+ * the result of vector a minus vector b
  * 
  * @param a (t_xyz)
  * @param b (t_xyz)
@@ -94,7 +96,8 @@ t_xyz	v_subtract(t_xyz a, t_xyz b)
 }
 
 /**
- * @brief Creates new vector (t_xyz), the result of vector a * scaler b
+ * @brief Creates new vector (t_xyz), 
+ * the result of vector a * scaler b
  * 
  * @param a (t_xyz)
  * @param b (float)
@@ -111,9 +114,29 @@ t_xyz	v_mulitply(t_xyz a, float b)
 }
 
 /**
+ * @brief Creates new vector (t_xyz), 
+ * the result of vector a / scaler b
+ * 
+ * @param a (t_xyz)
+ * @param b (float)
+ * @return t_xyz 
+ */
+t_xyz	v_devide(t_xyz a, float b)
+{
+	t_xyz	new;
+
+	new.x = a.x / b;
+	new.y = a.y / b;
+	new.z = a.z / b;
+	return (new);
+}
+
+/**
  * @brief Creates scalar number (float), dot product of vector a and vector b.
  * The dot product, also called scalar product, is a measure of how closely 
- * two vectors align, in terms of the directions they point.
+ * two vectors align, in terms of the directions they point. It is the projection
+ * of one vector onto another
+ * (A dot B)
  * @param a (t_xyz)
  * @param b (t_xyz)
  * @return float
@@ -128,7 +151,11 @@ float	v_dot(t_xyz a, t_xyz b)
 
 /**
  * @brief Creates new vector (t_xyz), cross product of vector a and vector b.
- * It results in a vector that is perpendicular to both vectors.
+ * It results in a vector that is perpendicular to the plane defined by a and b.
+ * The order of the parameters affects (negates) the resulting vector.
+ * Use hand to determine the orientation of resulting vector (c).
+ * Index finger = a, middle finger = b, thumb = c
+ * (A X B = C) (B X A = -C)
  * @param a (t_xyz)
  * @param b (t_xyz)
  * @return t_xyz 
@@ -142,16 +169,54 @@ t_xyz	v_cross(t_xyz a, t_xyz b)
 	new.z = a.x * b.y - b.x * a.y;
 	return (new);
 }
-
+/**
+ * @brief Calculates the length of a vector (|| V ||)
+ * Vector lenth is also called norm
+ * @param a 
+ * @return float 
+ */
 float	v_magnitude(t_xyz a)
 {
 	return (sqrt(pow(a.x, 2) + pow(a.y,2) + pow(a.z, 2)));
 }
 
-void	v_normalize(t_xyz *a)
+/**
+ * @brief returns a normalized version of the vector that it is called with
+ * by deviding all elements by the vector magnitude
+ * @param a (t_xyz) vector to normalize
+ */
+t_xyz	v_normalize(t_xyz a)
 {
-	float mag = v_magnitude(*a);
-	a->x /= mag;
-	a->y /= mag;
-	a->z /= mag;
+	t_xyz new;
+	float mag;
+	float magInv;
+	
+	mag = v_magnitude(a);
+	if (mag > 0)
+	{	
+		magInv = 1 / mag;
+		new = v_create(a.x *= magInv, a.y *= magInv, a.z *= magInv);
+		return new;
+	}
+	return v_copy(a);
+}
+
+/**
+ * @brief normalizes the vector that it is called with
+ * by deviding all elements by the vector magnitude
+ * @param a (t_xyz) vector to normalize
+ */
+void	v_normalizep(t_xyz *a)
+{
+	float mag;
+	float magInv;
+	
+	mag = v_magnitude(*a);
+	if (mag > 0)
+	{	
+		magInv = 1 / mag;
+		a->x *= magInv;
+		a->y *= magInv;
+		a->z *= magInv;
+	}
 }

@@ -6,11 +6,11 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/15 22:07:45 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/16 13:54:05 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 
 
 /**

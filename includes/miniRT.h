@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/15 22:10:52 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/16 14:00:12 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "errors.h"
 # include "parser.h"
 # include "vector.h"
+# include "matrix.h"
 # include "test.h"
 # include <stdbool.h>
 # include <stdlib.h>

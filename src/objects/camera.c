@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 11:23:58 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/15 21:14:41 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/16 13:05:20 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@
 void	cameraGeometry(t_camera *cam)
 {
 	cam->principal_axis = v_subtract(cam->look_at, cam->view_point);
-	v_normalize(&cam->principal_axis);
+	v_normalizep(&cam->principal_axis);
 	
 	cam->screenU = v_cross(cam->principal_axis, cam->orientation_v);
-	v_normalize(&cam->screenU);
+	v_normalizep(&cam->screenU);
 	cam->screenV = v_cross(cam->screenU, cam->principal_axis);
-	v_normalize(&cam->screenV);
+	v_normalizep(&cam->screenV);
 	
 	cam->screenCentre = v_add(cam->view_point, v_mulitply(cam->principal_axis, cam->plane_dist));
 
