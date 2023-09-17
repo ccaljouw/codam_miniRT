@@ -6,11 +6,11 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:32:58 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/17 00:08:27 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/17 18:06:33 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "matrix.h"
 
 /**
  * @brief	Initialize a 4x4 matrix as identity matrix
@@ -125,24 +125,4 @@ void	m44_print(t_m44 matrix)
 	ft_printf("\n");
 }
 
-/**
- * @brief	Multiply a point (3 dimension vector) by a 4x4 matrix
- * 
- * @param m the matrix
- * @param p the point
- */
-void	m44_multiply_vec3(t_m44 matrix, t_xyz *point)
-{
-	point->x = point->x * matrix.arr[0][0] \
-				+ point->y * matrix.arr[1][0] \
-				+ point->z * matrix.arr[2][0] \
-				+ matrix.arr[3][0];
-	point->y = point->x * matrix.arr[0][1] \
-				+ point->y * matrix.arr[1][1] \
-				+ point->z * matrix.arr[2][1] \
-				+ matrix.arr[3][1];
-	point->z = point->x * matrix.arr[0][2] \
-				+ point->y * matrix.arr[1][2] \
-				+ point->z * matrix.arr[2][2] + \
-				matrix.arr[3][2];
-}
+

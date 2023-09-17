@@ -6,14 +6,14 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:19:24 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/16 22:34:24 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/17 13:36:33 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TEST_H
 # define TEST_H
 
-#include "../includes/miniRT.h"
+#include "miniRT.h"
 #include <stdio.h>
 
 void	print_vector(t_xyz vector);

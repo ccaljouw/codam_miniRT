@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   types.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/16 14:05:29 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   types.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/17 23:09:12 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TYPES_H
 
 # include "vector.h"
+# include "matrix.h"
 
 /**
  * @brief Ambient lighting (id: "A")
@@ -47,6 +48,13 @@ typedef struct camera_s
 	t_xyz	screenU;
 	t_xyz	screenV;
 	t_xyz	screenCentre;
+	t_xyz	origin;
+	int		image_width;
+	int		image_height;
+	float	aspect_ratio;
+	float	fov_scale;
+	t_m44	cam2world;
+	// m44		
 }			t_camera;
 
 /**

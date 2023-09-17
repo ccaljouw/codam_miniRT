@@ -6,11 +6,12 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:38:15 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/17 00:09:12 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/17 15:42:59 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/test.h"
+// # include "../includes/miniRT.h"
 
 void leaks(void)
 {
@@ -22,6 +23,7 @@ int main(void)
 	int i;
 
 	// atexit(leaks);
+	
 	i = 1;
 	i += cameratest(i);
 
@@ -42,7 +44,7 @@ int main(void)
 	point = v_create(1.0, 2.0, 3.0);
 	m44_print(m44_dot_product(p_test, test));
 	print_vector(point);
-	m44_multiply_vec3(test, &point);
+	m44_multiply_vec3(test, point, &point);
 	print_vector(point);
 	m44_print(p_test);
 	m44_copy(test, &p_test);
@@ -62,5 +64,9 @@ int main(void)
 	m44_print(invert);
 	ft_printf("last invert\n");
 	m44_print(m44_dot_product(test, invert));
+	m44_print(test);
+	m44_rotate(&test, 10, 0 , 0);
+	m44_print(test);
 	return (0);
+	
 }

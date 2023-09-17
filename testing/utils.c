@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/14 14:03:11 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/15 10:42:16 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/14 14:03:11 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/09/17 15:19:08 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ void	print_camera(t_camera cam)
 	print_vector(cam.screenU);
 	printf("V\t\t:");
 	print_vector(cam.screenV);
+	printf("aspect\t\t:%f\n", cam.aspect_ratio);
+	printf("image_w\t\t:%i\n", cam.image_width);
+	printf("image_h\t\t:%i\n", cam.image_height);
 }
 
 void	print_vector(t_xyz vector)

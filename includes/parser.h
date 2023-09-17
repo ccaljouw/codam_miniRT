@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/17 00:08:16 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/17 22:51:53 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@
 #  define BUFFER_SIZE 81
 # endif
 
-# define WIDTH  512
-# define HEIGHT 512
+# define WIDTH  120
+# define HEIGHT 40
 
 typedef struct s_scene
 {
 	mlx_t		*mlx;
 	mlx_image_t	*image;
-	t_ambient	*ambient;
-	t_camera	*camera;
+	t_ambient	*ambient; // bij één ambient light kan dit op de stack?
+	t_camera	*camera; // bij éen camera kan dit op de stack?
 	t_light		*light;
 	// create linked list with objects in stead of seperate linked lists
 	// add types to type sturcts

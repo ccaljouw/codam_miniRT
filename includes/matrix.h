@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 22:32:55 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/17 00:07:23 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/17 18:07:32 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <stdlib.h>
 # include <math.h>
-# include "../../libs/libft/libft.h"
-# include "../../includes/miniRT.h"
+# include "libft.h"
+# include "vector.h"
 
 typedef struct s_m44
 {
@@ -29,7 +29,12 @@ t_m44	m44_init(void);
 void	m44_print(t_m44 matrix);
 void	m44_copy(t_m44	src, t_m44 *dst);
 t_m44	m44_dot_product(t_m44 m1, t_m44 m2);
-void	m44_multiply_vec3(t_m44 matrix, t_xyz *point);
+
+
+// MATRIX x VEC3 UTILS
+
+void	m44_multiply_vec3(t_m44 matrix, t_xyz src, t_xyz *dst);
+void	m44_multiply_vec3_dir(t_m44 matrix, t_xyz src, t_xyz *dst);
 
 // MATRIX TRANSFORMATIONS
 
