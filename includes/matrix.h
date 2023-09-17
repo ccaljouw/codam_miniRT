@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   matrix.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/15 22:32:55 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/17 00:07:23 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   matrix.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/15 22:32:55 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/09/17 12:14:43 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,9 @@
 
 # include <stdlib.h>
 # include <math.h>
+# include "types.h"
 # include "../../libs/libft/libft.h"
 # include "../../includes/miniRT.h"
-
-typedef struct s_m44
-{
-	float	arr[4][4];
-}	t_m44;
 
 // MATRIX UTILS
 

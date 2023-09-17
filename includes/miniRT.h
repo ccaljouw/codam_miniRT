@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/17 08:13:58 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/17 15:22:32 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include "libft.h"
 # include "errors.h"
+# include "types.h"
 # include "parser.h"
 # include "vector.h"
 # include "test.h"
@@ -71,20 +72,17 @@ void	swap(float *x1, float *x2);
 // main.c
 t_scene	*init_scene(char *file);
 
-// objects/general.c
-bool	generate_ray(t_camera *cam, float screen_x, float screen_y, t_ray *cameraRay);
-t_ray	ray(t_xyz p1, t_xyz p2);
-
 // objects/camera.c
-void	cameraGeometry(t_camera *cam);
-bool	close_points(float f1, float f2);
+t_ray	ray(t_xyz p1, t_xyz p2);
+t_ray	generate_ray(t_scene * scene, int x, int y);
+void	update_camera(t_scene *scene);
+
 
 
 // render.c
 void	render(t_scene *scene);
 
 // objects/sphere.c
-void	render_sphere(t_scene *scene, t_sphere *sphere);
-bool	test_spIntersection(t_ray castRay, int *localColor, t_sphere *sphere, float *intPoint);
+bool	test_spIntersection(t_ray castRay, t_sphere *sphere, float *intPoint);
 
 #endif

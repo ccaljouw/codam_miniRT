@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 14:03:11 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/15 10:42:16 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/17 18:01:30 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,28 @@
 
 void	print_camera(t_camera cam)
 {
-	printf("cam height\t:%f\n", cam.c_height);
-	printf("cam width\t:%f\n", cam.c_width);
-	printf("viewpoint\t:");
-	print_vector(cam.view_point);
-	printf("Orientation\t:");
-	print_vector(cam.orientation_v);
-	printf("lookA\t\t:");
-	print_vector(cam.look_at);
-	printf("Principal axis\t:");
-	print_vector(cam.principal_axis);
-	printf("center\t\t:");
-	print_vector(cam.screenCentre);
-	printf("U\t\t:");
-	print_vector(cam.screenU);
-	printf("V\t\t:");
-	print_vector(cam.screenV);
+	printf("fov\t\tH:%.3f, V:%.3f\n", cam.fov[0], cam.fov[1]);
+	printf("image size\twidth:%.3d, height:%.3d\n", cam.image_size[0], cam.image_size[1]);
+	printf("canvas_window\tl:%.3f, r:%.3f,t:%.3f, b:%.3f\n", \
+	cam.canvas_window.left, cam.canvas_window.right, \
+	cam.canvas_window.top, cam.canvas_window.bottom);
+	printf("image ratio\t%.3f\n", cam.image_ratio);
+	printf("canvas ratio\t%.3f\n", cam.canvas_ratio);
+	printf("clipping range\t%.3f to %.3f\n", cam.clipping[0], cam.clipping[1]);
+	printf("viewpoint\t");
+	print_vector(cam.pOrigin);
+	printf("Up\t\t");
+	print_vector(cam.vUp);
+	printf("Direction\t");
+	print_vector(cam.vDirection);
+	printf("Canvas center\t");
+	print_vector(cam.pCanvas_centre);
+	printf("Canvas U\t");
+	print_vector(cam.vCanvasU);
+	printf("Canvas V\t");
+	print_vector(cam.vCanvasV);
+	// printf("camera to world matrix\n:");
+	// m44_print(cam.camera_to_world);
 }
 
 void	print_vector(t_xyz vector)

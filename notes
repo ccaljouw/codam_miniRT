@@ -32,11 +32,29 @@ We use a right-hand coordinate system??? With up vector being y?
 
 norm: a function that assigns a length or size (or distance) to a vector.
 
-Coordinate systems:
-World (main coordinate system)
-Object
-Local
-Camera
-ScreenCoordinate
+Camera:
+aperture: pinhole
+canvas: back face of the camera on which the image is projected
+focal length: distance between pinhole and image plane
+		> smaller fov (zoom in)
+		< wider fov (zoom out)
+apex : Having selected one side of a triangle to be the base (image plane), 
+	   the opposite vertex (point in of the triangle) to that base is called the apex
+fov: angle of the apex. The field of view can be defined as the angle of the triangle 
+	in the horizontal or vertical plane of the camera. The horizontal field of view 
+	varies with the width of the image plane, and the vertical field of view varies 
+	with the height of the image plane.
+Image aspect ratio = width / height
+Near and far clipping plane: Objects closer than the near-clipping
+	plane and farther than the far-clipping plane are invisible to 
+	the camera. (needed for rasterization to work)
+Viewing frustum: the space between the near an far clipping planes
+Point of convergence: camera origin
+
+Each pixel in an imag corresponds to a singular light ray R with a ginven direction D and a given origin O.  
+
+
+
+
 
 

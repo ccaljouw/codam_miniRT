@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/17 07:20:29 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/17 12:50:02 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,12 @@ t_scene	*init_scene(char *file)
 	ft_putendl_fd("\033[32;1m\nScene set up\n\033[0m", 2);
 	return (scene);
 }
- 
+
+/**
+ * @brief checks window size against image size and resizes image when window size has changed
+ * 
+ * @param param (t_scene *) scene
+ */
 void	resize(void	*param)
 {
 	t_scene *scene;
@@ -92,7 +97,6 @@ int	main(int argc, char **argv)
 	if (!scene->mlx)
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
 	scene->image = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
-	render(scene);
 	if (!scene->image)
 	{
 		mlx_close_window(scene->mlx);
@@ -103,6 +107,7 @@ int	main(int argc, char **argv)
 		mlx_close_window(scene->mlx);
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
 	}
+	render(scene);
 	mlx_loop_hook(scene->mlx, resize, scene);
 	mlx_loop(scene->mlx);
 	mlx_terminate(scene->mlx);

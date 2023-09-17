@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/16 21:16:35 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/17 18:41:15 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,6 @@ void	init_sphere(char **param, t_scene *scene)
 		exit_error(ERROR_MEM, NULL, scene);
 	new_sphere->pC = set_xyz(param[1], scene);
 	new_sphere->diameter = to_float(param[2], scene);
-	new_sphere->radius = new_sphere->diameter / 2;
-	new_sphere->maxHit = EPSILON;
-	new_sphere->minHit = INFINITY;
 	set_rgb(param[3], new_sphere->rgb, scene);
 	new_node->content = (void *)new_sphere;
 	ft_lstadd_back(&scene->spheres, new_node);

@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/16 21:17:35 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/17 18:41:46 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ bool	sphere0(t_t *t, t_xyz vL, t_xyz vD, t_sphere *sphere)
 		return false;
 	
 	d2 = v_dot(vL, vL) - (t_ca * t_ca);
-	if (d2 > pow(sphere->radius, 2))
+	if (d2 > pow(sphere->diameter / 2, 2))
 		return false;
 	
-	t_hc = sqrt(pow(sphere->radius, 2) - d2);
+	t_hc = sqrt(pow(sphere->diameter / 2, 2) - d2);
 	t->t0 = t_ca - t_hc;
 	t->t1 = t_ca + t_hc;
 	if (t->t0 > t->t1)
@@ -88,7 +88,7 @@ bool	sphereOffCentre(t_t *t, t_ray castRay, t_sphere *sphere, t_xyz nD)
 	return true;
 }
 
-bool	test_spIntersection(t_ray castRay, int *localColor, t_sphere *sphere, float *intPoint)
+bool	test_spIntersection(t_ray castRay, t_sphere *sphere, float *intPoint)
 {
 	t_xyz 	vL;
 	t_xyz 	nD;
@@ -109,11 +109,6 @@ bool	test_spIntersection(t_ray castRay, int *localColor, t_sphere *sphere, float
 			return false;
 	}
 	*intPoint = t.t0;
-	if (t.t0 > sphere->maxHit)
-		sphere->maxHit = t.t0;
-	if (t.t0 < sphere->minHit)
-		sphere->minHit = t.t0;
-	*localColor = (sphere->rgb[0] << 24 | sphere->rgb[1] << 16 | sphere->rgb[2] << 8 | 255);
 	return true;
 }
 
