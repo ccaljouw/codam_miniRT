@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/16 16:56:05 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/17 17:56:15 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/17 19:33:28 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,24 @@
 
 void	*trace(t_ray cameraRay, t_rederInfo *rData, t_scene *scene)
 {
-	float 	t;
-	t_list	*temp;
+	static f_testHit	*testHit[1]	= {testHitSP}; //testHitPL, testHitCY
+	float 				t;
+	t_list				*temp;
+	t_object			*object;
 	
 	t = INFINITY;
 	rData->tNear = INFINITY;
 	rData->hitObject = NULL;
-	temp = scene->spheres;
+	temp = scene->objects;
 	
 	while (temp)
 	{
-		if (test_spIntersection(cameraRay, temp->content, &t))
+		object = (t_object *)temp->content;
+		if (testHit[object->id](cameraRay, object, &t))
 		{
 			if (t < rData->tNear)
 			{
-				rData->hitObject = (t_sphere *)temp->content;
+				rData->hitObject = object;
 				rData->tNear = t;
 			}
 		}
@@ -40,14 +43,13 @@ void	*trace(t_ray cameraRay, t_rederInfo *rData, t_scene *scene)
 uint32_t	getColor(t_rederInfo rData, t_scene *scene)
 {
 	uint32_t	color;
-	t_sphere	*sphere;
+	t_object	*object;
 
-	sphere = (t_sphere *)rData.hitObject;
-	if (!sphere)
+	object = (t_object *)rData.hitObject;
+	if (!object)
 		return(0 << 24 | 0 << 16 | 0 << 8 | 255);
-	color = (sphere->rgb[0] << 24 | sphere->rgb[1] << 16 | sphere->rgb[2] << 8 | (uint32_t)(255 * scene->ambient->ratio));
-	// (void)scene;
-	// color = (sphere->rgb[0] << 24 | sphere->rgb[1] << 16 | sphere->rgb[2] << 8 | 255);
+	color = (object->rgb[0] << 24 | object->rgb[1] << 16 | object->rgb[2] << 8 \
+		| (uint32_t)(255 * scene->ambient->ratio));
 	return (color);
 }
 

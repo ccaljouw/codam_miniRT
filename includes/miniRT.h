@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/17 15:22:32 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/17 19:31:49 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <stdio.h> //remove
 
 # define EPSILON exp(-21)
+
 
 /**
  * @brief ray struct that contains:
@@ -62,8 +63,11 @@ typedef struct s_renderInfo
 {
 	// enum		type;
 	float		tNear;
-	t_sphere 	*hitObject;
+	t_object 	*hitObject;
 }				t_rederInfo;
+
+// fuction pointer for intersection test functions of different objects
+typedef bool f_testHit(t_ray cameraRay, t_object *object, float *t);
 
 //utils.c
 void	exit_error(char *error_msg, char *optional_str, t_scene *data);
@@ -82,7 +86,9 @@ void	update_camera(t_scene *scene);
 // render.c
 void	render(t_scene *scene);
 
-// objects/sphere.c
-bool	test_spIntersection(t_ray castRay, t_sphere *sphere, float *intPoint);
+// objects
+bool	testHitSP(t_ray castRay, t_object *sphere, float *intPoint);
+// bool	testHitPL(t_ray castRay, t_object *plane, float *intPoint);
+// bool	testHitCY(t_ray castRay, t_object *cylinder, float *intPoint);
 
 #endif
