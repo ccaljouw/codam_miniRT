@@ -6,14 +6,14 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/16 19:26:04 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/17 08:06:20 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "MLX42.h"
+# include "../libs/MLX42/include/MLX42/MLX42.h"
 # include "libft.h"
 # include "errors.h"
 # include "parser.h"

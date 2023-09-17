@@ -1,0 +1,42 @@
+Sphere calculations:
+
+(x - a)² + (y - b)² + (z - c)² = r²
+D = normalized oriation vector of the camera
+a = D^2 (= 1)
+b = 2D(O - C)
+c = |O - C|^2 - R2
+discr = b * b - 4 * a * c;
+
+
+Geometry:
+
+Point: xyz coordinate
+Homogeneous points: points represented bu 4 numbers
+Vector: direction represented bij xyz
+Normal: vector perpendicular to the plane tangent P 
+		(normals can not be transformed in the same way als vectors)
+Unit vectors: a vector with unit length (length 1)
+
+Magnitude or Norm: length of a vector
+
+Translation: moving a point around in space 
+			by adding values to the points coordinates 			(P -> Translate -> PT)
+Scaling: moving a point by multiplying the points coordinates	(P -> Scale ->PS)
+Rotation: rotation of a vector 									(V -> Rotate -> VT)
+Normalization: set vector length to 1 							(V-> Normalize ->VN)
+
+Euclidean space: 3D coordinate system where x->axis points to the right, y-axis points up 
+	in right-hand system z-axis point backward
+	in left-hand system z-axis points forward
+We use a right-hand coordinate system??? With up vector being y?
+
+norm: a function that assigns a length or size (or distance) to a vector.
+
+Coordinate systems:
+World (main coordinate system)
+Object
+Local
+Camera
+ScreenCoordinate
+
+

@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/16 20:24:11 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/16 21:17:35 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ bool	sphereOffCentre(t_t *t, t_ray castRay, t_sphere *sphere, t_xyz nD)
 	
 	a = v_dot(castRay.p1_p2, castRay.p1_p2);
 	b = v_dot(v_subtract(castRay.p1, sphere->pC), v_mulitply(nD, 2.0));
-	c = v_dot(v_subtract(castRay.p1, sphere->pC), v_subtract(castRay.p1, sphere->pC)) - pow(sphere->radius, 2);
+	c = v_dot(v_subtract(castRay.p1, sphere->pC), v_subtract(castRay.p1, sphere->pC)) - pow(sphere->diameter/2, 2);
 	if (!solveQuadratic(a, b, c, t))
 		return false;
 	if (t->t0 > t->t1)
@@ -109,6 +109,10 @@ bool	test_spIntersection(t_ray castRay, int *localColor, t_sphere *sphere, float
 			return false;
 	}
 	*intPoint = t.t0;
+	if (t.t0 > sphere->maxHit)
+		sphere->maxHit = t.t0;
+	if (t.t0 < sphere->minHit)
+		sphere->minHit = t.t0;
 	*localColor = (sphere->rgb[0] << 24 | sphere->rgb[1] << 16 | sphere->rgb[2] << 8 | 255);
 	return true;
 }

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/16 16:53:20 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/16 23:02:29 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct light_s
 {
 	t_xyz		light_point;
 	float		brightness;
-	uint32_t	rgb[3];	
+	uint32_t	rgb[3];
 }				t_light;
 
 /**
@@ -74,6 +74,8 @@ typedef struct s_sphere
 	t_xyz		pC;
 	float		diameter;
 	float		radius;
+	float		maxHit;
+	float		minHit;
 	uint32_t	rgb[3];
 }			t_sphere;
 

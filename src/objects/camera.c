@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 11:23:58 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/16 16:44:05 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/16 20:52:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	init_camera(char **param, t_scene *scene)
 		exit_error("incorrect fov", NULL, scene);
 	scene->camera->look_at = v_create(0.0, 0.0, 0.0);
 	scene->camera->plane_dist = 1; //change?
-	scene->camera->c_width = 1; //change?
-	scene->camera->c_height = 1; //change?
+	scene->camera->c_width = .25; //change?
+	scene->camera->c_height = .25; //change?
 	cameraGeometry(scene->camera);
 	// print_camera(*(scene->camera)); //testing
 	ft_putstr_fd("\033[34;1mCamera config:\t\t  \033[0m", 1);

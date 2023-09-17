@@ -1,1 +1,3 @@
 *.0
+./libs
+*/.DS_Store
