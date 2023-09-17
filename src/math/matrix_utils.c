@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:32:58 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/16 15:23:04 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/17 00:08:27 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * @brief	Initialize a 4x4 matrix as identity matrix
  * 			(so all pivots are set to 1, the rest to 0)
  * 
- * @return float** 
+ * @return	t_m44
  */
 t_m44	m44_init(void)
 {
@@ -42,27 +42,11 @@ t_m44	m44_init(void)
 	return (res);
 }
 
-// /**
-//  * @brief Free a 4x4 matrix
-//  * 
-//  * @param matrix 
-//  */
-// void	m44_free(float **matrix)
-// {
-// 	int	rows;
-
-// 	rows = 0;
-// 	while (matrix[rows] && rows < 4)
-// 		free(matrix[rows++]);
-// 	free (matrix);
-// 	matrix = NULL;
-// }
-
 /**
- * @brief	Copies a 4*4 matrix.
+ * @brief	Copies src 4x4 matrix to 4x4 matrix pointed to by dest
  * 
- * @param matrix 
- * @return float** 
+ * @param src 
+ * @param dst 
  */
 void	m44_copy(t_m44	src, t_m44 *dst)
 {
@@ -84,17 +68,11 @@ void	m44_copy(t_m44	src, t_m44 *dst)
 }
 
 /**
- * @brief	Returns dot product of two matrices. Set free_m1 to 1
- * 			to free the first input matrix, so you can write
- * 
- * 			m1 = m44_dot_product(m1, m2, 1);
- * 
- * 			without leaking memory.
+ * @brief Returns dot product of two 4x4 matrices
  * 
  * @param m1 
  * @param m2 
- * @param free_m1 
- * @return float** 
+ * @return t_m44 
  */
 t_m44	m44_dot_product(t_m44 m1, t_m44 m2)
 {
@@ -120,27 +98,6 @@ t_m44	m44_dot_product(t_m44 m1, t_m44 m2)
 	}
 	return (product);
 }
-
-// void	m44_to_identity_matrix(float **matrix)
-// {
-// 	int	rows;
-// 	int	cols;
-
-// 	rows = 0;
-// 	while (rows < 4)
-// 	{
-// 		cols = 0;
-// 		while (cols < 4)
-// 		{
-// 			if (rows == cols)
-// 				matrix[rows][cols] = 1;
-// 			else
-// 				matrix[rows][cols] = 0;
-// 			cols++;
-// 		}
-// 		rows++;
-// 	}
-// }
 
 /**
  * @brief	Print a 4x4 matrix
@@ -189,30 +146,3 @@ void	m44_multiply_vec3(t_m44 matrix, t_xyz *point)
 				+ point->z * matrix.arr[2][2] + \
 				matrix.arr[3][2];
 }
-
-
-// int	m44_is_identity_matrix(float **matrix)
-// {
-// 	int	rows;
-// 	int	cols;
-
-// 	rows = 0;
-// 	while (rows < 4)
-// 	{
-// 		cols = 0;
-// 		while (cols < 4)
-// 		{
-// 			if (rows == cols)
-// 			{
-// 				if (matrix[rows][cols] != 1)
-// 					return (0);
-// 			}
-// 			else
-// 				if (matrix[rows][cols] != 0)
-// 					return (0);
-// 			cols++;
-// 		}
-// 		rows++;
-// 	}
-// 	return (1);
-// }
