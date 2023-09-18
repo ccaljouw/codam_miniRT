@@ -6,14 +6,14 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/18 23:12:52 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/18 23:22:47 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "../libs/MLX42/include/MLX42/MLX42.h"
+# include "../libs/mlx42/include/MLX42/MLX42.h"
 # include "libft.h"
 # include "errors.h"
 # include "types.h"
@@ -21,6 +21,9 @@
 # include "test.h"
 # include <stdbool.h>
 # include <stdlib.h>
+# include <math.h>
+# include "vector.h"
+# include "matrix.h"
 
 
 # include <stdio.h> //remove

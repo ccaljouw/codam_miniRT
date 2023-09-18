@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/18 23:15:01 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/18 23:39:13 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	get_parabolic_hitpoints(t_xyz abc, float *hp1, float *hp2)
  * @param hit_dist 
  * @return int 
  */
-int	test_sphere(t_px ray, t_sphere sphere, float *hit_dist)
+int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
 {
 	float	hit_dist1;
 	float	hit_dist2;
@@ -137,7 +137,7 @@ int	test_sphere(t_px ray, t_sphere sphere, float *hit_dist)
 
 	hit_dist1 = 0;
 	hit_dist2 = 0;
-	orig_to_center = v_subtract(ray.cam_origin, sphere.pC);
+	orig_to_center = v_subtract(ray.cam_origin, sphere.pOrigin);
 	abc.x = v_dot(ray.direction, ray.direction);
 	abc.y = 2 * v_dot(ray.direction, orig_to_center);
 	abc.z = v_dot(orig_to_center, orig_to_center) - sphere.diameter;
@@ -166,14 +166,14 @@ int	test_sphere(t_px ray, t_sphere sphere, float *hit_dist)
  * @param px 
  * @return float 
  */
-float	get_sphere_surface_data(float hp_distance, t_sphere *sph, t_px *px)
+float	get_sphere_surface_data(float hp_distance, t_object *sph, t_px *px)
 {
 	t_xyz		surface_normal_at_hitpoint;
 	t_xyz		hitpoint;
 	float		facing_ratio;
 
 	hitpoint = v_add(px->cam_origin, v_mulitply(px->direction, hp_distance));
-	surface_normal_at_hitpoint = v_subtract(sph->pC, hitpoint);
+	surface_normal_at_hitpoint = v_subtract(sph->pOrigin, hitpoint);
 	v_normalizep(&surface_normal_at_hitpoint);
 	facing_ratio = v_dot(surface_normal_at_hitpoint, px->direction);
 	return (facing_ratio);
@@ -209,6 +209,7 @@ void	trace_ray(t_px *px, t_scene *s, int x, int y)
 {
 	float	hp_distance;
 	float	facing_ratio;
+	t_list	*objects;
 
 	px->cam_origin = s->camera->origin;
 	px->screen_x = x;
@@ -221,14 +222,23 @@ void	trace_ray(t_px *px, t_scene *s, int x, int y)
 	m44_multiply_vec3_dir(s->camera->cam2world, px->cam_v3, \
 											&px->direction);
 	v_normalizep(&px->direction);
-	if (test_sphere(*px, *((t_sphere *)s->spheres->content), &hp_distance))
+	objects = s->objects;
+	while (objects)
 	{
-		facing_ratio = get_sphere_surface_data(hp_distance, \
-									(t_sphere *)s->spheres->content, px);
-		ft_printf("\e[48;5;%im \e[0m", (int)(232 + facing_ratio * 23));
+		if (((t_object *)objects->content)->id == SP)
+		{
+			if (test_sphere(*px, *((t_object *)objects->content), &hp_distance))
+			{
+				facing_ratio = get_sphere_surface_data(hp_distance, \
+											(t_object *)objects->content, px);
+				ft_printf("\e[48;5;%im \e[0m", (int)(232 + facing_ratio * 23));
+			}
+			else
+				ft_printf("\e[48;5;232m \e[0m");
+		}
+		objects = objects->next;
 	}
-	else
-		ft_printf("\e[48;5;232m \e[0m");
+
 }
 
 /**

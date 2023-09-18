@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   render.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/16 16:56:05 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/17 19:33:28 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/16 16:56:05 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/09/18 23:31:31 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,34 +53,34 @@ uint32_t	getColor(t_rederInfo rData, t_scene *scene)
 	return (color);
 }
 
-void	render(t_scene *scene)
-{
-	t_rederInfo	*rData;
-	uint32_t	x;
-	uint32_t	y;
-	t_ray		cameraRay;
+// void	render(t_scene *scene)
+// {
+// 	t_rederInfo	*rData;
+// 	uint32_t	x;
+// 	uint32_t	y;
+// 	t_ray		cameraRay;
 
-	x = 0;
-	y = 0;
-	update_camera(scene);
-	print_camera(*(scene->camera));
-	rData = malloc(sizeof(rData));
-	if (!rData)
-		exit_error(ERROR_MEM, NULL, scene);
-	while (x < scene->image->width)
-	{
-		while (y < scene->image->height)
-		{
-			cameraRay = generate_ray(scene, x, y);
-			rData->hitObject = trace(cameraRay, rData, scene);
-			// if (rData->hitObject && (cameraRay.p2.x < scene->camera->canvas_window.left || cameraRay.p2.x > scene->camera->canvas_window.right \
-			// 	|| cameraRay.p2.y < scene->camera->canvas_window.bottom || cameraRay.p2.y > scene->camera->canvas_window.top))
-			// 	printf("outside canvas\n");
-			mlx_put_pixel(scene->image, x, y, getColor(*rData, scene));
-			y++;
-		}
-		x++;
-		y = 0;
-	}
-}
+// 	x = 0;
+// 	y = 0;
+// 	update_camera(scene);
+// 	print_camera(*(scene->camera));
+// 	rData = malloc(sizeof(rData));
+// 	if (!rData)
+// 		exit_error(ERROR_MEM, NULL, scene);
+// 	while (x < scene->image->width)
+// 	{
+// 		while (y < scene->image->height)
+// 		{
+// 			cameraRay = generate_ray(scene, x, y);
+// 			rData->hitObject = trace(cameraRay, rData, scene);
+// 			// if (rData->hitObject && (cameraRay.p2.x < scene->camera->canvas_window.left || cameraRay.p2.x > scene->camera->canvas_window.right \
+// 			// 	|| cameraRay.p2.y < scene->camera->canvas_window.bottom || cameraRay.p2.y > scene->camera->canvas_window.top))
+// 			// 	printf("outside canvas\n");
+// 			mlx_put_pixel(scene->image, x, y, getColor(*rData, scene));
+// 			y++;
+// 		}
+// 		x++;
+// 		y = 0;
+// 	}
+// }
 
