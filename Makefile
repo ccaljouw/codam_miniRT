@@ -74,7 +74,6 @@ fclean: clean
 	@rm -f $(NAME)
 	@rm -f ./test
 	@$(MAKE) -C $(LIBFT) fclean
-	@$(MAKE) -C $(LIBMLX) fclean
 
 re: 
 	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/17 22:51:53 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/18 13:31:57 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #  define BUFFER_SIZE 81
 # endif
 
-# define WIDTH  120
-# define HEIGHT 40
+# define WIDTH  100
+# define HEIGHT 60
 
 typedef struct s_scene
 {

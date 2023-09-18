@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/17 23:09:12 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/18 19:48:41 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ typedef struct ambient_s
  */
 typedef struct camera_s
 {
-	t_xyz	view_point;
-	t_xyz	orientation_v;
-	int		fov;
+	t_xyz	view_point;		//used by albert
+	t_xyz	orientation_v;	//used by albert
+	int		fov;			//used by albert
 	t_xyz	look_at;
 	float	plane_dist;
 	float	c_width;
@@ -48,13 +48,13 @@ typedef struct camera_s
 	t_xyz	screenU;
 	t_xyz	screenV;
 	t_xyz	screenCentre;
+// stuff added by albert
 	t_xyz	origin;
 	int		image_width;
 	int		image_height;
 	float	aspect_ratio;
 	float	fov_scale;
 	t_m44	cam2world;
-	// m44		
 }			t_camera;
 
 /**
