@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   camera.c                                           :+:    :+:            */
+/*   camera2.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
@@ -13,17 +13,17 @@
 # include "../includes/test.h"
 # include "../includes/miniRT.h"
 
-int	cameratest(int testnr)
+int	camera2test(int testnr)
 {
-	t_camera	*cam;
+	t_camera2	*cam;
 	t_scene		*scene;
 	int			test;
 	
 	test = testnr;
 	printf("\033[34;1m--------------------\033[0m\n");
-	printf("\033[34;1m    CAMERA TESTS\033[0m\n");
+	printf("\033[34;1m    camera2 TESTS\033[0m\n");
 	printf("\033[34;1m--------------------\033[0m\n");
-	cam = malloc(sizeof(t_camera));
+	cam = malloc(sizeof(t_camera2));
 	if (!cam)
 		exit_error(ERROR_MEM, NULL, NULL);
 	scene = malloc(sizeof(t_scene));
@@ -43,15 +43,14 @@ int	cameratest(int testnr)
 		mlx_close_window(scene->mlx);
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
 	}
-	scene->camera = cam;
-	cam->vUp = v_create(0,1,0);
+	scene->camera2 = cam;
 	// 
 	cam->pOrigin = v_create(0.0, 0.0, 0.0);
 	cam->vDirection = v_create(0.0, 0.0, 1.0);
 	cam->fov[0] = 170;
 	cam->fov[1] = cam->fov[0]; //change
-	update_camera(scene);
-	print_camera(*cam);
+	update_camera2(scene);
+	print_camera2(*cam);
 	compare(vtostr(cam->pCanvas_centre), "0.000,1.000,0.000", test++);
 	compare(vtostr(cam->vCanvasU), "1.000,0.000,0.000", test++);
 	compare(vtostr(cam->vCanvasV), "0.000,0.000,1.000", test++);

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/17 19:22:15 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/18 22:42:02 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,6 @@ typedef struct xyz_s
 	float	y;
 	float	z;
 }			t_xyz;
-
-/**
- * @brief struct containing boundry values of a rectangle
- * @param	top
- * @param	rigth
- * @param	bottom;
- * @param	left;
- */
-typedef struct s_window
-{
-	float	top;
-	float	right;
-	float	bottom;
-	float	left;
-}			t_window;
 
 /**
  * @brief 	object struct containing parameters for each object type
@@ -93,7 +78,7 @@ typedef struct ambient_s
  * @param	fov[2]	(float) Horizontal and vertical field of view in degrees in range [0,180]
  * @param	principal_axis (t_xyz) vector from camera positon to lookAt position
  */
-typedef struct camera_s
+typedef struct camera2_s
 {
 	float		fov[2];
 	float		focal_length;
@@ -101,19 +86,17 @@ typedef struct camera_s
 	float		clipping[2];
 	int			image_size[2];
 	float		image_ratio;
-	t_window	canvas_window;
 	float		canvas_ratio;
 	t_xyz		pOrigin;
 	t_xyz		vDirection;
 	t_m44		camera_to_world;
 	// can be replaced by matrix?
 	//-----------------------------
-	t_xyz		vUp;
 	t_xyz		vCanvasU;
 	t_xyz		vCanvasV;
 	t_xyz		pCanvas_centre;
 	//-----------------------------
-}				t_camera;
+}				t_camera2;
 
 /**
  * @brief Light (id: "L")

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/16 19:47:29 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/18 22:43:52 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	parse_type(char *line, t_scene *scene)
 	int			i;
 	char		**param;
 	static char	*type[6] = {"A", "C", "L", "sp", "pl", "cy"};
-	static t_f	*parse[6] = {init_ambient, init_camera, init_light, \
+	static t_f	*parse[6] = {init_ambient, init_camera2, init_light, \
 							init_sphere, init_plane, init_cylinder};
 
 	i = 0;

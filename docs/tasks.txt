@@ -2,7 +2,7 @@ TE DOEN
 
 - MiniLibX werkend op mac en linux in cmake/makefile 
 - handleiding voor Albert voor git mergen (OPTIONAL) --Carien
-- parser naar list of structs --Carien
+- parser checken op waarden en lege regels
 - tracer (eerst maar eens een plane?)
 
 LATER DOEN
