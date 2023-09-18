@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/18 21:21:22 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/18 23:15:01 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,17 @@ t_scene	*init_scene(char *file)
 	{
 		line = get_next_line(fd);
 		if (line) // close fd if error in line
+		{
+			if (line[ft_strlen(line) - 1] == '\n')
+				line[ft_strlen(line) - 1] = '\0';
 			parse_type(line, scene);
+		}
 		else // what if error in gnl?
 			break ;
 	}
 	close(fd);
-	// if (!scene->ambient || !scene->camera)
-	// 	exit_error(ERROR_SCENE, "not all required elements provided", scene);
+	if (!scene->ambient || !scene->camera)
+		exit_error(ERROR_SCENE, "not all required elements provided", scene);
 	ft_putendl_fd("\033[32;1m\nScene set up\n\033[0m", 2);
 	return (scene);
 }

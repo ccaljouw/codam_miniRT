@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 22:32:55 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/18 21:15:08 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/18 23:12:01 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,9 @@
 
 # include <stdlib.h>
 # include <math.h>
-# include "libft.h"
-# include "vector.h"
-
-typedef struct s_m44
-{
-	float	arr[4][4];
-}	t_m44;
+# include "types.h"
+# include "../../libs/libft/libft.h"
+# include "../../includes/miniRT.h"
 
 // MATRIX UTILS
 

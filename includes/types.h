@@ -6,15 +6,73 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/18 19:48:41 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/18 23:13:20 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
 # define TYPES_H
 
-# include "vector.h"
-# include "matrix.h"
+typedef	enum	e_type
+{
+	SP = 0,
+	PL,
+	CY
+}	t_type;
+
+typedef struct s_m44
+{
+	float	arr[4][4];
+}	t_m44;
+
+/**
+ * @brief struct with points x, y and z. Can be used to represent 
+ * either a point(p), vector(v) or normal(n)
+ */
+typedef struct xyz_s
+{
+	float	x;
+	float	y;
+	float	z;
+}			t_xyz;
+
+/**
+ * @brief struct containing boundry values of a rectangle
+ * @param	top
+ * @param	rigth
+ * @param	bottom;
+ * @param	left;
+ */
+typedef struct s_window
+{
+	float	top;
+	float	right;
+	float	bottom;
+	float	left;
+}			t_window;
+
+/**
+ * @brief 	object struct containing parameters for each object type
+ * 
+ * @param	id (t_type) SP: sphere, PL: plane, CY: cylinder
+ * @param	pOrigin (t_xyz) x,y,z coordinates of the object origin
+ * @param	diameter (float) the diameter (of sphere or cylinder)
+ * @param	rgb	(uint32_t[3]) R,G,B colors in range [0-255]
+ * @param	vNormal (t_xyz) 33d normalized normal vector (of plane). 
+ * @param	vAxis (t_xyz) 3d normalized vector of axis of cylinder. 
+ * 			In range [-1,1] for each x,y,z axis
+ * @param	height (float) the cylinder height
+ */
+typedef struct s_object
+{
+	t_type		id;
+	t_xyz		pOrigin;
+	float		diameter;
+	uint32_t	rgb[3];
+	t_xyz		vNormal;
+	t_xyz		vAxis;
+	float		height;
+}				t_object;
 
 /**
  * @brief Ambient lighting (id: "A")
@@ -32,7 +90,7 @@ typedef struct ambient_s
  * @param	view_point (t_xyz) x,y,z coordinates of the camera's origing
  * @param	orientation_v (t_xyz) 3d normalized orientation vector. 
  * In range [-1,1] for each x,y,z axis
- * @param	fov	(int) Horizontal field of view in degrees in range [0,180]
+ * @param	fov[2]	(float) Horizontal and vertical field of view in degrees in range [0,180]
  * @param	principal_axis (t_xyz) vector from camera positon to lookAt position
  */
 typedef struct camera_s
@@ -68,54 +126,7 @@ typedef struct light_s
 {
 	t_xyz		light_point;
 	float		brightness;
-	uint32_t	rgb[3];	
+	uint32_t	rgb[3];
 }				t_light;
-
-/**
- * @brief Sphere (id: "sp")
- * @param	pC (t_xyz) x,y,z coordinates of the sphere center
- * @param	diameter (float) the sphere diameter
- * @param	rgb	(uint32_t[3]) R,G,B colors in range [0-255]
- */
-typedef struct s_sphere
-{
-	t_xyz		pC;
-	float		diameter;
-	float		radius;
-	uint32_t	rgb[3];
-}			t_sphere;
-
-/**
- * @brief Plane (id: "pl")
- * @param	point (t_xyz) x,y,z coordinates of a point in the plane
- * @param	normal_v (t_xyz) 33d normalized normal vector. 
- * 					In range [-1,1] for each x,y,z axis:
- * @param	rgb	(uint32_t[3]) R,G,B colors in range [0-255]
- */
-typedef struct s_plane
-{
-	t_xyz		point;
-	t_xyz		normal_v;
-	uint32_t	rgb[3];
-}				t_plane;
-
-/**
- * @brief Cylinder (id: " cy")
- * @param	center (t_xyz) x,y,z coordinates of the center of the cylinder
- * @param	axis_v (t_xyz) 3d normalized vector of axis of cylinder. 
- * 					In range [-1,1] for each x,y,z axis
- * @param	diameter (float) the cylinder diameter
- * @param	height (float) the cylinder height
- * @param	rgb (uint32_t[3]) R,G,B colors in range [0-255]
- */
-typedef struct s_cylinder
-{
-	t_xyz		center;
-	t_xyz		axis_v;
-	float		diameter;
-	float		height;
-	uint32_t	rgb[3];
-}				t_cylinder;
-
 
 #endif

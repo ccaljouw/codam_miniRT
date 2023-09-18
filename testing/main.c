@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:38:15 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/17 15:42:59 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/18 23:16:37 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int main(void)
 	i = 1;
 	i += cameratest(i);
 
-	t_m44	test;
-	t_m44	p_test;
-	t_m44	invert;
-	t_xyz	point;
+	// t_m44	test;
+	// t_m44	p_test;
+	// t_m44	invert;
+	// t_xyz	point;
 
 	test = m44_init();
 	m44_copy(test, &p_test);

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/17 17:41:37 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/18 23:13:41 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	parse_type(char *line, t_scene *scene)
 		if (!ft_strcmp(type[i], param[0]))
 		{
 			parse[i](param, scene);
-			ft_putstr_fd(line, 1);
+			ft_putendl_fd(line, 1);
 			break ;
 		}
 		i++;

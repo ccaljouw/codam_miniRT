@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/18 13:31:57 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/18 23:13:05 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,7 @@ typedef struct s_scene
 	t_ambient	*ambient; // bij één ambient light kan dit op de stack?
 	t_camera	*camera; // bij éen camera kan dit op de stack?
 	t_light		*light;
-	// create linked list with objects in stead of seperate linked lists
-	// add types to type sturcts
-	t_list		*spheres;
-	t_list		*planes;
-	t_list		*cylinders;
+	t_list		*objects;
 }				t_scene;
 
 typedef void	t_f(char **param, t_scene *scene);

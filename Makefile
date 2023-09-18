@@ -8,9 +8,9 @@ NAME 		:= miniRT
 CC 			:= gcc
 CFLAGS 		:= -Wall -Wextra -Werror
 LIBFT	 	:= ./libs/libft
-LIBMLX		:= ./libs/MLX42
+LIBMLX		:= ./libs/mlx42
 LIBS		:= $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a
-HEADERS		:= -I $(LIBFT)  -I $(LIBMLX)/include/MLX42 -I includes/
+HEADERS		:= -I $(LIBFT)  -I $(LIBMLX) -I includes/
 TEST		?= 0;
 
 ifeq ($(USER), cariencaljouw)
@@ -28,9 +28,9 @@ else
 endif
 
 MAIN		:= obj/main.o
-OBJ 		:= $(addprefix obj/, utils.o\
+OBJ 		:= $(addprefix obj/, utils.o render.o \
 				$(addprefix parse/, parse.o unique.o shapes.o) \
-				$(addprefix objects/, general.o camera.o sphere.o) \
+				$(addprefix objects/, camera.o sphere.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o matrix_vector_utils.o) \
 				)
 TEST_OBJ	:= $(addprefix testing/obj/, utils.o camera.o)

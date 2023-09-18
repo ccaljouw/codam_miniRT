@@ -6,15 +6,17 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 15:51:04 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/15 18:35:06 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/17 18:03:05 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/test.h"
+# include "../includes/miniRT.h"
 
 int	cameratest(int testnr)
 {
 	t_camera	*cam;
+	t_scene		*scene;
 	int			test;
 	
 	test = testnr;
@@ -24,17 +26,36 @@ int	cameratest(int testnr)
 	cam = malloc(sizeof(t_camera));
 	if (!cam)
 		exit_error(ERROR_MEM, NULL, NULL);
-	cam->view_point = v_create(0.0, 0.0, 0.0);;
-	cam->look_at = v_create(0.0, 2.0, 0.0);
-	cam->orientation_v = v_create(0.0, 0.0, 1.0);
-	cam->plane_dist = 1.0;
-	cam->c_width = 1.0;
-	cam->c_height = 1.0;
-	cameraGeometry(cam);
-	// print_camera(*cam);
-	compare(vtostr(cam->screenCentre), "0.000,1.000,0.000", test++);
-	compare(vtostr(cam->screenU), "1.000,0.000,0.000", test++);
-	compare(vtostr(cam->screenV), "0.000,0.000,1.000", test++);
+	scene = malloc(sizeof(t_scene));
+	if (!scene)
+		exit_error(ERROR_MEM, NULL, NULL);
+	scene->mlx = mlx_init(WIDTH, HEIGHT, "RAY'S TRACERS", true);
+	if (!scene->mlx)
+		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
+	scene->image = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
+	if (!scene->image)
+	{
+		mlx_close_window(scene->mlx);
+		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
+	}
+	if (mlx_image_to_window(scene->mlx, scene->image, 0, 0) == -1)
+	{
+		mlx_close_window(scene->mlx);
+		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
+	}
+	scene->camera = cam;
+	cam->vUp = v_create(0,1,0);
+	// 
+	cam->pOrigin = v_create(0.0, 0.0, 0.0);
+	cam->vDirection = v_create(0.0, 0.0, 1.0);
+	cam->fov[0] = 170;
+	cam->fov[1] = cam->fov[0]; //change
+	update_camera(scene);
+	print_camera(*cam);
+	compare(vtostr(cam->pCanvas_centre), "0.000,1.000,0.000", test++);
+	compare(vtostr(cam->vCanvasU), "1.000,0.000,0.000", test++);
+	compare(vtostr(cam->vCanvasV), "0.000,0.000,1.000", test++);
 	free(cam);
+	free(scene);
 	return (test - testnr);
 }

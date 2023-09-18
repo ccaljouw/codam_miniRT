@@ -1,0 +1,60 @@
+Sphere calculations:
+
+(x - a)² + (y - b)² + (z - c)² = r²
+D = normalized oriation vector of the camera
+a = D^2 (= 1)
+b = 2D(O - C)
+c = |O - C|^2 - R2
+discr = b * b - 4 * a * c;
+
+
+Geometry:
+
+Point: xyz coordinate
+Homogeneous points: points represented bu 4 numbers
+Vector: direction represented bij xyz
+Normal: vector perpendicular to the plane tangent P 
+		(normals can not be transformed in the same way als vectors)
+Unit vectors: a vector with unit length (length 1)
+
+Magnitude or Norm: length of a vector
+
+Translation: moving a point around in space 
+			by adding values to the points coordinates 			(P -> Translate -> PT)
+Scaling: moving a point by multiplying the points coordinates	(P -> Scale ->PS)
+Rotation: rotation of a vector 									(V -> Rotate -> VT)
+Normalization: set vector length to 1 							(V-> Normalize ->VN)
+
+Euclidean space: 3D coordinate system where x->axis points to the right, y-axis points up 
+	in right-hand system z-axis point backward
+	in left-hand system z-axis points forward
+We use a right-hand coordinate system??? With up vector being y?
+
+norm: a function that assigns a length or size (or distance) to a vector.
+
+Camera:
+aperture: pinhole
+canvas: back face of the camera on which the image is projected
+focal length: distance between pinhole and image plane
+		> smaller fov (zoom in)
+		< wider fov (zoom out)
+apex : Having selected one side of a triangle to be the base (image plane), 
+	   the opposite vertex (point in of the triangle) to that base is called the apex
+fov: angle of the apex. The field of view can be defined as the angle of the triangle 
+	in the horizontal or vertical plane of the camera. The horizontal field of view 
+	varies with the width of the image plane, and the vertical field of view varies 
+	with the height of the image plane.
+Image aspect ratio = width / height
+Near and far clipping plane: Objects closer than the near-clipping
+	plane and farther than the far-clipping plane are invisible to 
+	the camera. (needed for rasterization to work)
+Viewing frustum: the space between the near an far clipping planes
+Point of convergence: camera origin
+
+Each pixel in an imag corresponds to a singular light ray R with a ginven direction D and a given origin O.  
+
+
+
+
+
+
