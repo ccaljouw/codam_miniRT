@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/16 16:56:05 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/19 07:51:11 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 08:47:03 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,23 @@ uint32_t	getColor(t_rederInfo rData)
 	// ratio = get_sphere_surface_data2(rData.tNear, rData.hitObject)
 	color = (object->rgb[0] << 24 | object->rgb[1] << 16 | object->rgb[2] << 8 | 255);
 	return (color);
+}
+
+void	renderImage(t_scene *scene)
+{
+	t_px		*pixels;
+	uint32_t	width;
+	uint32_t	height;
+
+	width = scene->image->width;
+	height = scene->image->height;
+	scene->camera->image_width = width;
+	scene->camera->image_height = height;
+	scene->camera->aspect_ratio = (float)width / height;
+	pixels = ft_calloc(scene->camera->image_width * scene->camera->image_height, sizeof(t_px));
+	if (pixels == NULL)
+		exit_error(ERROR_MEM, NULL, scene);
+	loop_pixels(scene, pixels);
 }
 
 void	renderTest(t_scene *scene)

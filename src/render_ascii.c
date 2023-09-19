@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 07:38:31 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 09:03:57 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ float	get_sphere_surface_data(float hp_distance, t_object *sph, t_px *px)
 void	trace_ray(t_px *px, t_scene *s, int x, int y)
 {
 	float	hp_distance;
-	float	facing_ratio;
+	// float	facing_ratio;
 
 	px->cam_origin = s->camera->origin;
 	px->screen_x = x;
@@ -154,9 +154,9 @@ void	trace_ray(t_px *px, t_scene *s, int x, int y)
 	v_normalizep(&px->direction);
 	if (test_sphere(*px, *((t_object *)s->objects->content), &hp_distance))
 	{
-		facing_ratio = get_sphere_surface_data(hp_distance, \
+		px->facing_ratio = get_sphere_surface_data(hp_distance, \
 									(t_object *)s->objects->content, px);
-		ft_printf("\e[48;5;%im \e[0m", (int)(232 + facing_ratio * 23));
+		ft_printf("\e[48;5;%im \e[0m", (int)(232 + px->facing_ratio * 23));
 	}
 	else
 		ft_printf("\e[48;5;232m \e[0m");
@@ -192,9 +192,9 @@ void	loop_pixels(t_scene *scene, t_px *px)
 void set_ascii_image(t_camera *cam)
 {
 
-	cam->aspect_ratio = (float)WIDTH / HEIGHT * 0.6;
-	cam->image_width = WIDTH;
-	cam->image_height = HEIGHT;
+	cam->aspect_ratio = (float)ASCII_WIDTH / ASCII_HEIGHT * 0.6;
+	cam->image_width = ASCII_WIDTH;
+	cam->image_height = ASCII_HEIGHT;
 }
 
 void	renderAscii(t_scene *scene)
@@ -202,7 +202,7 @@ void	renderAscii(t_scene *scene)
 	t_px		*pixels;
 
 	set_ascii_image(scene->camera);
-	pixels = ft_calloc(WIDTH * HEIGHT, sizeof(t_px));
+	pixels = ft_calloc(ASCII_WIDTH * ASCII_HEIGHT, sizeof(t_px));
 	if (pixels == NULL)
 		exit_error(ERROR_MEM, NULL, scene);
 	loop_pixels(scene, pixels);

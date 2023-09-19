@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 07:41:20 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 09:08:09 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,6 @@ typedef struct xyz_s
 	float	z;
 }			t_xyz;
 
-typedef struct s_pixel
-{
-	int		screen_x;
-	int		screen_y;
-	float	cam_x;
-	float	cam_y;
-	t_xyz	cam_v3;
-	t_xyz	cam_origin;
-	t_xyz	direction;
-}	t_px;
-
 /**
  * @brief 	object struct containing parameters for each object type
  * 
@@ -70,6 +59,33 @@ typedef struct s_object
 	float		height;
 }				t_object;
 
+/**
+ * @brief info for each pixel in the image
+ * @param	screen_x (int)
+ * @param	screen_y (int)
+ * @param	cam_x (float)
+ * @param	cam_y (float)
+ * @param	cam_v3 (t_xyz)
+ * @param	cam_origin (t_xyz)
+ * @param	direction (t_xyz)
+ * @param	hitObect (t_object *)
+ * @param	hp_distance (float) distance to hitpoint
+ * @param	facing_ratio (float)
+ */
+typedef struct s_pixel
+{
+	int			screen_x;
+	int			screen_y;
+	float		cam_x;
+	float		cam_y;
+	t_xyz		cam_v3;
+	t_xyz		cam_origin;
+	t_xyz		direction;
+	// toegevoegd door Carien
+	t_object	*hitObject;
+	float		hp_distance;
+	float		facing_ratio;
+}	t_px;
 /**
  * @brief Ambient lighting (id: "A")
  * @param	ratio (float) ambient lighting ratio in range [0.0,1.0]

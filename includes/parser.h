@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 07:40:34 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 08:41:41 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@
 #  define BUFFER_SIZE 81
 # endif
 
-# define WIDTH  100
-# define HEIGHT 60
+# define ASCII_WIDTH  100
+# define ASCII_HEIGHT 60
+
+# define IM_WIDTH 256
+# define IM_HEIGHT 256
 
 typedef struct s_scene
 {
@@ -31,7 +34,6 @@ typedef struct s_scene
 	t_camera2	*camera2;
 	t_light		*light;
 	t_list		*objects;
-	t_list		*spheres; //remove
 }				t_scene;
 
 typedef void	t_f(char **param, t_scene *scene);
