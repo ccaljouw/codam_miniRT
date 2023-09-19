@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/19 09:11:47 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/19 12:16:46 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,11 @@ float	get_sphere_surface_data(float hp_distance, t_object *sph, t_px *px)
  */
 void	trace_ray(t_px *px, t_scene *s, int x, int y)
 {
-	float	hp_distance;
-	float	facing_ratio;
+	float		hp_distance;
+	// float		facing_ratio;
+	t_list		*objects;
 
+	ft_bzero(px, sizeof(t_px));
 	px->cam_origin = s->camera->origin;
 	px->screen_x = x;
 	px->screen_y = y;
@@ -152,12 +154,30 @@ void	trace_ray(t_px *px, t_scene *s, int x, int y)
 	m44_multiply_vec3_dir(s->camera->cam2world, px->cam_v3, \
 											&px->direction);
 	v_normalizep(&px->direction);
-	if (test_sphere(*px, *((t_object *)s->objects->content), &hp_distance))
+	objects = s->objects;
+	// px->hit_distance = INFINITY;
+	// px->hitobject = NULL;
+	while (objects)
 	{
-		facing_ratio = get_sphere_surface_data(hp_distance, \
-									(t_object *)s->objects->content, px);
-		ft_printf("\e[48;5;%im \e[0m", (int)(232 + facing_ratio * 23));
+		if (test_sphere(*px, *((t_object *)objects->content), &hp_distance))
+		{
+			// ft_printf("px->hitobject: %p", px->hitobject);
+			if (!px->hitobject || px->hit_distance > hp_distance)
+			{
+				px->hitobject = (t_object *)objects->content;
+				px->hit_distance = hp_distance;
+				px->facing_ratio = fabsf(get_sphere_surface_data(hp_distance, \
+											(t_object *)objects->content, px));
+				// ft_printf("fr: %f", px->facing_ratio);
+				// ft_printf("\e[48;5;%im \e[0m", (int)(232 + facing_ratio * 23));
+			}
+		}
+		// else
+		// 	ft_printf("\e[48;5;232m \e[0m");
+		objects = objects->next;
 	}
+	if (px->hitobject)
+		ft_printf("\e[48;5;%im \e[0m", (int)(232 + px->facing_ratio * 23));
 	else
 		ft_printf("\e[48;5;232m \e[0m");
 }

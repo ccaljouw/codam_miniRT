@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   types.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 07:41:20 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   types.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/19 12:12:22 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,6 @@ typedef struct xyz_s
 	float	z;
 }			t_xyz;
 
-typedef struct s_pixel
-{
-	int		screen_x;
-	int		screen_y;
-	float	cam_x;
-	float	cam_y;
-	t_xyz	cam_v3;
-	t_xyz	cam_origin;
-	t_xyz	direction;
-}	t_px;
-
 /**
  * @brief 	object struct containing parameters for each object type
  * 
@@ -69,6 +58,20 @@ typedef struct s_object
 	t_xyz		vAxis;
 	float		height;
 }				t_object;
+
+typedef struct s_pixel
+{
+	int			screen_x;
+	int			screen_y;
+	float		cam_x;
+	float		cam_y;
+	t_xyz		cam_v3;
+	t_xyz		cam_origin;
+	t_xyz		direction;
+	t_object	*hitobject;
+	float		hit_distance;
+	float		facing_ratio;
+}	t_px;
 
 /**
  * @brief Ambient lighting (id: "A")
