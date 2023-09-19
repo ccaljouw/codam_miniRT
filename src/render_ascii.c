@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 09:03:57 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 12:36:49 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ void	trace_ray(t_px *px, t_scene *s, int x, int y)
 	float	hp_distance;
 	// float	facing_ratio;
 
+	ft_bzero(px, sizeof(t_px));
 	px->cam_origin = s->camera->origin;
 	px->screen_x = x;
 	px->screen_y = y;
