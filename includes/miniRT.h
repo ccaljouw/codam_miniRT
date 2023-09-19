@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   miniRT.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 07:40:25 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/19 18:08:04 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	cameraGeometry(t_camera *cam);
 void	renderAscii(t_scene *scene);
 int		get_parabolic_hitpoints(t_xyz abc, float *hp1, float *hp2);
 int		test_sphere(t_px ray, t_object sphere, float *hit_dist);
-float	get_sphere_surface_data(float hp_distance, t_object *sph, t_px *px);
+float	get_sphere_surface_data(t_object sph, t_px px);
 void	trace_ray(t_px *px, t_scene *s, int x, int y);
 void	loop_pixels(t_scene *scene, t_px *px);
 void	prepare_camera(t_camera *cam);
