@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   camera2.c                                           :+:    :+:            */
+/*   camera.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 15:51:04 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/17 18:03:05 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 07:52:04 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/test.h"
-# include "../includes/miniRT.h"
 
 int	camera2test(int testnr)
 {
@@ -55,6 +54,5 @@ int	camera2test(int testnr)
 	compare(vtostr(cam->vCanvasU), "1.000,0.000,0.000", test++);
 	compare(vtostr(cam->vCanvasV), "0.000,0.000,1.000", test++);
 	free(cam);
-	free(scene);
 	return (test - testnr);
 }

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/15 22:32:55 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/09/18 22:54:59 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 07:39:55 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include "types.h"
 # include "libft.h"
 # include "vector.h"
+# include "../../libs/libft/libft.h"
+# include "../../includes/miniRT.h"
 
 // MATRIX UTILS
 

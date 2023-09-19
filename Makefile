@@ -74,12 +74,15 @@ fclean: clean
 	@rm -f $(NAME)
 	@rm -f ./test
 	@$(MAKE) -C $(LIBFT) fclean
+	@rm -rf $(LIBMLX)/CMakeFiles
+	@rm -f 	$(LIBMLX)/CmakeCache.txt
+	@rm -f 	$(LIBMLX)/cmake_install.cmake
 
 re: 
 	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"
 	@rm -f $(NAME)
 	@rm -f ./test
 	@rm -rf obj/
-	@$(MAKE) all;
+	@$(MAKE) all
 
 .PHONY: all test bonus clean fclean re

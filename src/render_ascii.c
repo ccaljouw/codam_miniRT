@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 07:31:59 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 07:38:31 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ void	loop_pixels(t_scene *scene, t_px *px)
 void set_ascii_image(t_camera *cam)
 {
 
-	cam->aspect_ratio = (float)WIDTH / HEIGHT * 0.6; // this 0.6 is for ascii!
+	cam->aspect_ratio = (float)WIDTH / HEIGHT * 0.6;
 	cam->image_width = WIDTH;
 	cam->image_height = HEIGHT;
 }

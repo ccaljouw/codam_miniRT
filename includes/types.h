@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 07:31:10 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 07:41:20 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ typedef struct s_object
 	t_xyz		vAxis;
 	float		height;
 }				t_object;
-# include "matrix.h"
 
 /**
  * @brief Ambient lighting (id: "A")
