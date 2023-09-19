@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 15:51:04 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/19 07:52:04 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 12:20:54 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	camera2test(int testnr)
 	scene = malloc(sizeof(t_scene));
 	if (!scene)
 		exit_error(ERROR_MEM, NULL, NULL);
-	scene->mlx = mlx_init(WIDTH, HEIGHT, "RAY'S TRACERS", true);
+	scene->mlx = mlx_init(IM_WIDTH, IM_HEIGHT, "RAY'S TRACERS", true);
 	if (!scene->mlx)
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
-	scene->image = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
+	scene->image = mlx_new_image(scene->mlx, IM_WIDTH, IM_HEIGHT);
 	if (!scene->image)
 	{
 		mlx_close_window(scene->mlx);

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 08:41:41 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 12:21:25 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #  define BUFFER_SIZE 81
 # endif
 
-# define ASCII_WIDTH  100
-# define ASCII_HEIGHT 60
+# define ASCII_WIDTH  50
+# define ASCII_HEIGHT 30
 
 # define IM_WIDTH 256
 # define IM_HEIGHT 256
