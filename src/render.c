@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/16 16:56:05 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/18 22:46:15 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 06:56:56 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,67 +41,37 @@ void	*trace(t_ray camera2Ray, t_rederInfo *rData, t_scene *scene)
 	return (rData->hitObject);
 }
 
-uint32_t	getColor(t_rederInfo rData, t_scene *scene)
+float	get_sphere_surface_data2(float hp_distance, t_object *sph, t_px *px)
+{
+	t_xyz		surface_normal_at_hitpoint;
+	t_xyz		hitpoint;
+	float		facing_ratio;
+
+	hitpoint = v_add(px->cam_origin, v_mulitply(px->direction, hp_distance));
+	surface_normal_at_hitpoint = v_subtract(sph->pOrigin, hitpoint);
+	v_normalizep(&surface_normal_at_hitpoint);
+	facing_ratio = v_dot(surface_normal_at_hitpoint, px->direction);
+	return (facing_ratio);
+}
+
+uint32_t	getColor(t_rederInfo rData)
 {
 	uint32_t	color;
 	t_object	*object;
+	// float		ratio;
 
 	object = (t_object *)rData.hitObject;
 	if (!object)
 		return(0 << 24 | 0 << 16 | 0 << 8 | 255);
-	float		dist;
-	float		newA;
-	dist = rData.tNear;
-	(void)scene;
-	newA = 255 - ((dist / (object->diameter)));
-	color = (object->rgb[0] << 24 | object->rgb[1] << 16 | object->rgb[2] << 8 | (uint32_t)newA);
-	// color = (object->rgb[0] << 24 | object->rgb[1] << 16 | object->rgb[2] << 8 \
-	// 	| (uint32_t)(255 * scene->ambient->ratio));
+	// ratio = get_sphere_surface_data2(rData.tNear, rData.hitObject)
+	color = (object->rgb[0] << 24 | object->rgb[1] << 16 | object->rgb[2] << 8 | 255);
 	return (color);
-}
-
-void	render(t_scene *scene)
-{
-	t_rederInfo	*rData;
-	uint32_t	x;
-	uint32_t	y;
-	t_ray		camera2Ray;
-
-	x = 0;
-	y = 0;
-	update_camera2(scene);
-	print_camera2(*(scene->camera2));
-	rData = malloc(sizeof(rData));
-	if (!rData)
-		exit_error(ERROR_MEM, NULL, scene);
-	while (x < scene->image->width)
-	{
-		while (y < scene->image->height)
-		{
-			camera2Ray = generate_ray(scene, x, y);
-			rData->hitObject = trace(camera2Ray, rData, scene);
-			// if (rData->hitObject)
-			// 	printf("o");
-			// else
-			// 	printf(".");
-			// if (rData->hitObject && (camera2Ray.p2.x < scene->camera2->canvas_window.left || camera2Ray.p2.x > scene->camera2->canvas_window.right \
-			// 	|| camera2Ray.p2.y < scene->camera2->canvas_window.bottom || camera2Ray.p2.y > scene->camera2->canvas_window.top))
-			// 	printf("outside canvas\n");
-			mlx_put_pixel(scene->image, x, y, getColor(*rData, scene));
-			y++;
-		}
-		x++;
-		y = 0;
-		// printf("\n");
-	}
 }
 
 void	renderTest(t_scene *scene)
 {
 	int			x;
 	int			y;
-	float		xscreen;
-	float		yscreen;
 	float		screenSize;
 	double		radians;
 	t_ray 		camRay;
@@ -123,11 +93,12 @@ void	renderTest(t_scene *scene)
 	{
 		while (y < cam->image_size[1])
 		{
-			xscreen = (x * (screenSize / cam->image_size[0])); // incorrect
-			yscreen = y * (screenSize / cam->image_size[1]);  // now assumes square fov
-			camRay = ray(cam->pOrigin, v_add(cam->pCanvas_centre, v_create(xscreen, yscreen, cam->pCanvas_centre.z)));
+			rData->p.x = (2 * (((float)x + 0.5) / cam->image_size[0]) - 1) * screenSize;
+			rData->p.y = (1 - 2 * ((float)y + 0.5) / cam->image_size[1] * (screenSize));
+			rData->p.z = cam->pCanvas_centre.z;
+			camRay = ray(cam->pOrigin, v_add(cam->pCanvas_centre, rData->p));
 			rData->hitObject = trace(camRay, rData, scene);
-			mlx_put_pixel(scene->image, x, y, getColor(*rData, scene));
+			mlx_put_pixel(scene->image, x, y, getColor(*rData));
 			y++;	
 		}
 		y = 0;

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/18 22:45:51 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 07:30:40 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,44 @@ void	init_camera2(char **param, t_scene *scene)
 		exit_error("incorrect fov", NULL, scene);
 	// print_camera2(*(scene->camera2)); //testing
 	ft_putstr_fd("\033[34;1mcamera2 config:\t\t  \033[0m", 1);
+}
+
+void	cameraGeometry(t_camera *cam)
+{
+	t_m44	direction;
+	
+	m44_translate(&cam->cam2world, \
+				cam->view_point.x, cam->view_point.y, cam->view_point.z);
+	direction = m44_from_direction_vector(cam->orientation_v);
+	cam->cam2world = m44_dot_product(direction, cam->cam2world);
+	m44_multiply_vec3(cam->cam2world, v_create(0, 0, 0), &cam->origin);
+	cam->fov_scale = tan(ft_rad(cam->fov * 0.5));
+}
+
+void	init_camera(char **param, t_scene *scene)
+{
+	int	i;
+
+	init_camera2(param, scene);
+	if (scene->camera)
+		exit_error(ERROR_SCENE, "redefinition of camera", scene);
+	i = 0;
+	while (param[i])
+		i++;
+	if (i != 4)
+		exit_error(ERROR_SPHERE, "incorrect number of arguments", scene);
+	scene->camera = malloc(sizeof(t_camera));
+	if (!scene->camera)
+		exit_error(ERROR_MEM, NULL, scene);
+	scene->camera->view_point = set_xyz(param[1], scene);
+	scene->camera->orientation_v = set_xyz(param[2], scene);
+	scene->camera->fov = ft_atoi(param[3]);
+	if (!scene->camera->fov && !ft_strcmp(param[3], "0"))
+		exit_error("incorrect fov", NULL, scene);
+	scene->camera->cam2world = m44_init();
+	cameraGeometry(scene->camera);
+	// print_camera(*(scene->camera)); //testing
+	ft_putstr_fd("\033[34;1mCamera config:\t\t  \033[0m", 1);
 }
 
 /**

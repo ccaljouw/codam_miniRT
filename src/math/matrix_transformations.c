@@ -6,12 +6,12 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:28:29 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/17 00:07:11 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/17 18:06:26 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "fdf.h"
-#include "miniRT.h"
+#include "matrix.h"
 
 static t_m44	m44_rotate_axis(float angle, char axis);
 

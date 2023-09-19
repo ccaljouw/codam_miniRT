@@ -6,12 +6,13 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/18 22:46:03 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 06:44:04 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 #include <fcntl.h>
+#include "../includes/test.h"
 
 /**
  * @brief checks that there are 2 arguments provided 
@@ -24,7 +25,7 @@ void	check_args(int argc, char **argv)
 	int	i;
 
 	i = 0;
-	if (argc != 2)
+	if (argc < 2)
 		exit_error(ERROR_ARGS, NULL, NULL);
 	while (argv[1][i] != '\0')
 		i++;
@@ -64,39 +65,14 @@ t_scene	*init_scene(char *file)
 			break ;
 	}
 	close(fd);
-	if (!scene->ambient || !scene->camera2)
+	if (!scene->ambient || !scene->camera)
 		exit_error(ERROR_SCENE, "not all required elements provided", scene);
 	ft_putendl_fd("\033[32;1m\nScene set up\n\033[0m", 2);
 	return (scene);
 }
 
-/**
- * @brief checks window size against image size and resizes image when window size has changed
- * 
- * @param param (t_scene *) scene
- */
-void	resize(void	*param)
+void	image_to_window(t_scene *scene)
 {
-	t_scene *scene;
-
-	scene = (t_scene *)param;
-	if (scene->mlx->width != (int32_t)scene->image->width || scene->mlx->height != (int32_t)scene->image->height)
-	{
-		mlx_resize_image(scene->image, scene->mlx->width, scene->mlx->height);
-		render(scene);
-	}
-}
-
-int	main(int argc, char **argv)
-{
-	t_scene	*scene;
-
-	check_args(argc, argv);
-	scene = init_scene(argv[1]);
-	scene->mlx = mlx_init(WIDTH, HEIGHT, "RAY'S TRACERS", true);
-	if (!scene->mlx)
-		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
-	scene->image = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
 	if (!scene->image)
 	{
 		mlx_close_window(scene->mlx);
@@ -107,12 +83,51 @@ int	main(int argc, char **argv)
 		mlx_close_window(scene->mlx);
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
 	}
-	// render(scene);
-	renderTest(scene);
-	mlx_loop_hook(scene->mlx, resize, scene);
-	mlx_loop(scene->mlx);
-	mlx_terminate(scene->mlx);
+}
 
+/**
+ * @brief checks window size against image size and resizes image when window size has changed
+ * 
+ * @param param (t_scene *) scene
+ */
+void	resize(void	*param)
+{
+	t_scene 	*scene;
+	mlx_image_t *temp;
+
+	scene = (t_scene *)param;
+	if ((uint32_t)scene->mlx->width != scene->image->width || (uint32_t)scene->mlx->height != scene->image->height)
+	{
+		mlx_resize_image(scene->image, scene->mlx->width, scene->mlx->height);
+		temp =  scene->image;
+		scene->image = mlx_new_image(scene->mlx, scene->mlx->width, scene->mlx->height);
+		renderTest(scene);
+		image_to_window(scene);
+		mlx_delete_image(scene->mlx, temp);
+	}
+}
+
+int	main(int argc, char **argv)
+{
+	t_scene	*scene;
+
+	check_args(argc, argv);
+	scene = init_scene(argv[1]);
+	if (argv[2] && (!ft_strcmp(argv[2], "-a") || !ft_strcmp(argv[2], "-ai")))
+		renderAscii(scene);
+	if (argc == 2 || !ft_strcmp(argv[2], "-ai"))
+	{
+		scene->mlx = mlx_init(512, 512, "RAY'S TRACERS", true);
+		if (!scene->mlx)
+			exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
+		scene->image = mlx_new_image(scene->mlx, 512, 512);
+		image_to_window(scene);
+		renderTest(scene);
+		mlx_loop_hook(scene->mlx, resize, scene);
+		mlx_loop(scene->mlx);
+		mlx_delete_image(scene->mlx, scene->image);
+		mlx_terminate(scene->mlx);
+	}
 	// cleanup scene
 	return (0);
 }

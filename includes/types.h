@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/18 22:42:02 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 07:31:10 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,17 @@ typedef struct xyz_s
 	float	z;
 }			t_xyz;
 
+typedef struct s_pixel
+{
+	int		screen_x;
+	int		screen_y;
+	float	cam_x;
+	float	cam_y;
+	t_xyz	cam_v3;
+	t_xyz	cam_origin;
+	t_xyz	direction;
+}	t_px;
+
 /**
  * @brief 	object struct containing parameters for each object type
  * 
@@ -58,6 +69,7 @@ typedef struct s_object
 	t_xyz		vAxis;
 	float		height;
 }				t_object;
+# include "matrix.h"
 
 /**
  * @brief Ambient lighting (id: "A")
@@ -78,6 +90,19 @@ typedef struct ambient_s
  * @param	fov[2]	(float) Horizontal and vertical field of view in degrees in range [0,180]
  * @param	principal_axis (t_xyz) vector from camera positon to lookAt position
  */
+typedef struct camera_s
+{
+	t_xyz	origin;
+	t_xyz	view_point;
+	t_xyz	orientation_v;
+	int		fov;
+	int		image_width;
+	int		image_height;
+	float	aspect_ratio;
+	float	fov_scale;
+	t_m44	cam2world;
+}			t_camera;
+
 typedef struct camera2_s
 {
 	float		fov[2];

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   miniRT.h                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/18 22:47:45 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 07:04:26 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@
 # include "libft.h"
 # include "errors.h"
 # include "types.h"
-# include "parser.h"
 # include "vector.h"
+# include "matrix.h"
+# include "parser.h"
 # include "test.h"
 # include <stdbool.h>
 # include <stdlib.h>
-# include "matrix.h"
+
 
 # include <stdio.h> //remove
 
@@ -63,6 +64,7 @@ typedef struct s_renderInfo
 {
 	// enum		type;
 	float		tNear;
+	t_xyz		p;
 	t_object 	*hitObject;
 }				t_rederInfo;
 
@@ -80,18 +82,25 @@ t_scene	*init_scene(char *file);
 t_ray	ray(t_xyz p1, t_xyz p2);
 t_ray	generate_ray(t_scene * scene, int x, int y);
 void	update_camera2(t_scene *scene);
+void	cameraGeometry(t_camera *cam);
 
-
+// render_ascii.c
+void	renderAscii(t_scene *scene);
+int		get_parabolic_hitpoints(t_xyz abc, float *hp1, float *hp2);
+int		test_sphere(t_px ray, t_object sphere, float *hit_dist);
+float	get_sphere_surface_data(float hp_distance, t_object *sph, t_px *px);
+void	trace_ray(t_px *px, t_scene *s, int x, int y);
+void	loop_pixels(t_scene *scene, t_px *px);
+void	prepare_camera(t_camera *cam);
 
 // render.c
 void	render(t_scene *scene);
+void	renderTest(t_scene *scene); 
 
 // objects
 bool	testHitSP(t_ray castRay, t_object *sphere, float *intPoint);
 // bool	testHitPL(t_ray castRay, t_object *plane, float *intPoint);
 // bool	testHitCY(t_ray castRay, t_object *cylinder, float *intPoint);
 
-// test
-void	renderTest(t_scene *scene);
 
 #endif
