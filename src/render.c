@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 18:47:43 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 20:38:05 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,8 @@ uint32_t	getColor(t_px	px, t_scene *scene)
 
 void	renderImage(t_scene *scene)
 {
-	int			y;
 	pthread_t	*threads;
 	
-	y = 0;
 	scene->camera->image_width = scene->image->width;
 	scene->camera->image_height = scene->image->height;
 	scene->camera->aspect_ratio = (float)scene->image->width / scene->image->height;

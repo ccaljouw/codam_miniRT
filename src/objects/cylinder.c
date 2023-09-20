@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 19:21:02 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 21:57:23 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,23 @@ int	test_cylinder(t_px ray, t_object cylinder, float *hit_dist)
 {
 	float	hit_dist1;
 	float	hit_dist2;
-	t_xyz	orig_to_center;
+	t_xyz	hitPoint;
 	t_xyz	abc;
-	float	z1;
-	float	z2;
-	float	zmin;
-	float	zmax;
+	float	radius;
 
+
+	radius = cylinder.diameter * 0.5;
 	hit_dist1 = 0;
 	hit_dist2 = 0;
+	
 	// use axis
-	orig_to_center = v_subtract(ray.cam_origin, cylinder.pOrigin);
-	abc.x = pow(orig_to_center.x, 2) + pow(orig_to_center.y, 2);
-	abc.y = (2 * ray.cam_origin.x * orig_to_center.x) + (2 * ray.cam_origin.y * orig_to_center.y);
-	abc.z = pow(ray.cam_origin.x, 2) + pow(ray.cam_origin.y, 2) - 1;
-	// print_vector(orig_to_center);
-	// printf("a:%f, b:%f, c:%f\n", abc.x , abc.y, abc.z);
+	abc.x = pow(ray.direction.x, 2) + pow(ray.direction.y, 2);
+	abc.y = 2 * (pow(ray.cam_origin.x, 2) + pow(ray.cam_origin.y, 2));
+	abc.z = pow(ray.cam_origin.x, 2) - pow(ray.cam_origin.y, 2) - pow(radius, 2);
 	if (!get_parabolic_hitpoints(abc, &hit_dist1, &hit_dist2))
 		return (0);
-	z1 = ray.cam_origin.z + (hit_dist1 * ray.direction.z);
-	z2 = ray.cam_origin.z + (hit_dist2 * ray.direction.z);
-	zmin = cylinder.pOrigin.z;
-	zmax = cylinder.pOrigin.z + cylinder.height;
-	if (zmin < z1 < zmax && zmin < z2 < zmax)
+	hitPoint = v_add(ray.cam_origin, v_mulitply(ray.direction, hit_dist1));
+	if (v_magnitude(hitPoint) < 1)
 	{
 		if (hit_dist1 < 0)
 		{
@@ -63,6 +57,7 @@ int	test_cylinder(t_px ray, t_object cylinder, float *hit_dist)
 				return (0);
 		}
 		*hit_dist = hit_dist1;
+		// printf("hit distance:%f\n", *hit_dist);
 		return (1);
 	}
 	return (0);
@@ -80,5 +75,5 @@ float	get_cylinder_surface_data(t_object cy, t_px px)
 {
 	(void)cy;
 	(void)px;
-	return (255);
+	return (1);
 }

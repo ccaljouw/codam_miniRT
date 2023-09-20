@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 14:30:00 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 20:43:21 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ t_scene	*init_scene(char *file)
 		line = get_next_line(fd);
 		if (line) // close fd if error in line
 		{
+			if (line[0] == '\n')
+			{
+				free(line);
+				continue ;
+			}
 			if (line[ft_strlen(line) - 1] == '\n')
 				line[ft_strlen(line) - 1] = '\0';
 			parse_type(line, scene);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/19 10:17:35 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parse.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/20 20:44:29 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,6 @@ void	parse_type(char *line, t_scene *scene)
 	}
 	if (i == 6 && line[0] != '#') //added # as an exception so you can comment out a line 
 		exit_error(ERROR_SCENE, line, scene);
+	free(line);
 	free(param);
 }
