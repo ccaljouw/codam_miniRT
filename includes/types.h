@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 11:31:34 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 11:50:19 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_pixel
 	float		hit_distance;
 	float		facing_ratio;
 }	t_px;
+
 /**
  * @brief Ambient lighting (id: "A")
  * @param	ratio (float) ambient lighting ratio in range [0.0,1.0]
