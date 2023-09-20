@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 14:46:43 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 11:06:06 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,22 +90,22 @@ void	image_to_window(t_scene *scene)
  * 
  * @param param (t_scene *) scene
  */
-// void	resize(void	*param)
-// {
-// 	t_scene 	*scene;
-// 	mlx_image_t *temp;
+void	resize(void	*param)
+{
+	t_scene 	*scene;
+	mlx_image_t *temp;
 
-// 	scene = (t_scene *)param;
-// 	if ((uint32_t)scene->mlx->width != scene->image->width || (uint32_t)scene->mlx->height != scene->image->height)
-// 	{
-// 		mlx_resize_image(scene->image, scene->mlx->width, scene->mlx->height);
-// 		temp =  scene->image;
-// 		scene->image = mlx_new_image(scene->mlx, scene->mlx->width, scene->mlx->height);
-// 		renderTest(scene);
-// 		image_to_window(scene);
-// 		mlx_delete_image(scene->mlx, temp);
-// 	}
-// }
+	scene = (t_scene *)param;
+	if ((uint32_t)scene->mlx->width != scene->image->width || (uint32_t)scene->mlx->height != scene->image->height)
+	{
+		mlx_resize_image(scene->image, scene->mlx->width, scene->mlx->height);
+		temp =  scene->image;
+		scene->image = mlx_new_image(scene->mlx, scene->mlx->width, scene->mlx->height);
+		renderImage(scene);
+		image_to_window(scene);
+		mlx_delete_image(scene->mlx, temp);
+	}
+}
 
 int	main(int argc, char **argv)
 {
@@ -123,7 +123,7 @@ int	main(int argc, char **argv)
 		scene->image = mlx_new_image(scene->mlx, IM_WIDTH, IM_HEIGHT);
 		image_to_window(scene);
 		renderImage(scene);
-		// mlx_loop_hook(scene->mlx, resize, scene);
+		mlx_loop_hook(scene->mlx, resize, scene);
 		mlx_loop(scene->mlx);
 		mlx_delete_image(scene->mlx, scene->image);
 		mlx_terminate(scene->mlx);
