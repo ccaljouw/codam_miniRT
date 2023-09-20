@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 11:48:42 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 16:48:38 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int		test_plane(t_px ray, t_object plane, float *hit_dist);
 void	trace_ray(t_px *px, t_scene *s, int x, int y);
 
 // render.c
-void	renderImage(t_scene *scene);
+uint32_t	getColor(t_px	px, t_scene *scene);
+void		renderImage(t_scene *scene);
 
 // objects
 int		test_sphere(t_px ray, t_object sphere, float *hit_dist);
@@ -98,6 +99,8 @@ float	get_sphere_surface_data(t_object sph, t_px px);
 int		test_plane(t_px ray, t_object plane, float *hit_dist);
 float	get_plane_surface_data(t_object plane, t_px px);
 
-
+// multithreading.c
+pthread_t	*create_threads(t_scene *scene);
+void		join_threads(pthread_t *threads, t_scene *scene);
 
 #endif

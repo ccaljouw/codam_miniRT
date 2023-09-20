@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 11:52:58 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 16:59:41 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,29 +134,14 @@ uint32_t	getColor(t_px	px, t_scene *scene)
 
 void	renderImage(t_scene *scene)
 {
-
-	t_px	*pixels;
-	int		x;
-	int		y;
-
+	int			y;
+	pthread_t	*threads;
+	
+	y = 0;
 	scene->camera->image_width = scene->image->width;
 	scene->camera->image_height = scene->image->height;
 	scene->camera->aspect_ratio = (float)scene->image->width / scene->image->height;
-	pixels = ft_calloc(scene->image->width * scene->image->height, sizeof(t_px));
-	if (pixels == NULL)
-		exit_error(ERROR_MEM, NULL, scene);
-	y = 0;
-	while (y < scene->camera->image_height)
-	{
-		x = 0;
-		while (x < scene->camera->image_width)
-		{
-			trace_ray(&pixels[x + y], scene, x, y);
-			mlx_put_pixel(scene->image, x, y, getColor(pixels[x + y], scene));
-			x++;
-		}
-		y++;
-	}
+	threads = create_threads(scene);
+	join_threads(threads, scene);
 }
-
 

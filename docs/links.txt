@@ -1,1 +1,4 @@
 https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tracing/how-does-it-work.html
+https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-overview/light-transport-ray-tracing-whitted.html
+http://www.cs.cornell.edu/courses/cs4620/2011fa/lectures/08raytracingWeb.pdf
+

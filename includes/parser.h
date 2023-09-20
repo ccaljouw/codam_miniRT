@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 11:48:36 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 16:52:16 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSER_H
 
 # include "types.h"
+# include <pthread.h> 
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 81
@@ -25,15 +26,26 @@
 # define IM_WIDTH 512
 # define IM_HEIGHT 512
 
+# define	THREADS 4
+
+
 typedef struct s_scene
 {
-	mlx_t		*mlx;
-	mlx_image_t	*image;
-	t_ambient	*ambient; // bij één ambient light kan dit op de stack?
-	t_camera	*camera; // bij éen camera kan dit op de stack?
-	t_light		*light;
-	t_list		*objects;
-}				t_scene;
+	mlx_t			*mlx;
+	mlx_image_t		*image;
+	t_ambient		*ambient; // bij één ambient light kan dit op de stack?
+	t_camera		*camera; // bij éen camera kan dit op de stack?
+	t_light			*light;
+	t_list			*objects;
+	t_px			*pixels;
+}					t_scene;
+
+typedef struct s_block
+{
+	t_scene		scene;
+	int			y;
+	int			y_max;
+}	t_block;
 
 typedef void	t_f(char **param, t_scene *scene);
 

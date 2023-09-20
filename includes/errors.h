@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:09:09 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/14 10:56:50 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/20 15:02:20 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ Please check path, extention and file permissions"
 # define ERROR_XYZ "Incorrect coordinates provided"
 # define ERROR_RGB "Incorrect RGB values provided"
 # define ERROR_F "Incorrect float provided"
+# define ERROR_THREAD "Multi threading"
 
 #endif
