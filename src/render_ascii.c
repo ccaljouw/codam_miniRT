@@ -3,16 +3,18 @@
 /*                                                        ::::::::            */
 /*   render_ascii.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 15:37:24 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 10:15:42 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 #include "../includes/test.h"
 
+typedef int		t_hit_test(t_px ray, t_object, float *hit_dist);
+typedef float	t_surface_data(t_object obj, t_px px);
 
 /**
  * @brief	Back to those old quadratic math lessons!
@@ -97,17 +99,41 @@ int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
  * @param px 
  * @return float 
  */
-float	get_sphere_surface_data(float hp_distance, t_object *sph, t_px *px)
+float	get_sphere_surface_data(t_object sph, t_px px)
 {
 	t_xyz		surface_normal_at_hitpoint;
 	t_xyz		hitpoint;
 	float		facing_ratio;
 
-	hitpoint = v_add(px->cam_origin, v_mulitply(px->direction, hp_distance));
-	surface_normal_at_hitpoint = v_subtract(sph->pOrigin, hitpoint);
+	hitpoint = v_add(px.cam_origin, v_mulitply(px.direction, px.hit_distance));
+	surface_normal_at_hitpoint = v_subtract(sph.pOrigin, hitpoint);
 	v_normalizep(&surface_normal_at_hitpoint);
-	facing_ratio = v_dot(surface_normal_at_hitpoint, px->direction);
+	facing_ratio = v_dot(surface_normal_at_hitpoint, px.direction);
 	return (facing_ratio);
+}
+
+float	get_plane_surface_data(t_object plane, t_px px)
+{
+	(void)plane;
+	(void)px;
+	return (v_dot(v_normalize(plane.vNormal), v_normalize(px.direction)));
+	// return (0.5);
+}
+
+int	test_plane(t_px ray, t_object plane, float *hit_dist)
+{
+	float	denominator;
+	t_xyz	diff_ray0_plane0;
+
+	denominator = v_dot(plane.vNormal, ray.direction);
+	if (denominator > EPSILON)
+	{
+		diff_ray0_plane0 = v_subtract(ray.cam_origin, plane.pOrigin);
+		*hit_dist = v_dot(diff_ray0_plane0, plane.vNormal) / denominator;
+		if (*hit_dist >= 0)
+			return (1);
+	}
+	return (0);
 }
 
 /**
@@ -138,8 +164,11 @@ float	get_sphere_surface_data(float hp_distance, t_object *sph, t_px *px)
  */
 void	trace_ray(t_px *px, t_scene *s, int x, int y)
 {
-	float	hp_distance;
-	float	facing_ratio;
+	float					hp_distance;
+	static t_hit_test		*hit_test[2] = {test_sphere, test_plane};
+	static t_surface_data	*surface_data[2] = {get_sphere_surface_data, get_plane_surface_data};
+	t_list					*objects;
+	t_object				*object;
 
 	ft_bzero(px, sizeof(t_px));
 	px->cam_origin = s->camera->origin;
@@ -153,11 +182,24 @@ void	trace_ray(t_px *px, t_scene *s, int x, int y)
 	m44_multiply_vec3_dir(s->camera->cam2world, px->cam_v3, \
 											&px->direction);
 	v_normalizep(&px->direction);
-	if (test_sphere(*px, *((t_object *)s->objects->content), &hp_distance))
+	objects = s->objects;
+	while (objects)
 	{
-		facing_ratio = get_sphere_surface_data(hp_distance, \
-									(t_object *)s->objects->content, px);
-		ft_printf("\e[48;5;%im \e[0m", (int)(232 + facing_ratio * 23));
+		object = (t_object *)objects->content;
+		if (hit_test[object->id](*px, *object, &hp_distance))
+		{
+			if (!px->hitobject || px->hit_distance > hp_distance)
+			{
+				px->hitobject = object;
+				px->hit_distance = hp_distance;
+			}
+		}
+		objects = objects->next;
+	}
+	if (px->hitobject)
+	{
+		px->facing_ratio = fabsf(surface_data[px->hitobject->id](*px->hitobject, *px));
+		ft_printf("\e[48;5;%im \e[0m", (int)(232 + px->facing_ratio * 23));
 	}
 	else
 		ft_printf("\e[48;5;232m \e[0m");

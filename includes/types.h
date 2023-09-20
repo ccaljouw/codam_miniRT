@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   types.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 12:48:30 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 10:19:05 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,8 @@ typedef struct s_pixel
 	t_xyz		cam_v3;
 	t_xyz		cam_origin;
 	t_xyz		direction;
-	// toegevoegd door Carien
-	t_object	*hitObject;
-	float		hp_distance;
+	t_object	*hitobject;
+	float		hit_distance;
 	float		facing_ratio;
 }	t_px;
 /**

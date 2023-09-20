@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/16 16:56:05 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/19 16:00:42 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 10:20:07 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ uint32_t	getColor(t_px	px, t_scene *scene)
 	float		ratio;
 
 	(void)scene;
-	object = (t_object *)px.hitObject;
+	object = (t_object *)px.hitobject;
 	if (!object)
 		return(0 << 24 | 0 << 16 | 0 << 8 | 255);
-	ratio = get_sphere_surface_data(px.hp_distance, px.hitObject, &px);
+	ratio = get_sphere_surface_data(*px.hitobject, px);
 	color = (object->rgb[0] << 24 | object->rgb[1] << 16 | object->rgb[2] << 8 | (uint32_t)(255 * ratio));
 	return (color);
 }
@@ -53,19 +53,19 @@ t_px	trace(t_px px, t_scene *scene)
 	t_object			*object;
 	
 	t = INFINITY;
-	px.hp_distance = INFINITY;
-	px.hitObject = NULL;
+	px.hit_distance = INFINITY;
+	px.hitobject = NULL;
 	temp = scene->objects;
 	
 	while (temp)
 	{
 		object = (t_object *)temp->content;
 		// if (testHit[object->id](&px, object))
-		if (test_sphere(px, *object, &px.hp_distance))
+		if (test_sphere(px, *object, &px.hit_distance))
 		{
-			px.hitObject = object;
-			if (t < px.hp_distance)
-				px.hp_distance = t;
+			px.hitobject = object;
+			if (t < px.hit_distance)
+				px.hit_distance = t;
 		}
 		temp = temp->next;
 	}

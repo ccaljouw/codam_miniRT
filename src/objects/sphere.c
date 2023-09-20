@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/19 13:54:16 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 10:20:29 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ bool	testHitSP(t_px *px, t_object *sphere)
 		if (sphereOffCentre2(&t, *px, sphere) == false)
 			return false;
 	}
-	px->hp_distance = t.t0;
+	px->hit_distance = t.t0;
 	return true;
 }
 
