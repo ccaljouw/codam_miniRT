@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 11:31:40 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 11:48:36 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ t_xyz	set_xyz(char *param, t_scene *scene);
 void	set_rgb(char *param, uint32_t *rgb, t_scene *scene);
 float	to_float(char *param, t_scene *scene);
 void	init_ambient(char **param, t_scene *scene);
-void	init_camera2(char **param, t_scene *scene);
 void	init_camera(char **param, t_scene *scene);
+void	cameraGeometry(t_camera *cam);
 void	init_light(char **param, t_scene *scene);
 void	init_sphere(char **param, t_scene *scene);
 void	init_plane(char **param, t_scene *scene);

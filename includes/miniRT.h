@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 11:17:50 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 11:48:42 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,12 @@ void	swap(float *x1, float *x2);
 // main.c
 t_scene	*init_scene(char *file);
 
-// objects/camera2.c
-t_ray	ray(t_xyz p1, t_xyz p2);
-t_ray	generate_ray(t_scene * scene, int x, int y);
-void	update_camera2(t_scene *scene);
-void	cameraGeometry(t_camera *cam);
-
 // render_ascii.c
 void	renderAscii(t_scene *scene);
 int		get_parabolic_hitpoints(t_xyz abc, float *hp1, float *hp2);
 int		test_sphere(t_px ray, t_object sphere, float *hit_dist);
 int		test_plane(t_px ray, t_object plane, float *hit_dist);
 void	trace_ray(t_px *px, t_scene *s, int x, int y);
-void	loop_pixels(t_scene *scene, t_px *px);
-void	set_ascii_image(t_camera *cam);
 
 // render.c
 void	renderImage(t_scene *scene);
