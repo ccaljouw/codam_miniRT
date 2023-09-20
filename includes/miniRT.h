@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 07:40:25 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 15:24:06 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct s_renderInfo
 }				t_rederInfo;
 
 // fuction pointer for intersection test functions of different objects
-typedef bool f_testHit(t_ray camera2Ray, t_object *object, float *t);
+typedef bool f_testHit(t_px *px, t_object *sp);
 
 //utils.c
 void	exit_error(char *error_msg, char *optional_str, t_scene *data);
@@ -95,13 +95,16 @@ float	get_sphere_surface_data(float hp_distance, t_object *sph, t_px *px);
 void	trace_ray(t_px *px, t_scene *s, int x, int y);
 void	loop_pixels(t_scene *scene, t_px *px);
 void	prepare_camera(t_camera *cam);
+void	set_ascii_image(t_camera *cam);
 
 // render.c
 void	render(t_scene *scene);
 void	renderTest(t_scene *scene); 
+void	renderImage(t_scene *scene);
 
 // objects
-bool	testHitSP(t_ray castRay, t_object *sphere, float *intPoint);
+// bool	testHitSP(t_ray castRay, t_object *sphere, float *intPoint);
+bool	testHitSP(t_px *px, t_object *sp);
 // bool	testHitPL(t_ray castRay, t_object *plane, float *intPoint);
 // bool	testHitCY(t_ray castRay, t_object *cylinder, float *intPoint);
 

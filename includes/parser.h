@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 12:21:25 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/19 15:37:46 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # define ASCII_WIDTH  50
 # define ASCII_HEIGHT 30
 
-# define IM_WIDTH 256
-# define IM_HEIGHT 256
+# define IM_WIDTH 512
+# define IM_HEIGHT 512
 
 typedef struct s_scene
 {

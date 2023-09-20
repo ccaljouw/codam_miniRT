@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/19 12:36:49 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/19 15:37:24 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ float	get_sphere_surface_data(float hp_distance, t_object *sph, t_px *px)
 void	trace_ray(t_px *px, t_scene *s, int x, int y)
 {
 	float	hp_distance;
-	// float	facing_ratio;
+	float	facing_ratio;
 
 	ft_bzero(px, sizeof(t_px));
 	px->cam_origin = s->camera->origin;
@@ -155,9 +155,9 @@ void	trace_ray(t_px *px, t_scene *s, int x, int y)
 	v_normalizep(&px->direction);
 	if (test_sphere(*px, *((t_object *)s->objects->content), &hp_distance))
 	{
-		px->facing_ratio = get_sphere_surface_data(hp_distance, \
+		facing_ratio = get_sphere_surface_data(hp_distance, \
 									(t_object *)s->objects->content, px);
-		ft_printf("\e[48;5;%im \e[0m", (int)(232 + px->facing_ratio * 23));
+		ft_printf("\e[48;5;%im \e[0m", (int)(232 + facing_ratio * 23));
 	}
 	else
 		ft_printf("\e[48;5;232m \e[0m");

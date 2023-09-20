@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/18 20:18:34 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/19 13:54:16 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,23 +90,45 @@ bool	sphereOffCentre(t_t *t, t_ray castRay, t_object *sphere)
 	return true;
 }
 
-bool	testHitSP(t_ray castRay, t_object *sphere, float *intPoint)
+bool	sphereOffCentre2(t_t *t, t_px px, t_object *sphere)
+{
+	float 	a;
+	float 	b;
+	float 	c;
+	
+	a = v_dot(px.direction, px.direction);
+	b = v_dot(v_subtract(px.cam_origin, sphere->pOrigin), v_mulitply(v_normalize(px.direction), 2.0));
+	c = v_dot(v_subtract(px.cam_origin, sphere->pOrigin), v_subtract(px.cam_origin, sphere->pOrigin)) - pow(sphere->diameter/2, 2);
+	if (!solveQuadratic(a, b, c, t))
+		return false;
+	if (t->t0 > t->t1)
+		swap(&t->t0, &t->t1);
+	if (t->t0 < 0)
+	{
+		t->t0 = t->t1;
+		if (t->t0 < 0)
+			return false;
+	}
+	return true;
+}
+
+bool	testHitSP(t_px *px, t_object *sphere)
 {
 	t_t		t;
 	
 	t.t0 = 0;
 	t.t1 = 0;
-	if (sphere->pOrigin.x == 0 && sphere->pOrigin.y == 0 && sphere->pOrigin.z == 0)
+	// if (sphere->pOrigin.x == 0 && sphere->pOrigin.y == 0 && sphere->pOrigin.z == 0)
+	// {
+	// 	if (px = sphere0(px sphere) == false)
+	// 		return false;
+	// }
+	// else
 	{
-		if (sphere0(&t, castRay, sphere) == false)
+		if (sphereOffCentre2(&t, *px, sphere) == false)
 			return false;
 	}
-	else
-	{
-		if (sphereOffCentre(&t, castRay, sphere) == false)
-			return false;
-	}
-	*intPoint = t.t0;
+	px->hp_distance = t.t0;
 	return true;
 }
 
