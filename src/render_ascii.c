@@ -6,15 +6,12 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 10:15:42 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 11:00:22 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 #include "../includes/test.h"
-
-typedef int		t_hit_test(t_px ray, t_object, float *hit_dist);
-typedef float	t_surface_data(t_object obj, t_px px);
 
 /**
  * @brief	Back to those old quadratic math lessons!
@@ -114,10 +111,8 @@ float	get_sphere_surface_data(t_object sph, t_px px)
 
 float	get_plane_surface_data(t_object plane, t_px px)
 {
-	(void)plane;
 	(void)px;
 	return (v_dot(v_normalize(plane.vNormal), v_normalize(px.direction)));
-	// return (0.5);
 }
 
 int	test_plane(t_px ray, t_object plane, float *hit_dist)
