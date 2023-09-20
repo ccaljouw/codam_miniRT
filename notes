@@ -51,10 +51,26 @@ Near and far clipping plane: Objects closer than the near-clipping
 Viewing frustum: the space between the near an far clipping planes
 Point of convergence: camera origin
 
-Each pixel in an imag corresponds to a singular light ray R with a ginven direction D and a given origin O.  
+Each pixel in an image corresponds to a singular light ray R with a ginven direction D and a given origin O.  
 
+CYLINDER
 
+OPEN
+z = 1?
 
+t1 = (-b + sqrt(b^2 - 4ac)) / 2a
+t2 = (-b - sqrt(b^2 - 4ac)) / 2a
 
+z1 = origin.z + (t1 * direction.z)
+z2 = origin.z + (t2 * direction.z)
 
+if (zmin < z1 < zmax && zmin < z2 < zmax)
+{
+	if (t1 < 0)
+	{
+		t1 = t2;
+		if (t1 < 0)
+			return (0);
+	}
+}
 

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 16:48:38 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 18:46:58 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int		test_sphere(t_px ray, t_object sphere, float *hit_dist);
 float	get_sphere_surface_data(t_object sph, t_px px);
 int		test_plane(t_px ray, t_object plane, float *hit_dist);
 float	get_plane_surface_data(t_object plane, t_px px);
+int		test_cylinder(t_px ray, t_object sphere, float *hit_dist);
+float	get_cylinder_surface_data(t_object cy, t_px px);
 
 // multithreading.c
 pthread_t	*create_threads(t_scene *scene);

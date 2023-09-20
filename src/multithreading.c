@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 17:03:38 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 19:21:12 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ pthread_t	*create_threads(t_scene *scene)
 	y = 0;
 	blocksize = scene->image->height / THREADS;
 	while (i < THREADS)
+	// while (i < 1)
 	{
 		blocks[i] = set_block(scene, y, blocksize);
 		y = y + blocksize;

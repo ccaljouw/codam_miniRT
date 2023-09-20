@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 16:59:41 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 18:47:43 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 void	trace_ray(t_px *px, t_scene *s, int x, int y)
 {
 	float					hp_distance;
-	static t_hit_test		*hit_test[2] = {test_sphere, test_plane};
+	static t_hit_test		*hit_test[3] = {test_sphere, test_plane, test_cylinder};
 	t_list					*objects;
 	t_object				*object;
 
@@ -118,7 +118,7 @@ void	renderAscii(t_scene *scene)
 
 uint32_t	getColor(t_px	px, t_scene *scene)
 {
-	static t_surface_data	*surface_data[2] = {get_sphere_surface_data, get_plane_surface_data};
+	static t_surface_data	*surface_data[3] = {get_sphere_surface_data, get_plane_surface_data, get_cylinder_surface_data};
 	uint32_t	color;
 	t_object	*object;
 	float		ratio;
