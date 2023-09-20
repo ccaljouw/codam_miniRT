@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 10:26:55 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 11:17:50 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,9 @@ void	set_ascii_image(t_camera *cam);
 void	renderImage(t_scene *scene);
 
 // objects
+int		test_sphere(t_px ray, t_object sphere, float *hit_dist);
 float	get_sphere_surface_data(t_object sph, t_px px);
+int		test_plane(t_px ray, t_object plane, float *hit_dist);
 float	get_plane_surface_data(t_object plane, t_px px);
 
 

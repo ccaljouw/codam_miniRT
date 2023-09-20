@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 11:02:00 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 11:31:40 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_scene
 	mlx_image_t	*image;
 	t_ambient	*ambient; // bij één ambient light kan dit op de stack?
 	t_camera	*camera; // bij éen camera kan dit op de stack?
-	t_camera2	*camera2;
 	t_light		*light;
 	t_list		*objects;
 }				t_scene;

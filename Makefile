@@ -28,9 +28,9 @@ else
 endif
 
 MAIN		:= obj/main.o
-OBJ 		:= $(addprefix obj/, utils.o render.o render_ascii.o \
+OBJ 		:= $(addprefix obj/, utils.o render.o \
 				$(addprefix parse/, parse.o unique.o shapes.o) \
-				$(addprefix objects/, camera.o sphere.o) \
+				$(addprefix objects/, sphere.o plane.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o matrix_vector_utils.o) \
 				)
 TEST_OBJ	:= $(addprefix testing/obj/, utils.o camera.o)

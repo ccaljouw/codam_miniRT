@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 10:19:05 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 11:31:34 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,26 +116,6 @@ typedef struct camera_s
 	float	fov_scale;
 	t_m44	cam2world;
 }			t_camera;
-
-typedef struct camera2_s
-{
-	float		fov[2];
-	float		focal_length;
-	float		aperture[2]; 
-	float		clipping[2];
-	int			image_size[2];
-	float		image_ratio;
-	float		canvas_ratio;
-	t_xyz		pOrigin;
-	t_xyz		vDirection;
-	t_m44		camera_to_world;
-	// can be replaced by matrix?
-	//-----------------------------
-	t_xyz		vCanvasU;
-	t_xyz		vCanvasV;
-	t_xyz		pCanvas_centre;
-	//-----------------------------
-}				t_camera2;
 
 /**
  * @brief Light (id: "L")

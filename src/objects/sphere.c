@@ -6,129 +6,104 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/20 10:20:29 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/20 11:16:39 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-
-bool solveQuadratic(float a, float b, float c, t_t *t)
+/**
+ * @brief	Back to those old quadratic math lessons!
+ * 			solves x for ax^2 + bx + c (where abc are
+ * 			given y the test_sphere function and pasted
+ * 			into a vector for Norminette's sake, so
+ * 			abc.x = a, abc.y = b, abc.z = c).
+ * 			Calculates the discriminant (b^2 - 4ac, remember?)
+ * 			if this is below zero, the ray doesn't hit the sphere
+ * 			
+ * 
+ * @param abc abc constants in vector form
+ * @param hp1 pointer to first hitpoint
+ * @param hp2 pointer to second hitpoint
+ * @return int 1 on hit, 0 on no hit
+ */
+int	get_parabolic_hitpoints(t_xyz abc, float *hp1, float *hp2)
 {
-	float discr;
-	float q;
-	
-	discr = b * b - 4 * a * c;
-	if (discr < 0)
-		return false;
-	else if (discr == 0)
-	{
-		t->t0 = -0.5 * b / a;
-		t->t1 = t->t0;
-	}
+	float	discriminant;
+	float	quotient;
+
+	discriminant = abc.y * abc.y - 4 * abc.x * abc.z;
+	if (discriminant < 0)
+		return (0);
+	if (discriminant == 0)
+		return (*hp1 = -0.5 * abc.y / abc.x, *hp2 = *hp1, 1);
+	if (abc.y > 0)
+		quotient = -0.5 * (abc.y + sqrt(discriminant));
 	else
-	{
-		if (b > 0)
-			q = -0.5 * (b + sqrt(discr));
-		else
-			q = -0.5 * (b - sqrt(discr));
-		t->t0 = q / a;
-		t->t1 = c / q;
-	}
-	return true;	
+		quotient = -0.5 * (abc.y - sqrt(discriminant));
+	*hp1 = quotient / abc.x;
+	*hp2 = abc.z / quotient;
+	if (*hp1 > *hp2)
+		swap_floats(hp1, hp2);
+	return (1);
 }
 
-bool	sphere0(t_t *t, t_ray camRay, t_object *sphere)
+/**
+ * @brief	Tests if the ray provided hits the sphere provided. Returns
+ * 			1 of this is the case, and updates hit_dist to 
+ * 
+ * @param ray 
+ * @param sphere 
+ * @param hit_dist 
+ * @return int 
+ */
+int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
 {
-	t_xyz distance; //cam origin to sphere origin
-	float t_ca;
-	float t_hc;
-	float d2;
-	
-	distance = v_subtract(sphere->pOrigin, camRay.p1); // distance between sphere origin & cam origin
-	t_ca = v_dot(distance, v_normalize(camRay.p1_p2)); // distance * direction
-	if (t_ca < 0)
-		return false;
-	
-	d2 = v_dot(distance, distance) - (t_ca * t_ca); // squared magnitude distance - t_ca suared
-	if (d2 > pow(sphere->diameter / 2, 2))
-		return false;
-	
-	t_hc = sqrt(pow(sphere->diameter / 2, 2) - d2);
-	t->t0 = t_ca - t_hc;
-	t->t1 = t_ca + t_hc;
-	if (t->t0 > t->t1)
-		swap(&t->t0, &t->t1);
-	if (t->t0 < 0)
+	float	hit_dist1;
+	float	hit_dist2;
+	t_xyz	orig_to_center;
+	t_xyz	abc;
+
+	hit_dist1 = 0;
+	hit_dist2 = 0;
+	orig_to_center = v_subtract(ray.cam_origin, sphere.pOrigin);
+	abc.x = v_dot(ray.direction, ray.direction);
+	abc.y = 2 * v_dot(ray.direction, orig_to_center);
+	abc.z = v_dot(orig_to_center, orig_to_center) - sphere.diameter;
+	if (!get_parabolic_hitpoints(abc, &hit_dist1, &hit_dist2))
+		return (0);
+	if (hit_dist1 < 0)
 	{
-		t->t0 = t->t1;
-		if (t->t0 < 0)
-			return false;
+		hit_dist1 = hit_dist2;
+		if (hit_dist1 < 0)
+			return (0);
 	}
-	return true;
+	return (*hit_dist = hit_dist1, 1);
 }
 
-bool	sphereOffCentre(t_t *t, t_ray castRay, t_object *sphere)
+/**
+ * @brief Calculate the normal of the sphere at the hitpoint (ie the vector
+		perpendicular to the surface at that point).
+		do this by subtracting the sphere center coordinate from the hitpoint
+		coordinate (which is in turn calulated by origin + direction * distance)
+		the 'facing ratio' (or how directly the ray hits the sphere
+		normal) is the dot product of the surface normal at the hitpoint and 
+		the direction of the ray.
+ * 
+ * @param hp_distance 
+ * @param s 
+ * @param px 
+ * @return float 
+ */
+float	get_sphere_surface_data(t_object sph, t_px px)
 {
-	float a;
-	float b;
-	float c;
-	
-	a = v_dot(castRay.p1_p2, castRay.p1_p2);
-	b = v_dot(v_subtract(castRay.p1, sphere->pOrigin), v_mulitply(v_normalize(castRay.p1_p2), 2.0));
-	c = v_dot(v_subtract(castRay.p1, sphere->pOrigin), v_subtract(castRay.p1, sphere->pOrigin)) - pow(sphere->diameter/2, 2);
-	if (!solveQuadratic(a, b, c, t))
-		return false;
-	if (t->t0 > t->t1)
-		swap(&t->t0, &t->t1);
-	if (t->t0 < 0)
-	{
-		t->t0 = t->t1;
-		if (t->t0 < 0)
-			return false;
-	}
-	return true;
-}
+	t_xyz		surface_normal_at_hitpoint;
+	t_xyz		hitpoint;
+	float		facing_ratio;
 
-bool	sphereOffCentre2(t_t *t, t_px px, t_object *sphere)
-{
-	float 	a;
-	float 	b;
-	float 	c;
-	
-	a = v_dot(px.direction, px.direction);
-	b = v_dot(v_subtract(px.cam_origin, sphere->pOrigin), v_mulitply(v_normalize(px.direction), 2.0));
-	c = v_dot(v_subtract(px.cam_origin, sphere->pOrigin), v_subtract(px.cam_origin, sphere->pOrigin)) - pow(sphere->diameter/2, 2);
-	if (!solveQuadratic(a, b, c, t))
-		return false;
-	if (t->t0 > t->t1)
-		swap(&t->t0, &t->t1);
-	if (t->t0 < 0)
-	{
-		t->t0 = t->t1;
-		if (t->t0 < 0)
-			return false;
-	}
-	return true;
+	hitpoint = v_add(px.cam_origin, v_mulitply(px.direction, px.hit_distance));
+	surface_normal_at_hitpoint = v_subtract(sph.pOrigin, hitpoint);
+	v_normalizep(&surface_normal_at_hitpoint);
+	facing_ratio = v_dot(surface_normal_at_hitpoint, px.direction);
+	return (facing_ratio);
 }
-
-bool	testHitSP(t_px *px, t_object *sphere)
-{
-	t_t		t;
-	
-	t.t0 = 0;
-	t.t1 = 0;
-	// if (sphere->pOrigin.x == 0 && sphere->pOrigin.y == 0 && sphere->pOrigin.z == 0)
-	// {
-	// 	if (px = sphere0(px sphere) == false)
-	// 		return false;
-	// }
-	// else
-	{
-		if (sphereOffCentre2(&t, *px, sphere) == false)
-			return false;
-	}
-	px->hit_distance = t.t0;
-	return true;
-}
-

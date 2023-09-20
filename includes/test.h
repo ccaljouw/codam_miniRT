@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 14:19:24 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/18 22:53:01 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/20 11:32:09 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdio.h>
 
 void	print_vector(t_xyz vector);
-void	print_camera2(t_camera2 cam);
+// void	print_camera(t_camera cam);
 char	*vtostr(t_xyz vector);
 void	compare(char *result, char *check, int test);
 
