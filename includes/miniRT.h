@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   miniRT.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 11:48:42 by ccaljouw      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/21 00:28:21 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_renderInfo
 
 // fuction pointer for intersection test functions of different objects
 typedef int		t_hit_test(t_px ray, t_object, float *hit_dist);
-typedef float	t_surface_data(t_object obj, t_px px);
+typedef int		t_surface_data(t_object obj, t_px px, t_scene scene);
 
 //utils.c
 void	exit_error(char *error_msg, char *optional_str, t_scene *data);
@@ -94,9 +94,9 @@ void	renderImage(t_scene *scene);
 
 // objects
 int		test_sphere(t_px ray, t_object sphere, float *hit_dist);
-float	get_sphere_surface_data(t_object sph, t_px px);
+int		get_sphere_surface_data(t_object sph, t_px px, t_scene scene);
 int		test_plane(t_px ray, t_object plane, float *hit_dist);
-float	get_plane_surface_data(t_object plane, t_px px);
+int		get_plane_surface_data(t_object plane, t_px px, t_scene scene);
 
 
 

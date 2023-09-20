@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   render.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 11:52:58 by ccaljouw      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/21 00:48:06 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,22 @@ void	trace_ray(t_px *px, t_scene *s, int x, int y)
 	}
 }
 
-void	print_ascii(t_px px)
+void	print_ascii(t_px px, t_scene scene)
 {
-	static t_surface_data	*surface_data[2] = {get_sphere_surface_data, get_plane_surface_data};
+	int						surface_color;
+	float					color_ratio;
+	static t_surface_data	*surface_data[2] = \
+				{get_sphere_surface_data, get_plane_surface_data};
 
+	color_ratio = 0;
 	if (px.hitobject)
 	{
-		px.facing_ratio = fabsf(surface_data[px.hitobject->id](*px.hitobject, px));
-		ft_printf("\e[48;5;%im \e[0m", (int)(232 + px.facing_ratio * 23));
+		surface_color = surface_data[px.hitobject->id](*px.hitobject, px, scene);
+		color_ratio = ((surface_color >> 24) & 0xFF) / (float)255 * 0.299;
+		color_ratio += ((surface_color >> 16) & 0xFF) / (float)255 * 0.587;
+		color_ratio += ((surface_color >> 8) & 0xFF) / (float)255 * 0.114;
+		// ft_printf("%f", color_ratio);
+		ft_printf("\e[48;5;%im \e[0m", (int)(232 + color_ratio * 23));
 	}
 	else
 		ft_printf("\e[48;5;232m \e[0m");
@@ -108,7 +116,7 @@ void	renderAscii(t_scene *scene)
 		while (x < cam->image_width)
 		{
 			trace_ray(&pixels[x + y], scene, x, y);
-			print_ascii(pixels[x + y]);
+			print_ascii(pixels[x + y], *scene);
 			x++;
 		}
 		ft_printf("\n");
@@ -118,31 +126,28 @@ void	renderAscii(t_scene *scene)
 
 uint32_t	getColor(t_px	px, t_scene *scene)
 {
-	static t_surface_data	*surface_data[2] = {get_sphere_surface_data, get_plane_surface_data};
-	uint32_t	color;
-	t_object	*object;
-	float		ratio;
+	static t_surface_data	*surface_data[2] = \
+				{get_sphere_surface_data, get_plane_surface_data};
+	t_object				*object;
 
-	(void)scene;
 	object = (t_object *)px.hitobject;
 	if (!object)
-		return(0 << 24 | 0 << 16 | 0 << 8 | 255);
-	ratio = surface_data[object->id](*px.hitobject, px);
-	color = (object->rgb[0] << 24 | object->rgb[1] << 16 | object->rgb[2] << 8 | (uint32_t)(255 * ratio));
-	return (color);
+		return (0 << 24 | 0 << 16 | 0 << 8 | 255);
+	return (surface_data[object->id](*px.hitobject, px, *scene));
 }
 
 void	renderImage(t_scene *scene)
 {
-
 	t_px	*pixels;
 	int		x;
 	int		y;
 
 	scene->camera->image_width = scene->image->width;
 	scene->camera->image_height = scene->image->height;
-	scene->camera->aspect_ratio = (float)scene->image->width / scene->image->height;
-	pixels = ft_calloc(scene->image->width * scene->image->height, sizeof(t_px));
+	scene->camera->aspect_ratio = \
+					(float)scene->image->width / scene->image->height;
+	pixels = ft_calloc(scene->image->width * scene->image->height, \
+					sizeof(t_px));
 	if (pixels == NULL)
 		exit_error(ERROR_MEM, NULL, scene);
 	y = 0;

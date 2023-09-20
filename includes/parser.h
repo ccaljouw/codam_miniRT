@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 11:48:36 by ccaljouw      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/21 00:49:10 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #  define BUFFER_SIZE 81
 # endif
 
-# define ASCII_WIDTH  50
-# define ASCII_HEIGHT 30
+# define ASCII_WIDTH  150
+# define ASCII_HEIGHT 50
 
 # define IM_WIDTH 512
 # define IM_HEIGHT 512
