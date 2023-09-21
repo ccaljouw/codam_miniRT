@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 14:19:24 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/20 11:32:09 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 21:53:18 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,4 @@ void	print_vector(t_xyz vector);
 char	*vtostr(t_xyz vector);
 void	compare(char *result, char *check, int test);
 
-int		camera2test(int testnr);
 #endif

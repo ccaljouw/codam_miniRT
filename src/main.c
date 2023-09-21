@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 13:44:06 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 21:52:15 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,19 +115,29 @@ void	resize(void	*param)
 void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param)
 {
 	t_scene 	*scene;
-	int			x_now;
-	int			y_now;
+	int			x;
+	int			y;
 
-	x_now = 0;
-	y_now = 0;
+	x = 0;
+	y = 0;
 	scene = (t_scene *)param;
 	(void)mod;
 	if (b == MLX_MOUSE_BUTTON_LEFT && a == MLX_PRESS)
 	{
-		mlx_get_mouse_pos(scene->mlx, &x_now, &y_now);
-		printf("x_now:%d. y_now:%d\n", x_now, y_now);
-		scene->search = scene->pixels[y_now][x_now].hitobject;
-		check_object(scene, x_now, y_now);
+		mlx_get_mouse_pos(scene->mlx, &x, &y);
+		scene->search = scene->pixels[y][x].hitobject;
+		y = 0;
+		while (y < scene->p_height)
+		{
+			x = 0;
+			while (x < scene->p_width)
+			{
+				if (scene->pixels[y][x].hitobject == scene->search)
+					mlx_put_pixel(scene->image, x, y, (100 << 24 | 100 << 16 | 100 << 8 | 100));
+				x++;
+			}
+			y++;
+		}
 	}
 }
 
