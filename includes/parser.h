@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 11:24:16 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 11:58:37 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ typedef struct s_scene
 	t_camera		*camera; // bij éen camera kan dit op de stack?
 	t_light			*light;
 	t_list			*objects;
-	t_px			*pixels;
+	t_px			**pixels;
 }					t_scene;
 
 typedef struct s_block
 {
-	t_scene		scene;
+	t_scene		*scene;
 	int			y;
 	int			y_max;
 }	t_block;

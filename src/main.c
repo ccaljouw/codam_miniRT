@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 07:44:11 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/21 12:03:24 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	main(int argc, char **argv)
 		scene->image = mlx_new_image(scene->mlx, IM_WIDTH, IM_HEIGHT);
 		image_to_window(scene);
 		renderImage(scene);
-		mlx_loop_hook(scene->mlx, resize, scene);
+		// mlx_loop_hook(scene->mlx, resize, scene);
 		mlx_loop(scene->mlx);
 		mlx_delete_image(scene->mlx, scene->image);
 		mlx_terminate(scene->mlx);

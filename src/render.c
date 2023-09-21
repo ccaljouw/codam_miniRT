@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 11:22:57 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 12:10:32 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,26 +98,35 @@ void	print_ascii(t_px px, t_scene scene)
 
 void	renderAscii(t_scene *scene)
 {
-	t_px		*pixels;
+	t_px		**pixels;
 	t_camera	*cam;
 	int		x;
 	int		y;
+	int		i;
 
+	i = 0;
 	cam = scene->camera;
 	cam->aspect_ratio = (float)ASCII_WIDTH / ASCII_HEIGHT * 0.6;
 	cam->image_width = ASCII_WIDTH;
 	cam->image_height = ASCII_HEIGHT;
-	pixels = ft_calloc(ASCII_WIDTH * ASCII_HEIGHT, sizeof(t_px));
-	if (pixels == NULL)
+	pixels = malloc(ASCII_HEIGHT * sizeof(t_px *));
+	if (!pixels)
 		exit_error(ERROR_MEM, NULL, scene);
+	while (i < ASCII_HEIGHT)
+	{
+		pixels[i] = ft_calloc(ASCII_WIDTH, sizeof(t_px)); // image or cam image?
+		if (!pixels[i])
+			exit_error(ERROR_MEM, NULL, scene);
+		i++;
+	}
 	y = 0;
 	while (y < cam->image_height)
 	{
 		x = 0;
 		while (x < cam->image_width)
 		{
-			trace_ray(&pixels[x + y], scene, x, y);
-			print_ascii(pixels[x + y], *scene);
+			trace_ray(pixels[y] + x, scene, x, y);
+			print_ascii(pixels[y][x], *scene);
 			x++;
 		}
 		ft_printf("\n");
@@ -140,10 +149,25 @@ uint32_t	getColor(t_px	px, t_scene *scene)
 void	renderImage(t_scene *scene)
 {
 	pthread_t	*threads;
-	
-	scene->camera->image_width = scene->image->width;
-	scene->camera->image_height = scene->image->height;
-	scene->camera->aspect_ratio = (float)scene->image->width / scene->image->height;
+	t_camera	*cam;
+	int			i;
+
+	i = 0;
+	cam = scene->camera;
+	cam->image_width = scene->image->width;
+	cam->image_height = scene->image->height;
+	cam->aspect_ratio = (float)scene->image->width / scene->image->height;
+	// if exists free first?
+	scene->pixels = malloc(cam->image_height * sizeof(t_px *));
+	if (!scene->pixels)
+		exit_error(ERROR_MEM, NULL, scene);
+	while (i < cam->image_width)
+	{
+		scene->pixels[i] = ft_calloc(scene->image->width, sizeof(t_px)); // image or cam image?
+		if (!scene->pixels[i])
+			exit_error(ERROR_MEM, NULL, scene);
+		i++;
+	}
 	threads = create_threads(scene);
 	join_threads(threads, scene);
 }

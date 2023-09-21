@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 21:02:15 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/21 12:10:58 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,17 @@ void	*routine(void *params)
 	int		y;
 	t_scene	*scene;
 	t_block	*block;
-	t_px	*pixels;
 
 	block = (t_block *)params;
-	scene = &block->scene;
+	scene = block->scene;
 	y = block->y;
-	pixels = ft_calloc(scene->image->width * (block->y_max - y), sizeof(t_px));
-	if (!pixels)
-		exit_error(ERROR_MEM, NULL, scene);
 	while (y < block->y_max)
 	{
-		// x = scene->camera->image_height/2;
-		// while (x == scene->camera->image_height/2)
 		x = 0;
-		while (x < scene->camera->image_height)
+		while (x < scene->camera->image_width)
 		{
-			trace_ray(&pixels[x + y], scene, x, y);
-			mlx_put_pixel(scene->image, x, y, getColor(pixels[x + y], scene));
+			trace_ray(scene->pixels[y] + x, scene, x, y);
+			mlx_put_pixel(scene->image, x, y, getColor(scene->pixels[y][x], scene));
 			x++;
 		}
 		y++;
@@ -47,7 +41,7 @@ t_block	set_block(t_scene *scene, int y, int blocksize)
 {
 	t_block	block;
 	
-	block.scene = *scene;
+	block.scene = scene;
 	block.y =  y;
 	block.y_max = y + blocksize;
 	return (block);
