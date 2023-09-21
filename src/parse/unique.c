@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   unique.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 11:20:55 by ccaljouw      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   unique.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/21 15:38:35 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	cameraGeometry(t_camera *cam)
 	cam->cam2world = m44_dot_product(direction, cam->cam2world);
 	m44_multiply_vec3(cam->cam2world, v_create(0, 0, 0), &cam->origin);
 	m44_print(cam->cam2world);
-	print_vector(cam->origin);
+	// print_vector(cam->origin);
 	cam->fov_scale = tan(ft_rad(cam->fov * 0.5));
 }
 
