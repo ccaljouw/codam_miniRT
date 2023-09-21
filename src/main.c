@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 12:03:24 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 13:44:06 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,25 @@ void	resize(void	*param)
 	}
 }
 
+void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param)
+{
+	t_scene 	*scene;
+	int			x_now;
+	int			y_now;
+
+	x_now = 0;
+	y_now = 0;
+	scene = (t_scene *)param;
+	(void)mod;
+	if (b == MLX_MOUSE_BUTTON_LEFT && a == MLX_PRESS)
+	{
+		mlx_get_mouse_pos(scene->mlx, &x_now, &y_now);
+		printf("x_now:%d. y_now:%d\n", x_now, y_now);
+		scene->search = scene->pixels[y_now][x_now].hitobject;
+		check_object(scene, x_now, y_now);
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_scene	*scene;
@@ -129,6 +148,7 @@ int	main(int argc, char **argv)
 		image_to_window(scene);
 		renderImage(scene);
 		// mlx_loop_hook(scene->mlx, resize, scene);
+		mlx_mouse_hook(scene->mlx, select_object, scene);
 		mlx_loop(scene->mlx);
 		mlx_delete_image(scene->mlx, scene->image);
 		mlx_terminate(scene->mlx);

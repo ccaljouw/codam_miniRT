@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 11:58:37 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 13:59:51 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ typedef struct s_scene
 	t_light			*light;
 	t_list			*objects;
 	t_px			**pixels;
+	int				p_width;
+	int				p_height;
+	t_object		*search;
 }					t_scene;
 
 typedef struct s_block

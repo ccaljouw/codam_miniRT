@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/21 11:20:03 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 12:34:51 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
 			return (0);
 	}
 	*hit_dist = hit_dist1;
-	// get_sphere_surface_data(sphere, ray);
 	return (1);
 }
 

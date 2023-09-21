@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 11:18:59 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 14:37:33 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	test_cylinder(t_px ray, t_object cylinder, float *hit_dist)
 	radius = cylinder.diameter * 0.5;
 	hit_dist1 = 0;
 	hit_dist2 = 0;	
-	v_normalizep(&cylinder.vAxis);
+	// v_normalizep(&cylinder.vAxis);
 	orig_to_center = v_subtract(ray.cam_origin, cylinder.pOrigin);
 	abc.x = v_dot(ray.direction, ray.direction) - pow(v_dot(ray.direction, cylinder.vAxis), 2);
 	abc.y = 2 * (v_dot(ray.direction, orig_to_center) - (v_dot(ray.direction, cylinder.vAxis) * v_dot(orig_to_center, cylinder.vAxis)));

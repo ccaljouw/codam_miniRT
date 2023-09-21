@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 11:38:02 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 13:36:45 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef int		t_surface_data(t_object obj, t_px px, t_scene scene);
 //utils.c
 void	exit_error(char *error_msg, char *optional_str, t_scene *data);
 void	swap(float *x1, float *x2);
+void	clean_pixels(t_scene *scene);
 
 // main.c
 t_scene	*init_scene(char *file);
@@ -104,5 +105,8 @@ int		get_cylinder_surface_data(t_object cy, t_px px, t_scene scene);
 // multithreading.c
 pthread_t	*create_threads(t_scene *scene);
 void		join_threads(pthread_t *threads, t_scene *scene);
+
+
+int	check_object(t_scene *scene, int x, int y);
 
 #endif

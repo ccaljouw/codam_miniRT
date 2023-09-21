@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 12:10:32 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 13:06:54 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,17 +157,19 @@ void	renderImage(t_scene *scene)
 	cam->image_width = scene->image->width;
 	cam->image_height = scene->image->height;
 	cam->aspect_ratio = (float)scene->image->width / scene->image->height;
-	// if exists free first?
-	scene->pixels = malloc(cam->image_height * sizeof(t_px *));
+	clean_pixels(scene);
+	scene->pixels = ft_calloc(cam->image_height + 1, sizeof(t_px *));
 	if (!scene->pixels)
 		exit_error(ERROR_MEM, NULL, scene);
 	while (i < cam->image_width)
 	{
-		scene->pixels[i] = ft_calloc(scene->image->width, sizeof(t_px)); // image or cam image?
+		scene->pixels[i] = ft_calloc(scene->image->width + 1, sizeof(t_px)); // image or cam image?
 		if (!scene->pixels[i])
 			exit_error(ERROR_MEM, NULL, scene);
 		i++;
 	}
+	scene->p_width = cam->image_width;
+	scene->p_height = cam->image_height;
 	threads = create_threads(scene);
 	join_threads(threads, scene);
 }

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/16 13:54:05 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/21 13:07:03 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,28 @@ void	exit_error(char *error_msg, char *optional_str, t_scene *scene)
 	// if (scene)
 	// 		cleanup scene
 	exit (1);
+}
+
+void	clean_pixels(t_scene *scene)
+{
+	int	x;
+	int	y;
+	
+	
+	x = 0;
+	y = 0;
+	if (scene->p_width)
+	{
+		while (y < scene->p_height)
+		{
+			while (x < scene->p_width)
+			{
+				free(scene->pixels[y] + x);
+				x++;
+			}
+			y++;
+		}
+		free(scene->pixels);
+		scene->pixels = NULL;
+	}
 }
