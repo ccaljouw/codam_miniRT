@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 20:38:05 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/21 08:10:48 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ uint32_t	getColor(t_px	px, t_scene *scene)
 	object = (t_object *)px.hitobject;
 	if (!object)
 		return(0 << 24 | 0 << 16 | 0 << 8 | 255);
-	ratio = surface_data[object->id](*px.hitobject, px);
+	ratio = surface_data[object->id](*px.hitobject, px);           
 	color = (object->rgb[0] << 24 | object->rgb[1] << 16 | object->rgb[2] << 8 | (uint32_t)(255 * ratio));
 	return (color);
 }

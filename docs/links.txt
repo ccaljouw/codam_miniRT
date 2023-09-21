@@ -2,4 +2,5 @@ https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tra
 https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-overview/light-transport-ray-tracing-whitted.html
 http://www.cs.cornell.edu/courses/cs4620/2011fa/lectures/08raytracingWeb.pdf
 https://www.cl.cam.ac.uk/teaching/1999/AGraphHCI/SMAG/node2.html
+https://www.cl.cam.ac.uk/teaching/1415//CompGraph/cgip.pdf
 
