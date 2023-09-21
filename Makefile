@@ -33,7 +33,7 @@ OBJ 		:= $(addprefix obj/, utils.o render.o multithreading.o \
 				$(addprefix objects/, sphere.o plane.o cylinder.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o matrix_vector_utils.o) \
 				)
-TEST_OBJ	:= $(addprefix testing/obj/, utils.o camera.o)
+TEST_OBJ	:= $(addprefix testing/obj/, utils.o)
 
 all: $(NAME)
 
