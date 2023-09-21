@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/21 12:34:51 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 23:19:13 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,18 @@ int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
 {
 	float	hit_dist1;
 	float	hit_dist2;
+	float	radius;
 	t_xyz	orig_to_center;
 	t_xyz	abc;
 
 	hit_dist1 = 0;
 	hit_dist2 = 0;
+	radius = sphere.diameter / 2;
 	orig_to_center = v_subtract(ray.cam_origin, sphere.pOrigin);
 	abc.x = v_dot(ray.direction, ray.direction);
 	abc.y = 2 * v_dot(ray.direction, orig_to_center);
-	abc.z = v_dot(orig_to_center, orig_to_center) - sphere.diameter;
+	// abc.z = v_dot(orig_to_center, orig_to_center) - sphere.diameter;
+	abc.z = v_dot(orig_to_center, orig_to_center) - (radius * radius);
 	if (!get_parabolic_hitpoints(abc, &hit_dist1, &hit_dist2))
 		return (0);
 	if (hit_dist1 < 0)

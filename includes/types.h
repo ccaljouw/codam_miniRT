@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 13:29:55 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 22:33:47 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_pixel
 	t_xyz		direction;
 	t_object	*hitobject;
 	float		hit_distance;
+	float		m_axis;
 	int			color;
 }	t_px;
 

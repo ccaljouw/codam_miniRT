@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 13:07:03 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 22:51:30 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,9 @@ void	clean_pixels(t_scene *scene)
 		free(scene->pixels);
 		scene->pixels = NULL;
 	}
+}
+
+void	print_vector(t_xyz vector)
+{
+	printf("[%.3f, %.3f, %.3f]\n", vector.x, vector.y, vector.z);  //weghalen
 }
