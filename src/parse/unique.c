@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   unique.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 11:34:12 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 11:20:55 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	cameraGeometry(t_camera *cam)
 	direction = m44_from_direction_vector(cam->orientation_v);
 	cam->cam2world = m44_dot_product(direction, cam->cam2world);
 	m44_multiply_vec3(cam->cam2world, v_create(0, 0, 0), &cam->origin);
+	m44_print(cam->cam2world);
+	print_vector(cam->origin);
 	cam->fov_scale = tan(ft_rad(cam->fov * 0.5));
 }
 
@@ -57,7 +59,8 @@ void	init_camera(char **param, t_scene *scene)
  */
 void	init_ambient(char **param, t_scene *scene)
 {
-	int	i;
+	int			i;
+	t_ambient	*ambient; // added this to keep the lines under 80 chars.
 
 	if (scene->ambient)
 		exit_error(ERROR_SCENE, "redefinition of ambient lighting", scene);
@@ -66,11 +69,15 @@ void	init_ambient(char **param, t_scene *scene)
 		i++;
 	if (i != 3)
 		exit_error(ERROR_SPHERE, "incorrect number of arguments", scene);
-	scene->ambient = malloc(sizeof(t_ambient));
-	if (!scene->ambient)
+	ambient = malloc(sizeof(t_ambient));
+	if (!ambient)
 		exit_error(ERROR_MEM, NULL, scene);
-	scene->ambient->ratio = to_float(param[1], scene);
-	set_rgb(param[2], scene->ambient->rgb, scene);
+	ambient->ratio = to_float(param[1], scene);
+	set_rgb(param[2], ambient->rgb, scene);
+	ambient->rgb_ratio[0] = ((float)ambient->rgb[0] / 255) * ambient->ratio;	// calculate ratios here to assure its only done once
+	ambient->rgb_ratio[1] = ((float)ambient->rgb[1] / 255) * ambient->ratio;
+	ambient->rgb_ratio[2] = ((float)ambient->rgb[2] / 255) * ambient->ratio;
+	scene->ambient = ambient;
 	ft_putstr_fd("\033[34;1mAmbient lighting config: \033[0m", 1);
 }
 

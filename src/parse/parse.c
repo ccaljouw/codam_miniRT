@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/20 20:44:29 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/21 10:49:06 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	parse_type(char *line, t_scene *scene)
 	param = ft_split(line, '\t');
 	if (!param)
 		exit_error(ERROR_MEM, NULL, scene);
-	while (i < 6)
+	while (param[0] && i < 6) // added param[0] check to avoid segfault on empty line (could also protect ft_strcmp btw)
 	{
 		if (!ft_strcmp(type[i], param[0]))
 		{

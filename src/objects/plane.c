@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 08:10:54 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/21 10:48:44 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	test_plane(t_px ray, t_object plane, float *hit_dist)
 	denominator = v_dot(plane.vNormal, ray.direction);
 	if (denominator > EPSILON)
 	{
-		diff_ray0_plane0 = v_subtract(ray.cam_origin, plane.pOrigin);
+		diff_ray0_plane0 = v_subtract( plane.pOrigin, ray.cam_origin);
 		*hit_dist = v_dot(diff_ray0_plane0, plane.vNormal) / denominator;
 		if (*hit_dist >= 0)
 		{
@@ -33,9 +33,14 @@ int	test_plane(t_px ray, t_object plane, float *hit_dist)
 }
 
 
-float	get_plane_surface_data(t_object plane, t_px px)
+int	get_plane_surface_data(t_object plane, t_px px, t_scene scene)
 {
-	(void)px;
-	px.facing_ratio = v_dot(v_normalize(plane.vNormal), v_normalize(px.direction));
-	return (px.facing_ratio);
+	float	facing_ratio;
+
+	facing_ratio = v_dot(v_normalize(plane.vNormal), v_normalize(px.direction));
+	return \
+	((int)(plane.rgb[0] * scene.ambient->rgb_ratio[0] * facing_ratio) << 24 \
+	| (int)(plane.rgb[1] * scene.ambient->rgb_ratio[1] * facing_ratio) << 16 \
+	| (int)(plane.rgb[2] * scene.ambient->rgb_ratio[2] * facing_ratio) << 8 \
+	| 255);
 }

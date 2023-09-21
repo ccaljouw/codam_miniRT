@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 08:22:31 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/21 11:18:59 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ int	test_cylinder(t_px ray, t_object cylinder, float *hit_dist)
  * @param px 
  * @return float 
  */
-float	get_cylinder_surface_data(t_object cy, t_px px)
+int	get_cylinder_surface_data(t_object cy, t_px px, t_scene scene)
 {
 	(void)cy;
 	(void)px;
+	(void)scene;
 	return (1);
 }
