@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 10:56:57 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/21 11:22:57 by ccaljouw      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,22 +78,22 @@ void	print_ascii(t_px px, t_scene scene)
 {
 	(void)scene;
 	(void)px;
-// 	int						surface_color;
-// 	float					color_ratio;
-// 	static t_surface_data	*surface_data[3] = {get_sphere_surface_data, get_plane_surface_data, get_cylinder_surface_data};
+	int						surface_color;
+	float					color_ratio;
+	static t_surface_data	*surface_data[3] = {get_sphere_surface_data, get_plane_surface_data, get_cylinder_surface_data};
 
-// 	color_ratio = 0;
-// 	if (px.hitobject)
-// 	{
-// 		surface_color = surface_data[px.hitobject->id](*px.hitobject, px, scene);
-// 		color_ratio = ((surface_color >> 24) & 0xFF) / (float)255 * 0.299;
-// 		color_ratio += ((surface_color >> 16) & 0xFF) / (float)255 * 0.587;
-// 		color_ratio += ((surface_color >> 8) & 0xFF) / (float)255 * 0.114;
-// 		// ft_printf("%f", color_ratio);
-// 		ft_printf("\e[48;5;%im \e[0m", (int)(232 + color_ratio * 23));
-// 	}
-// 	else
-// 		ft_printf("\e[48;5;232m \e[0m");
+	color_ratio = 0;
+	if (px.hitobject)
+	{
+		surface_color = surface_data[px.hitobject->id](*px.hitobject, px, scene);
+		color_ratio = ((surface_color >> 24) & 0xFF) / (float)255 * 0.299;
+		color_ratio += ((surface_color >> 16) & 0xFF) / (float)255 * 0.587;
+		color_ratio += ((surface_color >> 8) & 0xFF) / (float)255 * 0.114;
+		// ft_printf("%f", color_ratio);
+		ft_printf("\e[48;5;%im \e[0m", (int)(232 + color_ratio * 23));
+	}
+	else
+		ft_printf("\e[48;5;232m \e[0m");
 }
 
 void	renderAscii(t_scene *scene)
