@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 12:10:58 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/22 08:44:17 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,13 @@ pthread_t	*create_threads(t_scene *scene)
 	{
 		blocks[i] = set_block(scene, y, blocksize);
 		y = y + blocksize;
-		if (pthread_create(threads + i, NULL, &routine, &blocks[i]))
-		{
-			while (i >= 0)
-				if (pthread_join(threads[i], NULL))
-			exit_error(ERROR_THREAD, "failed to create thread\n", scene);
-		}
+		routine(&blocks[i]);
+		// if (pthread_create(threads + i, NULL, &routine, &blocks[i]))
+		// {
+		// 	while (i >= 0)
+		// 		if (pthread_join(threads[i], NULL))
+		// 	exit_error(ERROR_THREAD, "failed to create thread\n", scene);
+		// }
 		i++;
 	}
 	return (threads);

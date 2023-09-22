@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 23:14:59 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/22 09:35:05 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	test_cylinder(t_px ray, t_object cylinder, float *hit_dist)
 		*hit_dist =  hit_dist1;
 		return (1);
 	}
-	// printf("hit distance:%f\n", *hit_dist);
 	return (0);
 }
 
@@ -64,14 +63,33 @@ int	test_cylinder(t_px ray, t_object cylinder, float *hit_dist)
 int	get_cylinder_surface_data(t_object cy, t_px px, t_scene scene)
 {
 	t_xyz		surface_normal_at_hitpoint;
-	
 	t_xyz		hitpoint;
+	t_xyz		nAxis;
 	float		facing_ratio;
+	float		t;
+	t_xyz		pt;
 
+	// 3 areas:
+	
 	hitpoint = v_add(px.cam_origin, v_mulitply(px.direction, px.hit_distance));
-	// surface normal = P - C - V * m
-	surface_normal_at_hitpoint = v_mulitply(v_subtract(v_subtract(hitpoint, cy.pOrigin), cy.vAxis), px.m_axis);
+	// 1. the hit_point is on de Top cap of the cylinder
+	// if (length(hit_pt - top center) < cy.radius)
+	// 		surface_normal = cy.vAxis
+	
+	// 2. the hit_point is on the Bottom cap of the cylinder
+	// if (length(hit_pt - cy.pOrigin) < cy.radius)
+	// 		surface_normal = -1 * cy.vAxis
+	if (v_magnitude(v_subtract(hitpoint, cy.pOrigin)) < (cy.diameter * 0.5))
+		surface_normal_at_hitpoint = v_mulitply(cy.vAxis, -1);
+	
+	// 3. the hit_point is on the side of the cylinder
+	nAxis = v_normalize(cy.vAxis);
+	t = v_dot(v_subtract(hitpoint, px.cam_origin), nAxis);
+	pt = v_add(cy.pOrigin, v_mulitply(nAxis, t));
+	surface_normal_at_hitpoint = v_subtract(hitpoint, pt);
 	v_normalizep(&surface_normal_at_hitpoint);
+
+	
 	// facing_ratio = v_dot(surface_normal_at_hitpoint, px.direction);
 	facing_ratio = 0.8;
 	return \

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 13:06:54 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/22 08:45:22 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void	renderImage(t_scene *scene)
 	scene->p_width = cam->image_width;
 	scene->p_height = cam->image_height;
 	threads = create_threads(scene);
-	join_threads(threads, scene);
+	// join_threads(threads, scene);
+	(void)threads;
 }
 
