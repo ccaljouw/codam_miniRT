@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/22 10:40:24 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/22 21:47:34 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	test_plane(t_px ray, t_object plane, float *hit_dist)
 	t_xyz	diff_ray0_plane0;
 
 	denominator = v_dot(ray.direction, plane.vNormal);
-	if (denominator > EPSILON)
+	if (fabs(denominator) > EPSILON)
 	{
 		diff_ray0_plane0 = v_subtract(ray.cam_origin, plane.pOrigin);
 		*hit_dist = -v_dot(diff_ray0_plane0, plane.vNormal) / denominator;

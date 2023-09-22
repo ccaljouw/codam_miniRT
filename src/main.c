@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 21:52:15 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/22 22:50:11 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,14 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param)
 	if (b == MLX_MOUSE_BUTTON_LEFT && a == MLX_PRESS)
 	{
 		mlx_get_mouse_pos(scene->mlx, &x, &y);
-		scene->search = scene->pixels[y][x].hitobject;
+		if (scene->search == scene->pixels[y][x].hitobject)
+		{
+			scene->search = NULL;
+			renderImage(scene);
+			return;
+		}
+		else
+			scene->search = scene->pixels[y][x].hitobject;
 		y = 0;
 		while (y < scene->p_height)
 		{
@@ -139,6 +146,39 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param)
 			y++;
 		}
 	}
+}
+
+void	key_input(mlx_key_data_t keydata, void *param)
+{
+	t_scene		*scene;
+
+	scene = (t_scene *)param;
+	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_RELEASE && scene->search)
+	{
+		scene->search->diameter++;
+		printf("Growing:%f\n", scene->search->diameter);
+	}
+	else if (keydata.key == MLX_KEY_UP && keydata.action == MLX_RELEASE)
+	{
+		scene->camera->fov -= 5;
+		printf("Zooming in fov:%d\n", scene->camera->fov);
+	}
+	else if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_RELEASE && scene->search)
+	{
+		scene->search->diameter--;
+		printf("Shrinking:%f\n", scene->search->diameter);
+	}
+	else if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_RELEASE)
+	{
+		scene->camera->fov += 5;
+		printf("Zooming out fov:%d\n", scene->camera->fov);
+	}
+	else if (keydata.action == MLX_RELEASE)
+	{
+		printf("Unknown command\n");
+		return;
+	}
+	renderImage(scene);
 }
 
 int	main(int argc, char **argv)
@@ -158,6 +198,7 @@ int	main(int argc, char **argv)
 		image_to_window(scene);
 		renderImage(scene);
 		// mlx_loop_hook(scene->mlx, resize, scene);
+		mlx_key_hook(scene->mlx, key_input, scene);
 		mlx_mouse_hook(scene->mlx, select_object, scene);
 		mlx_loop(scene->mlx);
 		mlx_delete_image(scene->mlx, scene->image);

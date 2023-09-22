@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/22 10:22:52 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/22 22:23:38 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,8 @@ uint32_t	getColor(t_px	px, t_scene *scene)
 	if (!object)
 		return (0 << 24 | 0 << 16 | 0 << 8 | 255);
 	return (surface_data[object->id](*px.hitobject, px, *scene));
+	
+	
 }
 
 void	renderImage(t_scene *scene)
@@ -157,7 +159,8 @@ void	renderImage(t_scene *scene)
 	cam->image_width = scene->image->width;
 	cam->image_height = scene->image->height;
 	cam->aspect_ratio = (float)scene->image->width / scene->image->height;
-	clean_pixels(scene);
+	cam->fov_scale = tan(ft_rad(cam->fov * 0.5));
+	// clean_pixels(scene);
 	scene->pixels = ft_calloc(cam->image_height + 1, sizeof(t_px *));
 	if (!scene->pixels)
 		exit_error(ERROR_MEM, NULL, scene);
