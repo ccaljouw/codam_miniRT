@@ -6,16 +6,11 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/22 21:36:54 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/22 21:42:07 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
-void	print_vector(t_xyz vector)
-{
-	printf("[%.3f, %.3f, %.3f]\n", vector.x, vector.y, vector.z);
-}
-
 
 int	test_plane(t_px ray, t_object plane, float *hit_dist)
 {
@@ -38,7 +33,8 @@ int	get_plane_surface_data(t_object plane, t_px px, t_scene scene)
 {
 	float	facing_ratio;
 
-	facing_ratio = fabsf(v_dot(v_normalize(plane.vNormal), v_normalize(px.direction)));
+	facing_ratio = fabsf(v_dot(v_normalize(plane.vNormal), \
+					v_normalize(px.direction)));
 	return \
 	((int)(plane.rgb[0] * scene.ambient->rgb_ratio[0] * facing_ratio) << 24 \
 	| (int)(plane.rgb[1] * scene.ambient->rgb_ratio[1] * facing_ratio) << 16 \
