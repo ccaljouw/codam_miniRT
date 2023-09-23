@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 17:21:26 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/17 12:14:01 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 10:40:33 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_xyz	v_copy(t_xyz a);
 void	v_copyValues(t_xyz a, t_xyz *b);
 t_xyz	v_add(t_xyz a, t_xyz b);
 t_xyz	v_subtract(t_xyz a, t_xyz b);
-t_xyz	v_mulitply(t_xyz a, float b);
+t_xyz	v_multiply(t_xyz a, float b);
 t_xyz	v_devide(t_xyz a, float b);
 float	v_dot(t_xyz a, t_xyz b);
 t_xyz	v_cross(t_xyz a, t_xyz b);

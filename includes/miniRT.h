@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 09:09:01 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 10:19:58 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ void		join_threads(pthread_t *threads, t_scene *scene);
 
 // image_mainpulation.c
 void	zoom(mlx_key_data_t keydata, t_scene *scene);
-void	turn(mlx_key_data_t keydata, t_scene *scene);
 void	rotate(mlx_key_data_t keydata, t_scene *scene);
 
 int	check_object(t_scene *scene, int x, int y);

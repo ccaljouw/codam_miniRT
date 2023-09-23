@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:31:28 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/16 14:13:51 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 10:40:53 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_xyz	v_subtract(t_xyz a, t_xyz b)
  * @param b (float)
  * @return t_xyz 
  */
-t_xyz	v_mulitply(t_xyz a, float b)
+t_xyz	v_multiply(t_xyz a, float b)
 {
 	t_xyz	new;
 

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/22 12:04:08 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 10:34:53 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_object
 	float		diameter;
 	uint32_t	rgb[3];
 	t_xyz		vNormal;
-	t_xyz		vAxis;
 	float		height;
 }				t_object;
 

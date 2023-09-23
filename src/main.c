@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 09:21:52 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 10:37:21 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	key_input(mlx_key_data_t keydata, void *param)
 			zoom(keydata, scene);
 		if (keydata.key == MLX_KEY_LEFT || keydata.key == MLX_KEY_RIGHT \
 			|| keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_DOWN)
-			turn(keydata, scene);
+			rotate(keydata, scene);
 		else
 			return;
 	}
