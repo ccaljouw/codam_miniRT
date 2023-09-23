@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 08:43:21 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 09:21:52 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,17 +98,13 @@ void	image_to_window(t_scene *scene)
 void	resize(void	*param)
 {
 	t_scene 	*scene;
-	mlx_image_t *temp;
 
 	scene = (t_scene *)param;
 	if ((uint32_t)scene->mlx->width != scene->image->width || (uint32_t)scene->mlx->height != scene->image->height)
 	{
 		mlx_resize_image(scene->image, scene->mlx->width, scene->mlx->height);
-		temp =  scene->image;
-		scene->image = mlx_new_image(scene->mlx, scene->mlx->width, scene->mlx->height);
+		cameraGeometry(scene->camera);
 		renderImage(scene);
-		image_to_window(scene);
-		mlx_delete_image(scene->mlx, temp);
 	}
 }
 
@@ -153,27 +149,16 @@ void	key_input(mlx_key_data_t keydata, void *param)
 	t_scene		*scene;
 
 	scene = (t_scene *)param;
-	// zoom
-	if (keydata.key == MLX_KEY_I && keydata.action == MLX_RELEASE && scene->search)
-		scene->search->diameter++;
-	else if (keydata.key == MLX_KEY_O && keydata.action == MLX_RELEASE && scene->search)
-		scene->search->diameter--;
-	else if (keydata.key == MLX_KEY_I && keydata.action == MLX_RELEASE)
-		scene->camera->fov -= 5;
-	else if (keydata.key == MLX_KEY_O && keydata.action == MLX_RELEASE)
-		scene->camera->fov += 5;
-	// turn
-	else if (keydata.key == MLX_KEY_UP && keydata.action == MLX_RELEASE)
-		scene->camera->orientation_v.y -= 0.1;
-	else if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_RELEASE)
-		scene->camera->orientation_v.y += 0.1;
-	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_RELEASE)
-		scene->camera->orientation_v.x += 0.1;
-	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_RELEASE)
-		scene->camera->orientation_v.x -= 0.1;
-	else if (keydata.action == MLX_RELEASE)
-		return;
-	renderImage(scene);
+	if (keydata.action == MLX_RELEASE)
+	{
+		if (keydata.key == MLX_KEY_I || keydata.key == MLX_KEY_O)
+			zoom(keydata, scene);
+		if (keydata.key == MLX_KEY_LEFT || keydata.key == MLX_KEY_RIGHT \
+			|| keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_DOWN)
+			turn(keydata, scene);
+		else
+			return;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -192,7 +177,7 @@ int	main(int argc, char **argv)
 		scene->image = mlx_new_image(scene->mlx, IM_WIDTH, IM_HEIGHT);
 		image_to_window(scene);
 		renderImage(scene);
-		// mlx_loop_hook(scene->mlx, resize, scene);
+		mlx_loop_hook(scene->mlx, resize, scene);
 		mlx_key_hook(scene->mlx, key_input, scene);
 		mlx_mouse_hook(scene->mlx, select_object, scene);
 		mlx_loop(scene->mlx);

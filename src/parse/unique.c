@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/22 23:16:07 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 09:21:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	cameraGeometry(t_camera *cam)
 {
 	t_m44	direction;
 	
+	cam->cam2world = m44_init();
 	m44_translate(&cam->cam2world, \
 				cam->view_point.x, cam->view_point.y, cam->view_point.z);
 	direction = m44_from_direction_vector(cam->orientation_v);
@@ -43,7 +44,6 @@ void	init_camera(char **param, t_scene *scene)
 	scene->camera->fov = ft_atoi(param[3]);
 	if (!scene->camera->fov && !ft_strcmp(param[3], "0"))
 		exit_error("incorrect fov", NULL, scene);
-	scene->camera->cam2world = m44_init();
 	cameraGeometry(scene->camera);
 	// print_camera(*(scene->camera)); //testing
 	ft_putstr_fd("\033[34;1mCamera config:\t\t  \033[0m", 1);
