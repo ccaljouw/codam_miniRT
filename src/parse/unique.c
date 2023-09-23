@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 22:10:44 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/22 23:16:07 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	cameraGeometry(t_camera *cam)
 	direction = m44_from_direction_vector(cam->orientation_v);
 	cam->cam2world = m44_dot_product(direction, cam->cam2world);
 	m44_multiply_vec3(cam->cam2world, v_create(0, 0, 0), &cam->origin);
-	// m44_print(cam->cam2world);
-	// print_vector(cam->origin);
 	cam->fov_scale = tan(ft_rad(cam->fov * 0.5));
 }
 

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/22 22:50:11 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 08:43:21 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,31 +153,26 @@ void	key_input(mlx_key_data_t keydata, void *param)
 	t_scene		*scene;
 
 	scene = (t_scene *)param;
-	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_RELEASE && scene->search)
-	{
+	// zoom
+	if (keydata.key == MLX_KEY_I && keydata.action == MLX_RELEASE && scene->search)
 		scene->search->diameter++;
-		printf("Growing:%f\n", scene->search->diameter);
-	}
-	else if (keydata.key == MLX_KEY_UP && keydata.action == MLX_RELEASE)
-	{
-		scene->camera->fov -= 5;
-		printf("Zooming in fov:%d\n", scene->camera->fov);
-	}
-	else if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_RELEASE && scene->search)
-	{
+	else if (keydata.key == MLX_KEY_O && keydata.action == MLX_RELEASE && scene->search)
 		scene->search->diameter--;
-		printf("Shrinking:%f\n", scene->search->diameter);
-	}
-	else if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_RELEASE)
-	{
+	else if (keydata.key == MLX_KEY_I && keydata.action == MLX_RELEASE)
+		scene->camera->fov -= 5;
+	else if (keydata.key == MLX_KEY_O && keydata.action == MLX_RELEASE)
 		scene->camera->fov += 5;
-		printf("Zooming out fov:%d\n", scene->camera->fov);
-	}
+	// turn
+	else if (keydata.key == MLX_KEY_UP && keydata.action == MLX_RELEASE)
+		scene->camera->orientation_v.y -= 0.1;
+	else if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_RELEASE)
+		scene->camera->orientation_v.y += 0.1;
+	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_RELEASE)
+		scene->camera->orientation_v.x += 0.1;
+	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_RELEASE)
+		scene->camera->orientation_v.x -= 0.1;
 	else if (keydata.action == MLX_RELEASE)
-	{
-		printf("Unknown command\n");
 		return;
-	}
 	renderImage(scene);
 }
 

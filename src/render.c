@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/22 22:23:38 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 08:11:42 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,8 @@ void	renderImage(t_scene *scene)
 	cam->image_height = scene->image->height;
 	cam->aspect_ratio = (float)scene->image->width / scene->image->height;
 	cam->fov_scale = tan(ft_rad(cam->fov * 0.5));
+	scene->camera->cam2world = m44_init();
+	cameraGeometry(scene->camera);
 	// clean_pixels(scene);
 	scene->pixels = ft_calloc(cam->image_height + 1, sizeof(t_px *));
 	if (!scene->pixels)
