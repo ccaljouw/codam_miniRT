@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/23 10:41:17 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 22:17:12 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,19 +99,19 @@ int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
  * @param px 
  * @return float 
  */
-int	get_sphere_surface_data(t_object sph, t_px px, t_scene scene)
+int	get_sphere_surface_data(t_object sph, t_px *px, t_scene scene)
 {
 	t_xyz		surface_normal_at_hitpoint;
 	t_xyz		hitpoint;
 	float		facing_ratio;
 
-	hitpoint = v_add(px.cam_origin, v_multiply(px.direction, px.hit_distance));
+	hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
 	surface_normal_at_hitpoint = v_subtract(sph.pOrigin, hitpoint);
 	v_normalizep(&surface_normal_at_hitpoint);
-	facing_ratio = v_dot(surface_normal_at_hitpoint, px.direction);
-	return \
-		((int)(sph.rgb[0] * scene.ambient->rgb_ratio[0] * facing_ratio) << 24 \
+	facing_ratio = v_dot(surface_normal_at_hitpoint, px->direction);
+	px->color = 	((int)(sph.rgb[0] * scene.ambient->rgb_ratio[0] * facing_ratio) << 24 \
 		| (int)(sph.rgb[1] * scene.ambient->rgb_ratio[1] * facing_ratio) << 16 \
 		| (int)(sph.rgb[2] * scene.ambient->rgb_ratio[2] * facing_ratio) << 8 \
 		| 255);
+	return (px->color);
 }

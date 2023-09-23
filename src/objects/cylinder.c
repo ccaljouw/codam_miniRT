@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 10:43:32 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 22:15:40 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	test_cylinder(t_px ray, t_object cylinder, float *hit_dist)
  * @param px 
  * @return float 
  */
-int	get_cylinder_surface_data(t_object cy, t_px px, t_scene scene)
+int	get_cylinder_surface_data(t_object cy, t_px *px, t_scene scene)
 {
 	t_xyz		surface_normal_at_hitpoint;
 	t_xyz		hitpoint;
@@ -70,7 +70,7 @@ int	get_cylinder_surface_data(t_object cy, t_px px, t_scene scene)
 	t_xyz		top;
 
 	nAxis = v_normalize(cy.vNormal);
-	hitpoint = v_add(px.cam_origin, v_multiply(px.direction, px.hit_distance));
+	hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
 	top = v_add(hitpoint, v_multiply(nAxis, cy.height));
 	if (v_magnitude(v_subtract(hitpoint, top)) < (cy.diameter * 0.5))
 		surface_normal_at_hitpoint = cy.vNormal;
@@ -78,15 +78,15 @@ int	get_cylinder_surface_data(t_object cy, t_px px, t_scene scene)
 		surface_normal_at_hitpoint = v_multiply(cy.vNormal, -1);
 	else
 	{
-		t = v_dot(v_subtract(hitpoint, px.cam_origin), nAxis);
+		t = v_dot(v_subtract(hitpoint, px->cam_origin), nAxis);
 		pt = v_add(cy.pOrigin, v_multiply(nAxis, t));
 		surface_normal_at_hitpoint = v_subtract(hitpoint, pt);
 	}
 	v_normalizep(&surface_normal_at_hitpoint);
-	facing_ratio = fabs(v_dot(surface_normal_at_hitpoint, px.direction));
-	return \
-		((int)(cy.rgb[0] * scene.ambient->rgb_ratio[0] * facing_ratio) << 24 \
+	facing_ratio = fabs(v_dot(surface_normal_at_hitpoint, px->direction));
+	px->color = ((int)(cy.rgb[0] * scene.ambient->rgb_ratio[0] * facing_ratio) << 24 \
 		| (int)(cy.rgb[1] * scene.ambient->rgb_ratio[1] * facing_ratio) << 16 \
 		| (int)(cy.rgb[2] * scene.ambient->rgb_ratio[2] * facing_ratio) << 8 \
 		| 255);
+	return (px->color);
 }

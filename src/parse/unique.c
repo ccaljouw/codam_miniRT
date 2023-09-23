@@ -6,16 +6,22 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 09:21:01 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 21:47:17 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-void	cameraGeometry(t_camera *cam)
+void	cameraGeometry(t_scene *scene)
 {
+	t_camera	*cam;
 	t_m44	direction;
-	
+
+	cam = scene->camera;
+	cam->image_width = scene->p_width;
+	cam->image_height = scene->p_height;
+	cam->aspect_ratio = (float)scene->p_width / scene->p_height;
+	cam->fov_scale = tan(ft_rad(cam->fov * 0.5));
 	cam->cam2world = m44_init();
 	m44_translate(&cam->cam2world, \
 				cam->view_point.x, cam->view_point.y, cam->view_point.z);
@@ -44,7 +50,7 @@ void	init_camera(char **param, t_scene *scene)
 	scene->camera->fov = ft_atoi(param[3]);
 	if (!scene->camera->fov && !ft_strcmp(param[3], "0"))
 		exit_error("incorrect fov", NULL, scene);
-	cameraGeometry(scene->camera);
+	cameraGeometry(scene);
 	// print_camera(*(scene->camera)); //testing
 	ft_putstr_fd("\033[34;1mCamera config:\t\t  \033[0m", 1);
 }
@@ -94,8 +100,8 @@ void	init_light(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 4)
-		exit_error(ERROR_SPHERE, "incorrect number of arguments", scene);
+	if (i != 3)
+		exit_error(ERROR_LIGHT, "incorrect number of arguments", scene);
 	scene->light = malloc(sizeof(t_light));
 	if (!scene->light)
 		exit_error(ERROR_MEM, NULL, scene);
@@ -103,4 +109,19 @@ void	init_light(char **param, t_scene *scene)
 	scene->light->brightness = to_float(param[2], scene);
 	set_rgb(param[3], scene->light->rgb, scene);
 	ft_putstr_fd("\033[34;1mLigt config:\t\t  \033[0m", 1);
+}
+
+void	init_resolution(char **param, t_scene *scene)
+{
+	int	i;
+
+	i = 0;
+	if (scene->p_width)
+		exit_error(ERROR_SCENE, "redefinition of resolution", scene);
+	while (param[i])
+		i++;
+	if (i != 3)
+		exit_error(ERROR_RES, "incorrect number of arguments", scene);
+	set_image_size(scene, to_float(param[1], scene),to_float(param[2], scene));
+	ft_putstr_fd("\033[34;1mResolution config:\t\t  \033[0m", 1);
 }

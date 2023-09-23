@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/22 21:47:34 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 22:16:38 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ int	test_plane(t_px ray, t_object plane, float *hit_dist)
 }
 
 
-int	get_plane_surface_data(t_object plane, t_px px, t_scene scene)
+int	get_plane_surface_data(t_object plane, t_px *px, t_scene scene)
 {
 	float	facing_ratio;
 
-	facing_ratio = v_dot(v_normalize(plane.vNormal), v_normalize(px.direction));
-	return \
-	((int)(plane.rgb[0] * scene.ambient->rgb_ratio[0] * facing_ratio) << 24 \
+	facing_ratio = v_dot(v_normalize(plane.vNormal), v_normalize(px->direction));
+	px->color = ((int)(plane.rgb[0] * scene.ambient->rgb_ratio[0] * facing_ratio) << 24 \
 	| (int)(plane.rgb[1] * scene.ambient->rgb_ratio[1] * facing_ratio) << 16 \
 	| (int)(plane.rgb[2] * scene.ambient->rgb_ratio[2] * facing_ratio) << 8 \
 	| 255);
+	return (px->color);
 }

@@ -6,11 +6,12 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 10:49:06 by ccaljouw      ########   odam.nl         */
+/*   Updated: 2023/09/23 20:31:56 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
+#include <fcntl.h>
 
 /**
  * @brief Returns the xyz object based on string input
@@ -46,7 +47,7 @@ t_xyz	set_xyz(char *param, t_scene *scene)
  * @param rgb (int[3]) pointer to store the result
  * @param scene (t_scene) passed to clean up when input is invallid
  */
-void	set_rgb(char *param, uint32_t *rgb, t_scene *scene)
+void	set_rgb(char *param, int *rgb, t_scene *scene)
 {
 	char		**input;
 	int		i;
@@ -117,15 +118,17 @@ void	parse_type(char *line, t_scene *scene)
 {
 	int			i;
 	char		**param;
-	static char	*type[6] = {"A", "C", "L", "sp", "pl", "cy"};
-	static t_f	*parse[6] = {init_ambient, init_camera, init_light, \
-							init_sphere, init_plane, init_cylinder};
+	static char	*type[7] = {"A", "C", "L", "sp", "pl", "cy", "R"};
+	static t_f	*parse[7] = {init_ambient, init_camera, init_light, \
+							init_sphere, init_plane, init_cylinder, \
+							init_resolution};
 
 	i = 0;
+	replace(line, ' ', '\t');
 	param = ft_split(line, '\t');
 	if (!param)
 		exit_error(ERROR_MEM, NULL, scene);
-	while (param[0] && i < 6) // added param[0] check to avoid segfault on empty line (could also protect ft_strcmp btw)
+	while (param[0] && i < 7)
 	{
 		if (!ft_strcmp(type[i], param[0]))
 		{
@@ -135,8 +138,36 @@ void	parse_type(char *line, t_scene *scene)
 		}
 		i++;
 	}
-	if (i == 6 && line[0] != '#') //added # as an exception so you can comment out a line 
-		exit_error(ERROR_SCENE, line, scene);
-	free(line);
+	if (i == 7)
+		exit_error(ERROR_SCENE, "incorrect type", scene);
 	free(param);
+}
+
+void	parse_file(char *file, t_scene *scene)
+{
+	char	*line;
+	int		fd;
+	
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		exit_error(ERROR_PATH, NULL, NULL);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line)
+		{
+			if (line[0] == '\n' || line[0] == '#')
+			{
+				free(line);
+				continue ;
+			}
+			if (line[ft_strlen(line) - 1] == '\n')
+				line[ft_strlen(line) - 1] = '\0';
+			parse_type(line, scene);
+			free(line);
+		}
+		else
+			break ;
+	}
+	close(fd);
 }

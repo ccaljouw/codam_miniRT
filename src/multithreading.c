@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/22 22:29:53 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 22:19:19 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ void	*routine(void *params)
 		x = 0;
 		while (x < scene->camera->image_width)
 		{
-			trace_ray(scene->pixels[y] + x, scene, x, y);
-			mlx_put_pixel(scene->image, x, y, getColor(scene->pixels[y][x], scene));
+			get_ray(scene->pixels[y] + x, x, y, scene);
+			trace_ray(scene->pixels[y] + x, scene);
+			mlx_put_pixel(scene->image, x, y, getColor(&scene->pixels[y][x], scene));
 			x++;
 		}
 		y++;
@@ -47,32 +48,29 @@ t_block	set_block(t_scene *scene, int y, int blocksize)
 	return (block);
 }
 
-pthread_t	*create_threads(t_scene *scene)
+pthread_t	*create_threads(t_scene *scene, pthread_t *threads)
 {
-	pthread_t	*threads;
 	t_block		*blocks;
 	int			blocksize;
 	int			y;
 	int 		i;
 
-	threads = ft_calloc(THREADS, sizeof(pthread_t));
-	blocks = ft_calloc(THREADS, sizeof(t_block));
-	if (!threads || !blocks)
+	blocks = malloc(THREADS * sizeof(t_block));
+	if (!blocks)
 		exit_error(ERROR_MEM, NULL, scene);
 	i = 0;
 	y = 0;
-	blocksize = scene->image->height / THREADS;
+	blocksize = scene->p_height / THREADS;
 	while (i < THREADS)
 	{
 		blocks[i] = set_block(scene, y, blocksize);
 		y = y + blocksize;
-		routine(&blocks[i]);
-		// if (pthread_create(threads + i, NULL, &routine, &blocks[i]))
-		// {
-		// 	while (i >= 0)
-		// 		if (pthread_join(threads[i], NULL))
-		// 	exit_error(ERROR_THREAD, "failed to create thread\n", scene);
-		// }
+		if (pthread_create(threads + i, NULL, &routine, &blocks[i]))
+		{
+			while (i >= 0)
+				if (pthread_join(threads[i], NULL))
+					exit_error(ERROR_THREAD, "failed to create thread\n", scene);
+		}
 		i++;
 	}
 	return (threads);

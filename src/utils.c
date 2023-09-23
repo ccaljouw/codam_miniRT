@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/21 22:51:30 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 20:27:12 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,17 @@ void	clean_pixels(t_scene *scene)
 void	print_vector(t_xyz vector)
 {
 	printf("[%.3f, %.3f, %.3f]\n", vector.x, vector.y, vector.z);  //weghalen
+}
+
+void	replace(char *str, char replace, char with)
+{
+	int	i;
+	
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == replace)
+			str[i] = with;
+		i++;
+	}
 }

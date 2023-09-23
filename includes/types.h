@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 10:34:53 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 20:01:17 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct xyz_s
  * @param	id (t_type) SP: sphere, PL: plane, CY: cylinder
  * @param	pOrigin (t_xyz) x,y,z coordinates of the object origin
  * @param	diameter (float) the diameter (of sphere or cylinder)
- * @param	rgb	(uint32_t[3]) R,G,B colors in range [0-255]
+ * @param	rgb	(int[3]) R,G,B colors in range [0-255]
  * @param	vNormal (t_xyz) 33d normalized normal vector (of plane). 
  * @param	vAxis (t_xyz) 3d normalized vector of axis of cylinder. 
  * 			In range [-1,1] for each x,y,z axis
@@ -53,7 +53,7 @@ typedef struct s_object
 	t_type		id;
 	t_xyz		pOrigin;
 	float		diameter;
-	uint32_t	rgb[3];
+	int	rgb[3];
 	t_xyz		vNormal;
 	float		height;
 }				t_object;
@@ -88,12 +88,12 @@ typedef struct s_pixel
 /**
  * @brief Ambient lighting (id: "A")
  * @param	ratio (float) ambient lighting ratio in range [0.0,1.0]
- * @param	rgb	(uint32_t[3]) R,G,B colors in range [0-255]
+ * @param	rgb	(int[3]) R,G,B colors in range [0-255]
  */
 typedef struct ambient_s
 {
 	float		ratio;
-	uint32_t	rgb[3];	
+	int	rgb[3];	
 	float		rgb_ratio[3];
 }				t_ambient;
 
@@ -122,14 +122,14 @@ typedef struct camera_s
  * @brief Light (id: "L")
  * @param	light_point (t_xyz) x,y,z coordinates of the light point
  * @param	brightness (float) the light brightness ratio in range [0.0,1.0]
- * @param	rgb	(uint32_t[3]) R,G,B colors 
+ * @param	rgb	(int[3]) R,G,B colors 
  * in range [0-255] (unused in mandatory part)
  */
 typedef struct light_s
 {
 	t_xyz		light_point;
 	float		brightness;
-	uint32_t	rgb[3];
+	int	rgb[3];
 }				t_light;
 
 #endif
