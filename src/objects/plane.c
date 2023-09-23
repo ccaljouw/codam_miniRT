@@ -6,23 +6,22 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 22:16:38 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 22:33:02 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
-
 
 int	test_plane(t_px ray, t_object plane, float *hit_dist)
 {
 	float	denominator;
 	t_xyz	diff_ray0_plane0;
 
-	denominator = v_dot(ray.direction, plane.vNormal);
-	if (fabs(denominator) > EPSILON)
+	denominator = v_dot(plane.vNormal, ray.direction);
+	if (fabsf(denominator) > EPSILON)
 	{
-		diff_ray0_plane0 = v_subtract(ray.cam_origin, plane.pOrigin);
-		*hit_dist = -v_dot(diff_ray0_plane0, plane.vNormal) / denominator;
+		diff_ray0_plane0 = v_subtract(plane.pOrigin, ray.cam_origin);
+		*hit_dist = v_dot(plane.vNormal, diff_ray0_plane0) / denominator;
 		if (*hit_dist > 0)
 			return (1);
 	}
