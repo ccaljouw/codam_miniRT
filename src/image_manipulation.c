@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/23 09:33:04 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 10:16:33 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,24 @@ void	turn(mlx_key_data_t keydata, t_scene *scene)
 	if (scene->search && scene->search->id == CY)
 	{
 		if (keydata.key == MLX_KEY_LEFT)
-			scene->search->vAxis.x += 0.1;
+			scene->search->vAxis.x += 0.2;
 		if (keydata.key == MLX_KEY_RIGHT)
-			scene->search->vAxis.x -= 0.1;
+			scene->search->vAxis.x -= 0.2;
 		if (keydata.key == MLX_KEY_UP)
-			scene->search->vAxis.y -= 0.1;
+			scene->search->vAxis.y -= 0.2;
 		if (keydata.key == MLX_KEY_DOWN)
-			scene->search->vAxis.y += 0.1;
+			scene->search->vAxis.y += 0.2;
 	}
-	if (scene->search && scene->search->id == PL)
+	else if (scene->search && scene->search->id == PL)
 	{
 		if (keydata.key == MLX_KEY_LEFT)
-			scene->search->vNormal.x += 0.1;
+			scene->search->vNormal.x += 0.2;
 		if (keydata.key == MLX_KEY_RIGHT)
-			scene->search->vNormal.x -= 0.1;
+			scene->search->vNormal.x -= 0.2;
 		if (keydata.key == MLX_KEY_UP)
-		{
-			scene->search->vNormal.z -= 0.1;
-			scene->search->vNormal.y -= 0.1;
-		}
+			scene->search->vNormal.y -= 0.2;
 		if (keydata.key == MLX_KEY_DOWN)
-		{
-			scene->search->vNormal.z += 0.1;
-			scene->search->vNormal.y += 0.1;
-		}
+			scene->search->vNormal.y += 0.2;
 	}
 	else
 	{
@@ -72,7 +66,7 @@ void	turn(mlx_key_data_t keydata, t_scene *scene)
 			scene->camera->orientation_v.x += 0.1;
 		if (keydata.key == MLX_KEY_RIGHT)
 			scene->camera->orientation_v.x -= 0.1;
+		cameraGeometry(scene->camera);
 	}
-	cameraGeometry(scene->camera);
 	renderImage(scene);
 }
