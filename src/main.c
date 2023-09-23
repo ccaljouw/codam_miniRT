@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 21:23:04 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 22:41:46 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	main(int argc, char **argv)
 		mlx_key_hook(scene->mlx, key_input, scene);
 		mlx_mouse_hook(scene->mlx, select_object, scene);
 		mlx_loop(scene->mlx);
-		// close hook
 		mlx_delete_image(scene->mlx, scene->image);
 		mlx_terminate(scene->mlx);
 	}

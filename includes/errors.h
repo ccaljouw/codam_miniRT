@@ -6,13 +6,14 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:09:09 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 20:37:02 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 22:47:58 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERRORS_H
 # define ERRORS_H
 
+# define SUCCESS "Closing MLX"
 # define ERROR_MEM "Memory allocation error"
 # define ERROR_MLX "Error in MLX42 function"
 # define ERROR_PATH "Unable to open input file. \

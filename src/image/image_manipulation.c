@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/23 21:21:21 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 22:51:20 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ void	key_input(mlx_key_data_t k, void *param)
 	scene = (t_scene *)param;
 	if (k.action == MLX_RELEASE)
 	{
-		
+		if (k.key == MLX_KEY_ESCAPE)
+			exit_error(SUCCESS, NULL, scene);	
 		if (k.key == MLX_KEY_I || k.key == MLX_KEY_O)
 			zoom(k, scene);
 		if (k.key == MLX_KEY_LEFT || k.key == MLX_KEY_RIGHT \
@@ -106,7 +107,7 @@ void	set_image_size(t_scene *scene, int	width, int height)
 	
 	i = 0;
 	if (scene->pixels)
-		printf("old pixels should be freed?\n");
+		printf("old pixels should be freed?\n"); // shoud cleanup
 	scene->p_width = width;
 	scene->p_height = height;
 	if (!scene->p_width)
