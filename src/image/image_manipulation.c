@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/24 13:15:53 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/24 20:02:38 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,47 +18,54 @@ void	zoom(mlx_key_data_t keydata, t_scene *scene)
 	{
 		if (scene->selected->id == PL)
 			return;
-		if (keydata.key == MLX_KEY_I)
+		if (keydata.key == ZOOM_IN)
 			scene->selected->diameter++;
-		if (keydata.key == MLX_KEY_O)
+		if (keydata.key == ZOOM_OUT)
 			scene->selected->diameter--;
+		ft_printf("new diameter:%f\v", scene->selected->diameter); //for debugging
 	}
 	else
 	{
-		if (keydata.key == MLX_KEY_I)
+		if (keydata.key == ZOOM_IN)
 			scene->camera->fov -= 5;
-		if (keydata.key == MLX_KEY_O)
+		if (keydata.key == ZOOM_OUT)
 			scene->camera->fov += 5;
 		cameraGeometry(scene);
+		printf("new fov:%d\v", scene->camera->fov); //for debugging
 	}
 	render_image(scene);
 }
 
 void	rotate(mlx_key_data_t keydata, t_scene *scene)
 {
+	t_xyz	*orientation;
+	
 	if (scene->selected)
 	{
-		if (keydata.key == MLX_KEY_LEFT)
-			scene->selected->vNormal.x -= 0.2;
-		if (keydata.key == MLX_KEY_RIGHT)
-			scene->selected->vNormal.x += 0.2;
-		if (keydata.key == MLX_KEY_UP)
-			scene->selected->vNormal.y += 0.2;
-		if (keydata.key == MLX_KEY_DOWN)
-			scene->selected->vNormal.y -= 0.2;
+		orientation = &scene->selected->vNormal;
+		printf("object orientation: ");
+		print_vector(*orientation);
 	}
 	else
 	{
-		if (keydata.key == MLX_KEY_UP)
-			scene->camera->orientation_v.y -= 0.1;
-		if (keydata.key == MLX_KEY_DOWN)
-			scene->camera->orientation_v.y += 0.1;
-		if (keydata.key == MLX_KEY_LEFT)
-			scene->camera->orientation_v.x += 0.1;
-		if (keydata.key == MLX_KEY_RIGHT)
-			scene->camera->orientation_v.x -= 0.1;
-		cameraGeometry(scene);
+		orientation = &scene->camera->orientation_v;
+		printf("camera orientation: ");
+		print_vector(*orientation);
 	}
+	if (keydata.key == MOVE_X_N)
+		orientation->x -= 0.2;
+	if (keydata.key == MOVE_X_P)
+		orientation->x += 0.2;
+	if (keydata.key == MOVE_Y_N)
+		orientation->y -= 0.2;
+	if (keydata.key == MOVE_Y_P)
+		orientation->y += 0.2;
+	if (keydata.key == MOVE_Z_N)
+		orientation->z -= 0.2;
+	if (keydata.key == MOVE_Z_P)
+		orientation->z += 0.2;
+	if (!scene->selected)	
+		cameraGeometry(scene);
 	render_image(scene);
 }
 
@@ -103,10 +110,11 @@ void	key_input(mlx_key_data_t k, void *param)
 	{
 		if (k.key == MLX_KEY_ESCAPE)
 			exit_error(SUCCESS, NULL, scene);	
-		if (k.key == MLX_KEY_I || k.key == MLX_KEY_O)
+		if (k.key == ZOOM_IN || k.key == ZOOM_OUT)
 			zoom(k, scene);
-		if (k.key == MLX_KEY_LEFT || k.key == MLX_KEY_RIGHT \
-			|| k.key == MLX_KEY_UP || k.key == MLX_KEY_DOWN)
+		if (k.key == MOVE_X_N || k.key == MOVE_X_P \
+			|| k.key == MOVE_Y_N || k.key == MOVE_Y_P \
+			|| k.key == MOVE_Z_N || k.key == MOVE_Z_P)
 			rotate(k, scene);
 		else
 			return;
