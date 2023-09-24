@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/24 12:41:15 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/24 13:17:31 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@
 
 # define IM_WIDTH 512
 # define IM_HEIGHT 512
+# define MAX_WIDTH 1024
+# define MAX_HEIGHT 1024
 
-# define	THREADS 8
+# define	THREADS 4
 
 
 typedef struct s_scene

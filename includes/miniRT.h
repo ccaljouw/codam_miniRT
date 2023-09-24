@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/24 12:36:10 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/24 13:16:07 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	exit_error(char *error_msg, char *optional_str, t_scene *data);
 void	swap(float *x1, float *x2);
 void	replace(char *str, char replace, char with);
 int		invert_color(int color);
-void	clean_pixels(t_scene *scene);
 void	print_vector(t_xyz vector);
 
 // main.c
@@ -82,7 +81,6 @@ void	resize(void	*param);
 void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param);
 void	draw_image(t_scene *scene);
 void	image_to_window(t_scene *scene);
-void	set_image_size(t_scene *scene, int	width, int height);
 
 // int	check_object(t_scene *scene, int x, int y);
 

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/24 13:09:45 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/24 13:19:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,10 @@ void	init_resolution(char **param, t_scene *scene)
 		i++;
 	if (i != 3)
 		exit_error(ERROR_RES, "incorrect number of arguments", scene);
-	set_image_size(scene, to_float(param[1], scene),to_float(param[2], scene));
+	scene->p_width = to_float(param[1], scene);
+	scene->p_height = to_float(param[2], scene);
+	if (scene->p_width < 0 ||  scene->p_width > MAX_WIDTH \
+		|| scene->p_height < 0 || scene->p_height > MAX_HEIGHT)
+		exit_error(ERROR_RES, "incorrect values [0, MAX_WIDTH / MAX_HEIGHT]", scene);
 	ft_putstr_fd("\033[34;1mResolution config:\t\t  \033[0m", 1);
 }

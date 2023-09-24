@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/24 12:36:44 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/24 13:15:53 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,3 @@ void	key_input(mlx_key_data_t k, void *param)
 	}
 }
 
-void	set_image_size(t_scene *scene, int	width, int height)
-{
-	scene->p_width = width;
-	scene->p_height = height;
-}
