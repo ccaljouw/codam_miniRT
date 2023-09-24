@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 22:18:57 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/24 12:36:10 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	print_vector(t_xyz vector);
 
 // main.c
 t_scene	*init_scene(char *file);
+void	init_pixels(t_scene *scene);
 
 // render_ascii.c
 void	renderAscii(t_scene *scene);
@@ -57,7 +58,7 @@ int		test_plane(t_px ray, t_object plane, float *hit_dist);
 void	get_ray(t_px *px, int x, int y, t_scene *s);
 void	trace_ray(t_px *px, t_scene *s);
 int		getColor(t_px	*px, t_scene *scene);
-void	renderImage(t_scene *scene);
+void	render_image(t_scene *scene);
 
 // objects
 int		test_sphere(t_px ray, t_object sphere, float *hit_dist);

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 22:19:19 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/24 12:10:29 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*routine(void *params)
 	while (y < block->y_max)
 	{
 		x = 0;
-		while (x < scene->camera->image_width)
+		while (x < scene->p_width)
 		{
 			get_ray(scene->pixels[y] + x, x, y, scene);
 			trace_ray(scene->pixels[y] + x, scene);

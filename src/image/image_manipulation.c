@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/23 22:51:20 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/24 12:36:44 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	zoom(mlx_key_data_t keydata, t_scene *scene)
 			scene->camera->fov += 5;
 		cameraGeometry(scene);
 	}
-	renderImage(scene);
+	render_image(scene);
 }
 
 void	rotate(mlx_key_data_t keydata, t_scene *scene)
@@ -59,7 +59,7 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 			scene->camera->orientation_v.x -= 0.1;
 		cameraGeometry(scene);
 	}
-	renderImage(scene);
+	render_image(scene);
 }
 
 /**
@@ -70,15 +70,27 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 void	resize(void	*param)
 {
 	t_scene 	*scene;
+	int			i;
 
+	i = 0;
 	scene = (t_scene *)param;
 	if (scene->mlx->width != scene->p_width || scene->mlx->height != scene->p_height)
 	{
+		if (scene->pixels)
+		{
+			while (i < scene->p_height)
+			{
+				free(scene->pixels[i]);
+				i++;
+			}
+			free(scene->pixels);
+		}
 		scene->p_width = scene->mlx->width;
 		scene->p_height = scene->mlx->height;
+		init_pixels(scene);
 		mlx_resize_image(scene->image, scene->mlx->width, scene->mlx->height);
 		cameraGeometry(scene);
-		renderImage(scene);
+		render_image(scene);
 	}
 }
 
@@ -103,25 +115,6 @@ void	key_input(mlx_key_data_t k, void *param)
 
 void	set_image_size(t_scene *scene, int	width, int height)
 {
-	int	i;
-	
-	i = 0;
-	if (scene->pixels)
-		printf("old pixels should be freed?\n"); // shoud cleanup
 	scene->p_width = width;
 	scene->p_height = height;
-	if (!scene->p_width)
-		scene->p_width = IM_WIDTH;
-	if (!scene->p_height)
-		scene->p_height = IM_HEIGHT;
-	scene->pixels = ft_calloc(scene->p_height, sizeof(t_px *));
-	if (!scene->pixels)
-		exit_error(ERROR_MEM, NULL, scene);
-	while (i < scene->p_width)
-	{
-		scene->pixels[i] = ft_calloc(scene->p_width, sizeof(t_px));
-		if (!scene->pixels[i])
-			exit_error(ERROR_MEM, NULL, scene);
-		i++;
-	}
 }

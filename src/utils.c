@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 22:54:38 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/24 12:20:18 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,9 @@ void	swap(float *x1, float *x2)
 
 void	exit_error(char *error_msg, char *optional_str, t_scene *scene)
 {
-	int	error;
-
-	error = 0;
-	if (ft_strcmp("Closing MLX", error_msg))
-		error = 1;
-	if (error)
-		ft_putendl_fd("\033[31;1mError", 2);
-	else
-		ft_putendl_fd("\033[32;1m", 2);
+	if (!ft_strcmp("Closing MLX", error_msg))
+		exit (0);
+	ft_putendl_fd("\033[31;1mError", 2);
 	ft_putstr_fd(error_msg, 2);
 	ft_putstr_fd(": \033[0m", 2);
 	if (optional_str)
@@ -49,31 +43,7 @@ void	exit_error(char *error_msg, char *optional_str, t_scene *scene)
 	// if (scene)
 	// 		cleanup scene
 	// check and clean mlx and mlx image?
-	exit (error);
-}
-
-void	clean_pixels(t_scene *scene)
-{
-	int	x;
-	int	y;
-	
-	
-	x = 0;
-	y = 0;
-	if (scene->p_width)
-	{
-		while (y < scene->p_height)
-		{
-			while (x < scene->p_width)
-			{
-				free(scene->pixels[y] + x);
-				x++;
-			}
-			y++;
-		}
-		free(scene->pixels);
-		scene->pixels = NULL;
-	}
+	exit (1);
 }
 
 void	print_vector(t_xyz vector)

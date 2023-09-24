@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 22:17:47 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/24 12:36:00 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	trace_ray(t_px *px, t_scene *s)
  * 
  * @param scene 
  */
-void	renderImage(t_scene *scene)
+void	render_image(t_scene *scene)
 {
 	pthread_t	*threads;
 

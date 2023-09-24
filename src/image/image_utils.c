@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/23 22:27:57 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/23 23:39:34 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param)
 	}
 }
 
-int	getColor(t_px	*px, t_scene *scene)
+int	getColor(t_px *px, t_scene *scene)
 {
+	t_object				*object;
 	static t_surface_data	*surface_data[3] = \
 				{get_sphere_surface_data, get_plane_surface_data, get_cylinder_surface_data};
-	t_object				*object;
 
 	object = (t_object *)px->hitobject;
 	
@@ -90,5 +90,5 @@ int	invert_color(int color)
 	r = 255 - ((color >> 24) & 0xFF);
 	g = 255 - ((color >> 16) & 0xFF);
 	b = 255 - ((color >> 8) & 0xFF);
-	return (r << 24 | g << 16 | b << 8 | (int)(0.5 * 255));
+	return (r << 24 | g << 16 | b << 8 | 255 >> 1);
 }

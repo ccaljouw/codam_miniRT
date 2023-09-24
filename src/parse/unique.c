@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 22:33:42 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/24 09:02:53 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	init_light(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 3)
+	if (i != 4)
 		exit_error(ERROR_LIGHT, "incorrect number of arguments", scene);
 	scene->light = malloc(sizeof(t_light));
 	if (!scene->light)
@@ -116,8 +116,6 @@ void	init_resolution(char **param, t_scene *scene)
 	int	i;
 
 	i = 0;
-	if (scene->p_width)
-		exit_error(ERROR_SCENE, "redefinition of resolution", scene);
 	while (param[i])
 		i++;
 	if (i != 3)

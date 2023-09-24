@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 22:41:46 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/24 12:35:37 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,23 @@ void	check_args(int argc, char **argv)
 		exit_error(ERROR_PATH, NULL, NULL);
 }
 
+void	init_pixels(t_scene *scene)
+{
+	int	i;
+
+	i = 0;
+	scene->pixels = malloc(scene->p_height * sizeof(t_px *));
+	if (!scene->pixels)
+		exit_error(ERROR_MEM, NULL, scene);
+	while (i < scene->p_height)
+	{
+		scene->pixels[i] = malloc(scene->p_width * sizeof(t_px));
+		if (!scene->pixels[i])
+			exit_error(ERROR_MEM, NULL, scene);
+		i++;
+	}
+}
+
 /**
  * @brief initiates the scene based on the file contents
  * 
@@ -46,10 +63,13 @@ t_scene	*init_scene(char *file)
 	if (!scene)
 		exit_error(ERROR_MEM, NULL, NULL);
 	ft_memset(scene, 0, sizeof(t_scene));
+	scene->p_width = IM_WIDTH;
+	scene->p_height = IM_HEIGHT;
 	parse_file(file, scene);
 	if (!scene->ambient || !scene->camera)
 		exit_error(ERROR_SCENE, "not all required elements provided", scene);
 	ft_putendl_fd("\033[32;1m\nScene set up\n\033[0m", 2);
+	init_pixels(scene);
 	return (scene);
 }
 
@@ -68,10 +88,10 @@ int	main(int argc, char **argv)
 			exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
 		scene->image = mlx_new_image(scene->mlx, scene->p_width, scene->p_height);
 		image_to_window(scene);
-		renderImage(scene);
-		mlx_loop_hook(scene->mlx, resize, scene);
+		render_image(scene);
 		mlx_key_hook(scene->mlx, key_input, scene);
 		mlx_mouse_hook(scene->mlx, select_object, scene);
+		mlx_loop_hook(scene->mlx, resize, scene);
 		mlx_loop(scene->mlx);
 		mlx_delete_image(scene->mlx, scene->image);
 		mlx_terminate(scene->mlx);
