@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/24 12:20:34 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/24 12:49:41 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	set_rgb(char *param, int *rgb, t_scene *scene)
 	rgb[0] = ft_atou_base(input[0], "0123456789", "");
 	rgb[1] = ft_atou_base(input[1], "0123456789", "");
 	rgb[2] = ft_atou_base(input[2], "0123456789", "");
-	// printf("rbg set to:%u, %u, %u\n", r, g, b); // testing
 	if ((!rgb[0] && ft_strcmp(input[0], "0")) \
 			|| (!rgb[1]  && ft_strcmp(input[1], "0")) \
 			|| (!rgb[2] && ft_strcmp(input[2], "0")))

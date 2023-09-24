@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/24 09:02:53 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/24 13:09:45 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ void	cameraGeometry(t_scene *scene)
 	t_m44	direction;
 
 	cam = scene->camera;
+	if (cam->orientation_v.x == 0 && cam->orientation_v.y == 0 \
+		&& cam->orientation_v.z == 0)
+		exit_error(ERROR_CAM, "orientation (0,0,0)", scene);
 	cam->image_width = scene->p_width;
 	cam->image_height = scene->p_height;
 	cam->aspect_ratio = (float)scene->p_width / scene->p_height;
@@ -47,11 +50,16 @@ void	init_camera(char **param, t_scene *scene)
 		exit_error(ERROR_MEM, NULL, scene);
 	scene->camera->view_point = set_xyz(param[1], scene);
 	scene->camera->orientation_v = set_xyz(param[2], scene);
+	if (scene->camera->orientation_v.x < -1 || scene->camera->orientation_v.x > 1 \
+	|| scene->camera->orientation_v.y < -1 || scene->camera->orientation_v.y > 1 \
+	|| scene->camera->orientation_v.z < -1 || scene->camera->orientation_v.z > 1 )
+		exit_error(ERROR_CAM, "incorrect orientation [-1, 1]", scene);
 	scene->camera->fov = ft_atoi(param[3]);
+	if (scene->camera->fov < 0 || scene->camera->fov > 180)
+		exit_error(ERROR_CAM, "incorrect fov [0, 180]", scene);
 	if (!scene->camera->fov && !ft_strcmp(param[3], "0"))
 		exit_error("incorrect fov", NULL, scene);
 	cameraGeometry(scene);
-	// print_camera(*(scene->camera)); //testing
 	ft_putstr_fd("\033[34;1mCamera config:\t\t  \033[0m", 1);
 }
 
@@ -77,6 +85,8 @@ void	init_ambient(char **param, t_scene *scene)
 	if (!ambient)
 		exit_error(ERROR_MEM, NULL, scene);
 	ambient->ratio = to_float(param[1], scene);
+	if (ambient->ratio < 0.0 || ambient->ratio > 1)
+		exit_error(ERROR_AMB, "incorrect lighting ratio [0.0, 1.0]", scene);
 	set_rgb(param[2], ambient->rgb, scene);
 	ambient->rgb_ratio[0] = ((float)ambient->rgb[0] / 255) * ambient->ratio;	// calculate ratios here to assure its only done once
 	ambient->rgb_ratio[1] = ((float)ambient->rgb[1] / 255) * ambient->ratio;
@@ -107,6 +117,8 @@ void	init_light(char **param, t_scene *scene)
 		exit_error(ERROR_MEM, NULL, scene);
 	scene->light->light_point = set_xyz(param[1], scene);
 	scene->light->brightness = to_float(param[2], scene);
+	if (scene->light->brightness < 0.0 || scene->light->brightness > 1.0)
+		exit_error(ERROR_LIGHT, "Incorrec brightness values [0.0, 1.0]", scene);
 	set_rgb(param[3], scene->light->rgb, scene);
 	ft_putstr_fd("\033[34;1mLigt config:\t\t  \033[0m", 1);
 }
