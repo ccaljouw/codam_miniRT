@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/25 21:03:43 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/25 21:15:12 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int	get_cylinder_surface_data(t_object cy, t_px *px, t_scene scene)
 		pt = v_add(cy.pOrigin, v_multiply(nAxis, t));
 		px->surface_normal = v_subtract(px->hitpoint, pt);
 	}
-	v_normalizep(&px->surface_normal);
 	px->facing_ratio = fabs(v_dot(px->surface_normal, px->direction));
 	return (px->color);
 }
