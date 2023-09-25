@@ -61,32 +61,26 @@ int	test_cylinder(t_px ray, t_object cylinder, float *hit_dist)
  */
 int	get_cylinder_surface_data(t_object cy, t_px *px, t_scene scene)
 {
-	t_xyz		surface_normal_at_hitpoint;
-	t_xyz		hitpoint;
 	t_xyz		nAxis;
-	float		facing_ratio;
 	float		t;
 	t_xyz		pt;
 	t_xyz		top;
 
+	(void)scene;
 	nAxis = v_normalize(cy.vNormal);
-	hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
-	top = v_add(hitpoint, v_multiply(nAxis, cy.height));
-	if (v_magnitude(v_subtract(hitpoint, top)) < (cy.diameter * 0.5))
-		surface_normal_at_hitpoint = cy.vNormal;
-	if (v_magnitude(v_subtract(hitpoint, cy.pOrigin)) < (cy.diameter * 0.5))
-		surface_normal_at_hitpoint = v_multiply(cy.vNormal, -1);
+	px->hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
+	top = v_add(px->hitpoint, v_multiply(nAxis, cy.height));
+	if (v_magnitude(v_subtract(px->hitpoint, top)) < (cy.diameter * 0.5))
+		px->surface_normal = cy.vNormal;
+	if (v_magnitude(v_subtract(px->hitpoint, cy.pOrigin)) < (cy.diameter * 0.5))
+		px->surface_normal = v_multiply(cy.vNormal, -1);
 	else
 	{
-		t = v_dot(v_subtract(hitpoint, px->cam_origin), nAxis);
+		t = v_dot(v_subtract(px->hitpoint, px->cam_origin), nAxis);
 		pt = v_add(cy.pOrigin, v_multiply(nAxis, t));
-		surface_normal_at_hitpoint = v_subtract(hitpoint, pt);
+		px->surface_normal = v_subtract(px->hitpoint, pt);
 	}
-	v_normalizep(&surface_normal_at_hitpoint);
-	facing_ratio = fabs(v_dot(surface_normal_at_hitpoint, px->direction));
-	px->color = ((int)(cy.rgb[0] * scene.ambient->rgb_ratio[0] * facing_ratio) << 24 \
-		| (int)(cy.rgb[1] * scene.ambient->rgb_ratio[1] * facing_ratio) << 16 \
-		| (int)(cy.rgb[2] * scene.ambient->rgb_ratio[2] * facing_ratio) << 8 \
-		| 255);
+	v_normalizep(&px->surface_normal);
+	px->facing_ratio = fabs(v_dot(px->surface_normal, px->direction));
 	return (px->color);
 }

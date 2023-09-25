@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   sphere.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/23 22:17:12 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   sphere.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/14 17:54:01 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/09/25 03:00:01 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
 	orig_to_center = v_subtract(ray.cam_origin, sphere.pOrigin);
 	abc.x = v_dot(ray.direction, ray.direction);
 	abc.y = 2 * v_dot(ray.direction, orig_to_center);
-	// abc.z = v_dot(orig_to_center, orig_to_center) - sphere.diameter;
 	abc.z = v_dot(orig_to_center, orig_to_center) - (radius * radius);
 	if (!get_parabolic_hitpoints(abc, &hit_dist1, &hit_dist2))
 		return (0);
@@ -84,6 +83,8 @@ int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
 	*hit_dist = hit_dist1;
 	return (1);
 }
+
+float	clamp(float min, float max, float input);
 
 /**
  * @brief Calculate the normal of the sphere at the hitpoint (ie the vector
@@ -101,17 +102,15 @@ int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
  */
 int	get_sphere_surface_data(t_object sph, t_px *px, t_scene scene)
 {
-	t_xyz		surface_normal_at_hitpoint;
-	t_xyz		hitpoint;
-	float		facing_ratio;
-
-	hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
-	surface_normal_at_hitpoint = v_subtract(sph.pOrigin, hitpoint);
-	v_normalizep(&surface_normal_at_hitpoint);
-	facing_ratio = v_dot(surface_normal_at_hitpoint, px->direction);
-	px->color = 	((int)(sph.rgb[0] * scene.ambient->rgb_ratio[0] * facing_ratio) << 24 \
-		| (int)(sph.rgb[1] * scene.ambient->rgb_ratio[1] * facing_ratio) << 16 \
-		| (int)(sph.rgb[2] * scene.ambient->rgb_ratio[2] * facing_ratio) << 8 \
-		| 255);
+	(void)scene;
+	px->hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
+	px->surface_normal = v_subtract(sph.pOrigin, px->hitpoint);
+	v_normalizep(&px->surface_normal);
+	px->facing_ratio = v_dot(px->surface_normal, px->direction);
+	// loop_lights(px, scene);
+	// px->color = ((int)(sph.rgb[0] * clamp(0, 1, ((scene.ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x * 0.18))) << 24 \
+	// | (int)(sph.rgb[1] * clamp(0, 1, ((scene.ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y * 0.18))) << 16 \
+	// | (int)(sph.rgb[2] * clamp(0, 1, ((scene.ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z * 0.18))) << 8 \
+	// | 255);
 	return (px->color);
 }

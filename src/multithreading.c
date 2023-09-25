@@ -19,6 +19,7 @@ void	*routine(void *params)
 	int		y;
 	t_scene	*scene;
 	t_block	*block;
+	t_px	*px;
 
 	block = (t_block *)params;
 	scene = block->scene;
@@ -28,8 +29,11 @@ void	*routine(void *params)
 		x = 0;
 		while (x < scene->p_width)
 		{
+			px = scene->pixels[y] + x;
 			get_ray(scene->pixels[y] + x, x, y, scene);
 			trace_ray(scene->pixels[y] + x, scene);
+			get_surface_data(scene->pixels[y] + x, scene);
+			loop_lights(scene->pixels[y] + x, *scene);
 			mlx_put_pixel(scene->image, x, y, getColor(&scene->pixels[y][x], scene));
 			x++;
 		}

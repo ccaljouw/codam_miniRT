@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/24 19:11:06 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/25 01:00:01 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define MAX_WIDTH 1024
 # define MAX_HEIGHT 1024
 
-# define THREADS 4
+# define THREADS 1
 
 # define MOVE_X_P 	MLX_KEY_RIGHT
 # define MOVE_X_N 	MLX_KEY_LEFT

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   image_manipulation.c                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/24 20:02:38 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   image_manipulation.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/09/24 21:48:39 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	key_input(mlx_key_data_t k, void *param)
 			|| k.key == MOVE_Z_N || k.key == MOVE_Z_P)
 			rotate(k, scene);
 		else
-			return;
+			return ;
 	}
 }
 
