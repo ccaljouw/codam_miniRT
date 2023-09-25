@@ -14,8 +14,6 @@
 
 #define SHADOW_BIAS 0.001
 
-int	trace_shadow(t_px *px, t_scene s);
-
 float	v_square_of_self(t_xyz a)
 {
 	return (a.x * a.x + a.y * a.y + a.z * a.z);
@@ -39,6 +37,24 @@ float	get_shadow_ray(t_px *shadow_ray, t_xyz hitpoint, t_xyz hp_normal, t_scene 
 	return (light_radius);
 }
 
+int	trace_shadow(t_px *px, t_scene s)
+{
+	float				hp_distance;
+	static t_hit_test	*hit_test[3] = {test_sphere, test_plane, test_cylinder};
+	t_object			*object;
+
+	object = (t_object *)s.objects->content;
+	if (hit_test[object->id](*px, *object, &hp_distance))
+	{
+		if (px->hit_distance > hp_distance)
+		{
+			px->hitobject = object;
+			px->hit_distance = hp_distance;
+			return (1);
+		}
+	}
+	return (0);
+}
 
 void	loop_lights(t_px *px, t_scene scene)
 {
@@ -74,21 +90,3 @@ void	loop_lights(t_px *px, t_scene scene)
 	px->ratios = v_add(ratios, v_multiply(light.rgb_ratios, fallof));
 }
 
-int	trace_shadow(t_px *px, t_scene s)
-{
-	float				hp_distance;
-	static t_hit_test	*hit_test[3] = {test_sphere, test_plane, test_cylinder};
-	t_object			*object;
-
-	object = (t_object *)s.objects->content;
-	if (hit_test[object->id](*px, *object, &hp_distance))
-	{
-		if (px->hit_distance > hp_distance)
-		{
-			px->hitobject = object;
-			px->hit_distance = hp_distance;
-			return (1);
-		}
-	}
-	return (0);
-}

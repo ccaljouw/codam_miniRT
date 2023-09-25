@@ -85,6 +85,8 @@ void	draw_image(t_scene *scene);
 void	image_to_window(t_scene *scene);
 
 // shadow_ray.c
+float	get_shadow_ray(t_px *shadow_ray, t_xyz hitpoint, t_xyz hp_normal, t_scene scene);
+int		trace_shadow(t_px *px, t_scene s);
 void	loop_lights(t_px *px, t_scene scene);
 
 #endif

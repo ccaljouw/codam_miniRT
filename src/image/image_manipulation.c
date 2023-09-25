@@ -22,7 +22,7 @@ void	zoom(mlx_key_data_t keydata, t_scene *scene)
 			scene->selected->diameter++;
 		if (keydata.key == ZOOM_OUT)
 			scene->selected->diameter--;
-		ft_printf("new diameter:%f\v", scene->selected->diameter); //for debugging
+		ft_printf("new diameter:%f\n", scene->selected->diameter); //for debugging
 	}
 	else
 	{
@@ -31,7 +31,7 @@ void	zoom(mlx_key_data_t keydata, t_scene *scene)
 		if (keydata.key == ZOOM_OUT)
 			scene->camera->fov += 5;
 		cameraGeometry(scene);
-		printf("new fov:%d\v", scene->camera->fov); //for debugging
+		printf("new fov:%d\n", scene->camera->fov); //for debugging
 	}
 	render_image(scene);
 }
