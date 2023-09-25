@@ -5,12 +5,12 @@ RED		:= \033[31;1m
 RESET	:= \033[0m
 
 NAME 		:= miniRT
-CC 			:= gcc
+CC 			:= cc
 CFLAGS 		:= -Wall -Wextra -Werror
 LIBFT	 	:= ./libs/libft
 LIBMLX		:= ./libs/MLX42/build
-LIBS		:= $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a
-HEADERS		:= -I $(LIBFT)  -I $(LIBMLX) -I includes/
+LIBS		:= $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a 
+HEADERS		:= -I $(LIBFT)  -I $(LIBMLX) -I includes/ -I ./libs/MLX42/include
 TEST		?= 0;
 
 ifeq ($(USER), cariencaljouw)
@@ -18,7 +18,7 @@ ifeq ($(USER), cariencaljouw)
 else ifeq ($(USER), albertvanandel)
 	LIBFLAGS 	= -lglfw  -framework Cocoa -framework OpenGL -framework IOKit	
 else
-	LIBFLAGS	= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+	LIBFLAGS	= -ldl -lglfw -lm -pthread
 endif
 
 ifeq ($(TEST), 1)
@@ -34,12 +34,12 @@ OBJ 		:= $(addprefix obj/, utils.o render.o multithreading.o \
 				$(addprefix image/, image_manipulation.o image_utils.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o matrix_vector_utils.o) \
 				)
-TEST_OBJ	:= $(addprefix testing/obj/, utils.o)
+TEST_OBJ	:= #$(addprefix testing/obj/, utils.o)
 
 all: $(NAME)
 
-$(NAME): $(LIBS) $(MAIN) $(OBJ) $(TEST_OBJ)
-	@$(CC) $(CFLAGS) $(LIBFLAGS) $^ -o $@
+$(NAME): $(MAIN) $(OBJ) $(TEST_OBJ)
+	@$(CC) $(CFLAGS) $^ -o $@  $(LIBFLAGS) $(LIBS) 
 	@echo "$(GREEN)$(BOLD)miniRT made$(RESET)"
 
 bonus: $(MAIN) $(OBJ) $(LIBS)
@@ -57,13 +57,13 @@ $(MAIN):
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $(MAIN_SRC) -o obj/main.o $(HEADERS)
 
-$(OBJ): obj/%.o : src/%.c
+$(OBJ): obj/%.o : src/%.c 
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $^ -o $@ $(HEADERS)
+	$(CC) $(CFLAGS) -c $^ -o $@  $(HEADERS)
 
-$(TEST_OBJ): testing/obj/%.o : testing/%.c
+$(TEST_OBJ): testing/obj/%.o : testing/%.c 
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $^ -o $@ $(HEADERS)
+	$(CC) $(CFLAGS) -c  $^ -o $@ $(HEADERS)
 
 clean:
 	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"
