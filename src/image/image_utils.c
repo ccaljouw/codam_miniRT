@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   image_utils.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/23 23:39:34 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   image_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/09/24 21:49:46 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ int	getColor(t_px *px, t_scene *scene)
 
 int	invert_color(int color)
 {
-	int r;
-	int g;
-	int b;
-	
+	int	r;
+	int	g;
+	int	b;
+
 	r = 255 - ((color >> 24) & 0xFF);
 	g = 255 - ((color >> 16) & 0xFF);
 	b = 255 - ((color >> 8) & 0xFF);

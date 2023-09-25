@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   render.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/24 12:36:00 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/25 00:08:43 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	get_ray(t_px *px, int x, int y, t_scene *s)
  */
 void	trace_ray(t_px *px, t_scene *s)
 {
-	float					hp_distance;
-	static t_hit_test		*hit_test[3] = {test_sphere, test_plane, test_cylinder};
-	t_list					*objects;
-	t_object				*object;
+	float				hp_distance;
+	static t_hit_test	*hit_test[3] = {test_sphere, test_plane, test_cylinder};
+	t_list				*objects;
+	t_object			*object;
 
 	objects = s->objects;
 	while (objects)

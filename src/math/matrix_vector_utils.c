@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 15:35:38 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/18 21:16:17 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/24 22:07:47 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,9 @@ t_m44	m44_from_direction_vector(t_xyz orientation)
 	matrix.arr[2][1] = y_axis.z;
 	matrix.arr[2][2] = orientation.z;
 	return (matrix);
+}
+
+void	m44_translate_by_vector(t_m44 *matrix, t_xyz vector)
+{
+	m44_translate(matrix, vector.x, vector.y, vector.z);
 }

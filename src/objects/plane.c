@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   plane.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 22:33:02 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   plane.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/20 11:14:41 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/25 02:30:15 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,29 @@ int	test_plane(t_px ray, t_object plane, float *hit_dist)
 	return (0);
 }
 
+float	clamp(float min, float max, float input)
+{
+	if (input > max)
+		return (max);
+	if (input < min)
+		return (min);
+	return (input);
+}
 
 int	get_plane_surface_data(t_object plane, t_px *px, t_scene scene)
 {
 	float	facing_ratio;
+	t_xyz	ratios;
 
-	facing_ratio = v_dot(v_normalize(plane.vNormal), v_normalize(px->direction));
-	px->color = ((int)(plane.rgb[0] * scene.ambient->rgb_ratio[0] * facing_ratio) << 24 \
-	| (int)(plane.rgb[1] * scene.ambient->rgb_ratio[1] * facing_ratio) << 16 \
-	| (int)(plane.rgb[2] * scene.ambient->rgb_ratio[2] * facing_ratio) << 8 \
+	facing_ratio = fabsf(v_dot(plane.vNormal, px->direction));
+	ratios = v_create(0, 0, 0);
+	// print_vector(ratios);
+	loop_lights(scene, plane.vNormal, v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance)), &ratios, "plane");
+	// ft_printf("--> ");
+	// print_vector(ratios);
+	px->color = ((int)(plane.rgb[0] * clamp(0, 1, ((scene.ambient->rgb_ratio[0] * facing_ratio) + ratios.x))) << 24 \
+	| (int)(plane.rgb[1] * clamp(0, 1, ((scene.ambient->rgb_ratio[1] * facing_ratio) + ratios.y))) << 16 \
+	| (int)(plane.rgb[2] * clamp(0, 1, ((scene.ambient->rgb_ratio[2] * facing_ratio) + ratios.z))) << 8 \
 	| 255);
 	return (px->color);
 }
