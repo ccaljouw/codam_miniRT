@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/24 12:20:18 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:44:22 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/25 12:32:01 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,24 @@ void	exit_error(char *error_msg, char *optional_str, t_scene *scene)
 	// check and clean mlx and mlx image?
 	exit (1);
 }
+/**
+ * @brief Clamps the input value between the min and max value,
+ * 		returns the result.
+ * 
+ * @param min 
+ * @param max 
+ * @param input 
+ * @return float 
+ */
+float	ft_clamp(float min, float max, float input)
+{
+	if (input > max)
+		return (max);
+	if (input < min)
+		return (min);
+	return (input);
+}
+
 
 void	print_vector(t_xyz vector)
 {

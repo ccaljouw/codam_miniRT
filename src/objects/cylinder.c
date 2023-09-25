@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cylinder.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 22:15:40 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/25 13:03:04 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ int	get_cylinder_surface_data(t_object cy, t_px *px, t_scene scene)
 	float		t;
 	t_xyz		pt;
 	t_xyz		top;
+	t_xyz		ratios;
 
+	ratios = v_create(0, 0, 0);
 	nAxis = v_normalize(cy.vNormal);
 	hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
 	top = v_add(hitpoint, v_multiply(nAxis, cy.height));
@@ -84,9 +86,11 @@ int	get_cylinder_surface_data(t_object cy, t_px *px, t_scene scene)
 	}
 	v_normalizep(&surface_normal_at_hitpoint);
 	facing_ratio = fabs(v_dot(surface_normal_at_hitpoint, px->direction));
-	px->color = ((int)(cy.rgb[0] * scene.ambient->rgb_ratio[0] * facing_ratio) << 24 \
-		| (int)(cy.rgb[1] * scene.ambient->rgb_ratio[1] * facing_ratio) << 16 \
-		| (int)(cy.rgb[2] * scene.ambient->rgb_ratio[2] * facing_ratio) << 8 \
-		| 255);
+	loop_lights(scene, surface_normal_at_hitpoint, hitpoint, &ratios, "cyere");
+	// print_vector(ratios);
+	px->color = ((int)(cy.rgb[0] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[0] * facing_ratio) + ratios.x * (0.18 / M_PI)))) << 24 \
+	| (int)(cy.rgb[1] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[1] * facing_ratio) + ratios.y * (0.18 / M_PI)))) << 16 \
+	| (int)(cy.rgb[2] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[2] * facing_ratio) + ratios.z * (0.18 / M_PI)))) << 8 \
+	| 255);
 	return (px->color);
 }

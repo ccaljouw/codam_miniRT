@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/25 03:00:01 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/25 12:30:53 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
 	return (1);
 }
 
-float	clamp(float min, float max, float input);
-
 /**
  * @brief Calculate the normal of the sphere at the hitpoint (ie the vector
 		perpendicular to the surface at that point).
@@ -114,9 +112,9 @@ int	get_sphere_surface_data(t_object sph, t_px *px, t_scene scene)
 	facing_ratio = v_dot(surface_normal_at_hitpoint, px->direction);
 	loop_lights(scene, v_multiply(surface_normal_at_hitpoint, -1), hitpoint, &ratios, "sphere");
 	// print_vector(ratios);
-	px->color = ((int)(sph.rgb[0] * clamp(0, 1, ((scene.ambient->rgb_ratio[0] * facing_ratio) + ratios.x * 0.18))) << 24 \
-	| (int)(sph.rgb[1] * clamp(0, 1, ((scene.ambient->rgb_ratio[1] * facing_ratio) + ratios.y * 0.18))) << 16 \
-	| (int)(sph.rgb[2] * clamp(0, 1, ((scene.ambient->rgb_ratio[2] * facing_ratio) + ratios.z * 0.18))) << 8 \
+	px->color = ((int)(sph.rgb[0] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[0] * facing_ratio) + ratios.x * (0.18 / M_PI)))) << 24 \
+	| (int)(sph.rgb[1] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[1] * facing_ratio) + ratios.y * (0.18 / M_PI)))) << 16 \
+	| (int)(sph.rgb[2] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[2] * facing_ratio) + ratios.z * (0.18 / M_PI)))) << 8 \
 	| 255);
 	return (px->color);
 }

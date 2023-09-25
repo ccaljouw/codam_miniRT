@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/25 02:30:35 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/25 12:31:13 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	swap(float *x1, float *x2);
 void	replace(char *str, char replace, char with);
 int		invert_color(int color);
 void	print_vector(t_xyz vector);
+float	ft_clamp(float min, float max, float input);
 
 // main.c
 t_scene	*init_scene(char *file);
