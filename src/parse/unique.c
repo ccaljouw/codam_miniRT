@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unique.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/25 01:50:44 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/25 18:09:34 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,4 +146,37 @@ void	init_resolution(char **param, t_scene *s)
 		exit_error(ERROR_RES, "incorrect values \
 				[0, MAX_WIDTH / MAX_HEIGHT]", s);
 	ft_putstr_fd("\033[34;1mResolution config:\t\t  \033[0m", 1);
+}
+
+void	init_lights(char **param, t_scene *s)
+{
+	t_list		*new_node;
+	t_light		*new_light;
+	int	i;
+
+	i = 0;
+	while (param[i])
+		i++;
+	if (i != 4)
+		exit_error(ERROR_LIGHT, "incorrect number of arguments", s);
+	new_node = malloc(sizeof(t_list));
+	new_light = malloc(sizeof(t_light));
+	if (!new_light || !new_node)
+		exit_error(ERROR_MEM, NULL, s);
+	new_light->light_point = set_xyz(param[1], s);
+	new_light->brightness = to_float(param[2], s);
+	if (new_light->brightness < 0.0 || new_light->brightness > 1.0)
+		exit_error(ERROR_LIGHT, "Incorrect brightness values [0.0, 1.0]", s);
+	set_rgb(param[3], new_light->rgb, s);
+	new_light->l2w = m44_init();
+	m44_translate_by_vector(&new_light->l2w, new_light->light_point);
+	m44_multiply_vec3(new_light->l2w, v_create(0, 0, 0), &new_light->origin);
+	new_light->rgb_ratios = v_create(new_light->rgb[0] / (float)255, \
+									new_light->rgb[1] / (float)255, \
+									new_light->rgb[2] / (float)255);
+	print_vector(new_light->light_point);
+	print_vector(new_light->origin);
+	new_node->content = (void *)new_light;
+	ft_lstadd_back(&s->lights, new_node);
+	ft_putstr_fd("\033[34;1mLight config:\t\t  \033[0m", 1);
 }

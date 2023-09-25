@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_manipulation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/24 21:48:39 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/25 16:36:12 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	resize(void	*param)
 
 	i = 0;
 	scene = (t_scene *)param;
+	if (mlx_is_mouse_down(scene->mlx, MLX_MOUSE_BUTTON_LEFT))
+		return;
 	if (scene->mlx->width != scene->p_width || scene->mlx->height != scene->p_height)
 	{
 		if (scene->pixels)

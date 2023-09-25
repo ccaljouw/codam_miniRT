@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/25 03:00:01 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/25 16:16:23 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
 	*hit_dist = hit_dist1;
 	return (1);
 }
-
-float	clamp(float min, float max, float input);
 
 /**
  * @brief Calculate the normal of the sphere at the hitpoint (ie the vector

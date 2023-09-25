@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/25 02:30:15 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/25 16:16:38 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,6 @@ int	test_plane(t_px ray, t_object plane, float *hit_dist)
 			return (1);
 	}
 	return (0);
-}
-
-float	clamp(float min, float max, float input)
-{
-	if (input > max)
-		return (max);
-	if (input < min)
-		return (min);
-	return (input);
 }
 
 int	get_plane_surface_data(t_object plane, t_px *px, t_scene scene)

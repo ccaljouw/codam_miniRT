@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/24 12:20:18 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:44:22 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/25 16:16:50 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,13 @@ void	replace(char *str, char replace, char with)
 			str[i] = with;
 		i++;
 	}
+}
+
+float	clamp(float min, float max, float input)
+{
+	if (input > max)
+		return (max);
+	if (input < min)
+		return (min);
+	return (input);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shadow_ray.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:58:06 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/25 02:57:03 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/25 18:28:55 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,19 @@ float	v_square_of_self(t_xyz a)
 }
 
 
-float	get_shadow_ray(t_px *shadow_ray, t_xyz hitpoint, t_xyz hp_normal, t_scene scene)
+float	get_shadow_ray(t_px *shadow_ray, t_light light, t_px *px, t_scene scene)
 {
-	t_light	light;
 	float	light_radius;
 
+	(void)scene;
 	ft_bzero(shadow_ray, sizeof(shadow_ray));
-	light = *scene.light;
-	shadow_ray->cam_origin = v_add(hitpoint, v_multiply(hp_normal, SHADOW_BIAS));
-	shadow_ray->direction = v_subtract(shadow_ray->cam_origin, light.origin);
+	shadow_ray->cam_origin = v_add(px->hitpoint, v_multiply(px->surface_normal, SHADOW_BIAS));
+	shadow_ray->direction = v_subtract(light.origin, shadow_ray->cam_origin);
 	light_radius = v_square_of_self(shadow_ray->direction);
 	shadow_ray->hit_distance = sqrt(light_radius);
-	shadow_ray->direction.x /= shadow_ray->hit_distance * -1;
-	shadow_ray->direction.y /= shadow_ray->hit_distance * -1;
-	shadow_ray->direction.z /= shadow_ray->hit_distance * -1;
+	shadow_ray->direction.x /= shadow_ray->hit_distance;
+	shadow_ray->direction.y /= shadow_ray->hit_distance;
+	shadow_ray->direction.z /= shadow_ray->hit_distance;
 	return (light_radius);
 }
 
@@ -41,52 +40,47 @@ int	trace_shadow(t_px *px, t_scene s)
 {
 	float				hp_distance;
 	static t_hit_test	*hit_test[3] = {test_sphere, test_plane, test_cylinder};
+	t_list				*objects;
 	t_object			*object;
 
-	object = (t_object *)s.objects->content;
-	if (hit_test[object->id](*px, *object, &hp_distance))
+	objects = s.objects;
+	while (objects)
 	{
-		if (px->hit_distance > hp_distance)
+		object = (t_object *)objects->content;
+		if (hit_test[object->id](*px, *object, &hp_distance))
 		{
-			px->hitobject = object;
-			px->hit_distance = hp_distance;
-			return (1);
+			if (px->hit_distance > hp_distance)
+			{
+				px->hitobject = object;
+				px->hit_distance = hp_distance;
+				return (1);
+			}
 		}
+		objects = objects->next;
 	}
 	return (0);
 }
 
 void	loop_lights(t_px *px, t_scene scene)
 {
-	t_xyz	ratios;
-	t_light	light;
+	t_light	*light;
 	t_px	shadow_ray;
 	float	light_radius;
 	float	fallof;
 	
-	static int	count_lights = 0;
-	static int	count_shadows = 0;
-	static	float	biggest_fallof = 0;
-	int		sphere = 0;
-	
-	if (!scene.light || px->hitobject->id == CY)
+	if (!scene.lights)
 		return;
-	ratios = v_create(0, 0, 0);
-	if (px->hitobject->id == SP)
-		sphere = 1;
-	light = *scene.light;
-	light_radius = get_shadow_ray(&shadow_ray, px->hitpoint, px->surface_normal, scene);
-	fallof = (light.brightness / (4 * M_PI * light_radius) * 200);
-	if (fallof > biggest_fallof)
-		biggest_fallof = fallof;
-	if (trace_shadow(&shadow_ray, scene))
+	px->ratios = v_create(0, 0, 0);
+	while(scene.lights)
 	{
-		if (!count_shadows)
-			count_shadows++;
-		return;
+		light = (t_light *)scene.lights->content;
+		
+		light_radius = get_shadow_ray(&shadow_ray, *light, px, scene);
+		fallof = (light->brightness / (4 * M_PI * light_radius) * 200);
+		if (trace_shadow(&shadow_ray, scene))
+			return;
+		px->ratios = v_add(px->ratios, v_multiply(light->rgb_ratios, fallof));
+		scene.lights = scene.lights->next;
 	}
-	if (!count_lights)
-		count_lights++;
-	px->ratios = v_add(ratios, v_multiply(light.rgb_ratios, fallof));
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/25 01:00:01 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/25 17:51:31 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_scene
 	t_ambient		*ambient; // bij één ambient light kan dit op de stack?
 	t_camera		*camera; // bij éen camera kan dit op de stack?
 	t_light			*light;
+	t_list			*lights;
 	t_list			*objects;
 	t_px			**pixels;
 	int				p_width;
@@ -72,6 +73,7 @@ void	init_ambient(char **param, t_scene *scene);
 void	init_camera(char **param, t_scene *scene);
 void	cameraGeometry(t_scene *scene);
 void	init_light(char **param, t_scene *scene);
+void	init_lights(char **param, t_scene *s);
 void	init_sphere(char **param, t_scene *scene);
 void	init_plane(char **param, t_scene *scene);
 void	init_cylinder(char **param, t_scene *scene);

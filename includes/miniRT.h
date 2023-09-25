@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/25 02:30:35 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/25 18:16:02 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	draw_image(t_scene *scene);
 void	image_to_window(t_scene *scene);
 
 // shadow_ray.c
-float	get_shadow_ray(t_px *shadow_ray, t_xyz hitpoint, t_xyz hp_normal, t_scene scene);
+float	get_shadow_ray(t_px *shadow_ray, t_light light, t_px *px, t_scene scene);
 int		trace_shadow(t_px *px, t_scene s);
 void	loop_lights(t_px *px, t_scene scene);
 

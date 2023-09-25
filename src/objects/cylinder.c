@@ -1,17 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cylinder.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/23 22:15:40 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/25 16:26:46 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
+/**
+ * @brief Find the two hitpoints on the cylinder (it can be the same point twice). The calculation is 
+ * similar to the sphere hit test but calculated for the radius on each point from the axis that falls
+ * between origin and origin + height. 
+ * calculate two m values (a scalar that determines the closest point on the axis to the hit point) 
+ * and test whether they fall in the range of [0,maxm].
+ * 
+ * @param ray 
+ * @param cylinder 
+ * @param hit_dist 
+ * @param m 
+ * @return int 
+ */
 int	test_cylinder(t_px ray, t_object cylinder, float *hit_dist)
 {
 	t_xyz	orig_to_center;
