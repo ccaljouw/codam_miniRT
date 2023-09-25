@@ -38,7 +38,7 @@ TEST_OBJ	:= #$(addprefix testing/obj/, utils.o)
 
 all: $(NAME)
 
-$(NAME): $(MAIN) $(OBJ) $(TEST_OBJ)
+$(NAME): $(MAIN) $(OBJ) $(TEST_OBJ) $(LIBS) 
 	@$(CC) $(CFLAGS) $^ -o $@  $(LIBFLAGS) $(LIBS) 
 	@echo "$(GREEN)$(BOLD)miniRT made$(RESET)"
 
