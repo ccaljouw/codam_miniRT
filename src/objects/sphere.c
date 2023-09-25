@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   sphere.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 17:54:01 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/25 16:16:23 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   sphere.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/09/25 21:04:23 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
 
 	hit_dist1 = 0;
 	hit_dist2 = 0;
-	radius = sphere.diameter / 2;
+	radius = sphere.diameter * 0.5;
 	orig_to_center = v_subtract(ray.cam_origin, sphere.pOrigin);
 	abc.x = v_dot(ray.direction, ray.direction);
 	abc.y = 2 * v_dot(ray.direction, orig_to_center);

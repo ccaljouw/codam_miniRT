@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/25 17:51:31 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/25 20:30:58 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define MAX_WIDTH 1024
 # define MAX_HEIGHT 1024
 
-# define THREADS 1
+# define THREADS 4
 
 # define MOVE_X_P 	MLX_KEY_RIGHT
 # define MOVE_X_N 	MLX_KEY_LEFT

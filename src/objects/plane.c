@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   plane.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 11:14:41 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/25 16:16:38 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   plane.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/25 21:09:27 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ int	get_plane_surface_data(t_object plane, t_px *px, t_scene scene)
 	(void)scene;
 	px->facing_ratio = fabsf(v_dot(plane.vNormal, px->direction));
 	px->hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
-	px->surface_normal = plane.vNormal;
 	return (px->color);
 }

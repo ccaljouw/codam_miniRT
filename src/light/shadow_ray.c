@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   shadow_ray.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 22:58:06 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/25 18:28:55 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   shadow_ray.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/24 22:58:06 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/09/25 21:02:53 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,11 @@ float	get_shadow_ray(t_px *shadow_ray, t_light light, t_px *px, t_scene scene)
 	shadow_ray->direction = v_subtract(light.origin, shadow_ray->cam_origin);
 	light_radius = v_square_of_self(shadow_ray->direction);
 	shadow_ray->hit_distance = sqrt(light_radius);
-	shadow_ray->direction.x /= shadow_ray->hit_distance;
-	shadow_ray->direction.y /= shadow_ray->hit_distance;
-	shadow_ray->direction.z /= shadow_ray->hit_distance;
+	shadow_ray->direction = v_divide(shadow_ray->direction, shadow_ray->hit_distance);
 	return (light_radius);
 }
 
-int	trace_shadow(t_px *px, t_scene s)
+int	trace_shadow(t_px *shadow_ray, t_scene s)
 {
 	float				hp_distance;
 	static t_hit_test	*hit_test[3] = {test_sphere, test_plane, test_cylinder};
@@ -47,14 +45,10 @@ int	trace_shadow(t_px *px, t_scene s)
 	while (objects)
 	{
 		object = (t_object *)objects->content;
-		if (hit_test[object->id](*px, *object, &hp_distance))
+		if (hit_test[object->id](*shadow_ray, *object, &hp_distance))
 		{
-			if (px->hit_distance > hp_distance)
-			{
-				px->hitobject = object;
-				px->hit_distance = hp_distance;
+			if (shadow_ray->hit_distance > hp_distance)
 				return (1);
-			}
 		}
 		objects = objects->next;
 	}
@@ -74,7 +68,6 @@ void	loop_lights(t_px *px, t_scene scene)
 	while(scene.lights)
 	{
 		light = (t_light *)scene.lights->content;
-		
 		light_radius = get_shadow_ray(&shadow_ray, *light, px, scene);
 		fallof = (light->brightness / (4 * M_PI * light_radius) * 200);
 		if (trace_shadow(&shadow_ray, scene))

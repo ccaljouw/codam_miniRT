@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   multithreading.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 14:21:20 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/25 17:47:05 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   multithreading.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/25 20:03:42 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	*routine(void *params)
 	int		y;
 	t_scene	*scene;
 	t_block	*block;
-	t_px	*px;
 
 	block = (t_block *)params;
 	scene = block->scene;
@@ -29,7 +28,6 @@ void	*routine(void *params)
 		x = 0;
 		while (x < scene->p_width)
 		{
-			px = scene->pixels[y] + x;
 			get_ray(scene->pixels[y] + x, x, y, scene);
 			trace_ray(scene->pixels[y] + x, scene);
 			get_surface_data(scene->pixels[y] + x, scene);

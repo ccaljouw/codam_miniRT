@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 08:31:28 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/24 23:29:19 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   vector.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/14 08:31:28 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/09/25 20:43:59 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_xyz	v_multiply(t_xyz a, float b)
  * @param b (float)
  * @return t_xyz 
  */
-t_xyz	v_devide(t_xyz a, float b)
+t_xyz	v_divide(t_xyz a, float b)
 {
 	t_xyz	new;
 
