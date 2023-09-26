@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 16:21:25 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:53:02 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,25 +74,26 @@ int	test_cylinder(t_px ray, t_object cylinder, float *hit_dist)
  */
 int	get_cylinder_surface_data(t_object cy, t_px *px)
 {
-	t_xyz		nAxis;
 	float		t;
 	t_xyz		pt;
 	t_xyz		top;
 
-	nAxis = v_normalize(cy.vNormal);
 	px->hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
-	top = v_add(px->hitpoint, v_multiply(nAxis, cy.height));
+	top = v_add(px->hitpoint, v_multiply(cy.vNormal, cy.height));
 	if (v_magnitude(v_subtract(px->hitpoint, top)) < (cy.diameter * 0.5))
 		px->surface_normal = cy.vNormal;
 	if (v_magnitude(v_subtract(px->hitpoint, cy.pOrigin)) < (cy.diameter * 0.5))
 		px->surface_normal = v_multiply(cy.vNormal, -1);
 	else
 	{
-		t = v_dot(v_subtract(px->hitpoint, px->cam_origin), nAxis);
-		pt = v_add(cy.pOrigin, v_multiply(nAxis, t));
+		t = v_dot(v_subtract(px->hitpoint, px->cam_origin), cy.vNormal);
+		pt = v_add(cy.pOrigin, v_multiply(cy.vNormal, t));
 		px->surface_normal = v_subtract(px->hitpoint, pt);
 	}
-	v_normalizep(&px->surface_normal);
-	px->facing_ratio = fabs(v_dot(px->surface_normal, px->direction));
+	px->facing_ratio = v_dot(px->surface_normal, px->direction);
+	if (px->facing_ratio > 0)
+		px->surface_normal = v_multiply(px->surface_normal, -1);
+	else
+		px->facing_ratio *= -1;
 	return (px->color);
 }
