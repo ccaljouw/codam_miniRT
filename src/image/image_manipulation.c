@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   image_manipulation.c                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/24 21:48:39 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   image_manipulation.c                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/09/26 10:30:20 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	zoom(mlx_key_data_t keydata, t_scene *scene)
 			scene->selected->diameter++;
 		if (keydata.key == ZOOM_OUT)
 			scene->selected->diameter--;
-		ft_printf("new diameter:%f\v", scene->selected->diameter); //for debugging
+		ft_printf("new diameter:%f\n", scene->selected->diameter); //for debugging
 	}
 	else
 	{
@@ -31,7 +31,7 @@ void	zoom(mlx_key_data_t keydata, t_scene *scene)
 		if (keydata.key == ZOOM_OUT)
 			scene->camera->fov += 5;
 		cameraGeometry(scene);
-		printf("new fov:%d\v", scene->camera->fov); //for debugging
+		printf("new fov:%d\n", scene->camera->fov); //for debugging
 	}
 	render_image(scene);
 }
@@ -81,8 +81,11 @@ void	resize(void	*param)
 
 	i = 0;
 	scene = (t_scene *)param;
+	if (mlx_is_mouse_down(scene->mlx, MLX_MOUSE_BUTTON_LEFT))
+		return;
 	if (scene->mlx->width != scene->p_width || scene->mlx->height != scene->p_height)
 	{
+		mlx_resize_image(scene->image, scene->mlx->width, scene->mlx->height);
 		if (scene->pixels)
 		{
 			while (i < scene->p_height)
@@ -95,7 +98,6 @@ void	resize(void	*param)
 		scene->p_width = scene->mlx->width;
 		scene->p_height = scene->mlx->height;
 		init_pixels(scene);
-		mlx_resize_image(scene->image, scene->mlx->width, scene->mlx->height);
 		cameraGeometry(scene);
 		render_image(scene);
 	}

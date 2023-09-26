@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parse.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/24 12:49:41 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/25 18:00:13 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ void	parse_type(char *line, t_scene *scene)
 {
 	int			i;
 	char		**param;
-	static char	*type[7] = {"A", "C", "L", "sp", "pl", "cy", "R"};
-	static t_f	*parse[7] = {init_ambient, init_camera, init_light, \
+	static char	*type[8] = {"A", "C", "L", "l", "sp", "pl", "cy", "R"};
+	static t_f	*parse[8] = {init_ambient, init_camera, init_light, init_lights, \
 							init_sphere, init_plane, init_cylinder, \
 							init_resolution};
 
@@ -127,7 +127,7 @@ void	parse_type(char *line, t_scene *scene)
 	param = ft_split(line, '\t');
 	if (!param)
 		exit_error(ERROR_MEM, NULL, scene);
-	while (param[0] && i < 7)
+	while (param[0] && i < 8)
 	{
 		if (!ft_strcmp(type[i], param[0]))
 		{
@@ -137,7 +137,7 @@ void	parse_type(char *line, t_scene *scene)
 		}
 		i++;
 	}
-	if (i == 7)
+	if (i == 8)
 		exit_error(ERROR_SCENE, "incorrect type", scene);
 	free(param);
 }

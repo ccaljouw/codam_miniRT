@@ -81,7 +81,11 @@ typedef struct s_pixel
 	t_xyz		cam_origin;
 	t_xyz		direction;
 	t_object	*hitobject;
+	t_xyz		hitpoint;
+	t_xyz		surface_normal;
+	t_xyz		ratios;
 	float		hit_distance;
+	float		facing_ratio;
 	int			color;
 }	t_px;
 

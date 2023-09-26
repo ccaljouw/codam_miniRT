@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/25 00:08:43 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   render.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/25 21:04:38 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,16 @@ void	trace_ray(t_px *px, t_scene *s)
 		}
 		objects = objects->next;
 	}
+}
+
+void	get_surface_data(t_px *px, t_scene *scene)
+{
+	t_object				*object;
+	static t_surface_data	*surface_data[3] = \
+				{get_sphere_surface_data, get_plane_surface_data, get_cylinder_surface_data};
+
+	object = (t_object *)px->hitobject;
+	px->color = surface_data[object->id](*px->hitobject, px, *scene);
 }
 
 /**

@@ -6,12 +6,25 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 11:53:25 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/26 12:09:22 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
+/**
+ * @brief Find the two hitpoints on the cylinder (it can be the same point twice). The calculation is 
+ * similar to the sphere hit test but calculated for the radius on each point from the axis that falls
+ * between origin and origin + height. 
+ * calculate two m values (a scalar that determines the closest point on the axis to the hit point) 
+ * and test whether they fall in the range of [0,maxm].
+ * 
+ * @param ray 
+ * @param cylinder 
+ * @param hit_dist 
+ * @param m 
+ * @return int 
+ */
 int	test_cylinder(t_px ray, t_object cylinder, float *hit_dist)
 {
 	t_xyz	orig_to_center;
@@ -61,46 +74,25 @@ int	test_cylinder(t_px ray, t_object cylinder, float *hit_dist)
  */
 int	get_cylinder_surface_data(t_object cy, t_px *px, t_scene scene)
 {
-	t_xyz		surface_normal_at_hitpoint;
-	t_xyz		hitpoint;
-	t_xyz		nAxis;
-	float		facing_ratio;
-	// float		t;
-	// t_xyz		pt;
+	t_xyz		pt;
 	t_xyz		top;
 	t_xyz		ratios;
 	t_m44		dir_matrix;
 
-	ratios = v_create(0, 0, 0);
-	nAxis = v_normalize(cy.vNormal);
-	hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
-	top = v_add(hitpoint, v_multiply(nAxis, cy.height));
-	if (v_magnitude(v_subtract(hitpoint, top)) < (cy.diameter * 0.5))
-		surface_normal_at_hitpoint = cy.vNormal;
-	if (v_magnitude(v_subtract(hitpoint, cy.pOrigin)) < (cy.diameter * 0.5))
-		surface_normal_at_hitpoint = v_multiply(cy.vNormal, -1);
+	(void)scene;
+	v_normalizep(&cy.vNormal);
+	px->hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
+	top = v_add(px->hitpoint, v_multiply(cy.vNormal, cy.height));
+	if (v_magnitude(v_subtract(px->hitpoint, top)) < (cy.diameter * 0.5))
+		px->surface_normal = v_multiply(cy.vNormal, -1);
+	if (v_magnitude(v_subtract(px->hitpoint, cy.pOrigin)) < (cy.diameter * 0.5))
+		px->surface_normal = cy.vNormal;
 	else
 	{
-		// t = v_dot(v_subtract(hitpoint, px->cam_origin), nAxis);
-		// pt = v_add(cy.pOrigin, v_multiply(nAxis, t));
-		// surface_normal_at_hitpoint = v_subtract(hitpoint, pt);
-		dir_matrix = m44_init();
-		m44_rotate(&dir_matrix, cy.vNormal.x, cy.vNormal.y , cy.vNormal.z);
-		
-		// m44_print(dir_matrix);
-		// m44_invert(dir_matrix, &dir_matrix);
-		surface_normal_at_hitpoint = v_create(hitpoint.x - cy.pOrigin.x, 0, hitpoint.z - cy.pOrigin.z);
-		print_vector(px->direction);
-		// m44_multiply_vec3(dir_matrix, surface_normal_at_hitpoint, &surface_normal_at_hitpoint);
-		v_normalizep(&surface_normal_at_hitpoint);
+		pt = v_add(cy.pOrigin, v_add(cy.vNormal, px->direction));
+		px->surface_normal = v_subtract(px->hitpoint, pt);
 	}
-	v_normalizep(&surface_normal_at_hitpoint);
-	facing_ratio = fabs(v_dot(surface_normal_at_hitpoint, px->direction));
-	loop_lights(scene, surface_normal_at_hitpoint, hitpoint, &ratios, "cyere");
-	// print_vector(ratios);
-	px->color = ((int)(cy.rgb[0] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[0] * facing_ratio) + ratios.x * (0.18 / M_PI)))) << 24 \
-	| (int)(cy.rgb[1] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[1] * facing_ratio) + ratios.y * (0.18 / M_PI)))) << 16 \
-	| (int)(cy.rgb[2] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[2] * facing_ratio) + ratios.z * (0.18 / M_PI)))) << 8 \
-	| 255);
+	px->surface_normal.y = 0;
+	px->facing_ratio = fabs(v_dot(px->surface_normal, px->direction));
 	return (px->color);
 }

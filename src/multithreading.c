@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   multithreading.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/24 12:10:29 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/26 07:28:31 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ void	*routine(void *params)
 		{
 			get_ray(scene->pixels[y] + x, x, y, scene);
 			trace_ray(scene->pixels[y] + x, scene);
-			mlx_put_pixel(scene->image, x, y, getColor(&scene->pixels[y][x], scene));
+			get_surface_data(scene->pixels[y] + x, scene);
+			loop_lights(scene->pixels[y] + x, *scene);
 			x++;
 		}
 		y++;
 	}
+	draw_image(scene);
 	return (NULL);
 }
 

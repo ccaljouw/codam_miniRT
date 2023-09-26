@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/25 12:30:53 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/26 12:11:23 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
 
 	hit_dist1 = 0;
 	hit_dist2 = 0;
-	radius = sphere.diameter / 2;
+	radius = sphere.diameter * 0.5;
 	orig_to_center = v_subtract(ray.cam_origin, sphere.pOrigin);
 	abc.x = v_dot(ray.direction, ray.direction);
 	abc.y = 2 * v_dot(ray.direction, orig_to_center);
@@ -100,21 +100,15 @@ int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
  */
 int	get_sphere_surface_data(t_object sph, t_px *px, t_scene scene)
 {
-	t_xyz		surface_normal_at_hitpoint;
-	t_xyz		hitpoint;
-	float		facing_ratio;
-	t_xyz	ratios;
-
-	ratios = v_create(0, 0, 0);
-	hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
-	surface_normal_at_hitpoint = v_subtract(sph.pOrigin, hitpoint);
-	v_normalizep(&surface_normal_at_hitpoint);
-	facing_ratio = v_dot(surface_normal_at_hitpoint, px->direction);
-	loop_lights(scene, v_multiply(surface_normal_at_hitpoint, -1), hitpoint, &ratios, "sphere");
-	// print_vector(ratios);
-	px->color = ((int)(sph.rgb[0] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[0] * facing_ratio) + ratios.x * (0.18 / M_PI)))) << 24 \
-	| (int)(sph.rgb[1] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[1] * facing_ratio) + ratios.y * (0.18 / M_PI)))) << 16 \
-	| (int)(sph.rgb[2] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[2] * facing_ratio) + ratios.z * (0.18 / M_PI)))) << 8 \
-	| 255);
+	(void)scene;
+	px->hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
+	px->surface_normal = v_subtract(sph.pOrigin, px->hitpoint);
+	v_normalizep(&px->surface_normal);
+	px->facing_ratio = v_dot(px->surface_normal, px->direction);
+	// loop_lights(px, scene);
+	// px->color = ((int)(sph.rgb[0] * clamp(0, 1, ((scene.ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x * 0.18))) << 24 \
+	// | (int)(sph.rgb[1] * clamp(0, 1, ((scene.ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y * 0.18))) << 16 \
+	// | (int)(sph.rgb[2] * clamp(0, 1, ((scene.ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z * 0.18))) << 8 \
+	// | 255);
 	return (px->color);
 }

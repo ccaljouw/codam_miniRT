@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/25 12:31:13 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/26 12:05:25 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ int		test_plane(t_px ray, t_object plane, float *hit_dist);
 // render.c
 void	get_ray(t_px *px, int x, int y, t_scene *s);
 void	trace_ray(t_px *px, t_scene *s);
+void	get_surface_data(t_px *px, t_scene *scene);
 int		getColor(t_px	*px, t_scene *scene);
+float	clamp(float min, float max, float input);
 void	render_image(t_scene *scene);
 
 // objects
@@ -81,11 +83,12 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene);
 void	resize(void	*param);
 void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param);
 void	draw_image(t_scene *scene);
+void	draw_text(t_scene *scene, mlx_image_t *text);
 void	image_to_window(t_scene *scene);
 
-// int	check_object(t_scene *scene, int x, int y);
-
-
-int	loop_lights(t_scene scene, t_xyz hp_normal, t_xyz hitpoint, t_xyz *ratios, char *caller);
+// shadow_ray.c
+float	get_shadow_ray(t_px *shadow_ray, t_light light, t_px *px, t_scene scene);
+int		trace_shadow(t_px *px, t_scene s);
+void	loop_lights(t_px *px, t_scene scene);
 
 #endif
