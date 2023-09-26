@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/25 13:03:04 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/26 11:32:45 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,11 @@ int	get_cylinder_surface_data(t_object cy, t_px *px, t_scene scene)
 	t_xyz		hitpoint;
 	t_xyz		nAxis;
 	float		facing_ratio;
-	float		t;
-	t_xyz		pt;
+	// float		t;
+	// t_xyz		pt;
 	t_xyz		top;
 	t_xyz		ratios;
+	t_m44		dir_matrix;
 
 	ratios = v_create(0, 0, 0);
 	nAxis = v_normalize(cy.vNormal);
@@ -80,9 +81,17 @@ int	get_cylinder_surface_data(t_object cy, t_px *px, t_scene scene)
 		surface_normal_at_hitpoint = v_multiply(cy.vNormal, -1);
 	else
 	{
-		t = v_dot(v_subtract(hitpoint, px->cam_origin), nAxis);
-		pt = v_add(cy.pOrigin, v_multiply(nAxis, t));
-		surface_normal_at_hitpoint = v_subtract(hitpoint, pt);
+		// t = v_dot(v_subtract(hitpoint, px->cam_origin), nAxis);
+		// pt = v_add(cy.pOrigin, v_multiply(nAxis, t));
+		// surface_normal_at_hitpoint = v_subtract(hitpoint, pt);
+		dir_matrix = m44_init();
+		m44_rotate(&dir_matrix, cy.vNormal.x, cy.vNormal.y , cy.vNormal.z);
+		
+		// m44_print(dir_matrix);
+		m44_invert(dir_matrix, &dir_matrix);
+		surface_normal_at_hitpoint = v_create(hitpoint.x - cy.pOrigin.x, 0, hitpoint.z - cy.pOrigin.z);
+		m44_multiply_vec3(dir_matrix, surface_normal_at_hitpoint, &surface_normal_at_hitpoint);
+		v_normalizep(&surface_normal_at_hitpoint);
 	}
 	v_normalizep(&surface_normal_at_hitpoint);
 	facing_ratio = fabs(v_dot(surface_normal_at_hitpoint, px->direction));
