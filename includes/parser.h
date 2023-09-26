@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 16:53:42 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/26 19:22:39 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_scene
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
-	mlx_image_t		*rendering;
+	mlx_texture_t	*rendering;
 	t_ambient		*ambient; // bij één ambient light kan dit op de stack?
 	t_camera		*camera; // bij éen camera kan dit op de stack?
 	t_light			*light;

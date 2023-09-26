@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   image_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/26 18:38:00 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   image_utils.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/09/26 19:41:22 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,42 +27,35 @@ void	image_to_window(t_scene *scene)
 	}
 }
 
-int	get_text_pxcolor(t_scene *scene, mlx_image_t *text, int x, int y)
+int	get_text_pxcolor(mlx_texture_t *text, float x, float y)
 {
 	int	px;
-	int	r;
-	int	g;
-	int b;
-	int a;
+	int	text_x;
+	int text_y;
 
-	printf("x:%d, y:%d\n", x, y);
-	px = (((y * scene->p_width) + x) * 4) - 1;
-	a = text->pixels[px];
-	r = text->pixels[px + 1];
-	g = text->pixels[px + 2];
-	b = text->pixels[px + 3];
-	return ((r << 24) + (g << 16) + (b << 8) + a);
+	text_x = (int)roundf(x * text->width);
+	text_y = (int)roundf(y * text->height);
+	px = (((text_y * text->width) + (text_x)) * 4) - 1;
+	return ((text->pixels[px + 1] << 24) + (text->pixels[px + 2] << 16) \
+				+ (text->pixels[px + 3] << 8) + text->pixels[px]);
 }
 
-void	draw_text(t_scene *scene, mlx_image_t *text)
+void	draw_text(t_scene *scene, mlx_texture_t *text)
 {
 	int	x;
 	int	y;
-	mlx_texture_t	*temp;
 	
 	(void)text;
-	temp = mlx_load_png("image.png");
-	if (!temp)
+	scene->rendering = mlx_load_png("image.png");
+	if (!scene->rendering)
 		printf("error loading texture\n");
-	scene->rendering = mlx_texture_to_image(scene->mlx, temp);
-	mlx_resize_image(scene->rendering, scene->p_width, scene->p_height);
 	y = 0;
 	while (y < scene->p_height)
 	{
 		x = 0;
 		while (x < scene->p_width)
 		{
-			mlx_put_pixel(scene->image, x, y, get_text_pxcolor(scene, scene->rendering, x, y));
+			mlx_put_pixel(scene->image, x, y, get_text_pxcolor(scene->rendering, ((float)x / (float)scene->p_width), ((float)y / (float)scene->p_height)));
 			x++;
 		}
 		y++;

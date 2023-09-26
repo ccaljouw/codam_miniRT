@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 18:21:48 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/26 19:18:56 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ int	main(int argc, char **argv)
 			exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
 		scene->image = mlx_new_image(scene->mlx, scene->p_width, scene->p_height);
 		image_to_window(scene);
-		render_image(scene);
-		// draw_text(scene, NULL);
+		// render_image(scene);
+		draw_text(scene, NULL);
 		mlx_key_hook(scene->mlx, key_input, scene);
 		mlx_mouse_hook(scene->mlx, select_object, scene);
 		mlx_loop_hook(scene->mlx, resize, scene);
