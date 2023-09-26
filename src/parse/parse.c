@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 17:01:41 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/26 17:03:02 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_xyz	set_xyz(char *param, t_scene *scene)
 void	set_rgb(char *param, int *rgb, t_scene *scene)
 {
 	char		**input;
-	int		i;
+	int			i;
 
 	i = 0;
 	input = ft_split(param, ',');

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 17:01:06 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/26 17:14:23 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,15 @@ int	get_cylinder_surface_data(t_object cy, t_px *px)
 		t = v_dot(v_subtract(px->hitpoint, px->cam_origin), cy.vNormal);
 		pt = v_add(cy.pOrigin, v_multiply(cy.vNormal, t));
 		px->surface_normal = v_subtract(px->hitpoint, pt);
+		px->surface_normal = v_subtract(px->hitpoint, cy.pOrigin);
+		print_vector(px->hitpoint);
+		print_vector(cy.pOrigin);
+		px->surface_normal.y = 0;
 	}
-	px->facing_ratio = v_dot(px->surface_normal, px->direction);
-	if (px->facing_ratio > 0)
-		px->surface_normal = v_multiply(px->surface_normal, -1);
-	else
-		px->facing_ratio *= -1;
+	px->facing_ratio = fabsf(v_dot(px->surface_normal, px->direction));
+	// if (px->facing_ratio > 0)
+	// 	px->surface_normal = v_multiply(px->surface_normal, -1);
+	// else
+	// 	px->facing_ratio *= -1;
 	return (px->color);
 }
