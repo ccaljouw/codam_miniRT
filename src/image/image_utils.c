@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   image_utils.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/26 11:21:13 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   image_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/09/26 15:24:25 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param)
 int	getColor(t_px *px, t_scene *scene)
 {
 	t_object				*object;
+	static t_surface_data	*surface_data[3] = \
+				{get_sphere_surface_data, get_plane_surface_data, get_cylinder_surface_data};
 
 	object = (t_object *)px->hitobject;
 	
@@ -123,10 +125,7 @@ int	getColor(t_px *px, t_scene *scene)
 	if (scene->selected == px->hitobject)
 		px->color = invert_color(px->color);
 	else
-		px->color = ((int)(px->hitobject->rgb[0] * clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x))) << 24 \
-			| (int)(px->hitobject->rgb[1] * clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y))) << 16 \
-			| (int)(px->hitobject->rgb[2] * clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z))) << 8 \
-			| 255);
+		px->color = surface_data[object->id](*px->hitobject, px, *scene);
 	return (px->color);
 }
 

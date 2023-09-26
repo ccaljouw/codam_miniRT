@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 12:11:42 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/26 15:58:48 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	replace(char *str, char replace, char with)
 	}
 }
 
-float	clamp(float min, float max, float input)
+float	ft_clamp(float min, float max, float input)
 {
 	if (input > max)
 		return (max);
