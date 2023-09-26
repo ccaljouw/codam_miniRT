@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 11:32:45 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/26 11:53:25 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,10 @@ int	get_cylinder_surface_data(t_object cy, t_px *px, t_scene scene)
 		m44_rotate(&dir_matrix, cy.vNormal.x, cy.vNormal.y , cy.vNormal.z);
 		
 		// m44_print(dir_matrix);
-		m44_invert(dir_matrix, &dir_matrix);
+		// m44_invert(dir_matrix, &dir_matrix);
 		surface_normal_at_hitpoint = v_create(hitpoint.x - cy.pOrigin.x, 0, hitpoint.z - cy.pOrigin.z);
-		m44_multiply_vec3(dir_matrix, surface_normal_at_hitpoint, &surface_normal_at_hitpoint);
+		print_vector(px->direction);
+		// m44_multiply_vec3(dir_matrix, surface_normal_at_hitpoint, &surface_normal_at_hitpoint);
 		v_normalizep(&surface_normal_at_hitpoint);
 	}
 	v_normalizep(&surface_normal_at_hitpoint);
