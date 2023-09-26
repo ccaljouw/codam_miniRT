@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 16:53:42 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/09/27 00:04:41 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@
 # define MAX_WIDTH 1024
 # define MAX_HEIGHT 1024
 
-# define THREADS 1
+# ifndef THREADS
+#  define THREADS 1
+# endif
 
 # define MOVE_X_P 	MLX_KEY_RIGHT
 # define MOVE_X_N 	MLX_KEY_LEFT
