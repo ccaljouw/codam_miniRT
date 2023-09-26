@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/25 21:03:23 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/26 10:08:20 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene);
 void	resize(void	*param);
 void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param);
 void	draw_image(t_scene *scene);
+void	draw_text(t_scene *scene, mlx_image_t *text);
 void	image_to_window(t_scene *scene);
 
 // shadow_ray.c

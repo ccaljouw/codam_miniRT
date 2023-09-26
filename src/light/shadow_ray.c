@@ -6,11 +6,11 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/24 22:58:06 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/09/25 21:02:53 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/26 08:24:53 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "../../includes/miniRT.h"
 
 #define SHADOW_BIAS 0.001
 
@@ -76,4 +76,3 @@ void	loop_lights(t_px *px, t_scene scene)
 		scene.lights = scene.lights->next;
 	}
 }
-
