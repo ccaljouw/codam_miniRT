@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 16:21:14 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:30:10 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,14 @@ int	test_plane(t_px ray, t_object plane, float *hit_dist)
 
 int	get_plane_surface_data(t_object plane, t_px *px)
 {
-	px->facing_ratio = fabsf(v_dot(plane.vNormal, px->direction));
-	px->surface_normal = plane.vNormal;
 	px->hitpoint =  v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
+	px->facing_ratio = v_dot(plane.vNormal, px->direction);
+	if (px->facing_ratio > 0)
+		px->surface_normal = v_multiply(plane.vNormal, -1);
+	else
+	{
+		px->surface_normal = plane.vNormal;
+		px->facing_ratio *= -1;
+	}
 	return (px->color);
 }
