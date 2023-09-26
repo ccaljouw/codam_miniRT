@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:58:06 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/26 15:58:00 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/26 17:01:24 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,41 @@ int	trace_shadow(t_px *px, t_scene s)
 	return (0);
 }
 
+float	get_shadow_ray(t_px *shadow_ray, t_light light, t_px *px)
+{
+	float	light_radius;
+	
+	shadow_ray->cam_origin = v_add(px->hitpoint, v_multiply(px->surface_normal, SHADOW_BIAS));
+	shadow_ray->direction = v_subtract(light.origin, shadow_ray->cam_origin);
+	light_radius = v_square_of_self(shadow_ray->direction);
+	shadow_ray->hit_distance = sqrtf(light_radius);
+	shadow_ray->direction.x /= shadow_ray->hit_distance ;
+	shadow_ray->direction.y /= shadow_ray->hit_distance ;
+	shadow_ray->direction.z /= shadow_ray->hit_distance ;
+	return (light_radius);
+}
+
 int	loop_lights(t_scene scene, t_px *px)
 {
-	// t_list	*lights;
 	t_light	light;
 	t_px	shadow_ray;
 	float	light_radius;
 	float	fallof;
-	if (scene.light == NULL)
-	return (0);
-	ft_bzero(&shadow_ray, sizeof(shadow_ray));
-	light = *scene.light;
-	shadow_ray.cam_origin = v_add(px->hitpoint, v_multiply(px->surface_normal, SHADOW_BIAS));
-	shadow_ray.direction = v_subtract(light.origin, shadow_ray.cam_origin);
-	light_radius = v_square_of_self(shadow_ray.direction);
-	shadow_ray.hit_distance = sqrtf(light_radius);
-	shadow_ray.direction.x /= shadow_ray.hit_distance ;
-	shadow_ray.direction.y /= shadow_ray.hit_distance ;
-	shadow_ray.direction.z /= shadow_ray.hit_distance ;
-	fallof = ((light.brightness * 10000 / (4 / M_PI * light_radius)));
-	if (trace_shadow(&shadow_ray, scene))
-	{
+	
+	px->ratios = v_create(0, 0, 0);
+	if (!scene.lights)
 		return (0);
+	while (scene.lights)
+	{
+		light = *(t_light *)scene.lights->content;
+		ft_bzero(&shadow_ray, sizeof(shadow_ray));
+		light_radius = get_shadow_ray(&shadow_ray, light, px);
+		fallof = ((light.brightness * 10000 / (4 / M_PI * light_radius)));
+		if (trace_shadow(&shadow_ray, scene))
+			return (0);
+		px->ratios = v_add(px->ratios, v_multiply(light.rgb_ratios, fallof));
+		px->ratios = v_multiply(px->ratios, v_dot(shadow_ray.direction, px->surface_normal));
+		scene.lights = scene.lights->next;
 	}
-	px->ratios = v_add(px->ratios, v_multiply(light.rgb_ratios, fallof));
-	px->ratios = v_multiply(px->ratios, v_dot(shadow_ray.direction, px->surface_normal));
 	return (1);
 }

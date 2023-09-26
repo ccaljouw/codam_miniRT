@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 15:24:50 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:25:45 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ void	*routine(void *params)
 			px = scene->pixels[y] + x;
 			get_ray(scene->pixels[y] + x, x, y, scene);
 			trace_ray(scene->pixels[y] + x, scene);
-			mlx_put_pixel(scene->image, x, y, getColor(&scene->pixels[y][x], scene));
+			get_surface_data(scene->pixels[y] + x);
+			loop_lights(*scene, px);
 			x++;
 		}
 		y++;
 	}
-	// draw_image(scene);
+	draw_image(scene);
 	return (NULL);
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   render.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/25 21:04:38 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/26 16:23:07 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,14 @@ void	trace_ray(t_px *px, t_scene *s)
 	}
 }
 
-void	get_surface_data(t_px *px, t_scene *scene)
+void	get_surface_data(t_px *px)
 {
 	t_object				*object;
 	static t_surface_data	*surface_data[3] = \
 				{get_sphere_surface_data, get_plane_surface_data, get_cylinder_surface_data};
 
 	object = (t_object *)px->hitobject;
-	px->color = surface_data[object->id](*px->hitobject, px, *scene);
+	px->color = surface_data[object->id](*px->hitobject, px);
 }
 
 /**
@@ -123,7 +123,7 @@ void	print_ascii(t_px px, t_scene scene)
 	color_ratio = 0;
 	if (px.hitobject)
 	{
-		surface_color = surface_data[px.hitobject->id](*px.hitobject, &px, scene);
+		surface_color = surface_data[px.hitobject->id](*px.hitobject, &px);
 		color_ratio = ((surface_color >> 24) & 0xFF) / (float)255 * 0.299;
 		color_ratio += ((surface_color >> 16) & 0xFF) / (float)255 * 0.587;
 		color_ratio += ((surface_color >> 8) & 0xFF) / (float)255 * 0.114;

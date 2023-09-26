@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 15:58:22 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/26 17:01:06 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,36 +72,30 @@ int	test_cylinder(t_px ray, t_object cylinder, float *hit_dist)
  * @param px 
  * @return float 
  */
-int	get_cylinder_surface_data(t_object cy, t_px *px, t_scene scene)
+int	get_cylinder_surface_data(t_object cy, t_px *px)
 {
-	t_xyz		nAxis;
 	float		t;
 	t_xyz		pt;
 	t_xyz		top;
 	// t_xyz		ratios;
 	// t_m44		dir_matrix;
 
-	px->ratios = v_create(0, 0, 0);
-	nAxis = v_normalize(cy.vNormal);
 	px->hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
-	top = v_add(px->hitpoint, v_multiply(nAxis, cy.height));
+	top = v_add(px->hitpoint, v_multiply(cy.vNormal, cy.height));
 	if (v_magnitude(v_subtract(px->hitpoint, top)) < (cy.diameter * 0.5))
 		px->surface_normal = cy.vNormal;
 	if (v_magnitude(v_subtract(px->hitpoint, cy.pOrigin)) < (cy.diameter * 0.5))
 		px->surface_normal = v_multiply(cy.vNormal, -1);
 	else
 	{
-		t = v_dot(v_subtract(px->hitpoint, px->cam_origin), nAxis);
-		pt = v_add(cy.pOrigin, v_multiply(nAxis, t));
+		t = v_dot(v_subtract(px->hitpoint, px->cam_origin), cy.vNormal);
+		pt = v_add(cy.pOrigin, v_multiply(cy.vNormal, t));
 		px->surface_normal = v_subtract(px->hitpoint, pt);
 	}
-	v_normalizep(&px->surface_normal);
-	px->facing_ratio = fabs(v_dot(px->surface_normal, px->direction));
-	loop_lights(scene, px);
-	// print_vector(ratios);
-	px->color = ((int)(cy.rgb[0] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x * (0.18 / M_PI)))) << 24 \
-	| (int)(cy.rgb[1] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y * (0.18 / M_PI)))) << 16 \
-	| (int)(cy.rgb[2] * ft_clamp(0, 1, ((scene.ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z * (0.18 / M_PI)))) << 8 \
-	| 255);
+	px->facing_ratio = v_dot(px->surface_normal, px->direction);
+	if (px->facing_ratio > 0)
+		px->surface_normal = v_multiply(px->surface_normal, -1);
+	else
+		px->facing_ratio *= -1;
 	return (px->color);
 }
