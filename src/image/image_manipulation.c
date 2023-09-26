@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   image_manipulation.c                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/26 10:30:20 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   image_manipulation.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/09/25 16:36:12 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	resize(void	*param)
 		return;
 	if (scene->mlx->width != scene->p_width || scene->mlx->height != scene->p_height)
 	{
-		mlx_resize_image(scene->image, scene->mlx->width, scene->mlx->height);
 		if (scene->pixels)
 		{
 			while (i < scene->p_height)
@@ -98,6 +97,7 @@ void	resize(void	*param)
 		scene->p_width = scene->mlx->width;
 		scene->p_height = scene->mlx->height;
 		init_pixels(scene);
+		mlx_resize_image(scene->image, scene->mlx->width, scene->mlx->height);
 		cameraGeometry(scene);
 		render_image(scene);
 	}

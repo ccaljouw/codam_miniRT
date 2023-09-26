@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/26 09:38:35 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/25 20:30:58 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define MAX_WIDTH 1024
 # define MAX_HEIGHT 1024
 
-# define THREADS 1
+# define THREADS 4
 
 # define MOVE_X_P 	MLX_KEY_RIGHT
 # define MOVE_X_N 	MLX_KEY_LEFT
@@ -44,7 +44,6 @@ typedef struct s_scene
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
-	mlx_image_t		*rendering;
 	t_ambient		*ambient; // bij één ambient light kan dit op de stack?
 	t_camera		*camera; // bij éen camera kan dit op de stack?
 	t_light			*light;
