@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   miniRT.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/26 10:08:20 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/26 15:48:32 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	get_ray(t_px *px, int x, int y, t_scene *s);
 void	trace_ray(t_px *px, t_scene *s);
 void	get_surface_data(t_px *px, t_scene *scene);
 int		getColor(t_px	*px, t_scene *scene);
-float	clamp(float min, float max, float input);
+float	ft_clamp(float min, float max, float input);
 void	render_image(t_scene *scene);
 
 // objects
@@ -88,6 +88,7 @@ void	image_to_window(t_scene *scene);
 // shadow_ray.c
 float	get_shadow_ray(t_px *shadow_ray, t_light light, t_px *px, t_scene scene);
 int		trace_shadow(t_px *px, t_scene s);
-void	loop_lights(t_px *px, t_scene scene);
+int		loop_lights(t_scene scene, t_px *px);
+float	v_square_of_self(t_xyz a);
 
 #endif

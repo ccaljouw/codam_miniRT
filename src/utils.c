@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/25 16:16:50 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:08:20 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	replace(char *str, char replace, char with)
 	}
 }
 
-float	clamp(float min, float max, float input)
+float	ft_clamp(float min, float max, float input)
 {
 	if (input > max)
 		return (max);
