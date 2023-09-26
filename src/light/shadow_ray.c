@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:58:06 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/26 16:20:33 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:40:36 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,25 @@ float	get_shadow_ray(t_px *shadow_ray, t_light light, t_px *px)
 
 int	loop_lights(t_scene scene, t_px *px)
 {
-	// t_list	*lights;
 	t_light	light;
 	t_px	shadow_ray;
 	float	light_radius;
 	float	fallof;
+	
 	px->ratios = v_create(0, 0, 0);
-	if (scene.light == NULL)
+	if (!scene.lights)
 		return (0);
-	ft_bzero(&shadow_ray, sizeof(shadow_ray));
-	light = *scene.light;
-	light_radius = get_shadow_ray(&shadow_ray, light, px);
-	fallof = ((light.brightness * 10000 / (4 / M_PI * light_radius)));
-	if (trace_shadow(&shadow_ray, scene))
+	while (scene.lights)
 	{
-		return (0);
+		light = *(t_light *)scene.lights->content;
+		ft_bzero(&shadow_ray, sizeof(shadow_ray));
+		light_radius = get_shadow_ray(&shadow_ray, light, px);
+		fallof = ((light.brightness * 10000 / (4 / M_PI * light_radius)));
+		if (trace_shadow(&shadow_ray, scene))
+			return (0);
+		px->ratios = v_add(px->ratios, v_multiply(light.rgb_ratios, fallof));
+		px->ratios = v_multiply(px->ratios, v_dot(shadow_ray.direction, px->surface_normal));
+		scene.lights = scene.lights->next;
 	}
-	px->ratios = v_add(px->ratios, v_multiply(light.rgb_ratios, fallof));
-	px->ratios = v_multiply(px->ratios, v_dot(shadow_ray.direction, px->surface_normal));
 	return (1);
 }
