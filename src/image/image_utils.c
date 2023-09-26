@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/26 16:23:33 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:38:00 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	get_text_pxcolor(t_scene *scene, mlx_image_t *text, int x, int y)
 	int	g;
 	int b;
 	int a;
-	
+
+	printf("x:%d, y:%d\n", x, y);
 	px = (((y * scene->p_width) + x) * 4) - 1;
 	a = text->pixels[px];
 	r = text->pixels[px + 1];
@@ -47,7 +48,6 @@ void	draw_text(t_scene *scene, mlx_image_t *text)
 {
 	int	x;
 	int	y;
-	// int px;
 	mlx_texture_t	*temp;
 	
 	(void)text;
@@ -56,18 +56,12 @@ void	draw_text(t_scene *scene, mlx_image_t *text)
 		printf("error loading texture\n");
 	scene->rendering = mlx_texture_to_image(scene->mlx, temp);
 	mlx_resize_image(scene->rendering, scene->p_width, scene->p_height);
-	// px = 0;
 	y = 0;
 	while (y < scene->p_height)
 	{
 		x = 0;
 		while (x < scene->p_width)
 		{
-			// px = (((y * scene->p_width) + x) * 4) - 1;
-			// scene->image->pixels[px] = scene->rendering->pixels[px];
-			// scene->image->pixels[px + 1] = scene->rendering->pixels[px + 1];
-			// scene->image->pixels[px + 2] = scene->rendering->pixels[px + 2];
-			// scene->image->pixels[px + 3] = scene->rendering->pixels[px + 3];
 			mlx_put_pixel(scene->image, x, y, get_text_pxcolor(scene, scene->rendering, x, y));
 			x++;
 		}
@@ -114,18 +108,20 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param)
 
 int	getColor(t_px *px, t_scene *scene)
 {
-	t_object				*object;
+	t_object	*object;
+	int			color;
 
 	object = (t_object *)px->hitobject;
-	
+	color = ((px->hitobject->rgb[0] << 24) | (px->hitobject->rgb[1] << 16) | (px->hitobject->rgb[2] << 8) | 255);
+	// printf("x_screen:%d, y_screen:%d, x_cam:%f, y_cam:%f\n", px->screen_x, px->screen_y, px->cam_x, px->cam_y);
 	if (!object)
 		return (0 << 24 | 0 << 16 | 0 << 8 | 255);
 	if (scene->selected == px->hitobject)
 		px->color = invert_color(px->color);
 	else
-		px->color = ((int)(px->hitobject->rgb[0] * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x * (0.18 / M_PI)))) << 24 \
-		| (int)(px->hitobject->rgb[1] * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y * (0.18 / M_PI)))) << 16 \
-		| (int)(px->hitobject->rgb[2] * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z * (0.18 / M_PI)))) << 8 \
+		px->color = ((int)(((color >> 24) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x * (0.18 / M_PI)))) << 24 \
+		| (int)(((color >> 16) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y * (0.18 / M_PI)))) << 16 \
+		| (int)(((color >> 8) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z * (0.18 / M_PI)))) << 8 \
 		| 255);
 	return (px->color);
 }
