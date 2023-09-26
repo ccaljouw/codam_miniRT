@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 17:02:06 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/26 20:03:44 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		test_plane(t_px ray, t_object plane, float *hit_dist);
 void	get_ray(t_px *px, int x, int y, t_scene *s);
 void	trace_ray(t_px *px, t_scene *s);
 void	get_surface_data(t_px *px);
-int		getColor(t_px	*px, t_scene *scene);
+int		getColor(t_px *px, t_scene *scene);
 float	ft_clamp(float min, float max, float input);
 void	render_image(t_scene *scene);
 
