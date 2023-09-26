@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   image_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/25 16:31:10 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   image_utils.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/09/26 11:21:13 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,59 @@ void	image_to_window(t_scene *scene)
 	}
 }
 
+int	get_text_pxcolor(t_scene *scene, mlx_image_t *text, int x, int y)
+{
+	int	px;
+	int	r;
+	int	g;
+	int b;
+	int a;
+	
+	px = (((y * scene->p_width) + x) * 4) - 1;
+	a = text->pixels[px];
+	r = text->pixels[px + 1];
+	g = text->pixels[px + 2];
+	b = text->pixels[px + 3];
+	return ((r << 24) + (g << 16) + (b << 8) + a);
+}
+
+void	draw_text(t_scene *scene, mlx_image_t *text)
+{
+	int	x;
+	int	y;
+	// int px;
+	mlx_texture_t	*temp;
+	
+	(void)text;
+	temp = mlx_load_png("image.png");
+	if (!temp)
+		printf("error loading texture\n");
+	scene->rendering = mlx_texture_to_image(scene->mlx, temp);
+	mlx_resize_image(scene->rendering, scene->p_width, scene->p_height);
+	// px = 0;
+	y = 0;
+	while (y < scene->p_height)
+	{
+		x = 0;
+		while (x < scene->p_width)
+		{
+			// px = (((y * scene->p_width) + x) * 4) - 1;
+			// scene->image->pixels[px] = scene->rendering->pixels[px];
+			// scene->image->pixels[px + 1] = scene->rendering->pixels[px + 1];
+			// scene->image->pixels[px + 2] = scene->rendering->pixels[px + 2];
+			// scene->image->pixels[px + 3] = scene->rendering->pixels[px + 3];
+			mlx_put_pixel(scene->image, x, y, get_text_pxcolor(scene, scene->rendering, x, y));
+			x++;
+		}
+		y++;
+	}
+}
+
 void	draw_image(t_scene *scene)
 {
 	int	x;
 	int	y;
-	
+
 	y = 0;
 	while (y < scene->p_height)
 	{
