@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 12:09:22 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/26 12:13:17 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ int	get_cylinder_surface_data(t_object cy, t_px *px, t_scene scene)
 {
 	t_xyz		pt;
 	t_xyz		top;
-	t_xyz		ratios;
-	t_m44		dir_matrix;
+	// t_xyz		ratios;
+	// t_m44		dir_matrix;
 
 	(void)scene;
 	v_normalizep(&cy.vNormal);

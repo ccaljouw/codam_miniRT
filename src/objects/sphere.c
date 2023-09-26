@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/26 12:11:23 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/26 12:57:25 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,16 @@ int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
  */
 int	get_sphere_surface_data(t_object sph, t_px *px, t_scene scene)
 {
+
+	// ratios = v_create(0, 0, 0);
+	// hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
+	// surface_normal_at_hitpoint = v_subtract(sph.pOrigin, hitpoint);
+	// v_normalizep(&surface_normal_at_hitpoint);
+	// facing_ratio = v_dot(surface_normal_at_hitpoint, px->direction);
+
+
 	(void)scene;
+	px->ratios = v_create(0, 0 ,0);
 	px->hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
 	px->surface_normal = v_subtract(sph.pOrigin, px->hitpoint);
 	v_normalizep(&px->surface_normal);

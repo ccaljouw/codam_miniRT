@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/25 18:00:13 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:14:44 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void	parse_file(char *file, t_scene *scene)
 {
 	char	*line;
 	int		fd;
-	
+
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		exit_error(ERROR_PATH, NULL, NULL);

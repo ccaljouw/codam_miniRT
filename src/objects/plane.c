@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 12:10:16 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/26 12:32:21 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ int	get_plane_surface_data(t_object plane, t_px *px, t_scene scene)
 	(void)scene;
 	px->facing_ratio = fabsf(v_dot(plane.vNormal, px->direction));
 	px->hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
-	px->surface_normal = v_multiply(plane.vNormal, 1);
+	px->surface_normal = plane.vNormal;
 	return (px->color);
 }
