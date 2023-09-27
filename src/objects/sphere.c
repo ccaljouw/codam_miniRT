@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   sphere.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 17:54:01 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/26 17:01:33 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   sphere.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/09/27 22:46:55 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,20 @@ int	get_sphere_surface_data(t_object sph, t_px *px)
 	px->facing_ratio = v_dot(px->surface_normal, px->direction);
 	px->surface_normal = v_multiply(px->surface_normal, -1);
 	return (px->color);
+}
+
+int	get_color_sphere(t_object object, t_px px, mlx_texture_t *text)
+{
+	t_xyz		unit;
+	float		u;
+	float		v;
+
+	unit = v_subtract(px.hitpoint, object.pOrigin);
+	v_normalizep(&unit);
+	u = atan2((pow(unit.y, 2) + pow(unit.z, 2)), unit.x);
+	v = atan2(unit.z, unit.y);
+	u = 1 - ((u + M_PI) / (2 * M_PI));
+	v = 1 - ((v + M_PI) / (2 * M_PI));
+	px.color = get_text_pxcolor(text, u, v);
+	return (px.color);
 }

@@ -42,6 +42,7 @@ OBJ 		:= $(addprefix obj/, utils.o render.o multithreading.o \
 				$(addprefix objects/, sphere.o plane.o cylinder.o) \
 				$(addprefix image/, image_manipulation.o image_utils.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o matrix_vector_utils.o) \
+				$(addprefix textures/, mapping.o) \
 				$(addprefix light/, shadow_ray.o) \
 				)
 TEST_OBJ	:= #$(addprefix testing/obj/, utils.o)

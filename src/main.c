@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/28 00:12:34 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/28 00:23:55 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,18 @@ void	init_pixels(t_scene *scene)
 	}
 }
 
+void	init_textures(t_scene *scene)
+{
+	scene->textures = malloc(NR_TEXTURES * sizeof(mlx_texture_t *));  // aanpassen bij meer textures
+	if (!scene->textures)
+		exit_error(ERROR_MEM, NULL ,scene);
+	scene->textures[0] = mlx_load_png("src/textures/checker.png");
+	scene->textures[1] = mlx_load_png("src/textures/wereld.png");
+	scene->textures[2] = mlx_load_png("src/textures/rendering.png");
+	if (!scene->textures[0] || !scene->textures[1] || !scene->textures[2])
+		exit_error(ERROR_PNG, "error loading png" ,scene);
+}
+
 /**
  * @brief initiates the scene based on the file contents
  * 
@@ -65,6 +77,7 @@ t_scene	*init_scene(char *file)
 	ft_memset(scene, 0, sizeof(t_scene));
 	scene->p_width = IM_WIDTH;
 	scene->p_height = IM_HEIGHT;
+	init_textures(scene);
 	scene->must_resize = false;
 	parse_file(file, scene);
 	if (!scene->ambient || !scene->camera)

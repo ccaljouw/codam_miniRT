@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/28 00:03:15 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/28 00:26:06 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,42 +27,32 @@ void	image_to_window(t_scene *scene)
 	}
 }
 
-int	get_text_pxcolor(t_scene *scene, mlx_image_t *text, int x, int y)
+int	get_text_pxcolor(mlx_texture_t *text, float x, float y)
 {
 	int	px;
-	int	r;
-	int	g;
-	int b;
-	int a;
+	int	text_x;
+	int text_y;
 
-	printf("x:%d, y:%d\n", x, y);
-	px = (((y * scene->p_width) + x) * 4) - 1;
-	a = text->pixels[px];
-	r = text->pixels[px + 1];
-	g = text->pixels[px + 2];
-	b = text->pixels[px + 3];
-	return ((r << 24) + (g << 16) + (b << 8) + a);
+	text_x = (int)roundf(x * text->width);
+	text_y = (int)roundf(y * text->height);
+	px = (((text_y * text->width) + (text_x)) * 4) - 1;
+	return ((text->pixels[px + 1] << 24) + (text->pixels[px + 2] << 16) \
+				+ (text->pixels[px + 3] << 8) + text->pixels[px]);
 }
 
-void	draw_text(t_scene *scene, mlx_image_t *text)
+
+void	draw_text(t_scene *scene, mlx_texture_t *text)
 {
 	int	x;
 	int	y;
-	mlx_texture_t	*temp;
 	
-	(void)text;
-	temp = mlx_load_png("image.png");
-	if (!temp)
-		printf("error loading texture\n");
-	scene->rendering = mlx_texture_to_image(scene->mlx, temp);
-	mlx_resize_image(scene->rendering, scene->p_width, scene->p_height);
 	y = 0;
 	while (y < scene->p_height)
 	{
 		x = 0;
 		while (x < scene->p_width)
 		{
-			mlx_put_pixel(scene->image, x, y, get_text_pxcolor(scene, scene->rendering, x, y));
+			mlx_put_pixel(scene->image, x, y, get_text_pxcolor(text, ((float)x / (float)scene->p_width), ((float)y / (float)scene->p_height)));
 			x++;
 		}
 		y++;
@@ -111,24 +101,20 @@ int	getColor(t_px *px, t_scene *scene)
 {
 	// t_object	*object;
 	int			color;
-
-	// ft_printf("fetching color %i:%i of %i:%i\n", px->screen_x, px->screen_y, scene->p_width, scene->p_height);
-	// object = (t_object *)px->hitobject;
-	if (!px->hitobject)
+	
+	object = (t_object *)px->hitobject;
+	if (!object)
 		return (0 << 24 | 0 << 16 | 0 << 8 | 255);
-		// ft_printf("got object\n");
+	if (object->text)
+		color = get_texture(*px, *object, scene);
+	else
+		color = ((px->hitobject->rgb[0] << 24) | (px->hitobject->rgb[1] << 16) | (px->hitobject->rgb[2] << 8) | 255);
+	px->color = ((int)(((color >> 24) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x))) << 24 \
+	| (int)(((color >> 16) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y))) << 16 \
+	| (int)(((color >> 8) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z))) << 8 \
+	| 255);
 	if (scene->selected == px->hitobject)
 		px->color = invert_color(px->color);
-	else
-	{
-		// ft_printf("fetching color\n");
-		color = ((px->hitobject->rgb[0] << 24) | (px->hitobject->rgb[1] << 16) | (px->hitobject->rgb[2] << 8) | 255);
-		// ft_printf("applying ratios\n");
-		px->color = ((int)(((color >> 24) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x))) << 24 \
-		| (int)(((color >> 16) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y))) << 16 \
-		| (int)(((color >> 8) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z))) << 8 \
-		| 255);
-	}
 	return (px->color);
 }
 

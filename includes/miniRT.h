@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/28 00:08:19 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/28 00:22:17 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 // fuction pointer for intersection test functions of different objects
 typedef int		t_hit_test(t_px ray, t_object, float *hit_dist);
 typedef int		t_surface_data(t_object obj, t_px *px);
+typedef int		t_get_color(t_object obj, t_px px, mlx_texture_t *text);
 
 //utils.c
 void	exit_error(char *error_msg, char *optional_str, t_scene *data);
@@ -64,10 +65,13 @@ void	render_image(t_scene *scene);
 // objects
 int		test_sphere(t_px ray, t_object sphere, float *hit_dist);
 int		get_sphere_surface_data(t_object sph, t_px *px);
+int		get_color_sphere(t_object object, t_px px, mlx_texture_t *text);
 int		test_plane(t_px ray, t_object plane, float *hit_dist);
 int		get_plane_surface_data(t_object plane, t_px *px);
+int		get_color_plane(t_object object, t_px px, mlx_texture_t *text);
 int		test_cylinder(t_px ray, t_object sphere, float *hit_dist);
 int		get_cylinder_surface_data(t_object cy, t_px *px);
+int		get_color_cylinder(t_object object, t_px px, mlx_texture_t *text);
 
 // multithreading.c
 pthread_t	*create_threads(t_scene *scene, pthread_t *threads);
@@ -83,8 +87,12 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene);
 void	set_resize_flag(int width, int height, void	*param);
 void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param);
 void	draw_image(t_scene *scene);
-void	draw_text(t_scene *scene, mlx_image_t *text);
+void	draw_text(t_scene *scene, mlx_texture_t *text);
 void	image_to_window(t_scene *scene);
+int		get_text_pxcolor(mlx_texture_t *text, float x, float y);
+
+// mapping.c
+int		get_texture(t_px px, t_object object, t_scene *scene);
 
 // shadow_ray.c
 float	get_shadow_ray(t_px *shadow_ray, t_light *light, t_px *px);

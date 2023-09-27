@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cylinder.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 23:45:22 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cylinder.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/27 22:47:03 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	test_cylinder(t_px ray, t_object cylinder, float *hit_dist)
  */
 int	get_cylinder_surface_data(t_object cy, t_px *px)
 {
-	// float		t;
 	t_xyz		v;
 	t_xyz		top;
 
@@ -95,3 +94,20 @@ int	get_cylinder_surface_data(t_object cy, t_px *px)
 	px->facing_ratio = fabsf(v_dot(px->surface_normal, px->direction));
 	return (px->color);
 }
+
+int	get_color_cylinder(t_object object, t_px px, mlx_texture_t *text)
+{
+	t_xyz		unit;
+	float		u;
+	float		v;
+
+	unit = v_subtract(px.hitpoint, object.pOrigin);
+	v_normalizep(&unit);
+	u = atan2(unit.y, unit.x);
+	v = unit.z;
+	u = 1 - ((u + M_PI) / (2 * M_PI));
+	v = 1 - ((v + 1) * 0.5);
+	px.color = get_text_pxcolor(text, u, v);
+	return (px.color);
+}
+

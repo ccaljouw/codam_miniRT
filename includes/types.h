@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   types.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/27 20:36:27 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   types.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/27 22:55:13 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,61 +37,6 @@ typedef struct xyz_s
 }			t_xyz;
 
 /**
- * @brief 	object struct containing parameters for each object type
- * 
- * @param	id (t_type) SP: sphere, PL: plane, CY: cylinder
- * @param	pOrigin (t_xyz) x,y,z coordinates of the object origin
- * @param	diameter (float) the diameter (of sphere or cylinder)
- * @param	rgb	(int[3]) R,G,B colors in range [0-255]
- * @param	vNormal (t_xyz) 33d normalized normal vector (of plane). 
- * @param	vAxis (t_xyz) 3d normalized vector of axis of cylinder. 
- * 			In range [-1,1] for each x,y,z axis
- * @param	height (float) the cylinder height
- * @param	albedo (float) the albedo of the object surface
- */
-typedef struct s_object
-{
-	t_type		id;
-	t_xyz		pOrigin;
-	float		diameter;
-	int	rgb[3];
-	t_xyz		vNormal;
-	float		height;
-	float		albedo;
-}				t_object;
-
-/**
- * @brief info for each pixel in the image
- * @param	screen_x (int)
- * @param	screen_y (int)
- * @param	cam_x (float)
- * @param	cam_y (float)
- * @param	cam_v3 (t_xyz)
- * @param	cam_origin (t_xyz)
- * @param	direction (t_xyz)
- * @param	hitObect (t_object *)
- * @param	hp_distance (float) distance to hitpoint
- * @param	facing_ratio (float)
- */
-typedef struct s_pixel
-{
-	int			screen_x;
-	int			screen_y;
-	float		cam_x;
-	float		cam_y;
-	t_xyz		cam_v3;
-	t_xyz		cam_origin;
-	t_xyz		direction;
-	t_object	*hitobject;
-	t_xyz		hitpoint;
-	t_xyz		surface_normal;
-	t_xyz		ratios;
-	float		hit_distance;
-	float		facing_ratio;
-	int			color;
-}	t_px;
-
-/**
  * @brief Ambient lighting (id: "A")
  * @param	ratio (float) ambient lighting ratio in range [0.0,1.0]
  * @param	rgb	(int[3]) R,G,B colors in range [0-255]
@@ -99,7 +44,7 @@ typedef struct s_pixel
 typedef struct ambient_s
 {
 	float		ratio;
-	int	rgb[3];	
+	int			rgb[3];	
 	float		rgb_ratio[3];
 }				t_ambient;
 
