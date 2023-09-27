@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/27 00:45:14 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/28 00:03:15 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	draw_image(t_scene *scene)
 		while (x < scene->p_width)
 		{
 			mlx_put_pixel(scene->image, x, y, getColor(&scene->pixels[y][x], scene));
+			// mlx_put_pixel(scene->image, x, y, 0xFFFFFFFF);
 			x++;
 		}
 		y++;
@@ -108,17 +109,21 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param)
 
 int	getColor(t_px *px, t_scene *scene)
 {
-	t_object	*object;
+	// t_object	*object;
 	int			color;
 
-	object = (t_object *)px->hitobject;
-	if (!object)
+	// ft_printf("fetching color %i:%i of %i:%i\n", px->screen_x, px->screen_y, scene->p_width, scene->p_height);
+	// object = (t_object *)px->hitobject;
+	if (!px->hitobject)
 		return (0 << 24 | 0 << 16 | 0 << 8 | 255);
+		// ft_printf("got object\n");
 	if (scene->selected == px->hitobject)
 		px->color = invert_color(px->color);
 	else
 	{
+		// ft_printf("fetching color\n");
 		color = ((px->hitobject->rgb[0] << 24) | (px->hitobject->rgb[1] << 16) | (px->hitobject->rgb[2] << 8) | 255);
+		// ft_printf("applying ratios\n");
 		px->color = ((int)(((color >> 24) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x))) << 24 \
 		| (int)(((color >> 16) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y))) << 16 \
 		| (int)(((color >> 8) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z))) << 8 \

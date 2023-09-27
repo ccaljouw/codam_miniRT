@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/27 00:04:41 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/27 23:28:56 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ typedef struct s_scene
 	t_px			**pixels;
 	int				p_width;
 	int				p_height;
+	int				n_width;
+	int				n_height;
+	bool			must_resize;
 	t_object		*selected;
 }					t_scene;
 

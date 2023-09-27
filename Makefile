@@ -30,8 +30,8 @@ else
 endif
 
 ifeq ($(UNAME),Darwin)
-	CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
-	# CFLAGS += "-D THREADS=1"
+	# CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
+	CFLAGS += "-D THREADS=1"
 else ifeq ($(UNAME),Linux)
 	CFLAGS += "-D THREADS=$(shell nproc --all)""
 endif

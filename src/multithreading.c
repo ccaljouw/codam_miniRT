@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/27 21:00:07 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/28 00:08:49 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,7 @@ void	join_threads(pthread_t *threads, t_scene *scene)
 			exit_error(ERROR_THREAD, "failed to join thread\n", scene);
 		i++;
 	}
+	// ft_printf("before draw image\n");
 	draw_image(scene); // volgens mij moet deze hier
+	// ft_printf("after draw image\n");
 }

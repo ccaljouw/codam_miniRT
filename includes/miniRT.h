@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/27 20:59:41 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/28 00:08:19 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ void	zoom(mlx_key_data_t keydata, t_scene *scene);
 void	rotate(mlx_key_data_t keydata, t_scene *scene);
 
 // image_utils.c
-void	resize(void	*param);
+// void	resize(void	*param);
+void	set_resize_flag(int width, int height, void	*param);
 void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param);
 void	draw_image(t_scene *scene);
 void	draw_text(t_scene *scene, mlx_image_t *text);

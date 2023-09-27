@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/27 00:32:34 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/28 00:09:21 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,45 +69,15 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 	render_image(scene);
 }
 
-/**
- * @brief checks window size against image size and resizes image when window size has changed
- * 
- * @param param (t_scene *) scene
- */
-void	resize(void	*param)
+void	set_resize_flag(int width, int height, void	*param)
 {
-	t_scene 	*scene;
-	int			i;
+	t_scene	*scene;
 
-	i = 0;
 	scene = (t_scene *)param;
-	if (mlx_is_mouse_down(scene->mlx, MLX_MOUSE_BUTTON_LEFT))
-		return;
-	if (scene->mlx->width != scene->p_width || scene->mlx->height != scene->p_height)
-	{
-		ft_printf("reszing\n");
-		mlx_resize_image(scene->image, scene->mlx->width, scene->mlx->height);
-		if (scene->pixels)
-		{
-			while (i < scene->p_height)
-			{
-				free(scene->pixels[i]);
-				i++;
-			}
-			free(scene->pixels);
-		}
-		ft_printf("here\n");
-		ft_printf("old height %i, new height %i\n", scene->p_height, scene->mlx->height);
-		scene->p_width = scene->mlx->width;
-		scene->p_height = scene->mlx->height;
-		init_pixels(scene);
-		scene->image = mlx_new_image(scene->mlx, scene->p_width, scene->p_height);
-		ft_printf("there\n");
-		cameraGeometry(scene);
-		ft_printf("everywhere\n");
-		render_image(scene);
-		ft_printf("something\n");
-	}
+	scene->must_resize = 1;
+	mlx_resize_image(scene->image, width, height);
+	scene->n_width = width;
+	scene->n_height = height;
 }
 
 void	key_input(mlx_key_data_t k, void *param)
