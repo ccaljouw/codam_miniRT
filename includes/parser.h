@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 22:36:22 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 22:54:23 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 # ifndef THREADS
 #  define THREADS 1
 # endif
-
-# define NR_TEXTURES 3
 
 # define ASCII_WIDTH  120
 # define ASCII_HEIGHT 40
@@ -58,6 +56,8 @@
  * @param	vAxis (t_xyz) 3d normalized vector of axis of cylinder. 
  * 			In range [-1,1] for each x,y,z axis
  * @param	height (float) the cylinder height
+ * @param	text	(int) id for the texture to apply to the surgface.
+ * @param	albedo (float) the albedo of the object surface
  */
 typedef struct s_object
 {
@@ -68,6 +68,7 @@ typedef struct s_object
 	int				text;
 	int				rgb[3];
 	t_xyz			vNormal;
+	float			albedo;
 }					t_object;
 
 /**

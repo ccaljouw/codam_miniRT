@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 22:42:04 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 22:52:00 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	init_plane(char **param, t_scene *scene)
 	new_plane->id = PL;
 	new_plane->pOrigin = set_xyz(param[1], scene);
 	new_plane->vNormal = set_xyz(param[2], scene);
+	new_plane->albedo = ALBEDO;
 	new_plane->text = set_texture(param[3], scene);
 	set_rgb(param[4], new_plane->rgb, scene);
 	new_node->content = (void *)new_plane;
@@ -81,6 +82,7 @@ void	init_cylinder(char **param, t_scene *scene)
 	v_normalizep(&new_cylinder->vNormal);
 	new_cylinder->diameter = to_float(param[3], scene);
 	new_cylinder->height = to_float(param[4], scene);
+	new_cylinder->albedo = ALBEDO;
 	new_cylinder->text = set_texture(param[5], scene);
 	set_rgb(param[6], new_cylinder->rgb, scene);
 	new_node->content = (void *)new_cylinder;
@@ -112,6 +114,7 @@ void	init_sphere(char **param, t_scene *scene)
 	new_sphere->id = SP;
 	new_sphere->pOrigin = set_xyz(param[1], scene);
 	new_sphere->diameter = to_float(param[2], scene);
+	new_sphere->albedo = ALBEDO;
 	new_sphere->text = set_texture(param[3], scene);
 	set_rgb(param[4], new_sphere->rgb, scene);
 	new_node->content = (void *)new_sphere;

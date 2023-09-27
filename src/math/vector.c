@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:31:28 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/27 14:19:44 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 22:51:14 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,3 +221,14 @@ void	v_normalizep(t_xyz *a)
 	}
 }
 
+/**
+ * @brief Returns the sum of the squares of all components
+ * 		in the vector.
+ * 
+ * @param a 
+ * @return float 
+ */
+float	v_square_of_self(t_xyz a)
+{
+	return (a.x * a.x + a.y * a.y + a.z * a.z);
+}

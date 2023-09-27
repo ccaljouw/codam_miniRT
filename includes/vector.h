@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 17:21:26 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 14:19:50 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 22:50:48 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ t_xyz	v_cross(t_xyz a, t_xyz b);
 float	v_magnitude(t_xyz a);
 t_xyz	v_normalize(t_xyz a);
 void	v_normalizep(t_xyz *a);
+float	v_square_of_self(t_xyz a);
 
 #endif

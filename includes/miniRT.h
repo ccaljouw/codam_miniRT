@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   miniRT.h                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 22:45:29 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 22:50:10 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include "libft.h"
+# include "defines.h"
 # include "errors.h"
 # include "types.h"
 # include "vector.h"
@@ -30,9 +31,7 @@
 
 # include <stdio.h> //remove
 
-# define EPSILON exp(-21)
-
-// fuction pointers for intersection test functions of different objects
+// fuction pointer for intersection test functions of different objects
 typedef int		t_hit_test(t_px ray, t_object, float *hit_dist);
 typedef int		t_surface_data(t_object obj, t_px *px);
 typedef int		t_get_color(t_object obj, t_px px, mlx_texture_t *text);
@@ -95,9 +94,9 @@ int		get_text_pxcolor(mlx_texture_t *text, float x, float y);
 int		get_texture(t_px px, t_object object, t_scene *scene);
 
 // shadow_ray.c
-float	get_shadow_ray(t_px *shadow_ray, t_light light, t_px *px);
-int		trace_shadow(t_px *px, t_scene s);
-int		loop_lights(t_scene scene, t_px *px);
+float	get_shadow_ray(t_px *shadow_ray, t_light *light, t_px *px);
+int		trace_shadow(t_px *px, t_scene *s);
+void	loop_lights(t_scene *scene, t_px *px);
 float	v_square_of_self(t_xyz a);
 
 #endif

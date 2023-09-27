@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 05:34:53 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 22:52:08 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	*routine(void *params)
 			if ((scene->pixels[y] + x)->hitobject != NULL)
 			{
 				get_surface_data(scene->pixels[y] + x);
-				loop_lights(*scene, px);
+				loop_lights(scene, px);
 			}
 			x++;
 		}
