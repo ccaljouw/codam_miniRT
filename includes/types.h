@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   types.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/24 23:54:36 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   types.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/27 05:35:53 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_object
 	t_type		id;
 	t_xyz		pOrigin;
 	float		diameter;
-	int	rgb[3];
+	int			rgb[3];
 	t_xyz		vNormal;
 	float		height;
 }				t_object;

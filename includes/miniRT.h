@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/26 19:23:07 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 05:19:11 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	swap(float *x1, float *x2);
 void	replace(char *str, char replace, char with);
 int		invert_color(int color);
 void	print_vector(t_xyz vector);
+float	ft_clamp(float min, float max, float input);
 
 // main.c
 t_scene	*init_scene(char *file);

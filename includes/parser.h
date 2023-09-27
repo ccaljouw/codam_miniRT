@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/26 19:22:39 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 05:28:20 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 #  define BUFFER_SIZE 81
 # endif
 
+# ifndef THREADS
+#  define THREADS 1
+# endif
+
 # define ASCII_WIDTH  120
 # define ASCII_HEIGHT 40
 
@@ -28,7 +32,6 @@
 # define MAX_WIDTH 1024
 # define MAX_HEIGHT 1024
 
-# define THREADS 1
 
 # define MOVE_X_P 	MLX_KEY_RIGHT
 # define MOVE_X_N 	MLX_KEY_LEFT
@@ -49,7 +52,7 @@ typedef struct s_scene
 	mlx_texture_t	*rendering;
 	t_ambient		*ambient; // bij één ambient light kan dit op de stack?
 	t_camera		*camera; // bij éen camera kan dit op de stack?
-	t_light			*light;
+	// t_light			*light;
 	t_list			*lights;
 	t_list			*objects;
 	t_px			**pixels;

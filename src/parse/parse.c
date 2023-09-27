@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 16:41:45 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:03:02 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_xyz	set_xyz(char *param, t_scene *scene)
 void	set_rgb(char *param, int *rgb, t_scene *scene)
 {
 	char		**input;
-	int		i;
+	int			i;
 
 	i = 0;
 	input = ft_split(param, ',');
@@ -146,7 +146,7 @@ void	parse_file(char *file, t_scene *scene)
 {
 	char	*line;
 	int		fd;
-	
+
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		exit_error(ERROR_PATH, NULL, NULL);

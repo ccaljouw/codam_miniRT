@@ -13,6 +13,8 @@ LIBS		:= $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a
 HEADERS		:= -I $(LIBFT)  -I $(LIBMLX) -I includes/ -I ./libs/MLX42/include
 TEST		?= 0;
 
+UNAME		:= $(shell uname)
+
 ifeq ($(USER), cariencaljouw)
 	LIBFLAGS 	= -lglfw -L /opt/homebrew/Cellar/glfw/3.3.8/lib/ -framework Cocoa -framework OpenGL -framework IOKit
 else ifeq ($(USER), albertvanandel)
@@ -25,6 +27,13 @@ ifeq ($(TEST), 1)
 	MAIN_SRC	:= testing/main.c
 else
 	MAIN_SRC	:= src/main.c
+endif
+
+ifeq ($(UNAME),Darwin)
+	# CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
+	CFLAGS += "-D THREADS=1"
+else ifeq ($(UNAME),Linux)
+	CFLAGS += "-D THREADS=$(shell nproc --all)""
 endif
 
 MAIN		:= obj/main.o

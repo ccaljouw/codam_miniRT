@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/26 22:51:58 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 05:50:14 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,10 +133,12 @@ int	getColor(t_px *px, t_scene *scene)
 	if (scene->selected == px->hitobject)
 		px->color = invert_color(px->color);
 	else
-		px->color = ((int)(((color >> 24) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x * (0.18 / M_PI)))) << 24 \
-		| (int)(((color >> 16) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y * (0.18 / M_PI)))) << 16 \
-		| (int)(((color >> 8) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z * (0.18 / M_PI)))) << 8 \
+	{
+		px->color = ((int)(((color >> 24) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x))) << 24 \
+		| (int)(((color >> 16) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y))) << 16 \
+		| (int)(((color >> 8) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z))) << 8 \
 		| 255);
+	}
 	return (px->color);
 }
 

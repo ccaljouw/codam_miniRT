@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 16:23:07 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/09/27 00:46:06 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void	get_surface_data(t_px *px)
 {
 	t_object				*object;
 	static t_surface_data	*surface_data[3] = \
-				{get_sphere_surface_data, get_plane_surface_data, get_cylinder_surface_data};
+	{get_sphere_surface_data, get_plane_surface_data, \
+	get_cylinder_surface_data};
 
 	object = (t_object *)px->hitobject;
 	px->color = surface_data[object->id](*px->hitobject, px);

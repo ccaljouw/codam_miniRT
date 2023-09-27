@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   image_manipulation.c                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/26 10:30:20 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   image_manipulation.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/09/27 00:32:34 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	resize(void	*param)
 		return;
 	if (scene->mlx->width != scene->p_width || scene->mlx->height != scene->p_height)
 	{
+		ft_printf("reszing\n");
 		mlx_resize_image(scene->image, scene->mlx->width, scene->mlx->height);
 		if (scene->pixels)
 		{
@@ -95,11 +96,17 @@ void	resize(void	*param)
 			}
 			free(scene->pixels);
 		}
+		ft_printf("here\n");
+		ft_printf("old height %i, new height %i\n", scene->p_height, scene->mlx->height);
 		scene->p_width = scene->mlx->width;
 		scene->p_height = scene->mlx->height;
 		init_pixels(scene);
+		scene->image = mlx_new_image(scene->mlx, scene->p_width, scene->p_height);
+		ft_printf("there\n");
 		cameraGeometry(scene);
+		ft_printf("everywhere\n");
 		render_image(scene);
+		ft_printf("something\n");
 	}
 }
 

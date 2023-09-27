@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   multithreading.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 14:21:20 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 16:25:45 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   multithreading.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/27 05:34:53 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,25 @@ void	*routine(void *params)
 			px = scene->pixels[y] + x;
 			get_ray(scene->pixels[y] + x, x, y, scene);
 			trace_ray(scene->pixels[y] + x, scene);
-			get_surface_data(scene->pixels[y] + x);
-			loop_lights(*scene, px);
+			if ((scene->pixels[y] + x)->hitobject != NULL)
+			{
+				get_surface_data(scene->pixels[y] + x);
+				loop_lights(*scene, px);
+			}
 			x++;
 		}
 		y++;
 	}
-	draw_image(scene);
+	// draw_image(scene);
 	return (NULL);
 }
 
 t_block	set_block(t_scene *scene, int y, int blocksize)
 {
 	t_block	block;
-	
+
 	block.scene = scene;
-	block.y =  y;
+	block.y = y;
 	block.y_max = y + blocksize;
 	return (block);
 }
@@ -57,7 +60,7 @@ pthread_t	*create_threads(t_scene *scene, pthread_t *threads)
 	t_block		*blocks;
 	int			blocksize;
 	int			y;
-	int 		i;
+	int			i;
 
 	blocks = malloc(THREADS * sizeof(t_block));
 	if (!blocks)
@@ -71,7 +74,7 @@ pthread_t	*create_threads(t_scene *scene, pthread_t *threads)
 		y = y + blocksize;
 		if (pthread_create(threads + i, NULL, &routine, &blocks[i]))
 		{
-			while (i >= 0)
+			// while (i >= 0)				// wat was t plan met deze loop?
 				if (pthread_join(threads[i], NULL))
 					exit_error(ERROR_THREAD, "failed to create thread\n", scene);
 		}
@@ -91,4 +94,5 @@ void	join_threads(pthread_t *threads, t_scene *scene)
 			exit_error(ERROR_THREAD, "failed to join thread\n", scene);
 		i++;
 	}
+	draw_image(scene); // volgens mij moet deze hier
 }
