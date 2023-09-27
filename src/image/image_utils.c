@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/26 19:41:22 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/26 22:51:58 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,13 @@ void	draw_text(t_scene *scene, mlx_texture_t *text)
 	int	x;
 	int	y;
 	
-	(void)text;
-	scene->rendering = mlx_load_png("image.png");
-	if (!scene->rendering)
-		printf("error loading texture\n");
 	y = 0;
 	while (y < scene->p_height)
 	{
 		x = 0;
 		while (x < scene->p_width)
 		{
-			mlx_put_pixel(scene->image, x, y, get_text_pxcolor(scene->rendering, ((float)x / (float)scene->p_width), ((float)y / (float)scene->p_height)));
+			mlx_put_pixel(scene->image, x, y, get_text_pxcolor(text, ((float)x / (float)scene->p_width), ((float)y / (float)scene->p_height)));
 			x++;
 		}
 		y++;
@@ -106,7 +102,32 @@ int	getColor(t_px *px, t_scene *scene)
 
 	object = (t_object *)px->hitobject;
 	color = ((px->hitobject->rgb[0] << 24) | (px->hitobject->rgb[1] << 16) | (px->hitobject->rgb[2] << 8) | 255);
-	// printf("x_screen:%d, y_screen:%d, x_cam:%f, y_cam:%f\n", px->screen_x, px->screen_y, px->cam_x, px->cam_y);
+	t_xyz		unit;
+	float		u;
+	float		v;
+	/* unit is the unit vector form the hitpoint the sphere origen */  
+	if (object->id == SP)
+	{
+		unit = v_subtract(px->hitpoint, object->pOrigin);
+		unit = v_divide(unit, v_magnitude(unit));
+		u = 0.5 + (atan2(unit.z, unit.x)) / (2 * M_PI);
+		v = 0.5 - (asin(unit.y) / M_PI);
+		color = get_text_pxcolor(scene->rendering, u, v);
+	}
+	if (object->id == PL)
+	{
+		// u = (float)px->screen_x / (float)scene->p_width;
+		// v = (float)px->screen_y / (float)scene->p_height;
+		// color = get_text_pxcolor(scene->rendering, u, v);
+		// printf("u:%f, v:%f\n", u, v);
+	}
+	if (object->id == CY)
+	{
+		unit = v_subtract(px->hitpoint, object->pOrigin);
+		u = 0.5 + (atan2(unit.z, unit.x)) / (2 * M_PI);
+		v = (float)unit.y / (float)object->height;
+		color = get_text_pxcolor(scene->rendering, u, v);
+	}
 	if (!object)
 		return (0 << 24 | 0 << 16 | 0 << 8 | 255);
 	if (scene->selected == px->hitobject)
