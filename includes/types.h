@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/24 23:54:36 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/27 20:36:27 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct xyz_s
  * @param	vAxis (t_xyz) 3d normalized vector of axis of cylinder. 
  * 			In range [-1,1] for each x,y,z axis
  * @param	height (float) the cylinder height
+ * @param	albedo (float) the albedo of the object surface
  */
 typedef struct s_object
 {
@@ -56,6 +57,7 @@ typedef struct s_object
 	int	rgb[3];
 	t_xyz		vNormal;
 	float		height;
+	float		albedo;
 }				t_object;
 
 /**

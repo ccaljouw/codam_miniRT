@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   vector.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 17:21:26 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/25 20:43:51 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   vector.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 17:21:26 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/27 20:40:14 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ t_xyz	v_cross(t_xyz a, t_xyz b);
 float	v_magnitude(t_xyz a);
 t_xyz	v_normalize(t_xyz a);
 void	v_normalizep(t_xyz *a);
+float	v_square_of_self(t_xyz a);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   shapes.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/24 12:54:14 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   shapes.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/27 20:42:42 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_plane(char **param, t_scene *scene)
 	new_plane->id = PL;
 	new_plane->pOrigin = set_xyz(param[1], scene);
 	new_plane->vNormal = set_xyz(param[2], scene);
+	new_plane->albedo = ALBEDO;
 	set_rgb(param[3], new_plane->rgb, scene);
 	new_node->content = (void *)new_plane;
 	ft_lstadd_back(&scene->objects, new_node);
@@ -69,6 +70,7 @@ void	init_cylinder(char **param, t_scene *scene)
 	v_normalizep(&new_cylinder->vNormal);
 	new_cylinder->diameter = to_float(param[3], scene);
 	new_cylinder->height = to_float(param[4], scene);
+	new_cylinder->albedo = ALBEDO;
 	set_rgb(param[5], new_cylinder->rgb, scene);
 	new_node->content = (void *)new_cylinder;
 	ft_lstadd_back(&scene->objects, new_node);
@@ -99,6 +101,7 @@ void	init_sphere(char **param, t_scene *scene)
 	new_sphere->id = SP;
 	new_sphere->pOrigin = set_xyz(param[1], scene);
 	new_sphere->diameter = to_float(param[2], scene);
+	new_sphere->albedo = ALBEDO;
 	set_rgb(param[3], new_sphere->rgb, scene);
 	new_node->content = (void *)new_sphere;
 	ft_lstadd_back(&scene->objects, new_node);

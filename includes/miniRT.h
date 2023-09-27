@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 20:03:44 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/27 20:59:41 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include "libft.h"
+# include "defines.h"
 # include "errors.h"
 # include "types.h"
 # include "vector.h"
@@ -29,8 +30,6 @@
 
 
 # include <stdio.h> //remove
-
-# define EPSILON exp(-21)
 
 // fuction pointer for intersection test functions of different objects
 typedef int		t_hit_test(t_px ray, t_object, float *hit_dist);
@@ -87,9 +86,9 @@ void	draw_text(t_scene *scene, mlx_image_t *text);
 void	image_to_window(t_scene *scene);
 
 // shadow_ray.c
-float	get_shadow_ray(t_px *shadow_ray, t_light light, t_px *px);
-int		trace_shadow(t_px *px, t_scene s);
-int		loop_lights(t_scene scene, t_px *px);
+float	get_shadow_ray(t_px *shadow_ray, t_light *light, t_px *px);
+int		trace_shadow(t_px *px, t_scene *s);
+void	loop_lights(t_scene *scene, t_px *px);
 float	v_square_of_self(t_xyz a);
 
 #endif
