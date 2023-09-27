@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 21:47:28 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 22:21:38 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # ifndef THREADS
 #  define THREADS 1
 # endif
+
+# define NR_TEXTURES 3
 
 # define ASCII_WIDTH  120
 # define ASCII_HEIGHT 40
@@ -62,10 +64,10 @@ typedef struct s_object
 	t_type			id;
 	t_xyz			pOrigin;
 	float			diameter;
-	int				rgb[3];
-	t_xyz			vNormal;
 	float			height;
 	mlx_texture_t	*text;
+	int				rgb[3];
+	t_xyz			vNormal;
 }					t_object;
 
 /**
@@ -103,7 +105,7 @@ typedef struct s_scene
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
-	mlx_texture_t	*rendering;
+	mlx_texture_t	**textures;
 	t_ambient		*ambient; // bij één ambient light kan dit op de stack?
 	t_camera		*camera; // bij éen camera kan dit op de stack?
 	// t_light			*light;
