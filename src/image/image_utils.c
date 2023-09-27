@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/27 05:50:14 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 21:25:13 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	get_text_pxcolor(mlx_texture_t *text, float x, float y)
 	return ((text->pixels[px + 1] << 24) + (text->pixels[px + 2] << 16) \
 				+ (text->pixels[px + 3] << 8) + text->pixels[px]);
 }
+
 
 void	draw_text(t_scene *scene, mlx_texture_t *text)
 {
@@ -99,46 +100,20 @@ int	getColor(t_px *px, t_scene *scene)
 {
 	t_object	*object;
 	int			color;
-
+	
 	object = (t_object *)px->hitobject;
-	color = ((px->hitobject->rgb[0] << 24) | (px->hitobject->rgb[1] << 16) | (px->hitobject->rgb[2] << 8) | 255);
-	t_xyz		unit;
-	float		u;
-	float		v;
-	/* unit is the unit vector form the hitpoint the sphere origen */  
-	if (object->id == SP)
-	{
-		unit = v_subtract(px->hitpoint, object->pOrigin);
-		unit = v_divide(unit, v_magnitude(unit));
-		u = 0.5 + (atan2(unit.z, unit.x)) / (2 * M_PI);
-		v = 0.5 - (asin(unit.y) / M_PI);
-		color = get_text_pxcolor(scene->rendering, u, v);
-	}
-	if (object->id == PL)
-	{
-		// u = (float)px->screen_x / (float)scene->p_width;
-		// v = (float)px->screen_y / (float)scene->p_height;
-		// color = get_text_pxcolor(scene->rendering, u, v);
-		// printf("u:%f, v:%f\n", u, v);
-	}
-	if (object->id == CY)
-	{
-		unit = v_subtract(px->hitpoint, object->pOrigin);
-		u = 0.5 + (atan2(unit.z, unit.x)) / (2 * M_PI);
-		v = (float)unit.y / (float)object->height;
-		color = get_text_pxcolor(scene->rendering, u, v);
-	}
 	if (!object)
 		return (0 << 24 | 0 << 16 | 0 << 8 | 255);
+	if (object->text)
+		color = get_texture(*px, *object);
+	else
+		color = ((px->hitobject->rgb[0] << 24) | (px->hitobject->rgb[1] << 16) | (px->hitobject->rgb[2] << 8) | 255);
+	px->color = ((int)(((color >> 24) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x))) << 24 \
+	| (int)(((color >> 16) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y))) << 16 \
+	| (int)(((color >> 8) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z))) << 8 \
+	| 255);
 	if (scene->selected == px->hitobject)
 		px->color = invert_color(px->color);
-	else
-	{
-		px->color = ((int)(((color >> 24) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x))) << 24 \
-		| (int)(((color >> 16) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y))) << 16 \
-		| (int)(((color >> 8) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z))) << 8 \
-		| 255);
-	}
 	return (px->color);
 }
 

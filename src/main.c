@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 05:33:15 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 21:50:13 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_scene	*init_scene(char *file)
 		exit_error(ERROR_SCENE, "not all required elements provided", scene);
 	ft_putendl_fd("\033[32;1m\nScene set up\n\033[0m", 2);
 	init_pixels(scene);
-	scene->rendering = mlx_load_png("textures/checker.png");
+	scene->rendering = mlx_load_png("src/textures/checker.png");
 	if (!scene->rendering)
 		exit_error(ERROR_PNG, NULL ,scene);
 	return (scene);

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:31:28 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/25 20:43:59 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 14:19:44 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,3 +220,4 @@ void	v_normalizep(t_xyz *a)
 		a->z *= magInv;
 	}
 }
+
