@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 22:21:38 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 22:36:22 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_object
 	t_xyz			pOrigin;
 	float			diameter;
 	float			height;
-	mlx_texture_t	*text;
+	int				text;
 	int				rgb[3];
 	t_xyz			vNormal;
 }					t_object;

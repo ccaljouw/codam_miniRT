@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 21:41:19 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 22:47:03 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	get_cylinder_surface_data(t_object cy, t_px *px)
 	return (px->color);
 }
 
-int	get_color_cylinder(t_object object, t_px px)
+int	get_color_cylinder(t_object object, t_px px, mlx_texture_t *text)
 {
 	t_xyz		unit;
 	float		u;
@@ -107,7 +107,7 @@ int	get_color_cylinder(t_object object, t_px px)
 	v = unit.z;
 	u = 1 - ((u + M_PI) / (2 * M_PI));
 	v = 1 - ((v + 1) * 0.5);
-	px.color = get_text_pxcolor(object.text, u, v);
+	px.color = get_text_pxcolor(text, u, v);
 	return (px.color);
 }
 

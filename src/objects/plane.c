@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 21:41:29 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 22:46:59 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	get_plane_surface_data(t_object plane, t_px *px)
 	return (px->color);
 }
 
-int	get_color_plane(t_object object, t_px px)
+int	get_color_plane(t_object object, t_px px, mlx_texture_t *text)
 {
 	t_xyz		unit;
 	float		u;
@@ -54,7 +54,7 @@ int	get_color_plane(t_object object, t_px px)
 	v = unit.y;
 	u = ((u + 1.0) * 0.5);
 	v = ((v + 1.0) * 0.5);
-	px.color = get_text_pxcolor(object.text, u, v);
+	px.color = get_text_pxcolor(text, u, v);
 	return (px.color);
 }
 

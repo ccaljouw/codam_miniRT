@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/27 21:39:56 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 22:46:55 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	get_sphere_surface_data(t_object sph, t_px *px)
 	return (px->color);
 }
 
-int	get_color_sphere(t_object object, t_px px)
+int	get_color_sphere(t_object object, t_px px, mlx_texture_t *text)
 {
 	t_xyz		unit;
 	float		u;
@@ -120,6 +120,6 @@ int	get_color_sphere(t_object object, t_px px)
 	v = atan2(unit.z, unit.y);
 	u = 1 - ((u + M_PI) / (2 * M_PI));
 	v = 1 - ((v + M_PI) / (2 * M_PI));
-	px.color = get_text_pxcolor(object.text, u, v);
+	px.color = get_text_pxcolor(text, u, v);
 	return (px.color);
 }

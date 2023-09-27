@@ -6,25 +6,21 @@
 /*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 22:29:28 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 22:42:04 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
 
-mlx_texture_t	*set_texture(char *param, t_scene *scene)
+int		set_texture(char *param, t_scene *scene)
 {
 	int				n;
 
 	n = ft_atoi(param);
-	printf("in set textures n:%d\n", n);
-	if (n == 0)
-		return (NULL);
-	if (n > NR_TEXTURES || n < 0)
+	if (n > NR_TEXTURES + 1 || n < 0)
 		exit_error(ERROR_PNG, "texture id invallid", scene);
-	printf("text:%p\n", scene->textures[n - 1]);
-	return (scene->textures[n - 1]);
+	return (n);
 }
 
 /**

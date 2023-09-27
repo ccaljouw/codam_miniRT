@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/27 21:25:13 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 22:39:34 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	getColor(t_px *px, t_scene *scene)
 	if (!object)
 		return (0 << 24 | 0 << 16 | 0 << 8 | 255);
 	if (object->text)
-		color = get_texture(*px, *object);
+		color = get_texture(*px, *object, scene);
 	else
 		color = ((px->hitobject->rgb[0] << 24) | (px->hitobject->rgb[1] << 16) | (px->hitobject->rgb[2] << 8) | 255);
 	px->color = ((int)(((color >> 24) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x))) << 24 \
