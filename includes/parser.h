@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parser.h                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 22:54:23 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/28 07:19:05 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,9 @@ typedef struct s_scene
 	t_px			**pixels;
 	int				p_width;
 	int				p_height;
+	int				n_width;
+	int				n_height;
+	bool			must_resize;
 	t_object		*selected;
 }					t_scene;
 

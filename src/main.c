@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 22:30:24 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/28 07:36:06 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ t_scene	*init_scene(char *file)
 	ft_memset(scene, 0, sizeof(t_scene));
 	scene->p_width = IM_WIDTH;
 	scene->p_height = IM_HEIGHT;
+	scene->must_resize = false;
 	init_textures(scene);
 	parse_file(file, scene);
 	if (!scene->ambient || !scene->camera)
@@ -84,6 +85,42 @@ t_scene	*init_scene(char *file)
 	ft_putendl_fd("\033[32;1m\nScene set up\n\033[0m", 2);
 	init_pixels(scene);
 	return (scene);
+}
+
+void	do_resize(void *param)
+{
+	t_scene 	*scene;
+	// mlx_image_t	*new_image;
+	mlx_image_t	*buf;
+	int			i;
+
+	scene = (t_scene *)param;
+	if (scene->must_resize)
+	{
+		i = 0;
+		if (scene->pixels)
+		{
+			while (i < scene->p_height)
+			{
+				free(scene->pixels[i]);
+				scene->pixels[i] = NULL;
+				i++;
+			}
+			free(scene->pixels);
+			scene->pixels = NULL;
+		}
+		scene->p_width = scene->n_width;
+		scene->p_height = scene->n_height;
+		// mlx_delete_image(scene->mlx, scene->image);
+		buf = scene->image;
+		scene->image = mlx_new_image(scene->mlx, scene->p_width, scene->p_height);
+		init_pixels(scene);
+		cameraGeometry(scene);
+		render_image(scene);
+		image_to_window(scene);
+		mlx_delete_image(scene->mlx, buf);
+		scene->must_resize = 0;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -100,15 +137,17 @@ int	main(int argc, char **argv)
 		if (!scene->mlx)
 			exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
 		scene->image = mlx_new_image(scene->mlx, scene->p_width, scene->p_height);
-		image_to_window(scene);
 		render_image(scene);
-		// draw_text(scene, scene->rendering);
+		image_to_window(scene);
 		mlx_key_hook(scene->mlx, key_input, scene);
 		mlx_mouse_hook(scene->mlx, select_object, scene);
-		mlx_loop_hook(scene->mlx, resize, scene);
+		mlx_resize_hook(scene->mlx, set_resize_flag, scene);
+		mlx_loop_hook(scene->mlx, do_resize, scene);
+		// mlx_loop_hook(scene->mlx, resize, scene);
 		mlx_loop(scene->mlx);
 		mlx_delete_image(scene->mlx, scene->image);
 		mlx_terminate(scene->mlx);
+		mlx_resizefunc
 	}
 	// cleanup scene
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   image_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/27 22:39:34 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/28 07:24:11 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	get_text_pxcolor(mlx_texture_t *text, float x, float y)
 				+ (text->pixels[px + 3] << 8) + text->pixels[px]);
 }
 
-
 void	draw_text(t_scene *scene, mlx_texture_t *text)
 {
 	int	x;
@@ -59,6 +58,7 @@ void	draw_text(t_scene *scene, mlx_texture_t *text)
 	}
 }
 
+
 void	draw_image(t_scene *scene)
 {
 	int	x;
@@ -71,6 +71,7 @@ void	draw_image(t_scene *scene)
 		while (x < scene->p_width)
 		{
 			mlx_put_pixel(scene->image, x, y, getColor(&scene->pixels[y][x], scene));
+			// mlx_put_pixel(scene->image, x, y, 0xFFFFFFFF);
 			x++;
 		}
 		y++;

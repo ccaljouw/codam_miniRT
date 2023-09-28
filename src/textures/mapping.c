@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/27 22:47:18 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/27 23:14:51 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	get_texture(t_px px, t_object object, t_scene *scene)
 	
 	if (object.text == 0)
 		px.color = ((object.rgb[0] << 24) | (object.rgb[1] << 16) | (object.rgb[2] << 8) | 255);
-	if (object.text == NR_TEXTURES + 1)
+	else if (object.text == NR_TEXTURES + 1)
 		px.color = checkerd(px, object);
 	else
 		px.color = get_color[object.id](object, px, scene->textures[object.text - 1]);
