@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/28 07:45:22 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/28 21:09:08 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,6 @@ int	main(int argc, char **argv)
 		mlx_mouse_hook(scene->mlx, select_object, scene);
 		mlx_resize_hook(scene->mlx, set_resize_flag, scene);
 		mlx_loop_hook(scene->mlx, do_resize, scene);
-		// mlx_loop_hook(scene->mlx, resize, scene);
 		mlx_loop(scene->mlx);
 		mlx_delete_image(scene->mlx, scene->image);
 		mlx_terminate(scene->mlx);

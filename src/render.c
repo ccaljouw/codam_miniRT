@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/28 00:09:03 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   render.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/28 21:32:41 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	trace_ray(t_px *px, t_scene *s)
 	while (objects)
 	{
 		object = (t_object *)objects->content;
-		if (hit_test[object->id](*px, *object, &hp_distance))
+		if (hit_test[object->id](px, *object, &hp_distance))
 		{
 			if (!px->hitobject || px->hit_distance > hp_distance)
 			{

@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/28 19:33:21 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/28 21:18:25 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	checkerd(t_px px, t_object object)
 	p.y = (int)p.y % 2;
 	p.z	= (int)p.z % 2;
 	color = (object.rgb[0] << 24 | object.rgb[1] << 16 | object.rgb[2] << 8 | 255);
-	if ((p.x == p.y == p.z))
+	if (((int)p.x ^ (int)p.y) ^ (int)p.z)
 		color = invert_color(color);
 	return (color);
 }

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/27 22:46:55 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/28 21:33:00 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	get_parabolic_hitpoints(t_xyz abc, float *hp1, float *hp2)
  * @param hit_dist 
  * @return int 
  */
-int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
+int	test_sphere(t_px *ray, t_object sphere, float *hit_dist)
 {
 	float	hit_dist1;
 	float	hit_dist2;
@@ -68,9 +68,9 @@ int	test_sphere(t_px ray, t_object sphere, float *hit_dist)
 	hit_dist1 = 0;
 	hit_dist2 = 0;
 	radius = sphere.diameter * 0.5;
-	orig_to_center = v_subtract(ray.cam_origin, sphere.pOrigin);
-	abc.x = v_dot(ray.direction, ray.direction);
-	abc.y = 2 * v_dot(ray.direction, orig_to_center);
+	orig_to_center = v_subtract(ray->cam_origin, sphere.pOrigin);
+	abc.x = v_dot(ray->direction, ray->direction);
+	abc.y = 2 * v_dot(ray->direction, orig_to_center);
 	abc.z = v_dot(orig_to_center, orig_to_center) - (radius * radius);
 	if (!get_parabolic_hitpoints(abc, &hit_dist1, &hit_dist2))
 		return (0);
