@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 22:46:59 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/28 19:43:59 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	get_color_plane(t_object object, t_px px, mlx_texture_t *text)
 	float		u;
 	float		v;
 
-	unit = v_add(object.pOrigin, v_multiply(px.direction, px.hit_distance));
+	(void)object;
+	unit = v_subtract(px.hitpoint, px.cam_origin);
 	v_normalizep(&unit);
 	u = unit.x;
 	v = unit.y;

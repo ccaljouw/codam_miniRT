@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/28 08:31:58 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/28 19:37:04 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	get_color_cylinder(t_object object, t_px px, mlx_texture_t *text)
 	float		u;
 	float		v;
 
-	unit = v_subtract(px.hitpoint, object.pOrigin);
+	unit = v_subtract(px.hitpoint, object.pOrigin); // should be position at axis closest to hitpoint not pOrigin
 	v_normalizep(&unit);
 	u = atan2(unit.y, unit.x);
 	v = unit.z;

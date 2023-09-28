@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/28 08:57:26 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/28 19:33:21 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 int	checkerd(t_px px, t_object object)
 {
-	t_xyz		unit;
 	t_xyz		p;
 	int			color;
 
-	unit = v_add(px.hitpoint, px.direction);
-	p.x = fabs(floor(unit.x));
-	p.y = fabs(floor(unit.y));
-	p.z = fabs(floor(unit.z));
+	p.x = fabs(floor(px.hitpoint.x));
+	p.y = fabs(floor(px.hitpoint.y));
+	p.z = fabs(floor(px.hitpoint.z));
 	p.x = (int)p.x % 2;
 	p.y = (int)p.y % 2;
 	p.z	= (int)p.z % 2;
