@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/28 07:24:11 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/28 08:02:36 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	get_text_pxcolor(mlx_texture_t *text, float x, float y)
 	int	text_x;
 	int text_y;
 
-	text_x = (int)roundf(x * text->width);
-	text_y = (int)roundf(y * text->height);
+	text_x = (int)floorf(x * text->width);
+	text_y = (int)floorf(y * text->height);
 	px = (((text_y * text->width) + (text_x)) * 4) - 1;
 	return ((text->pixels[px + 1] << 24) + (text->pixels[px + 2] << 16) \
 				+ (text->pixels[px + 3] << 8) + text->pixels[px]);
