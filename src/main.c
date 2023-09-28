@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/28 07:36:06 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/28 07:45:22 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ int	main(int argc, char **argv)
 		mlx_loop(scene->mlx);
 		mlx_delete_image(scene->mlx, scene->image);
 		mlx_terminate(scene->mlx);
-		mlx_resizefunc
 	}
 	// cleanup scene
 	return (0);
