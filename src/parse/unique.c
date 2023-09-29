@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   unique.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/28 09:01:31 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   unique.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/29 15:42:37 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void	init_lights(char **param, t_scene *s)
 		i++;
 	if (i != 4)
 		exit_error(ERROR_LIGHT, "incorrect number of arguments", s);
-	new_node = malloc(sizeof(t_list));
+	new_node = ft_lstnew(NULL);
 	new_light = malloc(sizeof(t_light));
 	if (!new_light || !new_node)
 		exit_error(ERROR_MEM, NULL, s);
@@ -174,8 +174,8 @@ void	init_lights(char **param, t_scene *s)
 	new_light->rgb_ratios = v_create(new_light->rgb[0] / (float)255, \
 									new_light->rgb[1] / (float)255, \
 									new_light->rgb[2] / (float)255);
-	print_vector(new_light->light_point);
-	print_vector(new_light->origin);
+	// print_vector(new_light->light_point);
+	// print_vector(new_light->origin);
 	new_node->content = (void *)new_light;
 	ft_lstadd_back(&s->lights, new_node);
 	ft_putstr_fd("\033[34;1mLight config:\t\t  \033[0m", 1);

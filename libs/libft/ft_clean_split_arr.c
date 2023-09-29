@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_clean_split_arr.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/06 12:00:09 by avan-and          #+#    #+#             */
-/*   Updated: 2023/09/29 14:18:25 by albertvanan      ###   ########.fr       */
+/*   Created: 2023/09/29 15:21:28 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/09/29 15:33:17 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /**
- * @brief take a char* and write len instances of c to it
+ * @brief Frees a 2d arr as made by ft_split() and sets all pointers to NULL
  * 
- * @param b 
- * @param c 
- * @param len 
- * @return void* 
+ * @param arr 
  */
-void	*ft_memset(void *b, int c, size_t len)
+void	ft_clean_split_arr(char ***arr)
 {
-	char	*new;
+	int	i;
 
-	new = b;
-	c = (unsigned char) c;
-	while (len + 1)
+	i = 0;
+	if (*arr == NULL)
+		return ;
+	while ((*arr)[i] != NULL)
 	{
-		*(new++) = c;
-		len--;
+		free ((*arr)[i]);
+		(*arr)[i] = NULL;
+		i++;
 	}
-	return (b);
+	free(*arr);
+	*arr = NULL;
 }

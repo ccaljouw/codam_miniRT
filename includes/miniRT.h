@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/29 13:57:04 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/29 16:02:55 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	replace(char *str, char replace, char with);
 int		invert_color(int color);
 void	print_vector(t_xyz vector);
 float	ft_clamp(float min, float max, float input);
+void	clean_scene(t_scene *scene);
 
 // main.c
 t_scene	*init_scene(char *file);
@@ -74,7 +75,7 @@ int		get_cylinder_surface_data(t_object cy, t_px *px);
 int		get_color_cylinder(t_object object, t_px px, mlx_texture_t *text);
 
 // multithreading.c
-pthread_t	*create_threads(t_scene *scene, pthread_t *threads);
+pthread_t	*create_threads(t_scene *scene, pthread_t *threads, t_block *blocks);
 void		join_threads(pthread_t *threads, t_scene *scene);
 
 // image_mainpulation.c

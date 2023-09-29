@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   render.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/28 21:32:41 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/29 16:02:43 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	get_surface_data(t_px *px)
 	get_cylinder_surface_data};
 
 	object = (t_object *)px->hitobject;
+	// ft_printf("gsd object add: %p", object);
 	px->color = surface_data[object->id](*px->hitobject, px);
 }
 
@@ -106,13 +107,17 @@ void	get_surface_data(t_px *px)
 void	render_image(t_scene *scene)
 {
 	pthread_t	*threads;
+	t_block		*blocks;
 
 	threads = malloc(THREADS * sizeof(pthread_t));
-	if (!threads)
+	blocks = malloc(THREADS * sizeof(t_block));
+	if (!threads || !blocks)
 		exit_error(ERROR_MEM, NULL, scene);
-	create_threads(scene, threads);
+	create_threads(scene, threads, blocks);
 	// ft_printf("threads created\n");
 	join_threads(threads, scene);
+	free(blocks);
+	free(threads);
 	// ft_printf("threads joined\n");
 }
 

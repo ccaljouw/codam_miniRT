@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 17:03:02 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/29 15:52:03 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_xyz	set_xyz(char *param, t_scene *scene)
 		exit_error(ERROR_XYZ, NULL, scene);
 	position = v_create(to_float(input[0], scene), to_float(input[1], scene), \
 				to_float(input[2], scene));
-	free(input);
+	ft_clean_split_arr(&input);
 	return (position);
 }
 
@@ -69,7 +69,7 @@ void	set_rgb(char *param, int *rgb, t_scene *scene)
 		exit_error(ERROR_RGB, NULL, scene);
 	if (rgb[0] > 255 || rgb[1]  > 255 || rgb[2] > 255)
 		exit_error(ERROR_RGB, NULL, scene);
-	free(input);
+	ft_clean_split_arr(&input);
 }
 
 /**
@@ -139,7 +139,7 @@ void	parse_type(char *line, t_scene *scene)
 	}
 	if (i == 7)
 		exit_error(ERROR_SCENE, "incorrect type", scene);
-	free(param);
+	ft_clean_split_arr(&param);
 }
 
 void	parse_file(char *file, t_scene *scene)

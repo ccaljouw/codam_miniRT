@@ -69,7 +69,8 @@ SRCS		=	ft_isalpha.c \
 				ft_lstdel_item.c \
 				ft_strcmp.c \
 				ft_check_string.c \
-				ft_lst_get_prev.c
+				ft_lst_get_prev.c \
+				ft_clean_split_arr.c
 
 
 #turn sources into objects

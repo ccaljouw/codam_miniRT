@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/26 17:02:30 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/29 15:39:30 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,12 @@ void	swap(float *x1, float *x2)
 void	exit_error(char *error_msg, char *optional_str, t_scene *scene)
 {
 	if (!ft_strcmp("Closing MLX", error_msg))
+	{
+		mlx_delete_image(scene->mlx, scene->image);
+		mlx_terminate(scene->mlx);
+		clean_scene(scene);
 		exit (0);
+	}
 	ft_putendl_fd("\033[31;1mError", 2);
 	ft_putstr_fd(error_msg, 2);
 	ft_putstr_fd(": \033[0m", 2);
@@ -39,9 +44,10 @@ void	exit_error(char *error_msg, char *optional_str, t_scene *scene)
 		ft_putendl_fd(optional_str, 2);
 	else
 		ft_putchar_fd('\n', 2);
-	(void)scene; //remove
-	// if (scene)
-	// 		cleanup scene
+	// (void)scene; //remove
+
+	if (scene)
+		clean_scene(scene);
 	// check and clean mlx and mlx image?
 	exit (1);
 }
@@ -72,7 +78,7 @@ void	print_vector(t_xyz vector)
 void	replace(char *str, char replace, char with)
 {
 	int	i;
-	
+
 	i = 0;
 	while (str[i])
 	{

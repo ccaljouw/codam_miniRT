@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/29 14:05:04 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/29 16:05:13 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	init_pixels(t_scene *scene)
 	int	i;
 
 	i = 0;
-	scene->pixels = malloc(scene->p_height * sizeof(t_px *));
+	scene->pixels = ft_calloc(scene->p_height, sizeof(t_px *));
 	if (!scene->pixels)
 		exit_error(ERROR_MEM, NULL, scene);
 	while (i < scene->p_height)
 	{
-		scene->pixels[i] = malloc(scene->p_width * sizeof(t_px));
+		scene->pixels[i] = ft_calloc(scene->p_width, sizeof(t_px));
 		if (!scene->pixels[i])
 			exit_error(ERROR_MEM, NULL, scene);
 		i++;
@@ -61,6 +61,29 @@ void	init_textures(t_scene *scene)
 		exit_error(ERROR_PNG, "error loading png" ,scene);
 }
 
+void	clean_scene(t_scene *scene)
+{
+	int	y;
+
+	y = 0;
+	ft_printf("cleaning scene\n");
+	free(scene->ambient);
+	free(scene->camera);
+	ft_lstclear(&scene->lights, free);
+	ft_lstclear(&scene->objects, free);
+	if (scene->pixels)
+	{
+		while (y < scene->p_height)
+		{
+			free(scene->pixels[y]);
+			y++;
+		}
+	}
+	free(scene->pixels);
+	free(scene);
+	ft_printf("done cleaning\n");
+}
+
 /**
  * @brief initiates the scene based on the file contents
  * 
@@ -71,10 +94,12 @@ t_scene	*init_scene(char *file)
 {
 	t_scene	*scene;
 
-	scene = malloc(sizeof(t_scene));
+	scene = ft_calloc(1, sizeof(t_scene));
+	// ft_calloc(1, sizeof(scene));
 	if (!scene)
 		exit_error(ERROR_MEM, NULL, NULL);
-	ft_memset(scene, 0, sizeof(t_scene));
+	// ft_memset(scene, 0, sizeof(t_scene));
+	// ft_bzero(scene, sizeof(t_scene));
 	scene->p_width = IM_WIDTH;
 	scene->p_height = IM_HEIGHT;
 	scene->must_resize = false;
@@ -123,10 +148,16 @@ void	do_resize(void *param)
 	}
 }
 
+void	leaks_f()
+{
+	system("leaks -q miniRT");
+}
+
 int	main(int argc, char **argv)
 {
 	t_scene			*scene;
 
+	atexit(leaks_f);
 	check_args(argc, argv);
 	scene = init_scene(argv[1]);
 	if (argv[2] && (!ft_strcmp(argv[2], "-a") || !ft_strcmp(argv[2], "-ai")))
@@ -146,6 +177,7 @@ int	main(int argc, char **argv)
 		mlx_loop(scene->mlx);
 		mlx_delete_image(scene->mlx, scene->image);
 		mlx_terminate(scene->mlx);
+		clean_scene(scene);
 	}
 	// cleanup scene
 	return (0);

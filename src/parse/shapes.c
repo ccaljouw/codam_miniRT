@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   shapes.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 22:52:00 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   shapes.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/09/29 14:50:44 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	init_plane(char **param, t_scene *scene)
 		i++;
 	if (i != 5)
 		exit_error(ERROR_PLANE, "incorrect number of arguments", scene);
-	new_node = malloc(sizeof(t_list));
-	new_plane = malloc(sizeof(t_object));
+	new_node = ft_lstnew(NULL);
+	new_plane = ft_calloc(1, sizeof(t_object));
 	if (!new_node || !new_plane)
 		exit_error(ERROR_MEM, NULL, scene);
 	new_plane->id = PL;
@@ -72,8 +72,8 @@ void	init_cylinder(char **param, t_scene *scene)
 		i++;
 	if (i != 7)
 		exit_error(ERROR_CYLINDER, "incorrect number of arguments", scene);
-	new_node = malloc(sizeof(t_list));
-	new_cylinder = malloc(sizeof(t_object));
+	new_node = ft_lstnew(NULL);
+	new_cylinder = ft_calloc(1, sizeof(t_object));
 	if (!new_node || !new_cylinder)
 		exit_error(ERROR_MEM, NULL, scene);
 	new_cylinder->id = CY;
@@ -107,8 +107,8 @@ void	init_sphere(char **param, t_scene *scene)
 		i++;
 	if (i != 5)
 		exit_error(ERROR_SPHERE, "incorrect number of arguments", scene);
-	new_node = malloc(sizeof(t_list));
-	new_sphere = malloc(sizeof(t_object));
+	new_node = ft_lstnew(NULL);
+	new_sphere = ft_calloc(1, sizeof(t_object));
 	if (!new_node || !new_sphere)
 		exit_error(ERROR_MEM, NULL, scene);
 	new_sphere->id = SP;

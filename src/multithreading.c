@@ -1,22 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-<<<<<<<<< Temporary merge branch 1
-/*                                                        ::::::::            */
-/*   multithreading.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 22:52:08 by cariencaljo   ########   odam.nl         */
-=========
 /*                                                        :::      ::::::::   */
 /*   multithreading.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/28 00:08:49 by albertvanan      ###   ########.fr       */
->>>>>>>>> Temporary merge branch 2
+/*   Updated: 2023/09/29 16:03:53 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +41,7 @@ void	*routine(void *params)
 		}
 		y++;
 	}
+	// free(block);
 	// draw_image(scene);
 	return (NULL);
 }
@@ -65,16 +56,15 @@ t_block	set_block(t_scene *scene, int y, int blocksize)
 	return (block);
 }
 
-pthread_t	*create_threads(t_scene *scene, pthread_t *threads)
+pthread_t	*create_threads(t_scene *scene, pthread_t *threads, t_block *blocks)
 {
-	t_block		*blocks;
+	// t_block		*blocks;
 	int			blocksize;
 	int			y;
 	int			i;
 
-	blocks = malloc(THREADS * sizeof(t_block));
-	if (!blocks)
-		exit_error(ERROR_MEM, NULL, scene);
+	// if (!blocks)
+	// 	exit_error(ERROR_MEM, NULL, scene);
 	i = 0;
 	y = 0;
 	blocksize = scene->p_height / THREADS;
@@ -104,6 +94,7 @@ void	join_threads(pthread_t *threads, t_scene *scene)
 			exit_error(ERROR_THREAD, "failed to join thread\n", scene);
 		i++;
 	}
+	// free(threads);
 	// ft_printf("before draw image\n");
 	draw_image(scene); // volgens mij moet deze hier
 	// ft_printf("after draw image\n");

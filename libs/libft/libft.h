@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 11:14:03 by avan-and          #+#    #+#             */
-/*   Updated: 2023/08/07 22:19:36 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/29 15:23:37 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 t_list	*ft_split_to_list(char const *str, char c);
+void	ft_clean_split_arr(char ***arr);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 int		ft_check_string(char *input, int (*check_func)(int c));

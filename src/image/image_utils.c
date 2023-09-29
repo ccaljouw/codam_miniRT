@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/29 14:05:43 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/29 14:53:41 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	getColor(t_px *px, t_scene *scene)
 {
 	t_object	*object;
 	int			color;
-	
+
 	object = (t_object *)px->hitobject;
 	if (!object)
 		return (0 << 24 | 0 << 16 | 0 << 8 | 255);
