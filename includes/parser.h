@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/29 14:05:56 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/29 17:09:11 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct s_scene
 	int				n_height;
 	bool			must_resize;
 	t_object		*selected;
+	t_list			*selected_light;
 }					t_scene;
 
 typedef struct s_block

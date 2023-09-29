@@ -83,7 +83,7 @@ NAME		=	libft.a
 CC		=	cc
 
 #set compiler flags
-CFLAGS	=	-Wall -Werror -Wextra
+CFLAGS	=	-Wall -Werror -Wextra -O3
 
 #set library utility
 AR		=	ar

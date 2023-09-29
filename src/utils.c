@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/29 15:39:30 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/29 16:39:39 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	exit_error(char *error_msg, char *optional_str, t_scene *scene)
 {
 	if (!ft_strcmp("Closing MLX", error_msg))
 	{
-		mlx_delete_image(scene->mlx, scene->image);
-		mlx_terminate(scene->mlx);
 		clean_scene(scene);
 		exit (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/29 14:56:18 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/29 17:32:23 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ void	zoom(mlx_key_data_t keydata, t_scene *scene)
 			scene->selected->diameter--;
 		ft_printf("new diameter:%f\n", scene->selected->diameter); //for debugging
 	}
+	else if(scene->selected_light)
+	{
+		if (keydata.key == ZOOM_IN)
+			((t_light *)(scene->selected_light->content))->brightness += .1;
+		if (keydata.key == ZOOM_OUT)
+			((t_light *)(scene->selected_light->content))->brightness -= .1;
+		ft_printf("new brightness: %f\n", ((t_light *)(scene->selected_light->content))->brightness);
+	}
 	else
 	{
 		if (keydata.key == ZOOM_IN)
@@ -39,9 +47,11 @@ void	zoom(mlx_key_data_t keydata, t_scene *scene)
 void	rotate(mlx_key_data_t keydata, t_scene *scene)
 {
 	t_xyz	*orientation;
-	
+
 	if (scene->selected)
 		orientation = &scene->selected->vNormal;
+	else if (scene->selected_light)
+		orientation = &((t_light *)scene->selected_light->content)->origin;
 	else
 		orientation = &scene->camera->orientation_v;
 	if (keydata.key == MOVE_X_N)
@@ -73,6 +83,32 @@ void	set_resize_flag(int width, int height, void	*param)
 	scene->n_height = height;
 }
 
+void	select_light(t_scene *scene)
+{
+	int		i;
+	t_list	*li;
+
+	
+	if (!scene->selected_light)
+		scene->selected_light = scene->lights;
+	else
+		scene->selected_light = scene->selected_light->next;
+	if (scene->selected_light)
+	{
+		li = scene->lights;
+		i = 1;
+		while (li && li != scene->selected_light)
+		{
+			li = li->next;
+			i++;
+			// ft_printf("%i\n", i);
+		}
+		ft_printf("light %i selected\n", i);
+	}
+	else
+		ft_printf("no light selected\n");
+}
+
 void	key_input(mlx_key_data_t k, void *param)
 {
 	t_scene		*scene;
@@ -88,6 +124,8 @@ void	key_input(mlx_key_data_t k, void *param)
 			|| k.key == MOVE_Y_N || k.key == MOVE_Y_P \
 			|| k.key == MOVE_Z_N || k.key == MOVE_Z_P)
 			rotate(k, scene);
+		if (k.key == MLX_KEY_L)
+			select_light(scene);
 		else
 			return ;
 	}

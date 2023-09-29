@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/29 16:05:13 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/29 17:05:15 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	clean_scene(t_scene *scene)
 	int	y;
 
 	y = 0;
-	ft_printf("cleaning scene\n");
+	mlx_delete_image(scene->mlx, scene->image);
+	mlx_terminate(scene->mlx);
 	free(scene->ambient);
 	free(scene->camera);
 	ft_lstclear(&scene->lights, free);
@@ -80,8 +81,6 @@ void	clean_scene(t_scene *scene)
 		}
 	}
 	free(scene->pixels);
-	free(scene);
-	ft_printf("done cleaning\n");
 }
 
 /**

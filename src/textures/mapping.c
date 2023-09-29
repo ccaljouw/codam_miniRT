@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   mapping.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/28 21:18:25 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   mapping.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/27 21:18:09 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/09/29 16:59:03 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ int	checkerd(t_px px, t_object object)
 	t_xyz		p;
 	int			color;
 
-	p.x = fabs(floor(px.hitpoint.x));
-	p.y = fabs(floor(px.hitpoint.y));
-	p.z = fabs(floor(px.hitpoint.z));
+	p = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
+	p.x = fabs(floor(p.x));
+	p.y = fabs(floor(p.y));
+	p.z = fabs(floor(p.z));
 	p.x = (int)p.x % 2;
 	p.y = (int)p.y % 2;
 	p.z	= (int)p.z % 2;
