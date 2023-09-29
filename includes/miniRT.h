@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/28 00:22:17 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/29 13:57:04 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include <stdio.h> //remove
 
 // fuction pointer for intersection test functions of different objects
-typedef int		t_hit_test(t_px ray, t_object, float *hit_dist);
+typedef int		t_hit_test(t_px *ray, t_object, float *hit_dist);
 typedef int		t_surface_data(t_object obj, t_px *px);
 typedef int		t_get_color(t_object obj, t_px px, mlx_texture_t *text);
 
@@ -51,8 +51,8 @@ void	init_pixels(t_scene *scene);
 // render_ascii.c
 void	renderAscii(t_scene *scene);
 int		get_parabolic_hitpoints(t_xyz abc, float *hp1, float *hp2);
-int		test_sphere(t_px ray, t_object sphere, float *hit_dist);
-int		test_plane(t_px ray, t_object plane, float *hit_dist);
+// int		test_sphere(t_px ray, t_object sphere, float *hit_dist);
+// int		test_plane(t_px ray, t_object plane, float *hit_dist);
 
 // render.c
 void	get_ray(t_px *px, int x, int y, t_scene *s);
@@ -63,13 +63,13 @@ float	ft_clamp(float min, float max, float input);
 void	render_image(t_scene *scene);
 
 // objects
-int		test_sphere(t_px ray, t_object sphere, float *hit_dist);
+int		test_sphere(t_px *ray, t_object sphere, float *hit_dist);
 int		get_sphere_surface_data(t_object sph, t_px *px);
 int		get_color_sphere(t_object object, t_px px, mlx_texture_t *text);
-int		test_plane(t_px ray, t_object plane, float *hit_dist);
+int		test_plane(t_px *ray, t_object plane, float *hit_dist);
 int		get_plane_surface_data(t_object plane, t_px *px);
 int		get_color_plane(t_object object, t_px px, mlx_texture_t *text);
-int		test_cylinder(t_px ray, t_object sphere, float *hit_dist);
+int		test_cylinder(t_px *ray, t_object sphere, float *hit_dist);
 int		get_cylinder_surface_data(t_object cy, t_px *px);
 int		get_color_cylinder(t_object object, t_px px, mlx_texture_t *text);
 

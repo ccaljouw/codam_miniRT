@@ -6,7 +6,7 @@ RESET	:= \033[0m
 
 NAME 		:= miniRT
 CC 			:= cc
-CFLAGS 		:= -Wall -Wextra -Werror
+CFLAGS 		:= -Wall -Wextra -Werror -pthread
 LIBFT	 	:= ./libs/libft
 LIBMLX		:= ./libs/MLX42/build
 LIBS		:= $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a 
@@ -20,7 +20,7 @@ ifeq ($(USER), cariencaljouw)
 else ifeq ($(USER), albertvanandel)
 	LIBFLAGS 	= -lglfw  -framework Cocoa -framework OpenGL -framework IOKit	
 else
-	LIBFLAGS	= -ldl -lglfw -lm -pthread
+	LIBFLAGS	= -ldl -lglfw -lm
 endif
 
 ifeq ($(TEST), 1)
@@ -30,10 +30,10 @@ else
 endif
 
 ifeq ($(UNAME),Darwin)
-	# CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
-	CFLAGS += "-D THREADS=1"
+	CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
+	# CFLAGS += "-D THREADS=1"
 else ifeq ($(UNAME),Linux)
-	CFLAGS += "-D THREADS=$(shell nproc --all)""
+	CFLAGS += "-D THREADS=$(shell nproc --all)"
 endif
 
 MAIN		:= obj/main.o

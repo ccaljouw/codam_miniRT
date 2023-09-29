@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/28 00:23:55 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/29 14:05:04 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ t_scene	*init_scene(char *file)
 	ft_memset(scene, 0, sizeof(t_scene));
 	scene->p_width = IM_WIDTH;
 	scene->p_height = IM_HEIGHT;
-	init_textures(scene);
 	scene->must_resize = false;
+	init_textures(scene);
 	parse_file(file, scene);
 	if (!scene->ambient || !scene->camera)
 		exit_error(ERROR_SCENE, "not all required elements provided", scene);
@@ -139,13 +139,10 @@ int	main(int argc, char **argv)
 		scene->image = mlx_new_image(scene->mlx, scene->p_width, scene->p_height);
 		render_image(scene);
 		image_to_window(scene);
-		
-		// draw_text(scene, NULL);
 		mlx_key_hook(scene->mlx, key_input, scene);
 		mlx_mouse_hook(scene->mlx, select_object, scene);
 		mlx_resize_hook(scene->mlx, set_resize_flag, scene);
 		mlx_loop_hook(scene->mlx, do_resize, scene);
-		// mlx_loop_hook(scene->mlx, resize, scene);
 		mlx_loop(scene->mlx);
 		mlx_delete_image(scene->mlx, scene->image);
 		mlx_terminate(scene->mlx);

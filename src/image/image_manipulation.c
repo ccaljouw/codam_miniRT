@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   image_manipulation.c                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/28 00:09:21 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   image_manipulation.c                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/09/28 22:03:23 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,9 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 	t_xyz	*orientation;
 	
 	if (scene->selected)
-	{
 		orientation = &scene->selected->vNormal;
-		printf("object orientation: ");
-		print_vector(*orientation);
-	}
 	else
-	{
 		orientation = &scene->camera->orientation_v;
-		printf("camera orientation: ");
-		print_vector(*orientation);
-	}
 	if (keydata.key == MOVE_X_N)
 		orientation->x -= 0.2;
 	if (keydata.key == MOVE_X_P)
@@ -64,8 +56,9 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 		orientation->z -= 0.2;
 	if (keydata.key == MOVE_Z_P)
 		orientation->z += 0.2;
-	if (!scene->selected)	
-		cameraGeometry(scene);
+	printf("orientation: ");
+	print_vector(*orientation);
+	cameraGeometry(scene);
 	render_image(scene);
 }
 

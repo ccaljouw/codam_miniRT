@@ -1,12 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
+<<<<<<<<< Temporary merge branch 1
+/*                                                        ::::::::            */
+/*   multithreading.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/27 22:52:08 by cariencaljo   ########   odam.nl         */
+=========
 /*                                                        :::      ::::::::   */
 /*   multithreading.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/28 00:24:52 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/09/28 00:08:49 by albertvanan      ###   ########.fr       */
+>>>>>>>>> Temporary merge branch 2
 /*                                                                            */
 /* ************************************************************************** */
 
