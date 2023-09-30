@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 20:30:24 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 20:55:32 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,26 +59,27 @@ void	get_ray(t_px *px, int x, int y, t_scene *s)
  * 
  * @param px 
  * @param s 
- * @param x 
- * @param y 
+ * @param hp (float *) hp[0] = hit_distance, hp[1] = hit_height
  */
 void	trace_ray(t_px *px, t_scene *s)
 {
-	float				hp_distance;
+	float				hp[2];
 	static t_hit_test	*hit_test[4] = {test_sphere, test_plane, test_cylinder, test_cone};
 	t_list				*objects;
 	t_object			*object;
 
 	objects = s->objects;
+	ft_bzero(hp, sizeof(float) * 2);
 	while (objects)
 	{
 		object = (t_object *)objects->content;
-		if (hit_test[object->id](px, *object, &hp_distance))
+		if (hit_test[object->id](px, *object, hp))
 		{
-			if (!px->hitobject || px->hit_distance > hp_distance)
+			if (!px->hitobject || px->hit_distance > hp[0])
 			{
 				px->hitobject = object;
-				px->hit_distance = hp_distance;
+				px->hit_distance = hp[0];
+				px->hit_height = hp[1];
 			}
 		}
 		objects = objects->next;

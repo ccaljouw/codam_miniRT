@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/30 16:34:56 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 20:42:10 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	get_parabolic_hitpoints(t_xyz abc, float *hp1, float *hp2)
  * @param hit_dist 
  * @return int 
  */
-int	test_sphere(t_px *ray, t_object sphere, float *hit_dist)
+int	test_sphere(t_px *ray, t_object sphere, float *hp_info)
 {
 	float	hit_dist1;
 	float	hit_dist2;
@@ -80,7 +80,7 @@ int	test_sphere(t_px *ray, t_object sphere, float *hit_dist)
 		if (hit_dist1 < 0)
 			return (0);
 	}
-	*hit_dist = hit_dist1;
+	hp_info[0] = hit_dist1;
 	return (1);
 }
 

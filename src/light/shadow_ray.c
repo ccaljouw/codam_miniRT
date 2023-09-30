@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/24 22:58:06 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/09/30 16:22:01 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 20:44:06 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,22 @@
 
 int	trace_shadow(t_px *px, t_scene *s)
 {
-	float				hp_distance;
+	float				hp[2];
 	static t_hit_test	*hit_test[3] = {test_sphere, test_plane, test_cylinder};
 	t_list				*objects;
 	t_object			*object;
 
 	objects = s->objects;
+	ft_bzero(hp, sizeof(float) * 2);
 	while (objects)
 	{
 		object = (t_object *)objects->content;
-		if (hit_test[object->id](px, *object, &hp_distance))
+		if (hit_test[object->id](px, *object, hp))
 		{
-			if (px->hit_distance > hp_distance)
+			if (px->hit_distance > hp[0])
 			{
 				px->hitobject = object;
-				px->hit_distance = hp_distance;
+				px->hit_distance = hp[0];
 				return (1);
 			}
 		}

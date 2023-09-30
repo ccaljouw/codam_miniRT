@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/30 20:25:04 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 20:54:03 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ cone:
 */
 
 t_xyz	get_abc_cyl(t_px *ray, t_xyz orig_to_center, t_object cylinder);
-float	set_hit_height(float *hit_param, float height, t_px *ray);
+int		set_hp_info(float *hit_param, float height, float *hp_info);
 
-int	test_cone(t_px *ray, t_object cone, float *hit_dist)
+int	test_cone(t_px *ray, t_object cone, float *hp_info)
 {
 	t_xyz	orig_to_center;
 	t_xyz	abc;
@@ -49,10 +49,10 @@ int	test_cone(t_px *ray, t_object cone, float *hit_dist)
 		if (hit_param[0] < 0)
 			return (0);
 	}
-	*hit_dist = set_hit_height(hit_param, cone.height, ray);
-	if (*hit_dist)
+	hp_info[0] = set_hp_info(hit_param, cone.height, hp_info);
+	if (hp_info[0])
 	{
-		hit_param[4] = v_magnitude(v_subtract(orig_to_center, v_multiply(cone.vNormal, ray->m))) / ray->m;
+		hit_param[4] = v_magnitude(v_subtract(orig_to_center, v_multiply(cone.vNormal, hp_info[1]))) / hp_info[1];
 		return (1);
 	}
 	return (0);

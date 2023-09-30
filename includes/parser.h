@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 19:41:49 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 20:51:58 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct s_pixel
 	t_xyz		surface_normal;
 	t_xyz		ratios;
 	float		hit_distance;
-	float		m;
+	float		hit_height;
 	float		facing_ratio;
 	int			color;
 }	t_px;

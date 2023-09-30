@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 20:27:27 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 20:53:09 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,22 @@ t_xyz	get_abc_cyl(t_px *ray, t_xyz orig_to_center, t_object cylinder)
 	return (abc);
 }
 
-float	set_hit_height(float *hit_param, float height, t_px *ray)
+int	set_hp_info(float *hit_param, float height, float *hp_info)
 {
 	if ((hit_param[2] < height && hit_param[3] > 0) \
 			|| (hit_param[3] < height && hit_param[2] > 0))
 	{
 		if (hit_param[2] < height && hit_param[2] > 0)
 		{
-			ray->m = hit_param[2];
-			return (hit_param[0]);
+			hp_info[0] = hit_param[0];
+			hp_info[1] = hit_param[2];
+			return (1);
 		}
 		else
 		{
-			ray->m = hit_param[3];	
-			return (hit_param[1]);
+			hp_info[0] = hit_param[1];
+			hp_info[1] = hit_param[3];
+			return (0);
 		}
 	}
 	return (0);
@@ -60,7 +62,7 @@ float	set_hit_height(float *hit_param, float height, t_px *ray)
  * @param m 
  * @return int 
  */
-int	test_cylinder(t_px *ray, t_object cylinder, float *hit_dist)
+int	test_cylinder(t_px *ray, t_object cylinder, float *hp_info)
 {
 	t_xyz	orig_to_center;
 	t_xyz	abc;
@@ -82,10 +84,7 @@ int	test_cylinder(t_px *ray, t_object cylinder, float *hit_dist)
 		if (hit_param[0] < 0)
 			return (0);
 	}
-	*hit_dist = set_hit_height(hit_param, cylinder.height, ray);
-	if (*hit_dist)
-		return (1);
-	return (0);
+	return(set_hp_info(hit_param, cylinder.height, hp_info));
 }
 
 /**
@@ -126,13 +125,13 @@ int	get_color_cylinder(t_object object, t_px px, mlx_texture_t *text)
 	float		u;
 	float		v;
 
-	axis_hp = v_add(object.pOrigin, v_multiply(object.vNormal, px.m));
+	axis_hp = v_add(object.pOrigin, v_multiply(object.vNormal, px.hit_height));
 	unit = v_subtract(px.hitpoint, axis_hp);
 	v_normalizep(&unit);
 	u = atan2(unit.z, unit.x);
-	v = px.m / object.height;
+	v = px.hit_height / object.height;
 	if (object.text == NR_TEXTURES + 1)
-		px.color = checkered(px, u, px.m, 0);
+		px.color = checkered(px, u, px.hit_height, 0);
 	else
 	{		
 		u = ((u + M_PI) / (2 * M_PI));

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 20:30:07 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 20:39:40 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include <stdio.h> //remove
 
 // fuction pointer for intersection test functions of different objects
-typedef int		t_hit_test(t_px *ray, t_object, float *hit_dist);
+typedef int		t_hit_test(t_px *ray, t_object, float *hp_info);
 typedef int		t_surface_data(t_object obj, t_px *px);
 typedef int		t_get_color(t_object obj, t_px px, mlx_texture_t *text);
 
@@ -60,16 +60,16 @@ float	ft_clamp(float min, float max, float input);
 void	render_image(t_scene *scene);
 
 // objects
-int		test_sphere(t_px *ray, t_object sphere, float *hit_dist);
+int		test_sphere(t_px *ray, t_object sphere, float *hp_info);
 int		get_sphere_surface_data(t_object sph, t_px *px);
 int		get_color_sphere(t_object object, t_px px, mlx_texture_t *text);
-int		test_plane(t_px *ray, t_object plane, float *hit_dist);
+int		test_plane(t_px *ray, t_object plane, float *hp_info);
 int		get_plane_surface_data(t_object plane, t_px *px);
 int		get_color_plane(t_object object, t_px px, mlx_texture_t *text);
-int		test_cylinder(t_px *ray, t_object sphere, float *hit_dist);
+int		test_cylinder(t_px *ray, t_object sphere, float *hp_info);
 int		get_cylinder_surface_data(t_object cy, t_px *px);
 int		get_color_cylinder(t_object object, t_px px, mlx_texture_t *text);
-int		test_cone(t_px *ray, t_object cone, float *hit_dist);
+int		test_cone(t_px *ray, t_object cone, float *hp_info);
 int		get_cone_surface_data(t_object co, t_px *px);
 int		get_color_cone(t_object object, t_px px, mlx_texture_t *text);
 

@@ -6,13 +6,13 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 20:30:00 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 20:42:28 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-int	test_plane(t_px *ray, t_object plane, float *hit_dist)
+int	test_plane(t_px *ray, t_object plane, float *hp_info)
 {
 	float	denominator;
 	t_xyz	diff_ray0_plane0;
@@ -21,8 +21,8 @@ int	test_plane(t_px *ray, t_object plane, float *hit_dist)
 	if (fabsf(denominator) > EPSILON)
 	{
 		diff_ray0_plane0 = v_subtract(plane.pOrigin, ray->cam_origin);
-		*hit_dist = v_dot(plane.vNormal, diff_ray0_plane0) / denominator;
-		if (*hit_dist > 0)
+		hp_info[0] = v_dot(plane.vNormal, diff_ray0_plane0) / denominator;
+		if (hp_info[0] > 0)
 			return (1);
 	}
 	return (0);
