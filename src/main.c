@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 16:24:14 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 18:51:17 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,14 @@ void	clean_scene(t_scene *scene)
 	int	y;
 
 	y = 0;
-	mlx_delete_image(scene->mlx, scene->image);
-	mlx_terminate(scene->mlx);
-	free(scene->ambient);
-	free(scene->camera);
+	if (scene->image)
+		mlx_delete_image(scene->mlx, scene->image);
+	if (scene->mlx)
+		mlx_terminate(scene->mlx);
+	if (scene->ambient)
+		free(scene->ambient);
+	if (scene->camera)
+		free(scene->camera);
 	ft_lstclear(&scene->lights, free);
 	ft_lstclear(&scene->objects, free);
 	if (scene->pixels)
@@ -93,11 +97,8 @@ t_scene	*init_scene(char *file)
 	t_scene	*scene;
 
 	scene = ft_calloc(1, sizeof(t_scene));
-	// ft_calloc(1, sizeof(scene));
 	if (!scene)
 		exit_error(ERROR_MEM, NULL, NULL);
-	// ft_memset(scene, 0, sizeof(t_scene));
-	// ft_bzero(scene, sizeof(t_scene));
 	scene->p_width = IM_WIDTH;
 	scene->p_height = IM_HEIGHT;
 	scene->must_resize = false;
@@ -113,7 +114,6 @@ t_scene	*init_scene(char *file)
 void	do_resize(void *param)
 {
 	t_scene 	*scene;
-	// mlx_image_t	*new_image;
 	mlx_image_t	*buf;
 	int			i;
 
@@ -134,7 +134,6 @@ void	do_resize(void *param)
 		}
 		scene->p_width = scene->n_width;
 		scene->p_height = scene->n_height;
-		// mlx_delete_image(scene->mlx, scene->image);
 		buf = scene->image;
 		scene->image = mlx_new_image(scene->mlx, scene->p_width, scene->p_height);
 		init_pixels(scene);

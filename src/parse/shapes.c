@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 16:23:21 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 18:57:57 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	init_cylinder(char **param, t_scene *scene)
 	new_cylinder->id = CY;
 	new_cylinder->pOrigin = set_xyz(param[1], scene);
 	new_cylinder->vNormal = set_xyz(param[2], scene);
-	v_normalizep(&new_cylinder->vNormal);
+	v_normalizep(&new_cylinder->vNormal); 
 	new_cylinder->diameter = to_float(param[3], scene);
 	new_cylinder->height = to_float(param[4], scene);
 	new_cylinder->albedo = ALBEDO;

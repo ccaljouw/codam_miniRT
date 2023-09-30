@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 16:23:16 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 18:48:58 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ float	to_float(char *param, t_scene *scene)
 		neg = -1;
 	while (ft_isdigit(param[j]))
 		i = (i * 10) + (param[j++] - '0');
-	if (param[j] == '.')
+	if (param[j] && param[j] == '.')
 		j++;
 	else if (param[j])
 		exit_error(ERROR_F, NULL, scene);

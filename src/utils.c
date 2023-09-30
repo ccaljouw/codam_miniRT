@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 16:24:40 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 18:50:27 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	exit_error(char *error_msg, char *optional_str, t_scene *scene)
 	else
 		ft_putchar_fd('\n', 2);
 	// (void)scene; //remove
-
 	if (scene)
 		clean_scene(scene);
 	// check and clean mlx and mlx image?
