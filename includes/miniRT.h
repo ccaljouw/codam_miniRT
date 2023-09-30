@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 16:30:49 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 20:30:07 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ int		get_color_plane(t_object object, t_px px, mlx_texture_t *text);
 int		test_cylinder(t_px *ray, t_object sphere, float *hit_dist);
 int		get_cylinder_surface_data(t_object cy, t_px *px);
 int		get_color_cylinder(t_object object, t_px px, mlx_texture_t *text);
+int		test_cone(t_px *ray, t_object cone, float *hit_dist);
+int		get_cone_surface_data(t_object co, t_px *px);
+int		get_color_cone(t_object object, t_px px, mlx_texture_t *text);
 
 // multithreading.c
 pthread_t	*create_threads(t_scene *scene, pthread_t *threads, t_block *blocks);

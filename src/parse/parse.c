@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 18:48:58 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 19:28:46 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,17 +117,17 @@ void	parse_type(char *line, t_scene *scene)
 {
 	int			i;
 	char		**param;
-	static char	*type[8] = {"A", "C", "l", "sp", "pl", "cy", "R"};
-	static t_f	*parse[8] = {init_ambient, init_camera, init_lights, \
+	static char	*type[9] = {"A", "C", "l", "sp", "pl", "cy", "R", "co"};
+	static t_f	*parse[9] = {init_ambient, init_camera, init_lights, \
 							init_sphere, init_plane, init_cylinder, \
-							init_resolution};
+							init_resolution, init_cone};
 
 	i = 0;
 	replace(line, ' ', '\t');
 	param = ft_split(line, '\t');
 	if (!param)
 		exit_error(ERROR_MEM, NULL, scene);
-	while (param[0] && i < 7)
+	while (param[0] && i < 8)
 	{
 		if (!ft_strcmp(type[i], param[0]))
 		{
@@ -137,7 +137,7 @@ void	parse_type(char *line, t_scene *scene)
 		}
 		i++;
 	}
-	if (i == 7)
+	if (i == 8)
 		exit_error(ERROR_SCENE, "incorrect type", scene);
 	ft_clean_split_arr(&param);
 }

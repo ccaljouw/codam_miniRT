@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 16:24:32 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 20:30:24 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	get_ray(t_px *px, int x, int y, t_scene *s)
 void	trace_ray(t_px *px, t_scene *s)
 {
 	float				hp_distance;
-	static t_hit_test	*hit_test[3] = {test_sphere, test_plane, test_cylinder};
+	static t_hit_test	*hit_test[4] = {test_sphere, test_plane, test_cylinder, test_cone};
 	t_list				*objects;
 	t_object			*object;
 
@@ -88,9 +88,9 @@ void	trace_ray(t_px *px, t_scene *s)
 void	get_surface_data(t_px *px)
 {
 	t_object				*object;
-	static t_surface_data	*surface_data[3] = \
+	static t_surface_data	*surface_data[4] = \
 	{get_sphere_surface_data, get_plane_surface_data, \
-	get_cylinder_surface_data};
+	get_cylinder_surface_data, get_cone_surface_data};
 
 	object = (t_object *)px->hitobject;
 	// ft_printf("gsd object add: %p", object);

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 22:55:13 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 19:28:08 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ typedef	enum	e_type
 {
 	SP = 0,
 	PL,
-	CY
+	CY,
+	CO
 }	t_type;
 
 typedef struct s_m44

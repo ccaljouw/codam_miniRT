@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/30 16:48:21 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 19:31:53 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param)
 
 int	getColor(t_px *px, t_scene *scene)
 {
-	static t_get_color	*get_color[3] = {get_color_sphere, get_color_plane, \
-		get_color_cylinder};
+	static t_get_color	*get_color[4] = {get_color_sphere, get_color_plane, \
+		get_color_cylinder , get_color_cone};
 	t_object	*object;
 	int			color;
 

@@ -39,7 +39,7 @@ endif
 MAIN		:= obj/main.o
 OBJ 		:= $(addprefix obj/, utils.o render.o multithreading.o \
 				$(addprefix parse/, parse.o unique.o shapes.o) \
-				$(addprefix objects/, sphere.o plane.o cylinder.o) \
+				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o) \
 				$(addprefix image/, image_manipulation.o image_utils.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o matrix_vector_utils.o) \
 				$(addprefix textures/, mapping.o) \

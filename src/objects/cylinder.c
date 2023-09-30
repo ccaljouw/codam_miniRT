@@ -6,11 +6,46 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 16:33:54 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 20:27:27 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
+
+t_xyz	get_abc_cyl(t_px *ray, t_xyz orig_to_center, t_object cylinder)
+{
+	t_xyz	abc;
+	float	radius;
+
+	radius = cylinder.diameter * 0.5;
+	abc.x = v_dot(ray->direction, ray->direction) \
+			- pow(v_dot(ray->direction, cylinder.vNormal), 2);
+	abc.y = 2 * (v_dot(ray->direction, orig_to_center) \
+			- (v_dot(ray->direction, cylinder.vNormal) \
+			* v_dot(orig_to_center, cylinder.vNormal)));
+	abc.z = v_dot(orig_to_center, orig_to_center) \
+			- pow(v_dot(orig_to_center, cylinder.vNormal), 2) - pow(radius, 2);
+	return (abc);
+}
+
+float	set_hit_height(float *hit_param, float height, t_px *ray)
+{
+	if ((hit_param[2] < height && hit_param[3] > 0) \
+			|| (hit_param[3] < height && hit_param[2] > 0))
+	{
+		if (hit_param[2] < height && hit_param[2] > 0)
+		{
+			ray->m = hit_param[2];
+			return (hit_param[0]);
+		}
+		else
+		{
+			ray->m = hit_param[3];	
+			return (hit_param[1]);
+		}
+	}
+	return (0);
+}
 
 /**
  * @brief Find the two hitpoints on the cylinder (it can be the same point twice). The calculation is 
@@ -29,44 +64,27 @@ int	test_cylinder(t_px *ray, t_object cylinder, float *hit_dist)
 {
 	t_xyz	orig_to_center;
 	t_xyz	abc;
-	float	hit_dist1;
-	float	hit_dist2;
-	float	m1;
-	float	m2;
-	float	radius;
+	float	hit_param[4];
 
-	radius = cylinder.diameter * 0.5;
 	v_normalizep(&cylinder.vNormal);
-	hit_dist1 = 0;
-	hit_dist2 = 0;
+	ft_bzero(hit_param, 4 * sizeof(float));
 	orig_to_center = v_subtract(ray->cam_origin, cylinder.pOrigin);
-	abc.x = v_dot(ray->direction, ray->direction) - pow(v_dot(ray->direction, cylinder.vNormal), 2);
-	abc.y = 2 * (v_dot(ray->direction, orig_to_center) - (v_dot(ray->direction, cylinder.vNormal) * v_dot(orig_to_center, cylinder.vNormal)));
-	abc.z = v_dot(orig_to_center, orig_to_center) - pow(v_dot(orig_to_center, cylinder.vNormal), 2) - pow(radius, 2);
-	if (!get_parabolic_hitpoints(abc, &hit_dist1, &hit_dist2))
+	abc = get_abc_cyl(ray, orig_to_center, cylinder);
+	if (!get_parabolic_hitpoints(abc, &hit_param[0], &hit_param[1]))
 		return (0);
-	m1 = (v_dot(ray->direction, cylinder.vNormal) * hit_dist1) + v_dot(orig_to_center, cylinder.vNormal);
-	m2 = (v_dot(ray->direction, cylinder.vNormal) * hit_dist2) + v_dot(orig_to_center, cylinder.vNormal);
-	if (hit_dist1 < 0)
+	hit_param[2] = (v_dot(ray->direction, cylinder.vNormal) * hit_param[0]) \
+				+ v_dot(orig_to_center, cylinder.vNormal);
+	hit_param[3] = (v_dot(ray->direction, cylinder.vNormal) * hit_param[1]) \
+				+ v_dot(orig_to_center, cylinder.vNormal);
+	if (hit_param[0] < 0)
 	{
-		hit_dist1 = hit_dist2;
-		if (hit_dist1 < 0)
+		hit_param[0] = hit_param[1];
+		if (hit_param[0] < 0)
 			return (0);
 	}
-	if ((m1 < cylinder.height && m2 > 0) || (m2 < cylinder.height && m1 > 0))
-	{
-		if (m1 < cylinder.height && m1 > 0)
-		{
-			*hit_dist = hit_dist1;
-			ray->m_cylinder = m1;
-		}
-		else
-		{
-			*hit_dist = hit_dist2;
-			ray->m_cylinder = m2;	
-		}
+	*hit_dist = set_hit_height(hit_param, cylinder.height, ray);
+	if (*hit_dist)
 		return (1);
-	}
 	return (0);
 }
 
@@ -108,13 +126,13 @@ int	get_color_cylinder(t_object object, t_px px, mlx_texture_t *text)
 	float		u;
 	float		v;
 
-	axis_hp = v_add(object.pOrigin, v_multiply(object.vNormal, px.m_cylinder));
+	axis_hp = v_add(object.pOrigin, v_multiply(object.vNormal, px.m));
 	unit = v_subtract(px.hitpoint, axis_hp);
 	v_normalizep(&unit);
 	u = atan2(unit.z, unit.x);
-	v = px.m_cylinder / object.height;
+	v = px.m / object.height;
 	if (object.text == NR_TEXTURES + 1)
-		px.color = checkered(px, u, px.m_cylinder, 0);
+		px.color = checkered(px, u, px.m, 0);
 	else
 	{		
 		u = ((u + M_PI) / (2 * M_PI));

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/30 16:40:17 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 19:07:18 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,11 @@ void	select_light(t_scene *scene)
 	int		i;
 	t_list	*li;
 
-	
+	if (scene->selected)
+	{
+		scene->selected = NULL;
+		render_image(scene);
+	}
 	if (!scene->selected_light)
 		scene->selected_light = scene->lights;
 	else

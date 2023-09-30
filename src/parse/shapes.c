@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 18:57:57 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 19:29:48 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,41 @@ void	init_cylinder(char **param, t_scene *scene)
 	new_cylinder->text = set_texture(param[5], scene);
 	set_rgb(param[6], new_cylinder->rgb, scene);
 	new_node->content = (void *)new_cylinder;
+	ft_lstadd_back(&scene->objects, new_node);
+	ft_putstr_fd("\033[34;1mCylinder config:\t  \033[0m", 1);
+}
+
+/**
+ * @brief Initialises a cylinder in the scene.
+ * 
+ * @param param (char **) tab separated string input.
+ * @param scene (t_scene) passed to clean up when input is invallid.
+ */
+void	init_cone(char **param, t_scene *scene)
+{
+	t_list		*new_node;
+	t_object	*new_cone;
+	int			i;
+
+	i = 0;
+	while (param[i])
+		i++;
+	if (i != 7)
+		exit_error(ERROR_CYLINDER, "incorrect number of arguments", scene);
+	new_node = ft_lstnew(NULL);
+	new_cone = ft_calloc(1, sizeof(t_object));
+	if (!new_node || !new_cone)
+		exit_error(ERROR_MEM, NULL, scene);
+	new_cone->id = CY;
+	new_cone->pOrigin = set_xyz(param[1], scene);
+	new_cone->vNormal = set_xyz(param[2], scene);
+	v_normalizep(&new_cone->vNormal); 
+	new_cone->diameter = to_float(param[3], scene);
+	new_cone->height = to_float(param[4], scene);
+	new_cone->albedo = ALBEDO;
+	new_cone->text = set_texture(param[5], scene);
+	set_rgb(param[6], new_cone->rgb, scene);
+	new_node->content = (void *)new_cone;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mCylinder config:\t  \033[0m", 1);
 }
