@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/28 22:08:19 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 15:34:40 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,14 @@ int	get_color_cylinder(t_object object, t_px px, mlx_texture_t *text)
 	v_normalizep(&unit);
 	u = atan2(unit.z, unit.x);
 	v = px.m_cylinder / object.height;
-	u = 1 - ((u + M_PI) / (2 * M_PI));
-	v = 1 - ((v + 1) * 0.5);
-	px.color = get_text_pxcolor(text, u, v);
+	if (object.text == NR_TEXTURES + 1)
+		px.color = checkered(px, u, px.m_cylinder, 0);
+	else
+	{		
+		u = 1 - ((u + M_PI) / (2 * M_PI));
+		v = 1 - ((v + 1) * 0.5);
+		px.color = get_text_pxcolor(text, u, v);
+	}
 	return (px.color);
 }
 

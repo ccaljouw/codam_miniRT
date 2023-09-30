@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   plane.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 11:14:41 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/29 16:51:20 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   plane.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/30 15:41:36 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,17 @@ int	get_color_plane(t_object object, t_px px, mlx_texture_t *text)
 	v_normalizep(&unit);
 	u = unit.x;
 	v = unit.y;
-	u = ((u + 1.0) * 0.5);
-	v = ((v + 1.0) * 0.5);
-	px.color = get_text_pxcolor(text, u, v);
+	if (object.text == NR_TEXTURES + 1)
+	{
+		unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
+		px.color = checkered(px, unit.x, unit.y, unit.z);
+	}
+	else
+	{		
+		u = ((u + 1.0) * 0.5);
+		v = ((v + 1.0) * 0.5);
+		px.color = get_text_pxcolor(text, u, v);
+	}
 	return (px.color);
 }
 
