@@ -6,11 +6,11 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 15:34:40 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 16:23:00 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include <miniRT.h>
 
 /**
  * @brief Find the two hitpoints on the cylinder (it can be the same point twice). The calculation is 
@@ -108,7 +108,7 @@ int	get_color_cylinder(t_object object, t_px px, mlx_texture_t *text)
 	float		u;
 	float		v;
 
-	axis_hp = v_add(object.pOrigin, v_multiply(v_normalize(object.vNormal), px.m_cylinder));
+	axis_hp = v_add(object.pOrigin, v_multiply(object.vNormal, px.m_cylinder));
 	unit = v_subtract(px.hitpoint, axis_hp);
 	v_normalizep(&unit);
 	u = atan2(unit.z, unit.x);

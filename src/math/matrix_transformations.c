@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   matrix_transformations.c                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 13:28:29 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/17 18:06:26 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   matrix_transformations.c                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/02/15 13:28:29 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/09/30 16:22:16 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "fdf.h"
-#include "matrix.h"
+#include <miniRT.h>
 
 static t_m44	m44_rotate_axis(float angle, char axis);
 

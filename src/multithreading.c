@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   multithreading.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 14:21:20 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/29 16:03:53 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   multithreading.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/30 16:24:22 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include <miniRT.h>
 #include <pthread.h>  //check with Nicolas it is ok to use this
 
 void	*routine(void *params)

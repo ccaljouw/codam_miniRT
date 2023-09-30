@@ -6,13 +6,12 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/30 15:43:01 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 16:24:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include <miniRT.h>
 
-// int	checkerd(t_px px, t_object object)
 int	checkered(t_px px, float x, float y, float z)
 {
 	int			color;

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   matrix_inverse_utils.c                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 23:46:37 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/17 00:01:06 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   matrix_inverse_utils.c                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/16 23:46:37 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/09/30 16:22:06 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "matrix.h"
+#include <miniRT.h>
 
 void	swap_floats(float *a, float *b)
 {

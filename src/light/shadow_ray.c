@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   shadow_ray.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 22:58:06 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/29 16:42:02 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   shadow_ray.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/24 22:58:06 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/09/30 16:22:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include <miniRT.h>
 
 int	trace_shadow(t_px *px, t_scene *s)
 {

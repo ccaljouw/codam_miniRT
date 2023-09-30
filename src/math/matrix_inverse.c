@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   matrix_inverse.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 17:09:52 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/17 00:00:50 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   matrix_inverse.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/02/13 17:09:52 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/09/30 16:22:09 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "matrix.h"
+#include <miniRT.h>
 
 static int	set_pivot_to_nonzero(int col, t_m44 *matrix, t_m44 *inverse);
 static void	reduce_under_diagonal(t_m44 *matrix, t_m44 *inverse);

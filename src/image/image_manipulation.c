@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   image_manipulation.c                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/09/29 17:32:23 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   image_manipulation.c                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/09/30 16:21:50 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include <miniRT.h>
 
 void	zoom(mlx_key_data_t keydata, t_scene *scene)
 {
@@ -66,6 +66,7 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 		orientation->z -= 0.2;
 	if (keydata.key == MOVE_Z_P)
 		orientation->z += 0.2;
+	v_normalizep(orientation);
 	printf("orientation: ");
 	print_vector(*orientation);
 	cameraGeometry(scene);

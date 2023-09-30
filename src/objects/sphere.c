@@ -6,11 +6,11 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/30 15:41:42 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 16:23:09 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include <miniRT.h>
 
 /**
  * @brief	Back to those old quadratic math lessons!
@@ -114,10 +114,6 @@ int	get_color_sphere(t_object object, t_px px, mlx_texture_t *text)
 	float		u;
 	float		v;
 
-	unit = v_subtract(px.hitpoint, object.pOrigin);
-	v_normalizep(&unit);
-	u = atan2((pow(unit.y, 2) + pow(unit.z, 2)), unit.x);
-	v = atan2(unit.z, unit.y);
 	if (object.text == NR_TEXTURES + 1)
 	{
 		unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
@@ -125,6 +121,10 @@ int	get_color_sphere(t_object object, t_px px, mlx_texture_t *text)
 	}
 	else
 	{		
+		unit = v_subtract(px.hitpoint, object.pOrigin);
+		v_normalizep(&unit);
+		u = atan2((pow(unit.y, 2) + pow(unit.z, 2)), unit.x);
+		v = atan2(unit.z, unit.y);
 		u = 1 - ((u + M_PI) / (2 * M_PI));
 		v = 1 - ((v + M_PI) / (2 * M_PI));
 		px.color = get_text_pxcolor(text, u, v);

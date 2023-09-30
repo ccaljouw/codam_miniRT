@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   unique.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/09/29 15:42:37 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   unique.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/09/30 16:23:52 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include <miniRT.h>
 
 void	cameraGeometry(t_scene *scene)
 {
@@ -93,42 +93,6 @@ void	init_ambient(char **param, t_scene *scene)
 	scene->ambient = ambient;
 	ft_putstr_fd("\033[34;1mAmbient lighting config: \033[0m", 1);
 }
-
-/**
- * @brief Initialises the light in the scene.
- * Only one object of this type can be present in the scene.
- * @param param (char **) tab separated string input.
- * @param scene (t_scene) passed to clean up when input is invallid.
- */
-// void	init_light(char **param, t_scene *s)
-// {
-// 	int	i;
-
-// 	if (s->light)
-// 		exit_error(ERROR_SCENE, "redefinition of light", s);
-// 	i = 0;
-// 	while (param[i])
-// 		i++;
-// 	if (i != 4)
-// 		exit_error(ERROR_LIGHT, "incorrect number of arguments", s);
-// 	s->light = malloc(sizeof(t_light));
-// 	if (!s->light)
-// 		exit_error(ERROR_MEM, NULL, s);
-// 	s->light->light_point = set_xyz(param[1], s);
-// 	s->light->brightness = to_float(param[2], s);
-// 	if (s->light->brightness < 0.0 || s->light->brightness > 1.0)
-// 		exit_error(ERROR_LIGHT, "Incorrect brightness values [0.0, 1.0]", s);
-// 	set_rgb(param[3], s->light->rgb, s);
-// 	s->light->l2w = m44_init();
-// 	m44_translate_by_vector(&s->light->l2w, s->light->light_point);
-// 	m44_multiply_vec3(s->light->l2w, v_create(0, 0, 0), &s->light->origin);
-// 	s->light->rgb_ratios = v_create(s->light->rgb[0] / (float)255, \
-// 									s->light->rgb[1] / (float)255, \
-// 									s->light->rgb[2] / (float)255);
-// 	print_vector(s->light->light_point);
-// 	print_vector(s->light->origin);
-// 	ft_putstr_fd("\033[34;1mLight config:\t\t  \033[0m", 1);
-// }
 
 void	init_resolution(char **param, t_scene *s)
 {

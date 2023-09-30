@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   matrix_vector_utils.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/17 15:35:38 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/24 22:07:47 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   matrix_vector_utils.c                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/17 15:35:38 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/09/30 16:22:44 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "matrix.h"
-#include "vector.h"
+#include <matrix.h>
+#include <vector.h>
 
 /**
  * @brief	Multiply a dimension vector by a 4x4 matrix

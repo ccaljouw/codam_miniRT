@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   matrix_utils.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 16:32:58 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/17 18:06:33 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   matrix_utils.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/02/12 16:32:58 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/09/30 16:22:25 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "matrix.h"
+#include <miniRT.h>
 
 /**
  * @brief	Initialize a 4x4 matrix as identity matrix

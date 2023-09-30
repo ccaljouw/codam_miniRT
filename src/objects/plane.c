@@ -6,11 +6,11 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 15:41:36 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 16:21:28 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include <miniRT.h>
 
 int	test_plane(t_px *ray, t_object plane, float *hit_dist)
 {
@@ -48,12 +48,6 @@ int	get_color_plane(t_object object, t_px px, mlx_texture_t *text)
 	float		u;
 	float		v;
 
-	(void)object;
-	(void)text;
-	unit = v_subtract(px.hitpoint, px.cam_origin);
-	v_normalizep(&unit);
-	u = unit.x;
-	v = unit.y;
 	if (object.text == NR_TEXTURES + 1)
 	{
 		unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
@@ -61,8 +55,12 @@ int	get_color_plane(t_object object, t_px px, mlx_texture_t *text)
 	}
 	else
 	{		
+		unit = v_subtract(px.hitpoint, px.cam_origin);
+		v_normalizep(&unit);
+		u = unit.x;
+		v = unit.y;
 		u = ((u + 1.0) * 0.5);
-		v = ((v + 1.0) * 0.5);
+		v = 1 - ((v + 1.0) * 0.5);
 		px.color = get_text_pxcolor(text, u, v);
 	}
 	return (px.color);

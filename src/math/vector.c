@@ -6,11 +6,11 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:31:28 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/27 22:51:14 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 16:22:50 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include <miniRT.h>
 
 /**
  * @brief Creates new vector (t_xyz) with input values x, y, and z

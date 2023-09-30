@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   matrix.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/15 22:32:55 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/09/24 22:08:03 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   matrix.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/15 22:32:55 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/09/30 16:26:04 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 
 # include <stdlib.h>
 # include <math.h>
-# include "types.h"
-# include "libft.h"
-# include "vector.h"
-# include "../../libs/libft/libft.h"
-# include "../../includes/miniRT.h"
+# include <types.h>
+# include <libft.h>
+# include <vector.h>
+# include <miniRT.h>
 
 // MATRIX UTILS
 

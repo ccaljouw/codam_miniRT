@@ -6,11 +6,11 @@ RESET	:= \033[0m
 
 NAME 		:= miniRT
 CC 			:= cc
-CFLAGS 		:= -Wall -Wextra -Werror -O3 #-pthread -g -fsanitize=address
+CFLAGS 		:= -Wall -Wextra -Werror -O3 -pthread #-g -fsanitize=address
 LIBFT	 	:= ./libs/libft
 LIBMLX		:= ./libs/MLX42/build
 LIBS		:= $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a 
-HEADERS		:= -I $(LIBFT)  -I $(LIBMLX) -I includes/ -I ./libs/MLX42/include
+HEADERS		:= -I $(LIBFT)  -I $(LIBMLX) -I includes/ -I ./libs/MLX42/include/MLX42
 TEST		?= 0;
 
 UNAME		:= $(shell uname)
@@ -50,7 +50,7 @@ TEST_OBJ	:= #$(addprefix testing/obj/, utils.o)
 all: $(NAME)
 
 $(NAME): $(MAIN) $(OBJ) $(TEST_OBJ) $(LIBS) 
-	@$(CC) $(CFLAGS) $^ -o $@  $(LIBFLAGS) $(LIBS) 
+	@$(CC) $(CFLAGS) $^ -o $@  $(LIBFLAGS)
 	@echo "$(GREEN)$(BOLD)miniRT made$(RESET)"
 
 bonus: $(MAIN) $(OBJ) $(LIBS)
