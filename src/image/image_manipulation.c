@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/30 16:21:50 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 16:40:17 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 	if (keydata.key == MOVE_Z_P)
 		orientation->z += 0.2;
 	v_normalizep(orientation);
-	printf("orientation: ");
-	print_vector(*orientation);
 	cameraGeometry(scene);
 	render_image(scene);
+	printf("orientation: ");
+	print_vector(*orientation);
 }
 
 void	set_resize_flag(int width, int height, void	*param)
