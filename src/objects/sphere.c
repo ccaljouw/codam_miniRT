@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/30 20:42:10 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 19:32:30 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int	get_color_sphere(t_object object, t_px px, mlx_texture_t *text)
 		u = atan2((pow(unit.y, 2) + pow(unit.z, 2)), unit.x);
 		v = atan2(unit.z, unit.y);
 		u = 1 - ((u + M_PI) / (2 * M_PI));
-		v = 1 - ((v + M_PI) / (2 * M_PI));
+		v = (v + M_PI) / (2 * M_PI);
 		px.color = get_text_pxcolor(text, u, v);
 	}
 	return (px.color);

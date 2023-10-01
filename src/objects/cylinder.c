@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/01 18:47:27 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 19:30:10 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,4 +138,5 @@ int	get_color_cylinder(t_object object, t_px px, mlx_texture_t *text)
 	}
 	return (px.color);
 }
+
 
