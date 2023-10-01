@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/24 22:58:06 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/09/30 20:44:06 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 22:28:39 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	trace_shadow(t_px *px, t_scene *s)
 {
 	float				hp[2];
-	static t_hit_test	*hit_test[3] = {test_sphere, test_plane, test_cylinder};
+	static t_hit_test	*hit_test[4] = {test_sphere, test_plane, test_cylinder, test_cone};
 	t_list				*objects;
 	t_object			*object;
 

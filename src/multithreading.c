@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 16:24:22 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 11:34:37 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	*routine(void *params)
 	int		y;
 	t_scene	*scene;
 	t_block	*block;
-	t_px	*px;
 
 	block = (t_block *)params;
 	scene = block->scene;
@@ -29,13 +28,12 @@ void	*routine(void *params)
 		x = 0;
 		while (x < scene->p_width)
 		{
-			px = scene->pixels[y] + x;
 			get_ray(scene->pixels[y] + x, x, y, scene);
 			trace_ray(scene->pixels[y] + x, scene);
 			if ((scene->pixels[y] + x)->hitobject != NULL)
 			{
 				get_surface_data(scene->pixels[y] + x);
-				loop_lights(scene, px);
+				loop_lights(scene, scene->pixels[y] + x);
 			}
 			x++;
 		}

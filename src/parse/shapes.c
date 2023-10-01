@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 21:32:16 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/09/30 22:04:51 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	init_cone(char **param, t_scene *scene)
 	new_cone = ft_calloc(1, sizeof(t_object));
 	if (!new_node || !new_cone)
 		exit_error(ERROR_MEM, NULL, scene);
-	new_cone->id = CY;
+	new_cone->id = CO;
 	new_cone->pOrigin = set_xyz(param[1], scene);
 	new_cone->vNormal = set_xyz(param[2], scene);
 	v_normalizep(&new_cone->vNormal); 
@@ -122,7 +122,7 @@ void	init_cone(char **param, t_scene *scene)
 	set_rgb(param[6], new_cone->rgb, scene);
 	new_node->content = (void *)new_cone;
 	ft_lstadd_back(&scene->objects, new_node);
-	ft_putstr_fd("\033[34;1mCylinder config:\t  \033[0m", 1);
+	ft_putstr_fd("\033[34;1mCone config:\t\t  \033[0m", 1);
 }
 
 /**

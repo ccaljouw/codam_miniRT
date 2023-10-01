@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 20:53:09 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 13:47:23 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ int	set_hp_info(float *hit_param, float height, float *hp_info)
 		{
 			hp_info[0] = hit_param[1];
 			hp_info[1] = hit_param[3];
-			return (0);
+			return (1);
 		}
 	}
+	hp_info[0] = 0;
 	return (0);
 }
 

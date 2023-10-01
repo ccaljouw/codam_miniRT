@@ -6,82 +6,75 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/30 21:30:57 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 13:47:28 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <miniRT.h>
 
-t_xyz	get_abc_cone(t_px *ray, t_xyz orig_to_center, t_object cone, float *hp_info)
+int		set_hp_info(float *hit_param, float height, float *hp_info);
+
+t_xyz	get_abc_cone(t_px *ray, t_object cone)
 {
 	t_xyz	abc;
-	float	half_angle_corr;
-	float	radius;
+	t_xyz	D;
+	t_xyz	X;
+	t_xyz	V;
+	float	angle;
+	float	half_angle;
+	float	hypotenuse;
 
-	/*
-	a   = D|D - (1+k*k)*(D|V)^2
-	b/2 = D|X - (1+k*k)*(D|V)*(X|V)
-	c   = X|X - (1+k*k)*(X|V)^2
-	*/
-	half_angle_corr = 1 + hp_info[1] * hp_info[1];
-	radius = cone.diameter * 0.5;
-	abc.x = v_dot(ray->direction, ray->direction) \
-			- (half_angle_corr \
-			* pow(v_dot(ray->direction, cone.vNormal), 2));
-	abc.y = 2 * (v_dot(ray->direction, orig_to_center) \
-			- (half_angle_corr  \
-			* (v_dot(ray->direction, cone.vNormal)) \
-			* v_dot(orig_to_center, cone.vNormal)));
-	abc.z = v_dot(orig_to_center, orig_to_center) \
-			- (half_angle_corr \
-			* pow(v_dot(orig_to_center, cone.vNormal), 2) - pow(radius, 2));
+	hypotenuse = sqrt(pow(cone.diameter * 0.5, 2) + pow(cone.height * 0.5, 2));
+	angle = acos((cone.height * 0.5) / hypotenuse);
+	half_angle = 1 + ((angle * angle) * 0.5);
+	D = ray->direction;
+	X = v_subtract(ray->cam_origin, cone.pOrigin);
+	V = v_normalize(cone.vNormal);
+	abc.x = v_dot(D, D) - (half_angle * pow(v_dot(D, V), 2));
+	abc.y = 2 * (v_dot(D, X) - (half_angle  * v_dot(D, V) * v_dot(X, V)));
+	abc.z = v_dot(X, X) - ((half_angle * pow(v_dot(X, V), 2)));
 	return (abc);
 }
 
 int	test_cone(t_px *ray, t_object cone, float *hp_info)
 {
-	t_xyz	orig_to_center;
 	t_xyz	abc;
-	float	hit_param[5];
+	t_xyz	orig_to_center;
+	float	hit_param[4];
 
-	test_cylinder(ray, cone, hp_info);
-	if (hp_info[0])
+	ft_bzero(hit_param, 4 * sizeof(float));
+	orig_to_center = v_subtract(ray->cam_origin, cone.pOrigin);
+	abc = get_abc_cone(ray, cone);
+	if (!get_parabolic_hitpoints(abc, &hit_param[0], &hit_param[1]))
+		return (0);
+	hit_param[2] = (v_dot(ray->direction, cone.vNormal) * hit_param[0]) \
+				+ v_dot(orig_to_center, cone.vNormal);
+	hit_param[3] = (v_dot(ray->direction, cone.vNormal) * hit_param[1]) \
+				+ v_dot(orig_to_center, cone.vNormal);
+	if (hit_param[0] < 0)
 	{
-		orig_to_center = v_subtract(ray->cam_origin, cone.pOrigin);
-		hit_param[4] = v_magnitude(v_subtract(orig_to_center, v_multiply(cone.vNormal, hp_info[1]))) / hp_info[1];
-		abc = get_abc_cone(ray, orig_to_center, cone, hp_info);
-		if (!get_parabolic_hitpoints(abc, &hit_param[0], &hit_param[1]))
-			return (0);
+		hit_param[0] = hit_param[1];
 		if (hit_param[0] < 0)
-		{
-			hit_param[0] = hit_param[1];
-			if (hit_param[0] < 0)
-				return (0);
-		}
-		return (1);
+			return (0);
 	}
-	return (0);
+	return(set_hp_info(hit_param, cone.height, hp_info));
 }
 
 int	get_cone_surface_data(t_object co, t_px *px)
 {
-	t_xyz		v;
-	t_xyz		top;
+	t_xyz		hit_to_center;
+	float		a;
+	float		angle;
+	float		hypotenuse;
 
-
+	hypotenuse = sqrt(pow(co.diameter * 0.5, 2) + pow(co.height * 0.5, 2));
+	angle = acos((co.height * 0.5) / hypotenuse);
+	a = px->hit_height * ((angle * angle) * 0.5);
 	px->hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
-	top = v_add(px->hitpoint, v_multiply(co.vNormal, co.height));
-	if (v_magnitude(v_subtract(px->hitpoint, top)) < (co.diameter * 0.5))
-		px->surface_normal = co.vNormal;
-	if (v_magnitude(v_subtract(px->hitpoint, co.pOrigin)) < (co.diameter * 0.5))
-		px->surface_normal = v_multiply(co.vNormal, -1);
-	else
-	{
-		v = v_subtract(co.pOrigin, px->hitpoint);
-		px->surface_normal = v_cross(v, co.vNormal);
-		px->surface_normal = v_cross(px->surface_normal, co.vNormal);
-		v_normalizep(&px->surface_normal);
-	}
+	hit_to_center = v_subtract(px->hitpoint, co.pOrigin);
+	px->surface_normal = v_subtract(hit_to_center, v_multiply(co.vNormal, px->hit_height));
+	px->surface_normal = v_subtract(px->surface_normal, v_multiply(co.vNormal, a));
+	v_normalizep(&px->surface_normal);
 	px->facing_ratio = fabsf(v_dot(px->surface_normal, px->direction));
 	return (px->color);
 }
