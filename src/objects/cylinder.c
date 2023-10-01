@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/01 13:47:23 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 18:20:58 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	test_cylinder(t_px *ray, t_object cylinder, float *hp_info)
 	t_xyz	abc;
 	float	hit_param[4];
 
-	v_normalizep(&cylinder.vNormal);
 	ft_bzero(hit_param, 4 * sizeof(float));
 	orig_to_center = v_subtract(ray->cam_origin, cylinder.pOrigin);
 	abc = get_abc_cyl(ray, orig_to_center, cylinder);
@@ -106,7 +105,7 @@ int	get_cylinder_surface_data(t_object cy, t_px *px)
 	top = v_add(px->hitpoint, v_multiply(cy.vNormal, cy.height));
 	if (v_magnitude(v_subtract(px->hitpoint, top)) < (cy.diameter * 0.5))
 		px->surface_normal = cy.vNormal;
-	if (v_magnitude(v_subtract(px->hitpoint, cy.pOrigin)) < (cy.diameter * 0.5))
+	else if (v_magnitude(v_subtract(px->hitpoint, cy.pOrigin)) < (cy.diameter * 0.5))
 		px->surface_normal = v_multiply(cy.vNormal, -1);
 	else
 	{
@@ -128,7 +127,6 @@ int	get_color_cylinder(t_object object, t_px px, mlx_texture_t *text)
 
 	axis_hp = v_add(object.pOrigin, v_multiply(object.vNormal, px.hit_height));
 	unit = v_subtract(px.hitpoint, axis_hp);
-	v_normalizep(&unit);
 	u = atan2(unit.z, unit.x);
 	v = px.hit_height / object.height;
 	if (object.text == NR_TEXTURES + 1)

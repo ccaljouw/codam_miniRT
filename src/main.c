@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/01 13:05:41 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 18:09:05 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	init_pixels(t_scene *scene)
 
 void	init_textures(t_scene *scene)
 {
-	scene->textures = malloc(NR_TEXTURES * sizeof(mlx_texture_t));
+	scene->textures = ft_calloc(NR_TEXTURES, sizeof(mlx_texture_t *));
 	if (!scene->textures)
 		exit_error(ERROR_MEM, NULL ,scene);
 	scene->textures[0] = mlx_load_png("src/textures/checker.png");

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/01 11:35:26 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 14:18:32 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void	trace_ray(t_px *px, t_scene *s)
 	t_object			*object;
 
 	objects = s->objects;
-	ft_bzero(hp, sizeof(float) * 2);
 	while (objects)
 	{
+		ft_bzero(hp, sizeof(float) * 2);
 		object = (t_object *)objects->content;
 		if (hit_test[object->id](px, *object, hp))
 		{

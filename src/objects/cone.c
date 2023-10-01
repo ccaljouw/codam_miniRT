@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/01 13:58:43 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 18:18:21 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	get_color_cone(t_object object, t_px px, mlx_texture_t *text)
 
 	axis_hp = v_add(object.pOrigin, v_multiply(object.vNormal, px.hit_height));
 	unit = v_subtract(px.hitpoint, axis_hp);
-	v_normalizep(&unit);
 	u = atan2(unit.z, unit.x);
 	v = px.hit_height / object.height;
 	if (object.text == NR_TEXTURES + 1)
