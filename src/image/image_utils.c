@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/01 19:29:56 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 19:35:46 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	get_text_pxcolor(mlx_texture_t *text, float x, float y)
 
 	text_x = (int)floorf(x * text->width);
 	text_y = (int)floorf(y * text->height);
-	text_y = text->height - text_y;
 	if (text_y == 0 && text_x == 0)
 		px = 0;
 	else
