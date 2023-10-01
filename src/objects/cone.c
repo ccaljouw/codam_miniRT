@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/01 13:47:28 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 13:58:43 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_xyz	get_abc_cone(t_px *ray, t_object cone)
 
 	hypotenuse = sqrt(pow(cone.diameter * 0.5, 2) + pow(cone.height * 0.5, 2));
 	angle = acos((cone.height * 0.5) / hypotenuse);
-	half_angle = 1 + ((angle * angle) * 0.5);
+	half_angle = 1 + (angle  * 0.5) * (angle  * 0.5);
 	D = ray->direction;
 	X = v_subtract(ray->cam_origin, cone.pOrigin);
 	V = v_normalize(cone.vNormal);
@@ -69,7 +69,7 @@ int	get_cone_surface_data(t_object co, t_px *px)
 
 	hypotenuse = sqrt(pow(co.diameter * 0.5, 2) + pow(co.height * 0.5, 2));
 	angle = acos((co.height * 0.5) / hypotenuse);
-	a = px->hit_height * ((angle * angle) * 0.5);
+	a = px->hit_height * (angle  * 0.5) * (angle  * 0.5);
 	px->hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
 	hit_to_center = v_subtract(px->hitpoint, co.pOrigin);
 	px->surface_normal = v_subtract(hit_to_center, v_multiply(co.vNormal, px->hit_height));
