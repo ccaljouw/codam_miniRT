@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/01 18:23:30 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 18:38:38 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	draw_image(t_scene *scene)
 		while (x < scene->p_width)
 		{
 			mlx_put_pixel(scene->image, x, y, getColor(&scene->pixels[y][x], scene));
-			// mlx_put_pixel(scene->image, x, y, 0xFFFFFFFF);
 			x++;
 		}
 		y++;

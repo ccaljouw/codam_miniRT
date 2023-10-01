@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/01 18:20:58 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 18:47:27 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ int	get_color_cylinder(t_object object, t_px px, mlx_texture_t *text)
 	else
 	{		
 		u = ((u + M_PI) / (2 * M_PI));
-		v = 1 - ((v + 1) * 0.5);
 		px.color = get_text_pxcolor(text, u, v);
 	}
 	return (px.color);

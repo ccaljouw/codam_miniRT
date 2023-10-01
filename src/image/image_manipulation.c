@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/01 18:16:57 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 18:43:33 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,17 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 	else
 		orientation = &scene->camera->orientation_v;
 	if (keydata.key == MOVE_X_N)
-		orientation->x -= 0.2;
+		orientation->x -= 0.1;
 	if (keydata.key == MOVE_X_P)
-		orientation->x += 0.2;
+		orientation->x += 0.1;
 	if (keydata.key == MOVE_Y_N)
-		orientation->y -= 0.2;
+		orientation->y -= 0.1;
 	if (keydata.key == MOVE_Y_P)
-		orientation->y += 0.2;
+		orientation->y += 0.1;
 	if (keydata.key == MOVE_Z_N)
-		orientation->z -= 0.2;
+		orientation->z -= 0.1;
 	if (keydata.key == MOVE_Z_P)
-		orientation->z += 0.2;
+		orientation->z += 0.1;
 	v_normalizep(orientation);
 	cameraGeometry(scene);
 	render_image(scene);
@@ -79,7 +79,6 @@ void	set_resize_flag(int width, int height, void	*param)
 
 	scene = (t_scene *)param;
 	scene->must_resize = 1;
-	// mlx_resize_image(scene->image, width, height);
 	scene->n_width = width;
 	scene->n_height = height;
 }
@@ -106,7 +105,6 @@ void	select_light(t_scene *scene)
 		{
 			li = li->next;
 			i++;
-			// ft_printf("%i\n", i);
 		}
 		ft_printf("light %i selected\n", i);
 	}

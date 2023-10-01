@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/01 18:18:21 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/01 18:47:23 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	get_color_cone(t_object object, t_px px, mlx_texture_t *text)
 	else
 	{		
 		u = ((u + M_PI) / (2 * M_PI));
-		v = 1 - ((v + 1) * 0.5);
 		px.color = get_text_pxcolor(text, u, v);
 	}
 	return (px.color);
