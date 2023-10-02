@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/01 19:36:21 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 09:43:46 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,18 +108,13 @@ int	get_sphere_surface_data(t_object sph, t_px *px)
 	return (px->color);
 }
 
-int	get_color_sphere(t_object object, t_px px, mlx_texture_t *text)
+int	get_color_sphere(t_object object, t_px px)
 {
 	t_xyz		unit;
 	float		u;
 	float		v;
 
-	if (object.text == NR_TEXTURES + 1)
-	{
-		unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
-		px.color = checkered(px, unit.x, unit.y, unit.z);
-	}
-	else
+	if (object.text)
 	{		
 		unit = v_subtract(px.hitpoint, object.pOrigin);
 		v_normalizep(&unit);
@@ -127,7 +122,12 @@ int	get_color_sphere(t_object object, t_px px, mlx_texture_t *text)
 		v = atan2(unit.z, unit.y);
 		u = 1 - ((u + M_PI) / (2 * M_PI));
 		v = 1 - (v + M_PI) / (2 * M_PI);
-		px.color = get_text_pxcolor(text, u, v);
+		px.color = get_text_pxcolor(object.text, u, v);
+	}
+	if (object.text_proc == 1)
+	{
+		unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
+		px.color = checkered(px, unit.x, unit.y, unit.z);
 	}
 	return (px.color);
 }

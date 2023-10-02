@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 20:51:58 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 09:14:41 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ typedef struct s_object
 	t_xyz			pOrigin;
 	float			diameter;
 	float			height;
-	int				text;
+	mlx_texture_t	*text;
+	int				text_proc;
 	int				rgb[3];
 	t_xyz			vNormal;
 	float			albedo;
@@ -132,19 +133,20 @@ typedef struct s_block
 
 typedef void	t_f(char **param, t_scene *scene);
 
-void	parse_file(char *file, t_scene *scene);
-void	parse_type(char *line, t_scene *scene);
-t_xyz	set_xyz(char *param, t_scene *scene);
-void	set_rgb(char *param, int *rgb, t_scene *scene);
-float	to_float(char *param, t_scene *scene);
-void	init_ambient(char **param, t_scene *scene);
-void	init_camera(char **param, t_scene *scene);
-void	cameraGeometry(t_scene *scene);
-void	init_lights(char **param, t_scene *s);
-void	init_sphere(char **param, t_scene *scene);
-void	init_plane(char **param, t_scene *scene);
-void	init_cylinder(char **param, t_scene *scene);
-void	init_cone(char **param, t_scene *scene);
-void	init_resolution(char **param, t_scene *scene);
+void			parse_file(char *file, t_scene *scene);
+void			parse_type(char *line, t_scene *scene);
+t_xyz			set_xyz(char *param, t_scene *scene);
+void			set_rgb(char *param, int *rgb, t_scene *scene);
+mlx_texture_t	*set_texture(char *param, t_scene *scene);
+float			to_float(char *param, t_scene *scene);
+void			init_ambient(char **param, t_scene *scene);
+void			init_camera(char **param, t_scene *scene);
+void			cameraGeometry(t_scene *scene);
+void			init_lights(char **param, t_scene *s);
+void			init_sphere(char **param, t_scene *scene);
+void			init_plane(char **param, t_scene *scene);
+void			init_cylinder(char **param, t_scene *scene);
+void			init_cone(char **param, t_scene *scene);
+void			init_resolution(char **param, t_scene *scene);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/01 18:59:59 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 09:37:23 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,13 @@ int	get_plane_surface_data(t_object plane, t_px *px)
 	return (px->color);
 }
 
-int	get_color_plane(t_object object, t_px px, mlx_texture_t *text)
+int	get_color_plane(t_object object, t_px px)
 {
 	t_xyz		unit;
 	float		u;
 	float		v;
 
-	if (object.text == NR_TEXTURES + 1)
-	{
-		unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
-		px.color = checkered(px, unit.x, unit.y, unit.z);
-	}
-	else
+	if (object.text)
 	{		
 		unit = v_subtract(px.hitpoint, px.cam_origin);
 		v_normalizep(&unit);
@@ -61,7 +56,12 @@ int	get_color_plane(t_object object, t_px px, mlx_texture_t *text)
 		v = unit.y;
 		u = (u + 1.0) * 0.5;
 		v = (v + 1.0) * 0.5;
-		px.color = get_text_pxcolor(text, u, v);
+		px.color = get_text_pxcolor(object.text, u, v);
+	}
+	if (object.text_proc == 1)
+	{
+		unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
+		px.color = checkered(px, unit.x, unit.y, unit.z);
 	}
 	return (px.color);
 }

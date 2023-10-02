@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 22:19:10 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 08:51:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 // fuction pointer for intersection test functions of different objects
 typedef int		t_hit_test(t_px *ray, t_object, float *hp_info);
 typedef int		t_surface_data(t_object obj, t_px *px);
-typedef int		t_get_color(t_object obj, t_px px, mlx_texture_t *text);
+typedef int		t_get_color(t_object obj, t_px px);
 
 //utils.c
 void	exit_error(char *error_msg, char *optional_str, t_scene *data);
@@ -62,16 +62,16 @@ void	render_image(t_scene *scene);
 // objects
 int		test_sphere(t_px *ray, t_object sphere, float *hp_info);
 int		get_sphere_surface_data(t_object sph, t_px *px);
-int		get_color_sphere(t_object object, t_px px, mlx_texture_t *text);
+int		get_color_sphere(t_object object, t_px px);
 int		test_plane(t_px *ray, t_object plane, float *hp_info);
 int		get_plane_surface_data(t_object plane, t_px *px);
-int		get_color_plane(t_object object, t_px px, mlx_texture_t *text);
+int		get_color_plane(t_object object, t_px px);
 int		test_cylinder(t_px *ray, t_object cylinder, float *hp_info);
 int		get_cylinder_surface_data(t_object cy, t_px *px);
-int		get_color_cylinder(t_object object, t_px px, mlx_texture_t *text);
+int		get_color_cylinder(t_object object, t_px px);
 int		test_cone(t_px *ray, t_object cone, float *hp_info);
 int		get_cone_surface_data(t_object co, t_px *px);
-int		get_color_cone(t_object object, t_px px, mlx_texture_t *text);
+int		get_color_cone(t_object object, t_px px);
 
 // multithreading.c
 pthread_t	*create_threads(t_scene *scene, pthread_t *threads, t_block *blocks);

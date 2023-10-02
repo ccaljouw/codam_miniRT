@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/01 19:35:46 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 09:52:42 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,18 +105,16 @@ int	getColor(t_px *px, t_scene *scene)
 	static t_get_color	*get_color[4] = {get_color_sphere, get_color_plane, \
 		get_color_cylinder , get_color_cone};
 	t_object	*object;
-	int			color;
 
 	object = (t_object *)px->hitobject;
 	if (!object)
 		return (0 << 24 | 0 << 16 | 0 << 8 | 255);
-	if (object->text)
-		color = get_color[object->id](*object, *px, scene->textures[object->text - 1]);
-	else
-		color = ((px->hitobject->rgb[0] << 24) | (px->hitobject->rgb[1] << 16) | (px->hitobject->rgb[2] << 8) | 255);
-	px->color = ((int)(((color >> 24) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x))) << 24 \
-	| (int)(((color >> 16) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y))) << 16 \
-	| (int)(((color >> 8) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z))) << 8 \
+	px->color = ((px->hitobject->rgb[0] << 24) | (px->hitobject->rgb[1] << 16) | (px->hitobject->rgb[2] << 8) | 255);
+	if (object->text || object->text_proc)
+		px->color = get_color[object->id](*object, *px);
+	px->color = ((int)(((px->color >> 24) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x))) << 24 \
+	| (int)(((px->color >> 16) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y))) << 16 \
+	| (int)(((px->color >> 8) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z))) << 8 \
 	| 255);
 	if (scene->selected == px->hitobject)
 		px->color = invert_color(px->color);
