@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/02 15:53:12 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 16:20:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	map_texture(t_px *px)
 	t_object	*object;
 
 	object = (t_object *)px->hitobject;
+	if (!object)
+		return;
 	px->color = ((object->rgb[0] << 24) | (object->rgb[1] << 16) | (object->rgb[2] << 8) | 255);
 	if (object->text || object->text_proc)
 		px->color = get_color[object->id](*object, *px);

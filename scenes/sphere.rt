@@ -7,8 +7,8 @@ C	0,5,-14		0,0,1		70
 
 # objects 
 #[ID	origin		axis		diameter	height		texture		procedure	bump_map	color]
-sp		-4,5,-1					8						0			0			1			140,140,140
-sp		4,5,-1					8						0			0			0			140,140,140
+sp		-4,5,-1					8						0			1			1			140,140,140
+sp		4,5,-1					8						2			0			0			140,140,140
 
 pl		0,0,0		0,-1,0								0			0			0			104,104,104
 

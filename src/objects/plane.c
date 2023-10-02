@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/02 15:48:14 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 16:29:20 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	get_color_plane(t_object object, t_px px)
 	float		v;
 
 	if (object.text)
-	{		
+	{	
 		unit = v_subtract(px.hitpoint, px.cam_origin);
 		v_normalizep(&unit);
 		u = unit.x;
@@ -58,7 +58,7 @@ int	get_color_plane(t_object object, t_px px)
 		v = (v + 1.0) * 0.5;
 		px.color = get_text_pxcolor(object.text, u, v);
 	}
-	if (object.text_proc == 1)
+	if (object.text_proc)
 	{
 		unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
 		px.color = map_procedure(px, unit.x, unit.y, unit.z);

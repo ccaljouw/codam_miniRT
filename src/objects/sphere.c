@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/02 15:56:04 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 16:29:53 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,14 @@ int	get_sphere_surface_data(t_object sph, t_px *px)
 	return (px->color);
 }
 
+/**
+ * @brief Get the color of the object by calculating uv coordinates.
+ * for texture pixel color the uv coordinates are normalized 
+ * 
+ * @param object 
+ * @param px 
+ * @return int 
+ */
 int	get_color_sphere(t_object object, t_px px)
 {
 	t_xyz		unit;
@@ -126,7 +134,7 @@ int	get_color_sphere(t_object object, t_px px)
 	}
 	if (object.text_proc)
 	{
-		unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
+		unit = v_subtract(px.hitpoint, object.pOrigin);
 		px.color = map_procedure(px, unit.x, unit.y, unit.z);
 	}
 	return (px.color);

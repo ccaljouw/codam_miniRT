@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/02 15:44:39 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 16:14:11 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ int	get_cone_surface_data(t_object co, t_px *px)
 	return (px->color);
 }
 
+/**
+ * @brief Get the color of the object by calculating uv coordinates.
+ * for texture pixel color the uv coordinates are normalized 
+ * 
+ * @param object 
+ * @param px 
+ * @return int 
+ */
 int	get_color_cone(t_object object, t_px px)
 {
 	t_xyz		axis_hp;
@@ -89,16 +97,11 @@ int	get_color_cone(t_object object, t_px px)
 	axis_hp = v_add(object.pOrigin, v_multiply(object.vNormal, px.hit_height));
 	unit = v_subtract(px.hitpoint, axis_hp);
 	u = atan2(unit.z, unit.x);
+	v = px.hit_height;
 	if (object.text)
-	{		
-		u = ((u + M_PI) / (2 * M_PI));
-		v = 1 - px.hit_height / object.height;
-		px.color = get_text_pxcolor(object.text, u, v);
-	}
+		px.color = get_text_pxcolor(object.text, \
+					((u + M_PI) / (2 * M_PI)), 1 - (v/object.height));
 	if (object.text_proc)
-	{
-		u = atan2(unit.z, unit.x);
-		px.color = map_procedure(px, u, px.hit_height, 0);
-	}
+		px.color = map_procedure(px, u, v, 0);
 	return (px.color);
 }
