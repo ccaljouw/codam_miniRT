@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/02 09:14:41 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 15:31:46 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_object
 	float			height;
 	mlx_texture_t	*text;
 	int				text_proc;
+	int				bump;
 	int				rgb[3];
 	t_xyz			vNormal;
 	float			albedo;

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/02 09:39:20 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 15:47:46 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,11 +134,11 @@ int	get_color_cylinder(t_object object, t_px px)
 		v = 1 - px.hit_height / object.height;
 		px.color = get_text_pxcolor(object.text, u, v);
 	}
-	if (object.text_proc == 1)
+	if (object.text_proc)
 	{
 
 		u = atan2(unit.z, unit.x);
-		px.color = checkered(px, u, px.hit_height, 0);
+		px.color = map_procedure(px, u, px.hit_height, 0);
 	}
 	return (px.color);
 }

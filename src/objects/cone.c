@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/02 09:39:32 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 15:44:39 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ int	get_color_cone(t_object object, t_px px)
 		v = 1 - px.hit_height / object.height;
 		px.color = get_text_pxcolor(object.text, u, v);
 	}
-	if (object.text_proc == 1)
+	if (object.text_proc)
 	{
 		u = atan2(unit.z, unit.x);
-		px.color = checkered(px, u, px.hit_height, 0);
+		px.color = map_procedure(px, u, px.hit_height, 0);
 	}
 	return (px.color);
 }

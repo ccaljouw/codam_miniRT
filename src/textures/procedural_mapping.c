@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mapping.c                                          :+:    :+:            */
+/*   procedural_mapping.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/02 14:25:02 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 15:53:12 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
+
+/*
+Procedural textures are calcultaed basd on x, y coordinates of the object space.
+
+available procedures:
+	1	checkered
+	2	v_checkered
+*/
 
 int	checkered(t_px px, float x, float y, float z)
 {
@@ -26,33 +34,21 @@ int	checkered(t_px px, float x, float y, float z)
 	return (px.color);
 }
 
-void	perturb_normal(t_px *px, float x, float y, float z)
+int	map_procedure(t_px px, float x, float y, float z)
 {
-	t_xyz	up;
-	t_xyz	pV;
-	t_xyz	pU;
-
-	up = v_create(0, 1, 0);
-	if (px->surface_normal.y > 0.99 || px->surface_normal.y < -0.99)
-		up = v_create(1, 0, 0);
-	pV = v_normalize(v_cross(up, px->surface_normal));
-	pU = v_normalize(v_cross(px->surface_normal, pV));
-	pU.x *= x;
-	pV.y *= y;
-	px->surface_normal.z *= z;
-	px->surface_normal = v_add(px->surface_normal,(v_add(pU, pV), px->surface_normal));
-	px->surface_normal = v_normalize(px->surface_normal);
+	if (px.hitobject->text_proc == 1)
+		return (checkered(px, x, y, z));
+	return (px.color);	
 }
 
-void	simple_rough(t_px *px, float min, float max)
+void	map_texture(t_px *px)
 {
-	float	x;
-	float	y;
-	float	z;
-	
-	x = min + (((float)rand()/(float)(RAND_MAX)) * (max - min));
-	y = min + (((float)rand()/(float)(RAND_MAX)) * (max - min));
-	z = min + (((float)rand()/(float)(RAND_MAX)) * (max - min));
-	perturb_normal(px, x, y, z);
-}
+	static t_get_color	*get_color[4] = {get_color_sphere, get_color_plane, \
+		get_color_cylinder , get_color_cone};
+	t_object	*object;
 
+	object = (t_object *)px->hitobject;
+	px->color = ((object->rgb[0] << 24) | (object->rgb[1] << 16) | (object->rgb[2] << 8) | 255);
+	if (object->text || object->text_proc)
+		px->color = get_color[object->id](*object, *px);
+}

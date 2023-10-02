@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/02 14:32:02 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 15:56:13 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void	*routine(void *params)
 			if ((scene->pixels[y] + x)->hitobject != NULL)
 			{
 				get_surface_data(scene->pixels[y] + x);
-				if (scene->pixels[y][x].hitobject->text_proc == 2)
-					simple_rough(scene->pixels[y] + x, 0, 1);
+				map_normal(scene->pixels[y] + x);
 				loop_lights(scene, scene->pixels[y] + x);
 			}
 			x++;
@@ -56,13 +55,10 @@ t_block	set_block(t_scene *scene, int y, int blocksize)
 
 pthread_t	*create_threads(t_scene *scene, pthread_t *threads, t_block *blocks)
 {
-	// t_block		*blocks;
 	int			blocksize;
 	int			y;
 	int			i;
 
-	// if (!blocks)
-	// 	exit_error(ERROR_MEM, NULL, scene);
 	i = 0;
 	y = 0;
 	blocksize = scene->p_height / THREADS;
@@ -71,11 +67,7 @@ pthread_t	*create_threads(t_scene *scene, pthread_t *threads, t_block *blocks)
 		blocks[i] = set_block(scene, y, blocksize);
 		y = y + blocksize;
 		if (pthread_create(threads + i, NULL, &routine, &blocks[i]))
-		{
-			// while (i >= 0)				// wat was t plan met deze loop?
-				if (pthread_join(threads[i], NULL))
-					exit_error(ERROR_THREAD, "failed to create thread\n", scene);
-		}
+				exit_error(ERROR_THREAD, "failed to create thread\n", scene);
 		i++;
 	}
 	return (threads);
@@ -92,8 +84,5 @@ void	join_threads(pthread_t *threads, t_scene *scene)
 			exit_error(ERROR_THREAD, "failed to join thread\n", scene);
 		i++;
 	}
-	// free(threads);
-	// ft_printf("before draw image\n");
-	draw_image(scene); // volgens mij moet deze hier
-	// ft_printf("after draw image\n");
+	draw_image(scene);
 }

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/02 14:30:27 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 15:43:26 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ void	image_to_window(t_scene *scene);
 int		get_text_pxcolor(mlx_texture_t *text, float x, float y);
 
 // mapping.c
-int		get_texture(t_px px, t_object object, t_scene *scene);
+void	map_normal(t_px *px);
+void	map_texture(t_px *px);
+int		map_procedure(t_px px, float x, float y, float z);
 int		checkered(t_px px, float x, float y, float z);
 void	simple_rough(t_px *px, float min, float max);
 

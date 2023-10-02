@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/02 09:32:20 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 15:51:04 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@ int	set_procedure(char *param, t_scene *scene)
 	n = ft_atoi(param);
 	if (n < 0 || n > TEXT_PROCEDURES)
 		exit_error("error texture procedure", "id invallid", scene);
+	return (n);
+}
+
+int	set_bump(char *param, t_scene *scene)
+{
+	int				n;
+
+	n = ft_atoi(param);
+	if (n < 0 || n > BUMP_MAPS)
+		exit_error("error bump map", "id invallid", scene);
 	return (n);
 }
 
@@ -49,7 +59,7 @@ void	init_plane(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 6)
+	if (i != 7)
 		exit_error(ERROR_PLANE, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_plane = ft_calloc(1, sizeof(t_object));
@@ -61,7 +71,8 @@ void	init_plane(char **param, t_scene *scene)
 	new_plane->albedo = ALBEDO;
 	new_plane->text = set_texture(param[3], scene);
 	new_plane->text_proc = set_procedure(param[4], scene);
-	set_rgb(param[5], new_plane->rgb, scene);
+	new_plane->bump = set_bump(param[5], scene);
+	set_rgb(param[6], new_plane->rgb, scene);
 	new_node->content = (void *)new_plane;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mPlane config:\t\t  \033[0m", 1);
@@ -82,7 +93,7 @@ void	init_cylinder(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 8)
+	if (i != 9)
 		exit_error(ERROR_CYLINDER, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_cylinder = ft_calloc(1, sizeof(t_object));
@@ -97,7 +108,8 @@ void	init_cylinder(char **param, t_scene *scene)
 	new_cylinder->albedo = ALBEDO;
 	new_cylinder->text = set_texture(param[5], scene);
 	new_cylinder->text_proc = set_procedure(param[6], scene);
-	set_rgb(param[7], new_cylinder->rgb, scene);
+	new_cylinder->bump = set_bump(param[7], scene);
+	set_rgb(param[8], new_cylinder->rgb, scene);
 	new_node->content = (void *)new_cylinder;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mCylinder config:\t  \033[0m", 1);
@@ -118,7 +130,7 @@ void	init_cone(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 8)
+	if (i != 9)
 		exit_error(ERROR_CYLINDER, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_cone = ft_calloc(1, sizeof(t_object));
@@ -133,7 +145,8 @@ void	init_cone(char **param, t_scene *scene)
 	new_cone->albedo = ALBEDO;
 	new_cone->text = set_texture(param[5], scene);
 	new_cone->text_proc = set_procedure(param[6], scene);
-	set_rgb(param[7], new_cone->rgb, scene);
+	new_cone->bump = set_bump(param[7], scene);
+	set_rgb(param[8], new_cone->rgb, scene);
 	new_node->content = (void *)new_cone;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mCone config:\t\t  \033[0m", 1);
@@ -154,7 +167,7 @@ void	init_sphere(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 6)
+	if (i != 7)
 		exit_error(ERROR_SPHERE, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_sphere = ft_calloc(1, sizeof(t_object));
@@ -166,7 +179,8 @@ void	init_sphere(char **param, t_scene *scene)
 	new_sphere->albedo = ALBEDO;
 	new_sphere->text = set_texture(param[3], scene);
 	new_sphere->text_proc = set_procedure(param[4], scene);
-	set_rgb(param[5], new_sphere->rgb, scene);
+	new_sphere->bump = set_bump(param[5], scene);
+	set_rgb(param[6], new_sphere->rgb, scene);
 	new_node->content = (void *)new_sphere;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mSphere config:\t\t  \033[0m", 1);
