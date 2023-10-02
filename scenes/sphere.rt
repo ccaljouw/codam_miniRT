@@ -7,7 +7,8 @@ C	0,5,-14		0,0,1		70
 
 # objects 
 #[ID	origin		axis		diameter	height		texture		surface_procedure	color]
-sp		0,5,-1					8						1			0					125,25,25
+sp		-4,5,-1					8						0			2					140,140,140
+sp		4,5,-1					8						0			0					140,140,140
 
 pl		0,0,0		0,-1,0								0			0					104,104,104
 

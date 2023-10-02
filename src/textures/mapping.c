@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/02 09:53:23 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 14:25:02 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,35 @@ int	checkered(t_px px, float x, float y, float z)
 	if (((int)x ^ (int)y) ^ (int)z)
 		px.color = invert_color(px.color);
 	return (px.color);
+}
+
+void	perturb_normal(t_px *px, float x, float y, float z)
+{
+	t_xyz	up;
+	t_xyz	pV;
+	t_xyz	pU;
+
+	up = v_create(0, 1, 0);
+	if (px->surface_normal.y > 0.99 || px->surface_normal.y < -0.99)
+		up = v_create(1, 0, 0);
+	pV = v_normalize(v_cross(up, px->surface_normal));
+	pU = v_normalize(v_cross(px->surface_normal, pV));
+	pU.x *= x;
+	pV.y *= y;
+	px->surface_normal.z *= z;
+	px->surface_normal = v_add(px->surface_normal,(v_add(pU, pV), px->surface_normal));
+	px->surface_normal = v_normalize(px->surface_normal);
+}
+
+void	simple_rough(t_px *px, float min, float max)
+{
+	float	x;
+	float	y;
+	float	z;
+	
+	x = min + (((float)rand()/(float)(RAND_MAX)) * (max - min));
+	y = min + (((float)rand()/(float)(RAND_MAX)) * (max - min));
+	z = min + (((float)rand()/(float)(RAND_MAX)) * (max - min));
+	perturb_normal(px, x, y, z);
 }
 
