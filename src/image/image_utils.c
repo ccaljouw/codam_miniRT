@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/03 13:51:09 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:42:28 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,6 @@ int	get_text_pxcolor(t_px *pix, mlx_texture_t *text, t_xyz n_uv)
 	return (pix->color);
 }
 
-void	draw_text(t_scene *scene, mlx_texture_t *text)
-{
-	int		x;
-	int		y;
-	t_xyz	uv;
-	
-	y = 0;
-	while (y < scene->p_height)
-	{
-		x = 0;
-		while (x < scene->p_width)
-		{
-			uv = v_create(((float)x / (float)scene->p_width), ((float)y / (float)scene->p_height), 0);
-			mlx_put_pixel(scene->image, x, y, get_text_pxcolor(scene->pixels[y] + x, text, uv));
-			x++;
-		}
-		y++;
-	}
-}
-
 void	draw_image(t_scene *scene)
 {
 	int	x;
@@ -76,7 +56,7 @@ void	draw_image(t_scene *scene)
 		x = 0;
 		while (x < scene->p_width)
 		{
-			mlx_put_pixel(scene->image, x, y, getColor(scene->pixels[y] + x, scene));
+			mlx_put_pixel(scene->image, x, y, get_color(scene->pixels[y] + x, scene));
 			x++;
 		}
 		y++;
@@ -102,15 +82,18 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param)
 	}
 }
 
-int	getColor(t_px *px, t_scene *scene)
+int	get_color(t_px *px, t_scene *scene)
 {
 	t_object	*object;
 
 	object = (t_object *)px->hitobject;
 	if (!object)
 		px->color =  (0 << 24 | 0 << 16 | 0 << 8 | 255);
-	px->color = map_texture(px);
-	px->color = map_procedure(px);
+	else
+	{
+		px->color = map_texture(px);
+		px->color = map_procedure(px);
+	}
 	px->color = ((int)(((px->color >> 24) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x))) << 24 \
 	| (int)(((px->color >> 16) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y))) << 16 \
 	| (int)(((px->color >> 8) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z))) << 8 \
