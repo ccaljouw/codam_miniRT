@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   plane.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/02 16:29:20 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   plane.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/20 11:14:41 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/03 12:30:29 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,33 @@ int	get_plane_surface_data(t_object plane, t_px *px)
 	return (px->color);
 }
 
-int	get_color_plane(t_object object, t_px px)
+t_xyz	get_uvcoord_pl(t_object pl, t_px px)
 {
 	t_xyz		unit;
-	float		u;
-	float		v;
+	
+	(void)pl;
+	unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
+	return (v_create(unit.x, unit.y, unit.z));
+}
+
+t_xyz	norm_uvcoord_pl(t_object pl, t_xyz uv)
+{
+	(void)pl;
+	uv.x = (uv.x + 1.0) * 0.5;
+	uv.y = (uv.y + 1.0) * 0.5;
+	return (uv);
+}
+
+int	get_color_plane(t_object object, t_px px)
+{
+	t_xyz		uv;
 
 	if (object.text)
 	{	
-		unit = v_subtract(px.hitpoint, px.cam_origin);
-		v_normalizep(&unit);
-		u = unit.x;
-		v = unit.y;
-		u = (u + 1.0) * 0.5;
-		v = (v + 1.0) * 0.5;
-		px.color = get_text_pxcolor(object.text, u, v);
+		uv = v_subtract(px.hitpoint, px.cam_origin);
+		px.color = get_text_pxcolor(object.text, norm_uvcoord_pl(object, uv));
 	}
 	if (object.text_proc)
-	{
-		unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
-		px.color = map_procedure(px, unit.x, unit.y, unit.z);
-	}
+		px.color = map_procedure(px, get_uvcoord_pl(object, px));
 	return (px.color);
 }
-

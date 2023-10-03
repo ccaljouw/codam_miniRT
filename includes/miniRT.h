@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   miniRT.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/03 10:44:26 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/03 12:20:44 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param);
 void	draw_image(t_scene *scene);
 void	draw_text(t_scene *scene, mlx_texture_t *text);
 void	image_to_window(t_scene *scene);
-int		get_text_pxcolor(mlx_texture_t *text, float x, float y);
+int		get_text_pxcolor(mlx_texture_t *text, t_xyz n_uv);
 
 // bump_mapping.c
 void	map_normal(t_px *px);
@@ -95,7 +95,7 @@ void	simple_rough(t_px *px, float min, float max);
 
 // procedural_textures.c
 float	get_text_val(t_xyz coord);
-int		map_procedure(t_px px, float x, float y, float z);
+int		map_procedure(t_px px, t_xyz uv);
 int		checkered(t_px px, float x, float y, float z);
 
 // text_utils.c

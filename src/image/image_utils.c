@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   image_utils.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/03 10:45:29 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   image_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/03 12:32:38 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ void	image_to_window(t_scene *scene)
 	}
 }
 
-int	get_text_pxcolor(mlx_texture_t *text, float x, float y)
+int	get_text_pxcolor(mlx_texture_t *text, t_xyz n_uv)
 {
 	int	px;
 	int	text_x;
 	int text_y;
 
 
-	text_x = (int)floorf(x * text->width);
-	text_y = (int)floorf(y * text->height);
+	text_x = (int)floorf(n_uv.x * text->width);
+	text_y = (int)floorf(n_uv.y * text->height);
 	if (text_y == 0 && text_x == 0)
 		px = 0;
 	else
@@ -46,8 +46,9 @@ int	get_text_pxcolor(mlx_texture_t *text, float x, float y)
 
 void	draw_text(t_scene *scene, mlx_texture_t *text)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	t_xyz	uv;
 	
 	y = 0;
 	while (y < scene->p_height)
@@ -55,7 +56,8 @@ void	draw_text(t_scene *scene, mlx_texture_t *text)
 		x = 0;
 		while (x < scene->p_width)
 		{
-			mlx_put_pixel(scene->image, x, y, get_text_pxcolor(text, ((float)x / (float)scene->p_width), ((float)y / (float)scene->p_height)));
+			uv = v_create(((float)x / (float)scene->p_width), ((float)y / (float)scene->p_height), 0);
+			mlx_put_pixel(scene->image, x, y, get_text_pxcolor(text, uv));
 			x++;
 		}
 		y++;

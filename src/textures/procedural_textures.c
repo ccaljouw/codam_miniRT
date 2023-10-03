@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   procedural_textures.c                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/03 10:43:53 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   procedural_textures.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/27 21:18:09 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/03 12:08:57 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ int	v_checkered(t_px px, float x, float y, float z)
 	return (px.color);
 }
 
-int	map_procedure(t_px px, float x, float y, float z)
+int	map_procedure(t_px px, t_xyz uv)
 {
 	if (px.hitobject->text_proc == 1)
-		return (checkered(px, x, y, z));
+		return (checkered(px, uv.x, uv.y, uv.z));
 	if (px.hitobject->text_proc == 2)
-		return (v_checkered(px, x, y, z));
+		return (v_checkered(px, uv.x, uv.y, uv.z));
 	return (px.color);	
 }

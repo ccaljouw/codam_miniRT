@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cone.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/02 22:34:04 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cone.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/30 19:23:25 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/03 12:33:20 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,27 @@ int	get_cone_surface_data(t_object co, t_px *px)
 	return (px->color);
 }
 
+t_xyz	get_uvcoord_co(t_object co, t_px px)
+{
+	t_xyz		axis_hp;
+	t_xyz		unit;
+	float		u;
+	float		v;
+
+	axis_hp = v_add(co.pOrigin, v_multiply(co.vNormal, px.hit_height));
+	unit = v_subtract(px.hitpoint, axis_hp);
+	u = atan2(unit.z, unit.x);
+	v = px.hit_height;
+	return (v_create(u, v, 0));
+}
+
+t_xyz	norm_uvcoord_co(t_object co, t_xyz uv)
+{
+	uv.x = (uv.x + M_PI) / (2 * M_PI);
+	uv.y = 1 - (uv.y/co.height);
+	return (uv);
+}
+
 /**
  * @brief Get the color of the object by calculating uv coordinates.
  * for texture pixel color the uv coordinates are normalized 
@@ -89,19 +110,12 @@ int	get_cone_surface_data(t_object co, t_px *px)
  */
 int	get_color_cone(t_object object, t_px px)
 {
-	t_xyz		axis_hp;
-	t_xyz		unit;
-	float		u;
-	float		v;
+	t_xyz		uv;
 
-	axis_hp = v_add(object.pOrigin, v_multiply(object.vNormal, px.hit_height));
-	unit = v_subtract(px.hitpoint, axis_hp);
-	u = atan2(unit.z, unit.x);
-	v = px.hit_height;
+	uv = get_uvcoord_co(object, px);
 	if (object.text)
-		px.color = get_text_pxcolor(object.text, \
-					((u + M_PI) / (2 * M_PI)), 1 - (v/object.height));
+		px.color = get_text_pxcolor(object.text, norm_uvcoord_co(object, uv));
 	if (object.text_proc)
-		px.color = map_procedure(px, u, v, 0);
+		px.color = map_procedure(px, uv);
 	return (px.color);
 }

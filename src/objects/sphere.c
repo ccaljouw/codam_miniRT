@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   sphere.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/03 08:53:45 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   sphere.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/14 17:54:01 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/03 12:33:09 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,22 @@ int	get_sphere_surface_data(t_object sph, t_px *px)
 	return (px->color);
 }
 
+t_xyz	get_uvcoord_sp(t_object sp, t_px px)
+{
+	t_xyz		unit;
+	
+	unit = v_subtract(px.hitpoint, sp.pOrigin);
+	return (v_create(unit.x, unit.y, 0));
+}
+
+t_xyz	norm_uvcoord_sp(t_object sp, t_xyz uv)
+{
+	(void)sp;
+	uv.x = 1 - ((uv.x + M_PI) / (2 * M_PI));
+	uv.y = 1 - (uv.y + M_PI) / (2 * M_PI);
+	return (uv);
+}
+
 /**
  * @brief Get the color of the object by calculating uv coordinates to 
  * sample the texture or procedure. For texture pixel color the uv 
@@ -119,24 +135,17 @@ int	get_sphere_surface_data(t_object sph, t_px *px)
  */
 int	get_color_sphere(t_object object, t_px px)
 {
-	t_xyz		unit;
-	float		u;
-	float		v;
+	t_xyz		uv;
 
 	if (object.text)
 	{		
-		unit = v_subtract(px.hitpoint, object.pOrigin);
-		v_normalizep(&unit);
-		u = atan2((pow(unit.y, 2) + pow(unit.z, 2)), unit.x);
-		v = atan2(unit.z, unit.y);
-		u = 1 - ((u + M_PI) / (2 * M_PI));
-		v = 1 - (v + M_PI) / (2 * M_PI);
-		px.color = get_text_pxcolor(object.text, u, v);
+		uv = v_subtract(px.hitpoint, object.pOrigin);
+		v_normalizep(&uv);
+		uv.x = atan2((pow(uv.y, 2) + pow(uv.z, 2)), uv.x);
+		uv.y = atan2(uv.z, uv.y);
+		px.color = get_text_pxcolor(object.text, norm_uvcoord_sp(object, uv));
 	}
 	if (object.text_proc)
-	{
-		unit = v_subtract(px.hitpoint, object.pOrigin);
-		px.color = map_procedure(px, unit.x, unit.y, unit.z);
-	}
+		px.color = map_procedure(px, get_uvcoord_sp(object, px));
 	return (px.color);
 }

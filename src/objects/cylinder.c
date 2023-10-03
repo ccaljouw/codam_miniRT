@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cylinder.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/02 19:44:10 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/03 12:33:16 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,27 @@ int	get_cylinder_surface_data(t_object cy, t_px *px)
 	return (px->color);
 }
 
+t_xyz	get_uvcoord_cy(t_object cy, t_px px)
+{
+	t_xyz		axis_hp;
+	t_xyz		unit;
+	float		u;
+	float		v;
+
+	axis_hp = v_add(cy.pOrigin, v_multiply(cy.vNormal, px.hit_height));
+	unit = v_subtract(px.hitpoint, axis_hp);
+	u = atan2(unit.z, unit.x);
+	v = px.hit_height;
+	return (v_create(u, v, 0));
+}
+
+t_xyz	norm_uvcoord_cy(t_object cy, t_xyz uv)
+{
+	uv.x = (uv.x + M_PI) / (2 * M_PI);
+	uv.y = 1 - (uv.y/cy.height);
+	return (uv);
+}
+
 /**
  * @brief Get the color of the object by calculating uv coordinates.
  * for texture pixel color the uv coordinates are normalized 
@@ -128,20 +149,13 @@ int	get_cylinder_surface_data(t_object cy, t_px *px)
  */
 int	get_color_cylinder(t_object object, t_px px)
 {
-	t_xyz		axis_hp;
-	t_xyz		unit;
-	float		u;
-	float		v;
-
-	axis_hp = v_add(object.pOrigin, v_multiply(object.vNormal, px.hit_height));
-	unit = v_subtract(px.hitpoint, axis_hp);
-	u = atan2(unit.z, unit.x);
-	v = px.hit_height;
+	t_xyz	uv;
+	
+	uv = get_uvcoord_cy(object, px);
 	if (object.text)
-		px.color = get_text_pxcolor(object.text, \
-			((u + M_PI) / (2 * M_PI)), 1 - v / object.height);
+		px.color = get_text_pxcolor(object.text, norm_uvcoord_cy(object, uv));
 	if (object.text_proc)
-		px.color = map_procedure(px, u, v, 0);
+		px.color = map_procedure(px, get_uvcoord_cy(object, px));
 	return (px.color);
 }
 
