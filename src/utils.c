@@ -6,17 +6,17 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/02 22:14:28 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/03 09:09:34 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
 /**
- * @brief swap t1 and t2
+ * @brief swap x1 and x2
  * 
- * @param t0 
- * @param t1 
+ * @param x0 
+ * @param x1 
  */
 void	swap(float *x1, float *x2)
 {

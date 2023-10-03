@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/03 08:47:09 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/03 10:13:40 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		get_text_pxcolor(mlx_texture_t *text, float x, float y);
 void	map_normal(t_px *px);
 void	map_texture(t_px *px);
 int		map_procedure(t_px px, float x, float y, float z);
-void	perturb_normal(t_px *px, float x, float y, float z);
+void	perturb_normal(t_px *px, t_xyz pertubation);
 int		checkered(t_px px, float x, float y, float z);
 void	simple_rough(t_px *px, float min, float max);
 
