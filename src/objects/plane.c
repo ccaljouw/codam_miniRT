@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 12:30:29 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:11:09 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int	get_color_plane(t_object object, t_px px)
 	if (object.text)
 	{	
 		uv = v_subtract(px.hitpoint, px.cam_origin);
-		px.color = get_text_pxcolor(object.text, norm_uvcoord_pl(object, uv));
+		px.color = get_text_pxcolor(&px, object.text, norm_uvcoord_pl(object, uv));
 	}
-	if (object.text_proc)
-		px.color = map_procedure(px, get_uvcoord_pl(object, px));
+	// if (object.text_proc)
+	// 	px.color = map_procedure(px, get_uvcoord_pl(object, px));
 	return (px.color);
 }

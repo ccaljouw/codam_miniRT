@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/03 12:33:20 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:11:17 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ int	get_color_cone(t_object object, t_px px)
 
 	uv = get_uvcoord_co(object, px);
 	if (object.text)
-		px.color = get_text_pxcolor(object.text, norm_uvcoord_co(object, uv));
-	if (object.text_proc)
-		px.color = map_procedure(px, uv);
+		px.color = get_text_pxcolor(&px, object.text, norm_uvcoord_co(object, uv));
+	// if (object.text_proc)
+	// 	px.color = map_procedure(px, uv);
 	return (px.color);
 }

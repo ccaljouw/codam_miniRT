@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 12:20:44 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:19:23 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 typedef int		t_hit_test(t_px *ray, t_object, float *hp_info);
 typedef int		t_surface_data(t_object obj, t_px *px);
 typedef int		t_get_color(t_object obj, t_px px);
+typedef	t_xyz	t_uv(t_object obj, t_px px);
+typedef	t_xyz	t_n_uv(t_object obj, t_xyz uv);
 
 //utils.c
 void	exit_error(char *error_msg, char *optional_str, t_scene *data);
@@ -58,16 +60,27 @@ void	render_image(t_scene *scene);
 // objects
 int		test_sphere(t_px *ray, t_object sphere, float *hp_info);
 int		get_sphere_surface_data(t_object sph, t_px *px);
-int		get_color_sphere(t_object object, t_px px);
+int		get_color_sphere(t_object object, t_px px); // weghalen
+t_xyz	get_uvcoord_sp(t_object sp, t_px px);
+t_xyz	norm_uvcoord_sp(t_object sp, t_xyz uv);
+
 int		test_plane(t_px *ray, t_object plane, float *hp_info);
 int		get_plane_surface_data(t_object plane, t_px *px);
-int		get_color_plane(t_object object, t_px px);
+int		get_color_plane(t_object object, t_px px); // weghalen
+t_xyz	get_uvcoord_pl(t_object pl, t_px px);
+t_xyz	norm_uvcoord_pl(t_object pl, t_xyz uv);
+
 int		test_cylinder(t_px *ray, t_object cylinder, float *hp_info);
 int		get_cylinder_surface_data(t_object cy, t_px *px);
-int		get_color_cylinder(t_object object, t_px px);
+int		get_color_cylinder(t_object object, t_px px); // weghalen
+t_xyz	get_uvcoord_cy(t_object cy, t_px px);
+t_xyz	norm_uvcoord_cy(t_object cy, t_xyz uv);
+
 int		test_cone(t_px *ray, t_object cone, float *hp_info);
 int		get_cone_surface_data(t_object co, t_px *px);
-int		get_color_cone(t_object object, t_px px);
+int		get_color_cone(t_object object, t_px px); //weghalen
+t_xyz	get_uvcoord_co(t_object co, t_px px);
+t_xyz	norm_uvcoord_co(t_object co, t_xyz uv);
 
 // multithreading.c
 pthread_t	*create_threads(t_scene *scene, pthread_t *threads, t_block *blocks);
@@ -85,7 +98,7 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param);
 void	draw_image(t_scene *scene);
 void	draw_text(t_scene *scene, mlx_texture_t *text);
 void	image_to_window(t_scene *scene);
-int		get_text_pxcolor(mlx_texture_t *text, t_xyz n_uv);
+int		get_text_pxcolor(t_px *px, mlx_texture_t *text, t_xyz n_uv);
 
 // bump_mapping.c
 void	map_normal(t_px *px);
@@ -95,13 +108,15 @@ void	simple_rough(t_px *px, float min, float max);
 
 // procedural_textures.c
 float	get_text_val(t_xyz coord);
-int		map_procedure(t_px px, t_xyz uv);
+int		map_texture(t_px px);
+int		map_procedure(t_px px);
 int		checkered(t_px px, float x, float y, float z);
 
 // text_utils.c
 float	get_text_val(t_xyz coord);
 t_xyz	texture_diff(t_px *px, t_xyz uv);
 void	get_text_color(t_px *px);
+void	get_color(t_px *px);
 
 // shadow_ray.c
 float	get_shadow_ray(t_px *shadow_ray, t_light *light, t_px *px);

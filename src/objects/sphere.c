@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/03 12:33:09 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:11:05 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,9 +143,9 @@ int	get_color_sphere(t_object object, t_px px)
 		v_normalizep(&uv);
 		uv.x = atan2((pow(uv.y, 2) + pow(uv.z, 2)), uv.x);
 		uv.y = atan2(uv.z, uv.y);
-		px.color = get_text_pxcolor(object.text, norm_uvcoord_sp(object, uv));
+		px.color = get_text_pxcolor(&px, object.text, norm_uvcoord_sp(object, uv));
 	}
-	if (object.text_proc)
-		px.color = map_procedure(px, get_uvcoord_sp(object, px));
+	// if (object.text_proc)
+	// 	px.color = map_procedure(px, get_uvcoord_sp(object, px));
 	return (px.color);
 }
