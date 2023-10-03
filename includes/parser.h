@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 13:48:25 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/03 23:32:51 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_object
 	int				rgb[3];
 	t_xyz			vNormal;
 	float			albedo;
+	float			specular_size;
+	float			specular_weight;
 }					t_object;
 
 /**
@@ -77,11 +79,13 @@ typedef struct s_pixel
 	t_object	*hitobject;
 	t_xyz		hitpoint;
 	t_xyz		surface_normal;
-	t_xyz		ratios;
+	t_xyz		diffuse;
+	t_xyz		specular;
 	float		hit_distance;
 	float		hit_height;
 	float		facing_ratio;
 	int			color;
+	int			rgb[3];
 	t_xyz		text_coord;
 }	t_px;
 

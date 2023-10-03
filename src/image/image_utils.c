@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/03 14:42:28 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/03 23:40:14 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,23 @@ int	get_color(t_px *px, t_scene *scene)
 
 	object = (t_object *)px->hitobject;
 	if (!object)
-		px->color =  (0 << 24 | 0 << 16 | 0 << 8 | 255);
-	else
-	{
-		px->color = map_texture(px);
-		px->color = map_procedure(px);
-	}
-	px->color = ((int)(((px->color >> 24) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x))) << 24 \
-	| (int)(((px->color >> 16) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y))) << 16 \
-	| (int)(((px->color >> 8) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z))) << 8 \
-	| 255);
-	if (scene->selected == px->hitobject)
+		return (px->color = 0 << 24 | 0 << 16 | 0 << 8 | 255);
+	px->color = map_texture(px);
+	px->color = map_procedure(px);
+	px->rgb[0] = (int)(((px->color >> 24) & 0xFF) * \
+		ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) \
+		+ px->diffuse.x)));
+	px->rgb[1] = (int)(((px->color >> 16) & 0xFF) * \
+		ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) \
+		+ px->diffuse.y)));
+	px->rgb[2] = (int)(((px->color >> 8) & 0xFF) * \
+		ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) \
+		+ px->diffuse.z)));
+	px->rgb[0] = ft_clamp(0, 255, px->rgb[0] + 255 * px->specular.x);
+	px->rgb[1] = ft_clamp(0, 255, px->rgb[1] + 255 * px->specular.y);
+	px->rgb[2] = ft_clamp(0, 255, px->rgb[2] + 255 * px->specular.z);
+	px->color = px->rgb[0] << 24 | px->rgb[1] << 16 | px->rgb[2] << 8 | 255;
+	if (px->hitobject && scene->selected == px->hitobject)
 		px->color = invert_color(px->color);
 	return (px->color);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 13:43:42 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/04 00:01:10 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,21 +116,19 @@ void	render_image(t_scene *scene)
 	free(threads);
 }
 
-void	print_ascii(t_px px, t_scene scene)
+void	print_ascii(t_px *px, t_scene *scene)
 {
 	(void)scene;
 	(void)px;
-	int						surface_color;
 	float					color_ratio;
-	static t_surface_data	*surface_data[3] = {get_sphere_surface_data, get_plane_surface_data, get_cylinder_surface_data};
 
 	color_ratio = 0;
-	if (px.hitobject)
+	if (px->hitobject)
 	{
-		surface_color = surface_data[px.hitobject->id](*px.hitobject, &px);
-		color_ratio = ((surface_color >> 24) & 0xFF) / (float)255 * 0.299;
-		color_ratio += ((surface_color >> 16) & 0xFF) / (float)255 * 0.587;
-		color_ratio += ((surface_color >> 8) & 0xFF) / (float)255 * 0.114;
+		px->color = get_color(px, scene);
+		color_ratio = ((px->color >> 24) & 0xFF) / (float)255 * 0.299;
+		color_ratio += ((px->color >> 16) & 0xFF) / (float)255 * 0.587;
+		color_ratio += ((px->color >> 8) & 0xFF) / (float)255 * 0.114;
 		ft_printf("\e[48;5;%im \e[0m", (int)(232 + color_ratio * 23));
 	}
 	else
@@ -166,13 +164,20 @@ void	renderAscii(t_scene *scene)
 		x = 0;
 		while (x < cam->image_width)
 		{
-			get_ray(pixels[y] + x, x, y, scene);
-			trace_ray(pixels[y] + x, scene);
-			print_ascii(pixels[y][x], *scene);
+			get_ray(scene->pixels[y] + x, x, y, scene);
+			trace_ray(scene->pixels[y] + x, scene);
+			if ((scene->pixels[y] + x)->hitobject != NULL)
+			{
+				get_surface_data(scene->pixels[y] + x);
+				map_normal(scene->pixels[y] + x);
+				loop_lights(scene, scene->pixels[y] + x);
+			}
+			print_ascii(scene->pixels[y] + x, scene);
 			x++;
 		}
 		ft_printf("\n");
 		y++;
 	}
+	// clean_scene(scene);
 }
 

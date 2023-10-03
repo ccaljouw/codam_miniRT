@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   defines.h                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/27 20:37:16 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/02 22:42:51 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   defines.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/27 20:37:16 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/03 22:10:50 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define ZOOM_OUT 			MLX_KEY_O
 
 # define EPSILON 			exp(-21)
-# define LIGHT_BOOST 		1500
+# define LIGHT_BOOST 		10000
 # define ALBEDO				0.057295779513082
 # define SHADOW_BIAS 		0.001
 

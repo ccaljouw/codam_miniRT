@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   shapes.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/02 22:33:10 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   shapes.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/03 23:23:50 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,46 @@ int	set_bump(char *param, t_scene *scene)
 		exit_error("error bump map", "id invallid", scene);
 	return (n);
 }
+
+float	set_albedo(char *param, t_scene *scene)
+{
+	int	n;
+
+	n = ft_atoi(param);
+	if (n < 0)
+		exit_error("error albedo", "provide positive integer", scene);
+	return ((float)n / 100.0);
+}
+
+float	set_specular_size(char *param, t_scene *scene)
+{
+	int	n;
+
+	n = ft_atoi(param);
+	if (n < 0)
+		exit_error("error specular size", "provide positive integer", scene);
+	return (300 / (float)n);
+}
+
+float	set_specular_weight(char *param, t_scene *scene)
+{
+	int	n;
+
+	n = ft_atoi(param);
+	if (n < 0)
+		exit_error("error specular weight", "provide positive integer", scene);
+	return ((float)n / 100);
+}
+
+// float	set_albedo(char *param, t_scene *scene)
+// {
+// 	int	n;
+
+// 	n = ft_atoi(param);
+// 	if (n < 0)
+// 		exit_error("error albedo", "provide positive integer", scene);
+// 	return ((float)n / 100);
+// }
 
 mlx_texture_t	*set_texture(char *param, t_scene *scene)
 {
@@ -59,7 +99,7 @@ void	init_plane(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 7)
+	if (i != 10)
 		exit_error(ERROR_PLANE, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_plane = ft_calloc(1, sizeof(t_object));
@@ -68,11 +108,13 @@ void	init_plane(char **param, t_scene *scene)
 	new_plane->id = PL;
 	new_plane->pOrigin = set_xyz(param[1], scene);
 	new_plane->vNormal = set_xyz(param[2], scene);
-	new_plane->albedo = ALBEDO;
 	new_plane->text = set_texture(param[3], scene);
 	new_plane->text_proc = set_procedure(param[4], scene);
 	new_plane->bump = set_bump(param[5], scene);
-	set_rgb(param[6], new_plane->rgb, scene);
+	new_plane->albedo = set_albedo(param[6], scene);
+	new_plane->specular_size = set_specular_size(param[7], scene);
+	new_plane->specular_weight = set_specular_weight(param[8], scene);
+	set_rgb(param[9], new_plane->rgb, scene);
 	new_node->content = (void *)new_plane;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mPlane config:\t\t  \033[0m", 1);
@@ -93,7 +135,7 @@ void	init_cylinder(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 9)
+	if (i != 12)
 		exit_error(ERROR_CYLINDER, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_cylinder = ft_calloc(1, sizeof(t_object));
@@ -104,11 +146,13 @@ void	init_cylinder(char **param, t_scene *scene)
 	new_cylinder->vNormal = v_normalize(set_xyz(param[2], scene));
 	new_cylinder->diameter = to_float(param[3], scene);
 	new_cylinder->height = to_float(param[4], scene);
-	new_cylinder->albedo = ALBEDO;
 	new_cylinder->text = set_texture(param[5], scene);
 	new_cylinder->text_proc = set_procedure(param[6], scene);
 	new_cylinder->bump = set_bump(param[7], scene);
-	set_rgb(param[8], new_cylinder->rgb, scene);
+	new_cylinder->albedo = set_albedo(param[8], scene);
+	new_cylinder->specular_size = set_specular_size(param[9], scene);
+	new_cylinder->specular_weight = set_specular_weight(param[10], scene);
+	set_rgb(param[11], new_cylinder->rgb, scene);
 	new_node->content = (void *)new_cylinder;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mCylinder config:\t  \033[0m", 1);
@@ -129,7 +173,7 @@ void	init_cone(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 9)
+	if (i != 12)
 		exit_error(ERROR_CYLINDER, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_cone = ft_calloc(1, sizeof(t_object));
@@ -140,11 +184,13 @@ void	init_cone(char **param, t_scene *scene)
 	new_cone->vNormal = v_normalize(set_xyz(param[2], scene));
 	new_cone->diameter = to_float(param[3], scene);
 	new_cone->height = to_float(param[4], scene);
-	new_cone->albedo = ALBEDO;
 	new_cone->text = set_texture(param[5], scene);
 	new_cone->text_proc = set_procedure(param[6], scene);
 	new_cone->bump = set_bump(param[7], scene);
-	set_rgb(param[8], new_cone->rgb, scene);
+	new_cone->albedo = set_albedo(param[8], scene);
+	new_cone->specular_size = set_specular_size(param[9], scene);
+	new_cone->specular_weight = set_specular_weight(param[10], scene);
+	set_rgb(param[11], new_cone->rgb, scene);
 	new_node->content = (void *)new_cone;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mCone config:\t\t  \033[0m", 1);
@@ -165,7 +211,7 @@ void	init_sphere(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 7)
+	if (i != 10)
 		exit_error(ERROR_SPHERE, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_sphere = ft_calloc(1, sizeof(t_object));
@@ -174,11 +220,13 @@ void	init_sphere(char **param, t_scene *scene)
 	new_sphere->id = SP;
 	new_sphere->pOrigin = set_xyz(param[1], scene);
 	new_sphere->diameter = to_float(param[2], scene);
-	new_sphere->albedo = ALBEDO;
 	new_sphere->text = set_texture(param[3], scene);
 	new_sphere->text_proc = set_procedure(param[4], scene);
 	new_sphere->bump = set_bump(param[5], scene);
-	set_rgb(param[6], new_sphere->rgb, scene);
+	new_sphere->albedo = set_albedo(param[6], scene);
+	new_sphere->specular_size = set_specular_size(param[7], scene);
+	new_sphere->specular_weight = set_specular_weight(param[8], scene);
+	set_rgb(param[9], new_sphere->rgb, scene);
 	new_node->content = (void *)new_sphere;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mSphere config:\t\t  \033[0m", 1);

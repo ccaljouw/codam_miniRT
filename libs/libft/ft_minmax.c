@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 23:38:39 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/04/01 23:40:30 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/03 21:25:08 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,32 @@ int	ft_min(int a, int b)
 	if (a < b)
 		return (a);
 	return (b);
+}
+
+/**
+ * @brief Return the largest of two floats
+ * 
+ * @param a 
+ * @param b 
+ * @return float 
+ */
+float	ft_fmax(float a, float b)
+{
+	if (b > a)
+		return (b);
+	return (a);
+}
+
+/**
+ * @brief Return the smalles of two floats
+ * 
+ * @param a 
+ * @param b 
+ * @return float 
+ */
+float	ft_fmin(float a, float b)
+{
+	if (b < a)
+		return (b);
+	return (a);
 }

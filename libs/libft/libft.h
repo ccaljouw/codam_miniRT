@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 11:14:03 by avan-and          #+#    #+#             */
-/*   Updated: 2023/09/29 15:23:37 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/03 21:25:25 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int		ft_abs(int n);
 long	ft_labs(long n);
 int		ft_max(int a, int b);
 int		ft_min(int a, int b);
+float	ft_fmin(float a, float b);
+float	ft_fmax(float a, float b);
 
 //
 // WRITE FUNCTIONS
