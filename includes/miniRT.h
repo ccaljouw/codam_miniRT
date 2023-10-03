@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/03 10:13:40 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/03 10:44:26 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,21 @@ void	draw_text(t_scene *scene, mlx_texture_t *text);
 void	image_to_window(t_scene *scene);
 int		get_text_pxcolor(mlx_texture_t *text, float x, float y);
 
-// mapping.c
+// bump_mapping.c
 void	map_normal(t_px *px);
-void	map_texture(t_px *px);
-int		map_procedure(t_px px, float x, float y, float z);
+void	compute_pertubation(t_px *px, t_xyz uv, float scale, float reverse);
 void	perturb_normal(t_px *px, t_xyz pertubation);
-int		checkered(t_px px, float x, float y, float z);
 void	simple_rough(t_px *px, float min, float max);
+
+// procedural_textures.c
+float	get_text_val(t_xyz coord);
+int		map_procedure(t_px px, float x, float y, float z);
+int		checkered(t_px px, float x, float y, float z);
+
+// text_utils.c
+float	get_text_val(t_xyz coord);
+t_xyz	texture_diff(t_px *px, t_xyz uv);
+void	get_text_color(t_px *px);
 
 // shadow_ray.c
 float	get_shadow_ray(t_px *shadow_ray, t_light *light, t_px *px);
