@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/02 16:20:01 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 19:26:29 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,26 @@ int	checkered(t_px px, float x, float y, float z)
 	return (px.color);
 }
 
+int	v_checkered(t_px px, float x, float y, float z)
+{
+
+	x = fabs(floor(x));
+	y = fabs(floor(y));
+	z = fabs(floor(z));
+	x = (int)x % 3;
+	y = (int)y % 3;
+	z = (int)z % 3;
+	if (!(((int)x ^ (int)y) ^ (int)z))
+		px.color = invert_color(px.color);
+	return (px.color);
+}
+
 int	map_procedure(t_px px, float x, float y, float z)
 {
 	if (px.hitobject->text_proc == 1)
 		return (checkered(px, x, y, z));
+	if (px.hitobject->text_proc == 2)
+		return (v_checkered(px, x, y, z));
 	return (px.color);	
 }
 

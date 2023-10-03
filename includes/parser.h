@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/02 15:31:46 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 22:38:48 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,6 @@
 # ifndef THREADS
 #  define THREADS 1
 # endif
-
-# define ASCII_WIDTH  120
-# define ASCII_HEIGHT 40
-
-# define IM_WIDTH 512
-# define IM_HEIGHT 512
-# define MAX_WIDTH 1024
-# define MAX_HEIGHT 1024
-
-
-# define MOVE_X_P 	MLX_KEY_RIGHT
-# define MOVE_X_N 	MLX_KEY_LEFT
-# define MOVE_Y_P 	MLX_KEY_UP
-# define MOVE_Y_N 	MLX_KEY_DOWN
-# define MOVE_Z_P 	MLX_KEY_PERIOD
-# define MOVE_Z_N 	MLX_KEY_COMMA
-
-# define ZOOM_IN 	MLX_KEY_I
-# define ZOOM_OUT 	MLX_KEY_O
-
-#define SHADOW_BIAS 0.001
 
 /**
  * @brief 	object struct containing parameters for each object type

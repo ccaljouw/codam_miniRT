@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/02 16:29:53 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/03 08:53:45 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,9 @@ int	get_sphere_surface_data(t_object sph, t_px *px)
 }
 
 /**
- * @brief Get the color of the object by calculating uv coordinates.
- * for texture pixel color the uv coordinates are normalized 
+ * @brief Get the color of the object by calculating uv coordinates to 
+ * sample the texture or procedure. For texture pixel color the uv 
+ * coordinates are normalized 
  * 
  * @param object 
  * @param px 

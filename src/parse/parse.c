@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 19:28:46 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 22:17:43 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ float	to_float(char *param, t_scene *scene)
 	while (d >= 1)
 		d /= 10;
 	d += i;
-	// printf("set to float:%f\n", d * neg); // testing
 	return ((float)(d * neg));
 }
 

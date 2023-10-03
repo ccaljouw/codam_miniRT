@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/01 14:18:32 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 22:15:11 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	get_ray(t_px *px, int x, int y, t_scene *s)
 {
 	ft_bzero(px, sizeof(t_px));
 	px->cam_origin = s->camera->origin;
-	// ft_printf("getting ray %i:%i of %i:%i\n", x, y, s->p_width, s->p_height);
 	px->screen_x = x;
 	px->screen_y = y;
 	px->cam_x = (2 * (((float)x + 0.5) / s->camera->image_width) - 1) \
@@ -94,7 +93,6 @@ void	get_surface_data(t_px *px)
 	get_cylinder_surface_data, get_cone_surface_data};
 
 	object = (t_object *)px->hitobject;
-	// ft_printf("gsd object add: %p", object);
 	px->color = surface_data[object->id](*px->hitobject, px);
 }
 
@@ -113,11 +111,9 @@ void	render_image(t_scene *scene)
 	if (!threads || !blocks)
 		exit_error(ERROR_MEM, NULL, scene);
 	create_threads(scene, threads, blocks);
-	// ft_printf("threads created\n");
 	join_threads(threads, scene);
 	free(blocks);
 	free(threads);
-	// ft_printf("threads joined\n");
 }
 
 void	print_ascii(t_px px, t_scene scene)

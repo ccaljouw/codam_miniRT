@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 18:50:27 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 22:14:28 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,11 @@ void	exit_error(char *error_msg, char *optional_str, t_scene *scene)
 		ft_putendl_fd(optional_str, 2);
 	else
 		ft_putchar_fd('\n', 2);
-	// (void)scene; //remove
 	if (scene)
 		clean_scene(scene);
-	// check and clean mlx and mlx image?
 	exit (1);
 }
+
 /**
  * @brief Clamps the input value between the min and max value,
  * 		returns the result.
@@ -68,7 +67,7 @@ float	ft_clamp(float min, float max, float input)
 
 void	print_vector(t_xyz vector)
 {
-	printf("[%.3f, %.3f, %.3f]\n", vector.x, vector.y, vector.z);  //weghalen
+	ft_printf("[%.3f, %.3f, %.3f]\n", vector.x, vector.y, vector.z);
 }
 
 void	replace(char *str, char replace, char with)

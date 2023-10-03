@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/02 15:51:04 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 22:33:10 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,7 @@ void	init_cylinder(char **param, t_scene *scene)
 		exit_error(ERROR_MEM, NULL, scene);
 	new_cylinder->id = CY;
 	new_cylinder->pOrigin = set_xyz(param[1], scene);
-	new_cylinder->vNormal = set_xyz(param[2], scene);
-	v_normalizep(&new_cylinder->vNormal); 
+	new_cylinder->vNormal = v_normalize(set_xyz(param[2], scene));
 	new_cylinder->diameter = to_float(param[3], scene);
 	new_cylinder->height = to_float(param[4], scene);
 	new_cylinder->albedo = ALBEDO;
@@ -138,8 +137,7 @@ void	init_cone(char **param, t_scene *scene)
 		exit_error(ERROR_MEM, NULL, scene);
 	new_cone->id = CO;
 	new_cone->pOrigin = set_xyz(param[1], scene);
-	new_cone->vNormal = set_xyz(param[2], scene);
-	v_normalizep(&new_cone->vNormal); 
+	new_cone->vNormal = v_normalize(set_xyz(param[2], scene));
 	new_cone->diameter = to_float(param[3], scene);
 	new_cone->height = to_float(param[4], scene);
 	new_cone->albedo = ALBEDO;

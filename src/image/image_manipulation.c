@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/01 18:43:33 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 22:44:05 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	zoom(mlx_key_data_t keydata, t_scene *scene)
 		if (keydata.key == ZOOM_OUT)
 			scene->camera->fov += 5;
 		cameraGeometry(scene);
-		printf("new fov:%d\n", scene->camera->fov); //for debugging
+		ft_printf("new fov:%d\n", scene->camera->fov); //for debugging
 	}
 	render_image(scene);
 }
@@ -69,7 +69,7 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 	v_normalizep(orientation);
 	cameraGeometry(scene);
 	render_image(scene);
-	printf("orientation: ");
+	ft_printf("orientation: ");
 	print_vector(*orientation);
 }
 

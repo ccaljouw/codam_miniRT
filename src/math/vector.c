@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 08:31:28 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/09/30 16:22:50 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 22:35:45 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ t_xyz	v_cross(t_xyz a, t_xyz b)
 	new.z = a.x * b.y - b.x * a.y;
 	return (new);
 }
+
 /**
  * @brief Calculates the length of a vector (|| V ||)
  * Vector lenth is also called norm

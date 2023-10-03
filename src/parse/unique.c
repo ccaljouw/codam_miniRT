@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 18:52:32 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 22:31:42 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,7 @@ void	init_lights(char **param, t_scene *s)
 	m44_translate_by_vector(&new_light->l2w, new_light->light_point);
 	m44_multiply_vec3(new_light->l2w, v_create(0, 0, 0), &new_light->origin);
 	new_light->rgb_ratios = v_create(new_light->rgb[0] / (float)255, \
-									new_light->rgb[1] / (float)255, \
-									new_light->rgb[2] / (float)255);
-	// print_vector(new_light->light_point);
-	// print_vector(new_light->origin);
+		new_light->rgb[1] / (float)255, new_light->rgb[2] / (float)255);
 	new_node->content = (void *)new_light;
 	ft_lstadd_back(&s->lights, new_node);
 	ft_putstr_fd("\033[34;1mLight config:\t\t  \033[0m", 1);

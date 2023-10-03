@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/02 15:43:26 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/03 08:47:09 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <math.h>
-
-# include <stdio.h> //remove
 
 // fuction pointer for intersection test functions of different objects
 typedef int		t_hit_test(t_px *ray, t_object, float *hp_info);
@@ -48,8 +46,6 @@ void	init_pixels(t_scene *scene);
 // render_ascii.c
 void	renderAscii(t_scene *scene);
 int		get_parabolic_hitpoints(t_xyz abc, float *hp1, float *hp2);
-// int		test_sphere(t_px ray, t_object sphere, float *hit_dist);
-// int		test_plane(t_px ray, t_object plane, float *hit_dist);
 
 // render.c
 void	get_ray(t_px *px, int x, int y, t_scene *s);
@@ -95,6 +91,7 @@ int		get_text_pxcolor(mlx_texture_t *text, float x, float y);
 void	map_normal(t_px *px);
 void	map_texture(t_px *px);
 int		map_procedure(t_px px, float x, float y, float z);
+void	perturb_normal(t_px *px, float x, float y, float z);
 int		checkered(t_px px, float x, float y, float z);
 void	simple_rough(t_px *px, float min, float max);
 

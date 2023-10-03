@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/02 15:10:18 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/02 15:36:30 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/02 22:33:39 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@ Bump maps are created by pertubating the surface normal at the hitpoint
 available procedures:
 	1	simple_rough
 */
+
+void	simple_rough(t_px *px, float min, float max)
+{
+	float	x;
+	float	y;
+	float	z;
+	
+	x = min + (((float)rand()/(float)(RAND_MAX)) * (max - min));
+	y = min + (((float)rand()/(float)(RAND_MAX)) * (max - min));
+	z = min + (((float)rand()/(float)(RAND_MAX)) * (max - min));
+	perturb_normal(px, x, y, z);
+}
 
 void	perturb_normal(t_px *px, float x, float y, float z)
 {
@@ -37,22 +49,10 @@ void	perturb_normal(t_px *px, float x, float y, float z)
 	px->surface_normal = v_normalize(px->surface_normal);
 }
 
-void	simple_rough(t_px *px, float min, float max)
-{
-	float	x;
-	float	y;
-	float	z;
-	
-	x = min + (((float)rand()/(float)(RAND_MAX)) * (max - min));
-	y = min + (((float)rand()/(float)(RAND_MAX)) * (max - min));
-	z = min + (((float)rand()/(float)(RAND_MAX)) * (max - min));
-	perturb_normal(px, x, y, z);
-}
-
 void	map_normal(t_px *px)
 {
 	if (!px->hitobject->bump)
 		return;
 	if (px->hitobject->bump == 1)
-			simple_rough(px, 0, 1);
+		simple_rough(px, 0, 1);
 }
