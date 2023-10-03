@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 13:35:18 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:57:05 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,12 @@ void	perturb_normal(t_px *px, t_xyz pertubation);
 void	simple_rough(t_px *px, float min, float max);
 
 // procedural_textures.c
-float	get_text_val(t_xyz coord);
-int		map_texture(t_px px);
-int		map_procedure(t_px px);
-int		checkered(t_px px, float x, float y, float z);
+int	checkered(t_px *px, t_xyz uv);
+int	v_checkered(t_px *px, t_xyz uv);
 
 // text_utils.c
+int		map_texture(t_px *px);
+int		map_procedure(t_px *px);
 float	get_text_val(t_xyz coord);
 t_xyz	texture_diff(t_px *px, t_xyz uv);
 

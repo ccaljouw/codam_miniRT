@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/03 13:32:33 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:51:09 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ int	getColor(t_px *px, t_scene *scene)
 	object = (t_object *)px->hitobject;
 	if (!object)
 		px->color =  (0 << 24 | 0 << 16 | 0 << 8 | 255);
-	px->color = map_texture(*px);
-	px->color = map_procedure(*px);
+	px->color = map_texture(px);
+	px->color = map_procedure(px);
 	px->color = ((int)(((px->color >> 24) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) + px->ratios.x))) << 24 \
 	| (int)(((px->color >> 16) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) + px->ratios.y))) << 16 \
 	| (int)(((px->color >> 8) & 0xFF) * ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) + px->ratios.z))) << 8 \
