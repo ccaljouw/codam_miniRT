@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:41:09 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/03 12:59:41 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:35:04 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,3 @@ t_xyz	texture_diff(t_px *px, t_xyz uv)
 	return(v_create(u_grad, v_grad, 0));
 }
 
-void	get_text_color(t_px *px)
-{
-	static t_get_color	*get_color[4] = {get_color_sphere, get_color_plane, \
-		get_color_cylinder , get_color_cone};
-	t_object	*object;
-
-	object = (t_object *)px->hitobject;
-	if (!object)
-		return;
-	px->color = ((object->rgb[0] << 24) | (object->rgb[1] << 16) | (object->rgb[2] << 8) | 255);
-	if (object->text || object->text_proc)
-		px->color = get_color[object->id](*object, *px);
-}

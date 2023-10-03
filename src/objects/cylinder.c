@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 13:11:14 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:33:17 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,24 +139,5 @@ t_xyz	norm_uvcoord_cy(t_object cy, t_xyz uv)
 	return (uv);
 }
 
-/**
- * @brief Get the color of the object by calculating uv coordinates.
- * for texture pixel color the uv coordinates are normalized 
- * 
- * @param object 
- * @param px 
- * @return int 
- */
-int	get_color_cylinder(t_object object, t_px px)
-{
-	t_xyz	uv;
-	
-	uv = get_uvcoord_cy(object, px);
-	if (object.text)
-		px.color = get_text_pxcolor(&px, object.text, norm_uvcoord_cy(object, uv));
-	// if (object.text_proc)
-	// 	px.color = map_procedure(px, get_uvcoord_cy(object, px));
-	return (px.color);
-}
 
 
