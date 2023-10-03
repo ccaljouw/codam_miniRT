@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   sphere.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 17:54:01 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/03 13:33:09 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   sphere.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/10/03 15:56:42 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,13 @@ int	get_sphere_surface_data(t_object sph, t_px *px)
 
 t_xyz	get_uvcoord_sp(t_object sp, t_px px)
 {
-	t_xyz		unit;
+	t_xyz		uv;
 	
-	unit = v_subtract(px.hitpoint, sp.pOrigin);
-	return (v_create(unit.x, unit.y, 0));
+	uv = v_subtract(px.hitpoint, sp.pOrigin);
+	v_normalizep(&uv);
+	uv.x = atan2((pow(uv.y, 2) + pow(uv.z, 2)), uv.x);
+	uv.y = atan2(uv.z, uv.y);
+	return (uv);
 }
 
 t_xyz	norm_uvcoord_sp(t_object sp, t_xyz uv)

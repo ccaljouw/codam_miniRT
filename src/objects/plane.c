@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   plane.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 11:14:41 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 13:33:13 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   plane.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/03 15:55:23 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,12 @@ int	get_plane_surface_data(t_object plane, t_px *px)
 
 t_xyz	get_uvcoord_pl(t_object pl, t_px px)
 {
-	t_xyz		unit;
+	t_xyz		uv;
 	
 	(void)pl;
-	unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
-	return (v_create(unit.x, unit.y, unit.z));
+	// unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
+	uv = v_add(px.cam_origin, v_multiply(px.direction, px.hit_distance + SHADOW_BIAS));
+	return (uv);
 }
 
 t_xyz	norm_uvcoord_pl(t_object pl, t_xyz uv)
