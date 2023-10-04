@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/04 14:07:31 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/04 18:05:53 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ t_xyz	get_uvcoord_pl(t_object pl, t_px px)
 	(void)pl;
 	// unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
 	uv = v_add(px.cam_origin, v_multiply(px.direction, px.hit_distance + SHADOW_BIAS));
+	uv.y = px.hit_distance;
 	return (uv);
 }
 

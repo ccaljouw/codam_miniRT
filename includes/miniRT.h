@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/04 15:57:34 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/04 18:21:26 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	v_checkered(t_px *px, t_xyz uv);
 int	gradient(t_px *px, t_xyz uv);
 
 // color_maps.c
-t_xyz	color_map_3s(float pos);
+t_xyz	color_map_5s(float pos);
 
 // text_utils.c
 int		map_texture(t_px *px, t_scene *scene);

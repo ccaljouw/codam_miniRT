@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/04 18:01:01 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/04 18:21:16 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ int	gradient(t_px *px, t_xyz uv)
 
 
 	uv = norm_uv[px->hitobject->id](*px->hitobject, uv);
-	fact = color_map_3s(fabs(uv.x));
-	r = ft_max((int)(fact.x * 255.0), 0);
-	g = ft_max((int)(fact.y * 255.0), 0);
-	b =	ft_max((int)(fact.z * 255.0), 0);
+	fact = color_map_5s(fabs(uv.x));
+	r = (int)(fact.x * 255.0);
+	g = (int)(fact.y * 255.0);
+	b =	(int)(fact.z * 255.0);
 	// ft_printf("r:%d, g:%d, b:%d\n", r, g, b);
 	px->color = (r << 24 | g << 16 | b << 8 | 255);
 	return (px->color);

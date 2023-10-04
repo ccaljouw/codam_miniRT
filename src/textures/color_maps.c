@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 15:11:27 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/04 17:52:19 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/04 18:26:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,23 @@ t_xyz	get_rgb_fact(float pos, int *stop_range, t_stop *stops)
 	return (rgb_fact);
 }
 
-t_xyz	color_map_3s(float pos)
+t_xyz	color_map_5s(float pos)
 {
-	int		*stop_range;
-	t_stop	stops[3];
+	int		stop_range[2];
+	t_stop	stops[5];
 	t_xyz	fact;
 
-	stop_range = ft_calloc(2, sizeof(int));
-	if (!stop_range)
-		exit_error(ERROR_MEM, NULL, NULL); // cannot cleanup scene here
 	stops[0].pos = 0;
-	stops[1].pos = 0.5;
-	stops[2].pos = 1;
-	stops[0].rgb_fact = v_create(1, 0, 0);
-	stops[1].rgb_fact = v_create(1, 1, 0);
-	stops[2].rgb_fact = v_create(0, 0, 1);
-	get_position_range(stop_range, 3, pos, stops);
+	stops[1].pos = 0.25;
+	stops[2].pos = 0.5;
+	stops[3].pos = 0.75;
+	stops[4].pos = 1;
+	stops[0].rgb_fact = v_create(1, 	0, 		0);
+	stops[1].rgb_fact = v_create(0.75,	0.25, 	0);
+	stops[2].rgb_fact = v_create(0, 	1, 		0);
+	stops[3].rgb_fact = v_create(0, 	0.75, 	0.5);
+	stops[4].rgb_fact = v_create(0, 	0, 		1);
+	get_position_range(stop_range, 5, pos, stops);
 	fact = get_rgb_fact(pos, stop_range, stops);
-	free(stop_range);
 	return (fact);
 }
