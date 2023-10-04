@@ -6,7 +6,7 @@ RESET	:= \033[0m
 
 NAME 		:= miniRT
 CC 			:= cc
-CFLAGS 		:= -Wall -Wextra -Werror -O3 #-pthread -g -fsanitize=address
+CFLAGS 		:= -Wall -Wextra -Werror -O3 -pthread #-g -fsanitize=address
 LIBFT	 	:= ./libs/libft
 LIBMLX		:= ./libs/MLX42/build
 LIBS		:= $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a 

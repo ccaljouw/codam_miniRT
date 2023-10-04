@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/03 22:12:39 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/04 11:25:01 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,16 @@ void	zoom(mlx_key_data_t keydata, t_scene *scene)
 void	rotate(mlx_key_data_t keydata, t_scene *scene)
 {
 	t_xyz	*orientation;
+	bool	normalize;
 
+	normalize = true;
 	if (scene->selected)
 		orientation = &scene->selected->vNormal;
 	else if (scene->selected_light)
+	{
 		orientation = &((t_light *)scene->selected_light->content)->origin;
+		normalize = false;
+	}
 	else
 		orientation = &scene->camera->orientation_v;
 	if (keydata.key == MOVE_X_N)
@@ -66,7 +71,8 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 		orientation->z -= 0.1;
 	if (keydata.key == MOVE_Z_P)
 		orientation->z += 0.1;
-	// v_normalizep(orientation);
+	if (normalize)
+		v_normalizep(orientation);
 	cameraGeometry(scene);
 	render_image(scene);
 	ft_printf("orientation/origin: ");
