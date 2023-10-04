@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/04 11:15:03 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/04 11:28:09 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,9 @@ int	main(int argc, char **argv)
 		mlx_loop_hook(scene->mlx, do_resize, scene);
 		mlx_loop(scene->mlx);
 	}
+	// while (1)
+	// 	;
 	// clean_scene(scene);
+	// free (scene);
 	return (0);
 }
