@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/04 11:02:44 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/04 11:32:58 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,21 +122,20 @@ int	get_cylinder_surface_data(t_object cy, t_px *px)
 t_xyz	get_uvcoord_cy(t_object cy, t_px px)
 {
 	t_xyz		axis_hp;
-	t_xyz		uv;
+	t_xyz		unit;
+	float		u;
+	float		v;
 
-	axis_hp = v_add(cy.pOrigin, v_multiply(cy.vNormal, px.hit_height)); // shoud be just hp?
-	uv = v_subtract(px.hitpoint, axis_hp);
-	uv.x = atan2(uv.z, uv.x);
-	uv.y = px.hit_height;
-	uv.z = 0;
-	return (uv);
+	axis_hp = v_add(cy.pOrigin, v_multiply(cy.vNormal, px.hit_height));
+	unit = v_subtract(px.hitpoint, axis_hp);
+	u = atan2(unit.z, unit.x);
+	v = px.hit_height;
+	return (v_create(u, v, 0));
 }
 
-t_xyz	norm_uvcoord_cy(t_object cy, t_xyz uv) // niet nodig?
+t_xyz	norm_uvcoord_cy(t_object cy, t_xyz uv)
 {
-	if (uv.x < 0) // should by hp.x
-		uv.x += M_PI;
-	uv.x = 1 - (uv.x / M_PI); 
+	uv.x = (uv.x + M_PI) / (2 * M_PI);
 	uv.y = 1 - (uv.y/cy.height);
 	return (uv);
 }

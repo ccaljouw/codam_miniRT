@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   image_manipulation.c                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/03 22:12:39 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   image_manipulation.c                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/10/04 11:15:20 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 		orientation->z -= 0.1;
 	if (keydata.key == MOVE_Z_P)
 		orientation->z += 0.1;
-	// v_normalizep(orientation);
+	v_normalizep(orientation);
 	cameraGeometry(scene);
 	render_image(scene);
 	ft_printf("orientation/origin: ");
