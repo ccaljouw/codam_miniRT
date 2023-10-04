@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   errors.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:09:09 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/27 05:31:17 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   errors.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:09:09 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/04 11:08:38 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define ERROR_MLX "Error in MLX42 function"
 # define ERROR_PATH "Unable to open input file. \
 Please check path, extention and file permissions"
+# define ERROR_FLAG "Wrong flag provided"
 # define ERROR_ARGS "Incorrect number of arguments"
 # define ERROR_TYPE "Unsupported type provided"
 # define ERROR_AMB "Incorrect parameters provided for Ambient lighting"
@@ -33,5 +34,6 @@ Please check path, extention and file permissions"
 # define ERROR_F "Incorrect float provided"
 # define ERROR_THREAD "Multi threading"
 # define ERROR_PNG "Textures"
+# define USAGE_MSG "Usage: ./miniRT [path_to_file].rt [optional: -a]"
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:44:22 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/03 09:09:34 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:44:22 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/04 11:14:26 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,11 @@ void	exit_error(char *error_msg, char *optional_str, t_scene *scene)
 		clean_scene(scene);
 		exit (0);
 	}
-	ft_putendl_fd("\033[31;1mError", 2);
-	ft_putstr_fd(error_msg, 2);
-	ft_putstr_fd(": \033[0m", 2);
+	ft_dprintf(2, "\033[31;1mError: %s", error_msg);
 	if (optional_str)
-		ft_putendl_fd(optional_str, 2);
+		ft_dprintf(2, "\n\033[0m\033[33;1m%s\033[0m\n", optional_str);
 	else
-		ft_putchar_fd('\n', 2);
+		ft_dprintf(2, "\n");
 	if (scene)
 		clean_scene(scene);
 	exit (1);
