@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/04 10:40:36 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/04 14:07:31 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,23 @@
 int	test_plane(t_px *ray, t_object plane, float *hp_info)
 {
 	float	denominator;
-	t_xyz	diff_ray0_plane0;
+	// t_xyz	uv;
+	t_xyz	orig_to_center;
 
 	denominator = v_dot(plane.vNormal, ray->direction);
 	if (fabsf(denominator) > EPSILON)
 	{
-		diff_ray0_plane0 = v_subtract(plane.pOrigin, ray->cam_origin);
-		hp_info[0] = v_dot(plane.vNormal, diff_ray0_plane0) / denominator;
+		orig_to_center = v_subtract(plane.pOrigin, ray->cam_origin);
+		hp_info[0] = v_dot(plane.vNormal, orig_to_center) / denominator;
+		// hp_info[0] = ray->cam_origin.y / -denominator;
 		if (hp_info[0] > 0)
-			return (1);
+		{
+			// uv = v_add(ray->cam_origin, v_multiply(ray->direction, hp_info[0]));
+			// if (fabs(v_magnitude(uv)) < 1.0)
+				return (1);
+		}
 	}
+	hp_info[0] = 0;
 	return (0);
 }
 
@@ -36,7 +43,7 @@ int	get_plane_surface_data(t_object plane, t_px *px)
 		px->surface_normal = v_multiply(plane.vNormal, -1);
 	else
 	{
-		px->surface_normal = plane.vNormal;
+		px->surface_normal = v_multiply(plane.vNormal, 1);
 		px->facing_ratio *= -1;
 	}
 	return (px->color);
@@ -49,18 +56,15 @@ t_xyz	get_uvcoord_pl(t_object pl, t_px px)
 	(void)pl;
 	// unit = v_add(px.hitpoint, v_multiply(px.surface_normal, SHADOW_BIAS));
 	uv = v_add(px.cam_origin, v_multiply(px.direction, px.hit_distance + SHADOW_BIAS));
-	// uv.y = pl.text->height;
 	return (uv);
 }
 
-t_xyz	norm_uvcoord_pl(t_object pl, t_xyz uv) // niet nodig?
+t_xyz	norm_uvcoord_pl(t_object pl, t_xyz uv)
 {
 	(void)pl;
 	v_normalizep(&uv);
-	if (uv.y < 0) // should by hp.x
-		uv.y += 1;
-	uv.x = 1 - (uv.x / 1);
-	uv.y = uv.y / pl.text->height;
+	uv.x = (uv.x + 1) * 0.5;
+	uv.y = (uv.y + 1) * 0.5;
 	return (uv);
 }
 

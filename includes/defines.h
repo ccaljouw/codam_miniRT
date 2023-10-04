@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/27 20:37:16 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/03 22:10:50 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   defines.h                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/27 20:37:16 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/10/04 15:55:41 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define DEFINES_H
 
 # define NR_TEXTURES		3
-# define TEXT_PROCEDURES	2
+# define TEXT_PROCEDURES	3
 # define BUMP_MAPS 			1
 
 # define MOVE_X_P 			MLX_KEY_RIGHT

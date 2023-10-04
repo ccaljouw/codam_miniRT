@@ -7,7 +7,7 @@ C	0,5,-14		0,0,1		70
 
 # objects 
 #[ID	origin		axis		diameter	height		tpb				albedo		specular_size	specular_weight		color
-sp		-4,3,0 					7						1 0	1				18				5				200			255,0,0
+sp		-4,3,0 					7						0 3	1				18				5				200			255,0,0
 sp		4,3,0					7						2 0	0				18				5				80			255,0,0
 # sp		-4,5,-1					8					0 0 1															200,200,200
 # sp		4,5,-1					8					0 0 0															200,200,200

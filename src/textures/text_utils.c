@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/03 10:41:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/04 10:26:27 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/04 15:57:42 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	map_procedure(t_px *px)
 		return (checkered(px, uv));
 	if (px->hitobject->text_proc == 2)
 		return (v_checkered(px, uv));
+	if (px->hitobject->text_proc == 3)
+		return (gradient(px, uv));
 	return (px->color);	
 }
 

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/09/30 19:28:08 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/04 14:53:27 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,17 @@ typedef struct xyz_s
 	float	y;
 	float	z;
 }			t_xyz;
+
+/**
+ * @brief a struct containing a stop for a color map.
+ * @param	pos 	(float) a scalar value (between 0 and 1) on the color map
+ * @param	rgb_fact (float[3]) scalar values for the rgb chanals of the color;
+ */
+typedef struct stop_s
+{
+	float	pos;
+	t_xyz	rgb_fact;
+}			t_stop;
 
 /**
  * @brief Ambient lighting (id: "A")

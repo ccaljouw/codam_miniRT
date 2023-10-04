@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/04 11:33:46 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/04 13:49:08 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,17 @@ int	get_cone_surface_data(t_object co, t_px *px)
 t_xyz	get_uvcoord_co(t_object co, t_px px)
 {
 	t_xyz		axis_hp;
-	t_xyz		unit;
-	float		u;
-	float		v;
+	t_xyz		uv;
+	// t_xyz		unit;
+	// float		u;
+	// float		v;
 
 	axis_hp = v_add(co.pOrigin, v_multiply(co.vNormal, px.hit_height));
-	unit = v_subtract(px.hitpoint, axis_hp);
-	u = atan2(unit.z, unit.x);
-	v = px.hit_height;
-	return (v_create(u, v, 0));
+	uv = v_subtract(px.hitpoint, axis_hp);
+	uv.x = atan2(uv.z, uv.x);
+	uv.y = px.hit_height;
+	uv.z = 0;
+	return (uv);
 }
 
 t_xyz	norm_uvcoord_co(t_object co, t_xyz uv)

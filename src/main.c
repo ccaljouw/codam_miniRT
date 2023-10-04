@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/04 11:38:21 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/04 11:40:43 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int	main(int argc, char **argv)
 {
 	t_scene			*scene;
 
-	// atexit(leaks_f); leaks!!
+	// atexit(leaks_f); //leaks!!
 	check_args(argc, argv);
 	scene = init_scene(argv[1]);
 	if (argv[2] && (!ft_strcmp(argv[2], "-a") || !ft_strcmp(argv[2], "-ai")))

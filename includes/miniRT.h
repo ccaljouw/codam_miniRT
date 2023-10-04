@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/04 10:02:40 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/04 15:57:34 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,10 @@ void	simple_rough(t_px *px, float min, float max);
 // procedural_textures.c
 int	checkered(t_px *px, t_xyz uv);
 int	v_checkered(t_px *px, t_xyz uv);
+int	gradient(t_px *px, t_xyz uv);
+
+// color_maps.c
+t_xyz	color_map_3s(float pos);
 
 // text_utils.c
 int		map_texture(t_px *px, t_scene *scene);

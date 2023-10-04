@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   procedural_textures.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/27 21:18:09 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/03 13:56:17 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   procedural_textures.c                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/10/04 18:01:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ Procedural textures are calcultaed basd on x, y coordinates of the object space.
 available procedures:
 	1	checkered
 	2	v_checkered
+	3	gradient;
 */
 
 int	checkered(t_px *px, t_xyz uv)
@@ -45,3 +46,24 @@ int	v_checkered(t_px *px, t_xyz uv)
 		px->color = invert_color(px->color);
 	return (px->color);
 }
+
+int	gradient(t_px *px, t_xyz uv)
+{
+	static t_n_uv	*norm_uv[4] = {norm_uvcoord_sp, norm_uvcoord_pl, \
+		norm_uvcoord_cy , norm_uvcoord_co};
+	int		r;
+	int		g;
+	int		b;
+	t_xyz	fact;
+
+
+	uv = norm_uv[px->hitobject->id](*px->hitobject, uv);
+	fact = color_map_3s(fabs(uv.x));
+	r = ft_max((int)(fact.x * 255.0), 0);
+	g = ft_max((int)(fact.y * 255.0), 0);
+	b =	ft_max((int)(fact.z * 255.0), 0);
+	// ft_printf("r:%d, g:%d, b:%d\n", r, g, b);
+	px->color = (r << 24 | g << 16 | b << 8 | 255);
+	return (px->color);
+}
+
