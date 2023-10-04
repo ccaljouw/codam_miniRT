@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   image_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/03 23:40:14 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   image_utils.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/10/04 10:27:09 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,25 @@ int	get_text_pxcolor(t_px *pix, mlx_texture_t *text, t_xyz n_uv)
 	int	text_x;
 	int text_y;
 
-
+	// print_vector(n_uv);
+	if (!text)
+	{
+		pix->color = (pix->hitobject->rgb[0] << 24 | pix->hitobject->rgb[0] << 16 | pix->hitobject->rgb[0] << 8 | 255);
+		return (pix->color);
+	}
 	text_x = (int)floorf(n_uv.x * text->width);
 	text_y = (int)floorf(n_uv.y * text->height);
+	// ft_printf("w:%d, h:%d px:%d, px4:%d\n", text->width, text->height,  text->width * text->height, text->width * text->height * 4);
+	// ft_printf("x:%d, y:%d\n", text_x, text_y);
 	if (text_y == 0 && text_x == 0)
 		px = 0;
 	else
 		px = (((text_y * text->width) + (text_x)) * 4) - 1;
+	// ft_printf("hitobject:%d\n", pix->hitobject->id);
+	// ft_printf("in get text pxcolor, text_x:%d, text_y:%d\n", text_x, text_y);
 	pix->color = (text->pixels[px + 1] << 24) + (text->pixels[px + 2] << 16) \
 				+ (text->pixels[px + 3] << 8) + text->pixels[px];
+	// ft_printf("got color\n");
 	return (pix->color);
 }
 
@@ -89,7 +99,7 @@ int	get_color(t_px *px, t_scene *scene)
 	object = (t_object *)px->hitobject;
 	if (!object)
 		return (px->color = 0 << 24 | 0 << 16 | 0 << 8 | 255);
-	px->color = map_texture(px);
+	px->color = map_texture(px, scene);
 	px->color = map_procedure(px);
 	px->rgb[0] = (int)(((px->color >> 24) & 0xFF) * \
 		ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) \

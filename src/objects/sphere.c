@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/03 15:56:42 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/04 09:18:03 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +114,19 @@ t_xyz	get_uvcoord_sp(t_object sp, t_px px)
 	
 	uv = v_subtract(px.hitpoint, sp.pOrigin);
 	v_normalizep(&uv);
-	uv.x = atan2((pow(uv.y, 2) + pow(uv.z, 2)), uv.x);
+	uv.x = atan2(sqrtf(pow(uv.y, 2) + pow(uv.z, 2)), uv.x);
 	uv.y = atan2(uv.z, uv.y);
+	uv.z = 0;
 	return (uv);
 }
 
 t_xyz	norm_uvcoord_sp(t_object sp, t_xyz uv)
 {
 	(void)sp;
-	uv.x = 1 - ((uv.x + M_PI) / (2 * M_PI));
-	uv.y = 1 - (uv.y + M_PI) / (2 * M_PI);
+	if (uv.y < 0)
+		uv.y += M_PI;
+	uv.x = 1 - (uv.x / M_PI);
+	uv.y = 1 - (uv.y / M_PI);
 	return (uv);
 }
 

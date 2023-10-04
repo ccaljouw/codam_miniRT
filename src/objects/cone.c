@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cone.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/30 19:23:25 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/03 13:33:22 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cone.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/10/04 11:04:26 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,21 +82,22 @@ int	get_cone_surface_data(t_object co, t_px *px)
 t_xyz	get_uvcoord_co(t_object co, t_px px)
 {
 	t_xyz		axis_hp;
-	t_xyz		unit;
-	float		u;
-	float		v;
+	t_xyz		uv;
 
-	axis_hp = v_add(co.pOrigin, v_multiply(co.vNormal, px.hit_height));
-	unit = v_subtract(px.hitpoint, axis_hp);
-	u = atan2(unit.z, unit.x);
-	v = px.hit_height;
-	return (v_create(u, v, 0));
-}
-
-t_xyz	norm_uvcoord_co(t_object co, t_xyz uv)
-{
-	uv.x = (uv.x + M_PI) / (2 * M_PI);
-	uv.y = 1 - (uv.y/co.height);
+	axis_hp = v_add(co.pOrigin, v_multiply(co.vNormal, px.hit_height)); // shoud be just hp?
+	uv = v_subtract(px.hitpoint, axis_hp);
+	uv.x = atan2(uv.z, uv.x);
+	// uv.z = uv.y;
+	// uv.y = px.hit_height;
 	return (uv);
 }
 
+t_xyz	norm_uvcoord_co(t_object co, t_xyz uv) // niet nodig?
+{
+	(void)co;
+	if (uv.x < 0) // should by hp.x
+		uv.x += M_PI;
+	uv.x = 1 - (uv.x / M_PI);
+	uv.y /= co.height;
+	return (uv);
+}

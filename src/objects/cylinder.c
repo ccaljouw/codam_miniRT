@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cylinder.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 13:33:17 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cylinder.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/04 11:02:44 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ int	set_hp_info(float *hit_param, float height, float *hp_info)
 			hp_info[1] = hit_param[2];
 			return (1);
 		}
-		else
+		else if (hit_param[3] < height && hit_param[3] > 0)
 		{
 			hp_info[0] = hit_param[1];
 			hp_info[1] = hit_param[3];
 			return (1);
 		}
+		// ft_printf("m1:%f, m2:%f\n", hit_param[2], hit_param[3]);
 	}
 	hp_info[0] = 0;
 	return (0);
@@ -121,20 +122,21 @@ int	get_cylinder_surface_data(t_object cy, t_px *px)
 t_xyz	get_uvcoord_cy(t_object cy, t_px px)
 {
 	t_xyz		axis_hp;
-	t_xyz		unit;
-	float		u;
-	float		v;
+	t_xyz		uv;
 
-	axis_hp = v_add(cy.pOrigin, v_multiply(cy.vNormal, px.hit_height));
-	unit = v_subtract(px.hitpoint, axis_hp);
-	u = atan2(unit.z, unit.x);
-	v = px.hit_height;
-	return (v_create(u, v, 0));
+	axis_hp = v_add(cy.pOrigin, v_multiply(cy.vNormal, px.hit_height)); // shoud be just hp?
+	uv = v_subtract(px.hitpoint, axis_hp);
+	uv.x = atan2(uv.z, uv.x);
+	uv.y = px.hit_height;
+	uv.z = 0;
+	return (uv);
 }
 
-t_xyz	norm_uvcoord_cy(t_object cy, t_xyz uv)
+t_xyz	norm_uvcoord_cy(t_object cy, t_xyz uv) // niet nodig?
 {
-	uv.x = (uv.x + M_PI) / (2 * M_PI);
+	if (uv.x < 0) // should by hp.x
+		uv.x += M_PI;
+	uv.x = 1 - (uv.x / M_PI); 
 	uv.y = 1 - (uv.y/cy.height);
 	return (uv);
 }

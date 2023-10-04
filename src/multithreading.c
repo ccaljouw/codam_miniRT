@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   multithreading.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 14:21:20 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 14:01:02 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   multithreading.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/04 10:41:31 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,6 @@ void	join_threads(pthread_t *threads, t_scene *scene)
 		i++;
 	}
 	draw_image(scene);
+	ft_printf("camw:%f, camh:%f\n", scene->camera->image_width, scene->camera->image_height);
+	ft_printf("minx:%f, maxx:%f, miny:%f, maxy:%f\n", scene->min_x, scene->max_x, scene->min_y, scene->max_y);
 }

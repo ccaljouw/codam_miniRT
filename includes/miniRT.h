@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 14:12:54 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   miniRT.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/04 10:02:40 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	checkered(t_px *px, t_xyz uv);
 int	v_checkered(t_px *px, t_xyz uv);
 
 // text_utils.c
-int		map_texture(t_px *px);
+int		map_texture(t_px *px, t_scene *scene);
 int		map_procedure(t_px *px);
 float	get_text_val(t_xyz coord);
 t_xyz	texture_diff(t_px *px, t_xyz uv);

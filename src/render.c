@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/04 00:01:10 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   render.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/04 09:22:35 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,18 @@
  */
 void	get_ray(t_px *px, int x, int y, t_scene *s)
 {
+	float	cam_x;
+	float	cam_y;
+	t_xyz	cam_v3;
+	
 	ft_bzero(px, sizeof(t_px));
 	px->cam_origin = s->camera->origin;
-	px->screen_x = x;
-	px->screen_y = y;
-	px->cam_x = (2 * (((float)x + 0.5) / s->camera->image_width) - 1) \
+	cam_x = (2 * (((float)x + 0.5) / s->camera->image_width) - 1) \
 						* s->camera->aspect_ratio * s->camera->fov_scale;
-	px->cam_y = (1 - 2 * ((float)y + 0.5) / s->camera->image_height) \
+	cam_y = (1 - 2 * ((float)y + 0.5) / s->camera->image_height) \
 						* s->camera->fov_scale;
-	px->cam_v3 = v_create(px->cam_x, px->cam_y, 1);
-	m44_multiply_vec3_dir(s->camera->cam2world, px->cam_v3, \
+	cam_v3 = v_create(cam_x, cam_y, 1);
+	m44_multiply_vec3_dir(s->camera->cam2world, cam_v3, \
 											&px->direction);
 	v_normalizep(&px->direction);
 }
