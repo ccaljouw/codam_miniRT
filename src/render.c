@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/04 00:01:10 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/04 11:16:20 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,32 +137,35 @@ void	print_ascii(t_px *px, t_scene *scene)
 
 void	renderAscii(t_scene *scene)
 {
-	t_px		**pixels;
-	t_camera	*cam;
-	int		x;
-	int		y;
-	int		i;
+	int	x;
+	int	y;
+	int	i;
 
 	i = 0;
-	cam = scene->camera;
-	cam->aspect_ratio = (float)ASCII_WIDTH / ASCII_HEIGHT * 0.6;
-	cam->image_width = ASCII_WIDTH;
-	cam->image_height = ASCII_HEIGHT;
-	pixels = malloc(ASCII_HEIGHT * sizeof(t_px *));
-	if (!pixels)
+	while (i < scene->p_height)
+		free(scene->pixels[i++]);
+	free(scene->pixels);
+	i = 0;
+	scene->camera->aspect_ratio = (float)ASCII_WIDTH / ASCII_HEIGHT * 0.6;
+	scene->camera->image_width = ASCII_WIDTH;
+	scene->camera->image_height = ASCII_HEIGHT;
+	scene->pixels = ft_calloc(ASCII_HEIGHT, sizeof(t_px *));
+	scene->p_height = ASCII_HEIGHT;
+	scene->p_width = ASCII_WIDTH;
+	if (!scene->pixels)
 		exit_error(ERROR_MEM, NULL, scene);
 	while (i < ASCII_HEIGHT)
 	{
-		pixels[i] = ft_calloc(ASCII_WIDTH, sizeof(t_px));
-		if (!pixels[i])
+		scene->pixels[i] = ft_calloc(ASCII_WIDTH, sizeof(t_px));
+		if (!scene->pixels[i])
 			exit_error(ERROR_MEM, NULL, scene);
 		i++;
 	}
 	y = 0;
-	while (y < cam->image_height)
+	while (y < scene->camera->image_height)
 	{
 		x = 0;
-		while (x < cam->image_width)
+		while (x < scene->camera->image_width)
 		{
 			get_ray(scene->pixels[y] + x, x, y, scene);
 			trace_ray(scene->pixels[y] + x, scene);
@@ -178,6 +181,7 @@ void	renderAscii(t_scene *scene)
 		ft_printf("\n");
 		y++;
 	}
-	// clean_scene(scene);
+	clean_scene(scene);
+	// free(scene);
 }
 

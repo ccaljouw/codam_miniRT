@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/04 00:02:39 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/04 11:15:03 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ void	check_args(int argc, char **argv)
 	int	i;
 
 	i = 0;
-	if (argc < 2)
-		exit_error(ERROR_ARGS, NULL, NULL);
+	if (argc < 2 || argc > 3)
+		exit_error(ERROR_ARGS, USAGE_MSG, NULL);
 	while (argv[1][i] != '\0')
 		i++;
 	if (ft_strncmp(argv[1] + (i - 3), ".rt", 4) != 0)
-		exit_error(ERROR_PATH, NULL, NULL);
+		exit_error(ERROR_PATH, USAGE_MSG, NULL);
+	if (argc == 3 && !(!ft_strcmp(argv[2], "-ai") || !ft_strcmp(argv[2], "-a")))
+		exit_error(ERROR_FLAG, USAGE_MSG, NULL);
 }
 
 void	init_pixels(t_scene *scene)
@@ -65,6 +67,7 @@ void	clean_scene(t_scene *scene)
 	int	y;
 
 	y = 0;
+	ft_printf("i was called to clean\n");
 	if (scene->image)
 		mlx_delete_image(scene->mlx, scene->image);
 	if (scene->mlx)
@@ -75,15 +78,22 @@ void	clean_scene(t_scene *scene)
 		free(scene->camera);
 	ft_lstclear(&scene->lights, free);
 	ft_lstclear(&scene->objects, free);
+	ft_printf("pixels add %p, p_beight %i\n", scene->pixels, scene->p_height);
 	if (scene->pixels)
 	{
+		// ft_printf("cleaning pixelsn\n");
 		while (y < scene->p_height)
 		{
+			// ft_printf("\t row %i\n", y);
 			free(scene->pixels[y]);
+			scene->pixels[y] = NULL;
 			y++;
 		}
 	}
 	free(scene->pixels);
+	// scene->pixels = NULL;
+	// free(scene);
+	// scene = NU
 }
 
 /**
@@ -173,6 +183,6 @@ int	main(int argc, char **argv)
 		mlx_loop_hook(scene->mlx, do_resize, scene);
 		mlx_loop(scene->mlx);
 	}
-	clean_scene(scene);
+	// clean_scene(scene);
 	return (0);
 }
