@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 23:23:50 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/05 12:32:25 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,7 @@ void	init_sphere(char **param, t_scene *scene)
 	if (!new_node || !new_sphere)
 		exit_error(ERROR_MEM, NULL, scene);
 	new_sphere->id = SP;
+	new_sphere->vNormal = v_create(0, 1, 0);
 	new_sphere->pOrigin = set_xyz(param[1], scene);
 	new_sphere->diameter = to_float(param[2], scene);
 	new_sphere->text = set_texture(param[3], scene);

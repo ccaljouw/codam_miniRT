@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   vector.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/14 08:31:28 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/02 22:35:45 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   vector.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/14 08:31:28 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/05 12:27:37 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,4 +232,26 @@ void	v_normalizep(t_xyz *a)
 float	v_square_of_self(t_xyz a)
 {
 	return (a.x * a.x + a.y * a.y + a.z * a.z);
+}
+
+/**
+ * @brief Returns the angle between to vectors in degrees
+ * 
+ * @param a 
+ * @param b 
+ * @return float 
+ */
+float	v_angle(t_xyz a, t_xyz b)
+{
+	float	cos_angle;
+	float	nom;
+	float	denom;
+
+	nom = v_dot(a, b);
+	denom = v_magnitude(a) * v_magnitude(b);
+	if (denom == 0)
+		return (0);
+	cos_angle = nom / denom;
+
+	return (acos(cos_angle) / M_PI * 180);
 }

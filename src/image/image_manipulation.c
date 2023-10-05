@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/04 11:25:01 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/05 12:48:40 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ void	zoom(mlx_key_data_t keydata, t_scene *scene)
 	}
 	render_image(scene);
 }
+
+// float	add_and_flip(float value, float increment)
+// {
+
+// }
 
 void	rotate(mlx_key_data_t keydata, t_scene *scene)
 {

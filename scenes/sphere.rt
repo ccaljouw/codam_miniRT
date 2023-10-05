@@ -4,6 +4,7 @@ A	0.3						255,255,255
 l	0,3,-14		0.7			255,255,255
 
 C	0,5,-14		0,0,1		70
+# C	20,3,0		1,0,0		70
 
 # objects 
 #[ID	origin		axis		diameter	height		tpb				albedo		specular_size	specular_weight		color
