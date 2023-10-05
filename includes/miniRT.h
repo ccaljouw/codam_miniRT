@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/04 18:21:26 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/05 17:45:33 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 # include <MLX42.h>
 # include <libft.h>
+# include <stdbool.h>
 # include <defines.h>
 # include <errors.h>
 # include <types.h>
 # include <vector.h>
 # include <matrix.h>
 # include <parser.h>
-# include <stdbool.h>
 # include <stdlib.h>
 # include <math.h>
 

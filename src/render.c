@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/04 11:38:29 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/05 17:47:14 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,8 @@ void	renderAscii(t_scene *scene)
 		ft_printf("\n");
 		y++;
 	}
-	clean_scene(scene);
+	// clean_scene(scene);
+	exit_error(SUCCESS, NULL, scene);
 	// free(scene);
 }
 

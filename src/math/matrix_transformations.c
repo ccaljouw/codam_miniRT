@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   matrix_transformations.c                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/02/15 13:28:29 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/09/30 16:22:16 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   matrix_transformations.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/15 13:28:29 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/05 11:13:21 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ static t_m44	m44_rotate_axis(float angle, char axis);
 
 void	m44_rotate(t_m44 *matrix, float x, float y, float z)
 {
-	if (x > 0)
+	if (x != 0)
 		*matrix = m44_dot_product(*matrix, m44_rotate_axis(x, 'x'));
-	if (y > 0)
+	if (y != 0)
 		*matrix = m44_dot_product(*matrix, m44_rotate_axis(y, 'y'));
-	if (z > 0)
+	if (z != 0)
 		*matrix = m44_dot_product(*matrix, m44_rotate_axis(z, 'z'));
 }
 

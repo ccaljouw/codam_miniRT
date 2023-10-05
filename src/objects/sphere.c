@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/04 16:56:05 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/05 17:47:04 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	test_sphere(t_px *ray, t_object sphere, float *hp_info)
 	return (1);
 }
 
+
 /**
  * @brief Calculate the normal of the sphere at the hitpoint (ie the vector
 		perpendicular to the surface at that point).
@@ -111,8 +112,22 @@ int	get_sphere_surface_data(t_object sph, t_px *px)
 t_xyz	get_uvcoord_sp(t_object sp, t_px px)
 {
 	t_xyz		uv;
-	
+	t_m44		rotate;
+	t_xyz		angles;
+	t_xyz		normal_dif;
+
+	rotate = m44_init();
+	// print_vector(sp.vNormal);
+	// normal_dif = v_subtract(sp.vNormal, v_create(0, 1, 0));
+	// print_vector(angles);
+	normal_dif = sp.vNormal;
+	angles.x = v_angle(normal_dif, v_create(1, 0, 0));
+	angles.y = v_angle(normal_dif, v_create(0, 1, 0));
+	angles.z = v_angle(normal_dif, v_create(0, 0, 1));
+	// print_vector(angles);
+	m44_rotate(&rotate, angles.x, angles.y, angles.z);
 	uv = v_subtract(px.hitpoint, sp.pOrigin);
+	m44_multiply_vec3(rotate, uv, &uv);
 	v_normalizep(&uv);
 	uv.x = atan2(sqrtf(pow(uv.y, 2) + pow(uv.z, 2)), uv.x);
 	uv.y = atan2(uv.z, uv.y);
