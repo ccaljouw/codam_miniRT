@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/04 10:27:09 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/05 17:55:10 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,25 @@ void	image_to_window(t_scene *scene)
 
 int	get_text_pxcolor(t_px *pix, mlx_texture_t *text, t_xyz n_uv)
 {
-	int	px;
-	int	text_x;
-	int text_y;
+	int		px;
+	int		text_x;
+	int 	text_y;
 
-	// print_vector(n_uv);
 	if (!text)
 	{
 		pix->color = (pix->hitobject->rgb[0] << 24 | pix->hitobject->rgb[0] << 16 | pix->hitobject->rgb[0] << 8 | 255);
 		return (pix->color);
 	}
-	text_x = (int)floorf(n_uv.x * text->width);
-	text_y = (int)floorf(n_uv.y * text->height);
-	// ft_printf("w:%d, h:%d px:%d, px4:%d\n", text->width, text->height,  text->width * text->height, text->width * text->height * 4);
-	// ft_printf("x:%d, y:%d\n", text_x, text_y);
+	// ft_printf("u:%f, v:%f\n", n_uv.x, n_uv.y);
+	text_x = floor(n_uv.x * (float)text->width);
+	text_y = floor(n_uv.y * (float)text->height);
+	// ft_printf("text_x:%d, text_y:%d, text2:%u, texth:%u\n--------------------\n", text_x, text_y, text->width, text->height);
 	if (text_y == 0 && text_x == 0)
 		px = 0;
 	else
 		px = (((text_y * text->width) + (text_x)) * 4) - 1;
-	// ft_printf("hitobject:%d\n", pix->hitobject->id);
-	// ft_printf("in get text pxcolor, text_x:%d, text_y:%d\n", text_x, text_y);
 	pix->color = (text->pixels[px + 1] << 24) + (text->pixels[px + 2] << 16) \
 				+ (text->pixels[px + 3] << 8) + text->pixels[px];
-	// ft_printf("got color\n");
 	return (pix->color);
 }
 

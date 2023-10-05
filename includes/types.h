@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/05 17:45:53 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/05 17:51:12 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,18 @@ typedef struct stop_s
 	float	pos;
 	t_xyz	rgb_fact;
 }			t_stop;
+
+/**
+ * @brief struct to store grid values for interpolation
+ * @param ab (float[2])
+ * @param cd (float[2])
+ */
+typedef struct grid_s
+{
+	float	ab[2];
+	float	cd[2];
+}			t_gird;
+
 
 /**
  * @brief Ambient lighting (id: "A")

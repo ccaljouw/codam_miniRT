@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 20:37:16 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/04 15:55:41 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/04 18:35:36 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define NR_TEXTURES		3
 # define TEXT_PROCEDURES	3
-# define BUMP_MAPS 			1
+# define BUMP_MAPS 			2
 
 # define MOVE_X_P 			MLX_KEY_RIGHT
 # define MOVE_X_N 			MLX_KEY_LEFT

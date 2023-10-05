@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 15:11:27 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/04 18:26:01 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/05 10:01:29 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ t_xyz	color_map_5s(float pos)
 	stops[2].pos = 0.5;
 	stops[3].pos = 0.75;
 	stops[4].pos = 1;
-	stops[0].rgb_fact = v_create(1, 	0, 		0);
-	stops[1].rgb_fact = v_create(0.75,	0.25, 	0);
-	stops[2].rgb_fact = v_create(0, 	1, 		0);
-	stops[3].rgb_fact = v_create(0, 	0.75, 	0.5);
-	stops[4].rgb_fact = v_create(0, 	0, 		1);
+	stops[0].rgb_fact = v_create(1, 0, 0);
+	stops[1].rgb_fact = v_create(1,	0.5, 0);
+	stops[2].rgb_fact = v_create(1, 1, 0);
+	stops[3].rgb_fact = v_create(0, 1, 0.5);
+	stops[4].rgb_fact = v_create(0, 1, 1);
 	get_position_range(stop_range, 5, pos, stops);
 	fact = get_rgb_fact(pos, stop_range, stops);
 	return (fact);

@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/02 15:10:18 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/03 10:42:09 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/05 07:52:21 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,21 @@ void	simple_rough(t_px *px, float min, float max)
 	perturb_normal(px, v_create(x, y, z));
 }
 
+void bump_gradient(t_px *px)
+{
+	t_xyz			uv;
+	t_xyz			fact;
+	static t_uv		*get_uv[4] = {get_uvcoord_sp, get_uvcoord_pl, \
+		get_uvcoord_cy , get_uvcoord_co};
+	static t_n_uv	*norm_uv[4] = {norm_uvcoord_sp, norm_uvcoord_pl, \
+		norm_uvcoord_cy , norm_uvcoord_co};
+
+	uv = get_uv[px->hitobject->id](*px->hitobject, *px);
+	uv = norm_uv[px->hitobject->id](*px->hitobject, uv);
+	fact = color_map_5s(fabs(uv.x));
+	perturb_normal(px, fact);
+}
+
 void	compute_pertubation(t_px *px, t_xyz uv, float scale, float reverse)
 {
 	float	x;
@@ -39,6 +54,8 @@ void	compute_pertubation(t_px *px, t_xyz uv, float scale, float reverse)
 	t_xyz	gradient;
 
 	z = 0;
+	if (!px->hitobject->text)
+		return ;
 	gradient = texture_diff(px, uv);
 	if (!reverse)
 	{
@@ -77,4 +94,6 @@ void	map_normal(t_px *px)
 		return;
 	if (px->hitobject->bump == 1)
 		simple_rough(px, 0, 1);
+	if (px->hitobject->bump == 2)
+		bump_gradient(px);
 }
