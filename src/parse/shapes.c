@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/05 12:32:25 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/05 23:30:48 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,6 @@ float	set_specular_weight(char *param, t_scene *scene)
 	return ((float)n / 100);
 }
 
-// float	set_albedo(char *param, t_scene *scene)
-// {
-// 	int	n;
-
-// 	n = ft_atoi(param);
-// 	if (n < 0)
-// 		exit_error("error albedo", "provide positive integer", scene);
-// 	return ((float)n / 100);
-// }
-
 mlx_texture_t	*set_texture(char *param, t_scene *scene)
 {
 	int				n;
@@ -82,6 +72,17 @@ mlx_texture_t	*set_texture(char *param, t_scene *scene)
 	if (n && n <= NR_TEXTURES)
 		return (scene->textures[n - 1]);
 	return (NULL);
+}
+
+void	set_surface_properties(char **param, t_object *object, int i, t_scene *s)
+{
+	object->text = set_texture(param[i++], s);
+	object->text_proc = set_procedure(param[i++], s);
+	object->bump = set_bump(param[i++], s);
+	object->albedo = set_albedo(param[i++], s);
+	object->specular_size = set_specular_size(param[i++], s);
+	object->specular_weight = set_specular_weight(param[i++], s);
+	set_rgb(param[i], object->rgb, s);
 }
 
 /**
@@ -108,13 +109,7 @@ void	init_plane(char **param, t_scene *scene)
 	new_plane->id = PL;
 	new_plane->pOrigin = set_xyz(param[1], scene);
 	new_plane->vNormal = set_xyz(param[2], scene);
-	new_plane->text = set_texture(param[3], scene);
-	new_plane->text_proc = set_procedure(param[4], scene);
-	new_plane->bump = set_bump(param[5], scene);
-	new_plane->albedo = set_albedo(param[6], scene);
-	new_plane->specular_size = set_specular_size(param[7], scene);
-	new_plane->specular_weight = set_specular_weight(param[8], scene);
-	set_rgb(param[9], new_plane->rgb, scene);
+	set_surface_properties(param, new_plane, 3, scene);
 	new_node->content = (void *)new_plane;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mPlane config:\t\t  \033[0m", 1);
@@ -146,13 +141,7 @@ void	init_cylinder(char **param, t_scene *scene)
 	new_cylinder->vNormal = v_normalize(set_xyz(param[2], scene));
 	new_cylinder->diameter = to_float(param[3], scene);
 	new_cylinder->height = to_float(param[4], scene);
-	new_cylinder->text = set_texture(param[5], scene);
-	new_cylinder->text_proc = set_procedure(param[6], scene);
-	new_cylinder->bump = set_bump(param[7], scene);
-	new_cylinder->albedo = set_albedo(param[8], scene);
-	new_cylinder->specular_size = set_specular_size(param[9], scene);
-	new_cylinder->specular_weight = set_specular_weight(param[10], scene);
-	set_rgb(param[11], new_cylinder->rgb, scene);
+	set_surface_properties(param, new_cylinder, 5, scene);
 	new_node->content = (void *)new_cylinder;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mCylinder config:\t  \033[0m", 1);
@@ -184,17 +173,13 @@ void	init_cone(char **param, t_scene *scene)
 	new_cone->vNormal = v_normalize(set_xyz(param[2], scene));
 	new_cone->diameter = to_float(param[3], scene);
 	new_cone->height = to_float(param[4], scene);
-	new_cone->text = set_texture(param[5], scene);
-	new_cone->text_proc = set_procedure(param[6], scene);
-	new_cone->bump = set_bump(param[7], scene);
-	new_cone->albedo = set_albedo(param[8], scene);
-	new_cone->specular_size = set_specular_size(param[9], scene);
-	new_cone->specular_weight = set_specular_weight(param[10], scene);
-	set_rgb(param[11], new_cone->rgb, scene);
+	set_surface_properties(param, new_cone, 5, scene);
 	new_node->content = (void *)new_cone;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mCone config:\t\t  \033[0m", 1);
 }
+
+
 
 /**
  * @brief Initialises a sphere in the scene.
@@ -221,13 +206,8 @@ void	init_sphere(char **param, t_scene *scene)
 	new_sphere->vNormal = v_create(0, 1, 0);
 	new_sphere->pOrigin = set_xyz(param[1], scene);
 	new_sphere->diameter = to_float(param[2], scene);
-	new_sphere->text = set_texture(param[3], scene);
-	new_sphere->text_proc = set_procedure(param[4], scene);
-	new_sphere->bump = set_bump(param[5], scene);
-	new_sphere->albedo = set_albedo(param[6], scene);
-	new_sphere->specular_size = set_specular_size(param[7], scene);
-	new_sphere->specular_weight = set_specular_weight(param[8], scene);
-	set_rgb(param[9], new_sphere->rgb, scene);
+	new_sphere->rotate_matrix = m44_init();
+	set_surface_properties(param, new_sphere, 3, scene);
 	new_node->content = (void *)new_sphere;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mSphere config:\t\t  \033[0m", 1);

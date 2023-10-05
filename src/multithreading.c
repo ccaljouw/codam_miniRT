@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multithreading.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 14:01:02 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/06 00:25:56 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ pthread_t	*create_threads(t_scene *scene, pthread_t *threads, t_block *blocks)
 		blocks[i] = set_block(scene, y, blocksize);
 		y = y + blocksize;
 		if (pthread_create(threads + i, NULL, &routine, &blocks[i]))
-				exit_error(ERROR_THREAD, "failed to create thread\n", scene);
+			exit_error(ERROR_THREAD, "failed to create thread\n", scene);
 		i++;
 	}
 	return (threads);

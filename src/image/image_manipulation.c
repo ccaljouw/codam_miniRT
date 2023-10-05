@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/05 13:49:13 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/06 00:28:49 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,25 @@
 
 void	zoom(mlx_key_data_t keydata, t_scene *scene)
 {
+	t_light	*light;
+
 	if (scene->selected)
 	{
 		if (scene->selected->id == PL)
-			return;
+			return ;
 		if (keydata.key == ZOOM_IN)
 			scene->selected->diameter++;
 		if (keydata.key == ZOOM_OUT)
 			scene->selected->diameter--;
 		ft_printf("new diameter:%f\n", scene->selected->diameter); //for debugging
 	}
-	else if(scene->selected_light)
+	else if (scene->selected_light)
 	{
+		light = ((t_light *)(scene->selected_light->content)); 
 		if (keydata.key == ZOOM_IN)
-			((t_light *)(scene->selected_light->content))->brightness += .1;
+			light->rgb_ratios = v_multiply(light->rgb_ratios, 1.1);
 		if (keydata.key == ZOOM_OUT)
-			((t_light *)(scene->selected_light->content))->brightness -= .1;
-		ft_printf("new brightness: %f\n", ((t_light *)(scene->selected_light->content))->brightness);
+			light->rgb_ratios = v_multiply(light->rgb_ratios, 0.9);
 	}
 	else
 	{
@@ -43,78 +45,70 @@ void	zoom(mlx_key_data_t keydata, t_scene *scene)
 	}
 	render_image(scene);
 }
-#include <stdio.h>
-void	add_flip(bool *flip, float *orientation, float increment)
-{
-	int	sign;
 
-	if (*flip)
-		sign = -1;
-	else
-		sign = 1;
-	printf("flip %i\n", *flip);
-	if (fabsf(*orientation + increment * sign) > 1)
-	{
-		*flip ^= 1;
-	}
-	printf("flip %i\n", *flip);
-	if (*flip)
-		*orientation = -(*orientation +  increment);	
-	else
-		*orientation = *orientation + increment;
-	
-	// *orientation = *orientation + increment;
+void	set_rotation(t_xyz *rotation, mlx_key_data_t keydata)
+{
+	if (keydata.key == ROT_X_P)
+		rotation->x = 10;
+	if (keydata.key == ROT_X_N)
+		rotation->x = -10;
+	if (keydata.key == ROT_Y_N)
+		rotation->y = 10;
+	if (keydata.key == ROT_Y_P)
+		rotation->y = -10;
+	if (keydata.key == ROT_Z_N)
+		rotation->z = 10;
+	if (keydata.key == ROT_Z_P)
+		rotation->z = -10;
 }
 
 void	rotate(mlx_key_data_t keydata, t_scene *scene)
 {
 	t_xyz	*orientation;
-	bool	*flip;
-	bool	normalize;
+	t_xyz	rotation;
+	t_m44	rotation_matrix;
 
-	normalize = true;
+	rotation = v_create(0, 0, 0);
 	if (scene->selected)
-	{
 		orientation = &scene->selected->vNormal;
-		flip = &scene->selected->flip;
-	}
-	else if (scene->selected_light)
-	{
-		orientation = &((t_light *)scene->selected_light->content)->origin;
-		normalize = false;
-	}
 	else
-	{
 		orientation = &scene->camera->orientation_v;
-		flip = &scene->camera->flip;
-	}
-	if (keydata.key == MOVE_X_N)
-	add_flip(flip, &orientation->x, -0.1);
-		// orientation->x -= 0.1;
-	if (keydata.key == MOVE_X_P)
-	add_flip(flip, &orientation->x, 0.1);
-		// orientation->x += 0.1;
-	if (keydata.key == MOVE_Y_N)
-	add_flip(flip, &orientation->y, -0.1);
-		// orientation->y -= 0.1;
-	if (keydata.key == MOVE_Y_P)
-	add_flip(flip, &orientation->y, 0.1);
-		// orientation->y += 0.1;
-	if (keydata.key == MOVE_Z_N)
-	add_flip(flip, &orientation->z, -0.1);
-		// orientation->z -= 0.1;
-	if (keydata.key == MOVE_Z_P)
-	add_flip(flip, &orientation->z, 0.1);
-		// orientation->z += 0.1;
-	print_vector(*orientation);
-	// ft_printf("or.x %f\n", orientation->x);
-	// ft_printf("or.y %f\n", orientation->y);
-	if (normalize)
-		v_normalizep(orientation);
+	set_rotation(&rotation, keydata);
+	rotation_matrix = m44_init();
+	m44_rotate(&rotation_matrix, -rotation.y, rotation.x, rotation.z);
+	if (scene->selected && scene->selected->id == SP)
+		scene->selected->rotate_matrix = \
+			m44_dot_product(rotation_matrix, scene->selected->rotate_matrix);
+	else
+		m44_multiply_vec3_dir(rotation_matrix, *orientation, orientation);
 	cameraGeometry(scene);
 	render_image(scene);
-	ft_printf("orientation/origin: ");
-	print_vector(*orientation);
+}
+
+void	move(mlx_key_data_t keydata, t_scene *scene)
+{
+	t_xyz	*pos;
+
+	if (scene->selected)
+		pos = &scene->selected->pOrigin;
+	else if (scene->selected_light)
+		pos = &((t_light *)scene->selected_light->content)->origin;
+	else
+		pos = &scene->camera->view_point;
+	if (keydata.key == MOVE_UP)
+		pos->y += .5;
+	if (keydata.key == MOVE_DOWN)
+		pos->y -= .5;
+	if (keydata.key == MOVE_LEFT)
+		pos->x -= .5;
+	if (keydata.key == MOVE_RIGHT)
+		pos->x += .5;
+	if (keydata.key == MOVE_FRONT)
+		pos->z += .5;
+	if (keydata.key == MOVE_BACK)
+		pos->z -= .5;
+	cameraGeometry(scene);
+	render_image(scene);
 }
 
 void	set_resize_flag(int width, int height, void	*param)
@@ -167,10 +161,14 @@ void	key_input(mlx_key_data_t k, void *param)
 			exit_error(SUCCESS, NULL, scene);	
 		if (k.key == ZOOM_IN || k.key == ZOOM_OUT)
 			zoom(k, scene);
-		if (k.key == MOVE_X_N || k.key == MOVE_X_P \
-			|| k.key == MOVE_Y_N || k.key == MOVE_Y_P \
-			|| k.key == MOVE_Z_N || k.key == MOVE_Z_P)
+		if (k.key == ROT_X_N || k.key == ROT_X_P \
+			|| k.key == ROT_Y_N || k.key == ROT_Y_P \
+			|| k.key == ROT_Z_N || k.key == ROT_Z_P)
 			rotate(k, scene);
+		if (k.key == MOVE_UP || k.key == MOVE_DOWN \
+			|| k.key == MOVE_LEFT || k.key == MOVE_RIGHT \
+			|| k.key == MOVE_FRONT || k.key == MOVE_BACK)
+			move(k, scene);
 		if (k.key == MLX_KEY_L)
 			select_light(scene);
 		else
