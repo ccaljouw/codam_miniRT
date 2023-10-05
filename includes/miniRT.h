@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 14:12:54 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:24:05 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 # include <MLX42.h>
 # include <libft.h>
+# include <stdbool.h>
 # include <defines.h>
 # include <errors.h>
 # include <types.h>
 # include <vector.h>
 # include <matrix.h>
 # include <parser.h>
-# include <stdbool.h>
 # include <stdlib.h>
 # include <math.h>
 

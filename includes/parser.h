@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 23:32:51 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/05 13:24:47 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_object
 	float			albedo;
 	float			specular_size;
 	float			specular_weight;
+	bool			flip;
 }					t_object;
 
 /**
