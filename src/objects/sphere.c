@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/05 17:50:50 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/05 19:16:35 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,19 +113,9 @@ t_xyz	get_uvcoord_sp(t_object sp, t_px px)
 {
 	t_xyz		uv;
 	t_m44		rotate;
-	t_xyz		angles;
-	t_xyz		normal_dif;
 
 	rotate = m44_init();
-	// print_vector(sp.vNormal);
-	// normal_dif = v_subtract(sp.vNormal, v_create(0, 1, 0));
-	// print_vector(angles);
-	normal_dif = sp.vNormal;
-	angles.x = v_angle(normal_dif, v_create(1, 0, 0));
-	angles.y = v_angle(normal_dif, v_create(0, 1, 0));
-	angles.z = v_angle(normal_dif, v_create(0, 0, 1));
-	// print_vector(angles);
-	m44_rotate(&rotate, angles.x, angles.y, angles.z);
+	m44_rotate(&rotate, sp.angles.x, sp.angles.y, sp.angles.z);
 	uv = v_subtract(px.hitpoint, sp.pOrigin);
 	m44_multiply_vec3(rotate, uv, &uv);
 	v_normalizep(&uv);

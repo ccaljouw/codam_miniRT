@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 23:23:33 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parse.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/05 19:16:04 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,4 +168,23 @@ void	parse_file(char *file, t_scene *scene)
 			break ;
 	}
 	close(fd);
+}
+
+void	calculate_angles(t_scene *scene)
+{
+	t_list		*objects;
+	t_object	*object;
+	int			i = 0;
+	
+	objects = scene->objects;
+	while (objects)
+	{
+		
+		object = (t_object *)objects->content;
+		object->angles.x = v_angle(object->vNormal, v_create(1, 0, 0));
+		object->angles.y = v_angle(object->vNormal, v_create(0, 1, 0));
+		object->angles.z = v_angle(object->vNormal, v_create(0, 0, 1));
+		objects = objects->next;
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/05 17:45:47 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/05 19:10:39 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_object
 	int				bump;
 	int				text_proc;
 	mlx_texture_t	*text;
+	t_xyz			angles;
 	bool			flip;
 }					t_object;
 
@@ -127,5 +128,6 @@ void			init_plane(char **param, t_scene *scene);
 void			init_cylinder(char **param, t_scene *scene);
 void			init_cone(char **param, t_scene *scene);
 void			init_resolution(char **param, t_scene *scene);
+void			calculate_angles(t_scene *scene);
 
 #endif
