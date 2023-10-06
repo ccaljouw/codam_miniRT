@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/05 17:51:12 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 07:10:42 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ typedef struct camera_s
 	float	aspect_ratio;
 	float	fov_scale;
 	t_m44	cam2world;
-	bool	flip;
 }			t_camera;
 
 /**

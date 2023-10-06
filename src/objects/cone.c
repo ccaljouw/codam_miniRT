@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/04 13:49:08 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 07:13:45 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,7 @@ t_xyz	get_uvcoord_co(t_object co, t_px px)
 {
 	t_xyz		axis_hp;
 	t_xyz		uv;
-	// t_xyz		unit;
-	// float		u;
-	// float		v;
+
 
 	axis_hp = v_add(co.pOrigin, v_multiply(co.vNormal, px.hit_height));
 	uv = v_subtract(px.hitpoint, axis_hp);

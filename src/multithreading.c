@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/05 12:09:13 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 07:08:10 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ pthread_t	*create_threads(t_scene *scene, pthread_t *threads, t_block *blocks)
 		blocks[i] = set_block(scene, y, blocksize);
 		y = y + blocksize;
 		if (pthread_create(threads + i, NULL, &routine, &blocks[i]))
-				exit_error(ERROR_THREAD, "failed to create thread\n", scene);
+			exit_error(ERROR_THREAD, "failed to create thread\n", scene);
 		i++;
 	}
 	return (threads);

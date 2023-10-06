@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/05 19:10:39 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 07:10:31 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ typedef struct s_object
 	int				text_proc;
 	mlx_texture_t	*text;
 	t_xyz			angles;
-	bool			flip;
+	// t_xyz			rotation;
+	t_m44			rotate_matrix;
 }					t_object;
 
 /**

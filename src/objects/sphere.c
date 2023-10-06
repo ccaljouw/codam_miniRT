@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   sphere.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/05 19:16:35 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 08:36:26 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,24 +114,20 @@ t_xyz	get_uvcoord_sp(t_object sp, t_px px)
 	t_xyz		uv;
 	t_m44		rotate;
 
-	rotate = m44_init();
-	m44_rotate(&rotate, sp.angles.x, sp.angles.y, sp.angles.z);
+	m44_rotate(&rotate, sp.angles.x - 90, sp.angles.y, sp.angles.z - 90);
 	uv = v_subtract(px.hitpoint, sp.pOrigin);
-	m44_multiply_vec3(rotate, uv, &uv);
+	m44_multiply_vec3_dir(sp.rotate_matrix, uv, &uv);
 	v_normalizep(&uv);
 	uv.x = atan2(sqrtf(pow(uv.y, 2) + pow(uv.z, 2)), uv.x);
 	uv.y = atan2(uv.z, uv.y);
-	if (uv.y < 0)
-		uv.y += M_PI;
-	uv.x = (1 -(uv.x / M_PI)) * 0.5;
-	uv.y = 1 - (uv.y / M_PI);
-	// ft_printf("u:%f, v:%f\n", uv.x, uv.y);
 	return (uv);
 }
 
 t_xyz	norm_uvcoord_sp(t_object sp, t_xyz uv)
 {
 	(void)sp;
-	return (uv);
+	uv.x = (1 -(uv.x / M_PI));
+	uv.y = 1 - ((uv.y + M_PI) / (2 * M_PI));
+	return (v_create(uv.y, uv.x, uv.z));
 }
 

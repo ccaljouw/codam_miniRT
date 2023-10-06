@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/04 11:32:58 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 07:24:05 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,15 +122,14 @@ int	get_cylinder_surface_data(t_object cy, t_px *px)
 t_xyz	get_uvcoord_cy(t_object cy, t_px px)
 {
 	t_xyz		axis_hp;
-	t_xyz		unit;
-	float		u;
-	float		v;
+	t_xyz		uv;
 
 	axis_hp = v_add(cy.pOrigin, v_multiply(cy.vNormal, px.hit_height));
-	unit = v_subtract(px.hitpoint, axis_hp);
-	u = atan2(unit.z, unit.x);
-	v = px.hit_height;
-	return (v_create(u, v, 0));
+	uv = v_subtract(px.hitpoint, axis_hp);
+	uv.x = atan2(uv.z, uv.x);
+	uv.y = px.hit_height;
+	uv.z = 0;
+	return (uv);
 }
 
 t_xyz	norm_uvcoord_cy(t_object cy, t_xyz uv)

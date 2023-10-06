@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/05 17:50:29 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 09:17:08 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ t_xyz	get_uvcoord_pl(t_object pl, t_px px)
 t_xyz	norm_uvcoord_pl(t_object pl, t_xyz uv)
 {
 	(void)pl;
-	// uv.z = 50;
 	v_normalizep(&uv);
 	uv.x = ((uv.x + 1.0) * 0.5);
 	uv.y =  (uv.y + 1.0) * 0.5;
