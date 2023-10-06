@@ -6,44 +6,39 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/06 00:28:49 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/06 09:11:19 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-void	zoom(mlx_key_data_t keydata, t_scene *scene)
+void	zoom(mlx_key_data_t keydata, t_scene *s)
 {
-	t_light	*light;
-
-	if (scene->selected)
+	if (s->selected)
 	{
-		if (scene->selected->id == PL)
-			return ;
 		if (keydata.key == ZOOM_IN)
-			scene->selected->diameter++;
+			s->selected->diameter++;
 		if (keydata.key == ZOOM_OUT)
-			scene->selected->diameter--;
-		ft_printf("new diameter:%f\n", scene->selected->diameter); //for debugging
+			s->selected->diameter--;
 	}
-	else if (scene->selected_light)
+	else if (s->selected_light)
 	{
-		light = ((t_light *)(scene->selected_light->content)); 
 		if (keydata.key == ZOOM_IN)
-			light->rgb_ratios = v_multiply(light->rgb_ratios, 1.1);
+			((t_light *)(s->selected_light->content))->rgb_ratios = v_multiply \
+			(((t_light *)(s->selected_light->content))->rgb_ratios, 1.1);
 		if (keydata.key == ZOOM_OUT)
-			light->rgb_ratios = v_multiply(light->rgb_ratios, 0.9);
+			((t_light *)(s->selected_light->content))->rgb_ratios = v_multiply \
+			(((t_light *)(s->selected_light->content))->rgb_ratios, 0.9);
 	}
 	else
 	{
 		if (keydata.key == ZOOM_IN)
-			scene->camera->fov -= 5;
+			s->camera->fov -= 5;
 		if (keydata.key == ZOOM_OUT)
-			scene->camera->fov += 5;
-		cameraGeometry(scene);
-		ft_printf("new fov:%d\n", scene->camera->fov); //for debugging
+			s->camera->fov += 5;
+		cameraGeometry(s);
 	}
-	render_image(scene);
+	render_image(s);
 }
 
 void	set_rotation(t_xyz *rotation, mlx_key_data_t keydata)

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/06 00:17:19 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/06 09:39:31 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	get_ray(t_px *px, int x, int y, t_scene *s)
 void	trace_ray(t_px *px, t_scene *s)
 {
 	float				hp[2];
-	static t_hit_test	*hit_test[4] = {test_sphere, test_plane, test_cylinder, test_cone};
+	static t_hit_test	*hit_test[4] = \
+						{test_sphere, test_plane, test_cylinder, test_cone};
 	t_list				*objects;
 	t_object			*object;
 
@@ -118,9 +119,7 @@ void	render_image(t_scene *scene)
 
 void	print_ascii(t_px *px, t_scene *scene)
 {
-	(void)scene;
-	(void)px;
-	float					color_ratio;
+	float	color_ratio;
 
 	color_ratio = 0;
 	if (px->hitobject)
@@ -135,10 +134,8 @@ void	print_ascii(t_px *px, t_scene *scene)
 		ft_printf("\e[48;5;232m \e[0m");
 }
 
-void	renderAscii(t_scene *scene)
+void	set_ascii_params(t_scene *scene)
 {
-	int	x;
-	int	y;
 	int	i;
 
 	i = 0;
@@ -161,6 +158,14 @@ void	renderAscii(t_scene *scene)
 			exit_error(ERROR_MEM, NULL, scene);
 		i++;
 	}
+}
+
+void	renderAscii(t_scene *scene)
+{
+	int	x;
+	int	y;
+
+	set_ascii_params(scene);
 	y = 0;
 	while (y < scene->camera->image_height)
 	{
@@ -181,8 +186,5 @@ void	renderAscii(t_scene *scene)
 		ft_printf("\n");
 		y++;
 	}
-	// clean_scene(scene);
 	exit_error(SUCCESS, NULL, scene);
-	// free(scene);
 }
-
