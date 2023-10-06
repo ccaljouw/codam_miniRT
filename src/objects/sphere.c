@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/06 17:04:02 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 17:06:02 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	test_sphere(t_px *ray, t_object sphere, float *hp_info)
 	return (1);
 }
 
-
 /**
  * @brief Calculate the normal of the sphere at the hitpoint (ie the vector
 		perpendicular to the surface at that point).
@@ -121,6 +120,7 @@ t_xyz	get_uvcoord_sp(t_object sp, t_px px, t_scene *scene)
 	// v_normalizep(&uv);
 	uv.x = 0.5 + atan2(uv.z, uv.x) / (2 * M_PI);
 	uv.y = 0.5 - asin(uv.y / (sp.diameter * 0.5)) / M_PI;
+	uv.z = 0;
 	return (uv);
 }
 

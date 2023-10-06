@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/06 16:59:46 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 17:10:24 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ t_xyz	get_uvcoord_pl(t_object pl, t_px px, t_scene *scene)
 	v_normalizep(&uv);
 	uv.x = ((uv.x + 1.0) * 0.5);
 	uv.y =  (uv.y + 1.0) * 0.5;
+	uv.z = 0;
 	return (uv);
 }
 

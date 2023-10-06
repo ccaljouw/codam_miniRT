@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/06 17:00:51 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 17:10:09 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	checkered(t_px *px, t_xyz uv, t_scene *scene)
 
 int	v_checkered(t_px *px, t_xyz uv)
 {
+	uv.x *= 20;
+	uv.y *= 20;
 	px->text_coord.x = fabs(floor(uv.x));
 	px->text_coord.y = fabs(floor(uv.y));
 	px->text_coord.z = fabs(floor(uv.z));
