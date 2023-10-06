@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/05 06:39:15 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 17:00:51 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ available procedures:
 	3	gradient;
 */
 
-int	checkered(t_px *px, t_xyz uv)
+int	checkered(t_px *px, t_xyz uv, t_scene *scene)
 {
+	(void)scene;
+	uv.x *= 20;
+	uv.y *= 20;
 	px->text_coord.x = fabs(floor(uv.x));
 	px->text_coord.y = fabs(floor(uv.y));
 	px->text_coord.z = fabs(floor(uv.z));
@@ -49,15 +52,12 @@ int	v_checkered(t_px *px, t_xyz uv)
 
 int	gradient(t_px *px, t_xyz uv)
 {
-	static t_n_uv	*norm_uv[4] = {norm_uvcoord_sp, norm_uvcoord_pl, \
-		norm_uvcoord_cy , norm_uvcoord_co};
 	int		r;
 	int		g;
 	int		b;
 	t_xyz	fact;
 
 
-	uv = norm_uv[px->hitobject->id](*px->hitobject, uv);
 	fact = color_map_5s(fabs(uv.x));
 	r = (int)(fact.x * 255.0);
 	g = (int)(fact.y * 255.0);

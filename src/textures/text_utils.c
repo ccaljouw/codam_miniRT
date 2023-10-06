@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/03 10:41:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/06 09:21:05 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 17:00:30 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	map_procedure(t_px *px, t_scene *scene)
 		return (px->color);
 	uv = get_uv[px->hitobject->id](*px->hitobject, *px, scene);
 	if (px->hitobject->text_proc == 1)
-		return (checkered(px, uv));
+		return (checkered(px, uv, scene));
 	if (px->hitobject->text_proc == 2)
 		return (v_checkered(px, uv));
 	if (px->hitobject->text_proc == 3)
@@ -77,8 +77,6 @@ int	map_texture(t_px *px, t_scene *scene)
 	t_xyz			uv;
 	static t_uv		*get_uv[4] = {get_uvcoord_sp, get_uvcoord_pl, \
 		get_uvcoord_cy , get_uvcoord_co};
-	static t_n_uv	*norm_uv[4] = {norm_uvcoord_sp, norm_uvcoord_pl, \
-		norm_uvcoord_cy , norm_uvcoord_co};
 
 	if (!px->hitobject)
 	{
@@ -91,7 +89,6 @@ int	map_texture(t_px *px, t_scene *scene)
 		return (px->color);
 	}
 	uv = get_uv[px->hitobject->id](*px->hitobject, *px, scene);
-	uv = norm_uv[px->hitobject->id](*px->hitobject, uv);
 	scene->min_x = (uv.x < scene->min_x ? uv.x : scene->min_x); // for testing
 	scene->max_x = (uv.x > scene->max_x ? uv.x : scene->max_x);  // for testing
 	scene->min_y = (uv.y < scene->min_y ? uv.y : scene->min_y); // for testing

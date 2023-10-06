@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/06 09:41:17 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 17:04:02 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,18 +118,10 @@ t_xyz	get_uvcoord_sp(t_object sp, t_px px, t_scene *scene)
 	m44_rotate(&rotate, sp.angles.x, sp.angles.y, sp.angles.z);  // waarom -90?
 	uv = v_subtract(px.hitpoint, sp.pOrigin);
 	m44_multiply_vec3_dir(sp.rotate_matrix, uv, &uv);
-	v_normalizep(&uv);
-	uv.x = atan2(sqrtf(powf(uv.y, 2) + powf(uv.z, 2)), uv.x);
-	uv.y = atan2(uv.z, uv.y);
+	// v_normalizep(&uv);
+	uv.x = 0.5 + atan2(uv.z, uv.x) / (2 * M_PI);
+	uv.y = 0.5 - asin(uv.y / (sp.diameter * 0.5)) / M_PI;
 	return (uv);
 }
 
-t_xyz	norm_uvcoord_sp(t_object sp, t_xyz uv)
-{
-	(void)sp;
-	uv.x = uv.x / M_PI;
-	uv.y = 1 - ((uv.y + M_PI) / (2 * M_PI));
-	swap_floats(&uv.x, &uv.y);
-	return (uv);
-}
 

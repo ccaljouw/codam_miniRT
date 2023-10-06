@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/06 09:19:35 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 16:59:37 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,10 @@ t_xyz	get_uvcoord_co(t_object co, t_px px, t_scene *scene)
 	(void)scene;
 	axis_hp = v_add(co.pOrigin, v_multiply(co.vNormal, px.hit_height));
 	uv = v_subtract(px.hitpoint, axis_hp);
-	uv.x = atan2(uv.z, uv.x);
+	uv.x =  0.5 + atan2(uv.z, uv.x) / (2 * M_PI);
 	uv.y = px.hit_height;
 	uv.z = 0;
-	return (uv);
-}
-
-t_xyz	norm_uvcoord_co(t_object co, t_xyz uv)
-{
-	uv.x = (uv.x + M_PI) / (2 * M_PI);
 	uv.y = 1 - (uv.y/co.height);
 	return (uv);
 }
+

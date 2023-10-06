@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/06 09:23:08 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 17:00:16 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,25 +60,21 @@ void	render_image(t_scene *scene);
 int		test_sphere(t_px *ray, t_object sphere, float *hp_info);
 int		get_sphere_surface_data(t_object sph, t_px *px);
 t_xyz	get_uvcoord_sp(t_object sp, t_px px, t_scene *scene);
-t_xyz	norm_uvcoord_sp(t_object sp, t_xyz uv);
 
 // objects/plane.c
 int		test_plane(t_px *ray, t_object plane, float *hp_info);
 int		get_plane_surface_data(t_object plane, t_px *px);
 t_xyz	get_uvcoord_pl(t_object pl, t_px px, t_scene *scene);
-t_xyz	norm_uvcoord_pl(t_object pl, t_xyz uv);
 
 // objects/cylinder.c
 int		test_cylinder(t_px *ray, t_object cylinder, float *hp_info);
 int		get_cylinder_surface_data(t_object cy, t_px *px);
 t_xyz	get_uvcoord_cy(t_object cy, t_px px, t_scene *scene);
-t_xyz	norm_uvcoord_cy(t_object cy, t_xyz uv);
 
 // objects/cone.c
 int		test_cone(t_px *ray, t_object cone, float *hp_info);
 int		get_cone_surface_data(t_object co, t_px *px);
 t_xyz	get_uvcoord_co(t_object co, t_px px, t_scene *scene);
-t_xyz	norm_uvcoord_co(t_object co, t_xyz uv);
 
 // multithreading.c
 pthread_t	*create_threads(t_scene *scene, pthread_t *threads, t_block *blocks);
@@ -104,7 +100,7 @@ void	perturb_normal(t_px *px, t_xyz pertubation);
 void	simple_rough(t_px *px, float min, float max);
 
 // procedural_textures.c
-int	checkered(t_px *px, t_xyz uv);
+int	checkered(t_px *px, t_xyz uv, t_scene *scene);
 int	v_checkered(t_px *px, t_xyz uv);
 int	gradient(t_px *px, t_xyz uv);
 

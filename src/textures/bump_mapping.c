@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/02 15:10:18 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/06 09:22:59 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 17:01:11 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,8 @@ void bump_gradient(t_px *px, t_scene *scene)
 	t_xyz			fact;
 	static t_uv		*get_uv[4] = {get_uvcoord_sp, get_uvcoord_pl, \
 		get_uvcoord_cy , get_uvcoord_co};
-	static t_n_uv	*norm_uv[4] = {norm_uvcoord_sp, norm_uvcoord_pl, \
-		norm_uvcoord_cy , norm_uvcoord_co};
 
 	uv = get_uv[px->hitobject->id](*px->hitobject, *px, scene);
-	uv = norm_uv[px->hitobject->id](*px->hitobject, uv);
 	fact = color_map_5s(fabs(uv.x));
 	perturb_normal(px, fact);
 }

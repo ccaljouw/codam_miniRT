@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/06 09:21:46 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 15:19:48 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	draw_image(t_scene *scene)
 		x = 0;
 		while (x < scene->p_width)
 		{
+			// get_color(scene->pixels[y] + x, scene);	
 			mlx_put_pixel(scene->image, x, y, get_color(scene->pixels[y] + x, scene));
 			x++;
 		}
