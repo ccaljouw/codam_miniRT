@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/05 17:51:05 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 09:23:08 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 typedef int		t_hit_test(t_px *ray, t_object, float *hp_info);
 typedef int		t_surface_data(t_object obj, t_px *px);
 typedef int		t_get_color(t_object obj, t_px px);
-typedef	t_xyz	t_uv(t_object obj, t_px px);
+typedef	t_xyz	t_uv(t_object obj, t_px px, t_scene *scene);
 typedef	t_xyz	t_n_uv(t_object obj, t_xyz uv);
 
 //utils.c
@@ -59,25 +59,25 @@ void	render_image(t_scene *scene);
 // objects/sphere.c
 int		test_sphere(t_px *ray, t_object sphere, float *hp_info);
 int		get_sphere_surface_data(t_object sph, t_px *px);
-t_xyz	get_uvcoord_sp(t_object sp, t_px px);
+t_xyz	get_uvcoord_sp(t_object sp, t_px px, t_scene *scene);
 t_xyz	norm_uvcoord_sp(t_object sp, t_xyz uv);
 
 // objects/plane.c
 int		test_plane(t_px *ray, t_object plane, float *hp_info);
 int		get_plane_surface_data(t_object plane, t_px *px);
-t_xyz	get_uvcoord_pl(t_object pl, t_px px);
+t_xyz	get_uvcoord_pl(t_object pl, t_px px, t_scene *scene);
 t_xyz	norm_uvcoord_pl(t_object pl, t_xyz uv);
 
 // objects/cylinder.c
 int		test_cylinder(t_px *ray, t_object cylinder, float *hp_info);
 int		get_cylinder_surface_data(t_object cy, t_px *px);
-t_xyz	get_uvcoord_cy(t_object cy, t_px px);
+t_xyz	get_uvcoord_cy(t_object cy, t_px px, t_scene *scene);
 t_xyz	norm_uvcoord_cy(t_object cy, t_xyz uv);
 
 // objects/cone.c
 int		test_cone(t_px *ray, t_object cone, float *hp_info);
 int		get_cone_surface_data(t_object co, t_px *px);
-t_xyz	get_uvcoord_co(t_object co, t_px px);
+t_xyz	get_uvcoord_co(t_object co, t_px px, t_scene *scene);
 t_xyz	norm_uvcoord_co(t_object co, t_xyz uv);
 
 // multithreading.c
@@ -98,7 +98,7 @@ void	draw_image(t_scene *scene);
 int		get_text_pxcolor(t_px *px, mlx_texture_t *text, t_xyz n_uv);
 
 // bump_mapping.c
-void	map_normal(t_px *px);
+void	map_normal(t_px *px, t_scene *scene);
 void	compute_pertubation(t_px *px, t_xyz uv, float scale, float reverse);
 void	perturb_normal(t_px *px, t_xyz pertubation);
 void	simple_rough(t_px *px, float min, float max);
@@ -113,7 +113,7 @@ t_xyz	color_map_5s(float pos);
 
 // text_utils.c
 int		map_texture(t_px *px, t_scene *scene);
-int		map_procedure(t_px *px);
+int		map_procedure(t_px *px, t_scene *scene);
 float	get_text_val(mlx_texture_t *text, t_xyz coord);
 t_xyz	texture_diff(t_px *px, t_xyz uv);
 float	linear_interpolation(float v1, float v2, float pos, int smooth);

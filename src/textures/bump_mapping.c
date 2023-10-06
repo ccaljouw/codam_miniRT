@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/02 15:10:18 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/05 07:52:21 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 09:22:59 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	simple_rough(t_px *px, float min, float max)
 	perturb_normal(px, v_create(x, y, z));
 }
 
-void bump_gradient(t_px *px)
+void bump_gradient(t_px *px, t_scene *scene)
 {
 	t_xyz			uv;
 	t_xyz			fact;
@@ -40,7 +40,7 @@ void bump_gradient(t_px *px)
 	static t_n_uv	*norm_uv[4] = {norm_uvcoord_sp, norm_uvcoord_pl, \
 		norm_uvcoord_cy , norm_uvcoord_co};
 
-	uv = get_uv[px->hitobject->id](*px->hitobject, *px);
+	uv = get_uv[px->hitobject->id](*px->hitobject, *px, scene);
 	uv = norm_uv[px->hitobject->id](*px->hitobject, uv);
 	fact = color_map_5s(fabs(uv.x));
 	perturb_normal(px, fact);
@@ -88,12 +88,12 @@ void	perturb_normal(t_px *px, t_xyz perturbation)
 	px->surface_normal = v_normalize(px->surface_normal);
 }
 
-void	map_normal(t_px *px)
+void	map_normal(t_px *px, t_scene *scene)
 {
 	if (!px->hitobject->bump)
 		return;
 	if (px->hitobject->bump == 1)
 		simple_rough(px, 0, 1);
 	if (px->hitobject->bump == 2)
-		bump_gradient(px);
+		bump_gradient(px, scene);
 }

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/03 10:41:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/05 17:53:31 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 09:21:05 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_xyz	texture_diff(t_px *px, t_xyz uv)
 	return(v_create(u_grad, v_grad, 0));
 }
 
-int	map_procedure(t_px *px)
+int	map_procedure(t_px *px, t_scene *scene)
 {
 	t_xyz			uv;
 	static t_uv		*get_uv[4] = {get_uvcoord_sp, get_uvcoord_pl, \
@@ -62,7 +62,7 @@ int	map_procedure(t_px *px)
 		return (px->color);
 	if (!px->hitobject->text_proc)
 		return (px->color);
-	uv = get_uv[px->hitobject->id](*px->hitobject, *px);
+	uv = get_uv[px->hitobject->id](*px->hitobject, *px, scene);
 	if (px->hitobject->text_proc == 1)
 		return (checkered(px, uv));
 	if (px->hitobject->text_proc == 2)
@@ -90,7 +90,7 @@ int	map_texture(t_px *px, t_scene *scene)
 		px->color = (px->hitobject->rgb[0] << 24 | px->hitobject->rgb[1] << 16 | px->hitobject->rgb[2] << 8 | 255);
 		return (px->color);
 	}
-	uv = get_uv[px->hitobject->id](*px->hitobject, *px);
+	uv = get_uv[px->hitobject->id](*px->hitobject, *px, scene);
 	uv = norm_uv[px->hitobject->id](*px->hitobject, uv);
 	scene->min_x = (uv.x < scene->min_x ? uv.x : scene->min_x); // for testing
 	scene->max_x = (uv.x > scene->max_x ? uv.x : scene->max_x);  // for testing

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/06 08:36:26 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 09:41:17 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,16 +109,17 @@ int	get_sphere_surface_data(t_object sph, t_px *px)
 	return (px->color);
 }
 
-t_xyz	get_uvcoord_sp(t_object sp, t_px px)
+t_xyz	get_uvcoord_sp(t_object sp, t_px px, t_scene *scene)
 {
 	t_xyz		uv;
 	t_m44		rotate;
 
-	m44_rotate(&rotate, sp.angles.x - 90, sp.angles.y, sp.angles.z - 90);
+	(void)scene;
+	m44_rotate(&rotate, sp.angles.x, sp.angles.y, sp.angles.z);  // waarom -90?
 	uv = v_subtract(px.hitpoint, sp.pOrigin);
 	m44_multiply_vec3_dir(sp.rotate_matrix, uv, &uv);
 	v_normalizep(&uv);
-	uv.x = atan2(sqrtf(pow(uv.y, 2) + pow(uv.z, 2)), uv.x);
+	uv.x = atan2(sqrtf(powf(uv.y, 2) + powf(uv.z, 2)), uv.x);
 	uv.y = atan2(uv.z, uv.y);
 	return (uv);
 }
@@ -126,8 +127,9 @@ t_xyz	get_uvcoord_sp(t_object sp, t_px px)
 t_xyz	norm_uvcoord_sp(t_object sp, t_xyz uv)
 {
 	(void)sp;
-	uv.x = (1 -(uv.x / M_PI));
+	uv.x = uv.x / M_PI;
 	uv.y = 1 - ((uv.y + M_PI) / (2 * M_PI));
-	return (v_create(uv.y, uv.x, uv.z));
+	swap_floats(&uv.x, &uv.y);
+	return (uv);
 }
 

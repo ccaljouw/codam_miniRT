@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/05 17:55:10 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 09:21:46 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	get_color(t_px *px, t_scene *scene)
 	if (!object)
 		return (px->color = 0 << 24 | 0 << 16 | 0 << 8 | 255);
 	px->color = map_texture(px, scene);
-	px->color = map_procedure(px);
+	px->color = map_procedure(px, scene);
 	px->rgb[0] = (int)(((px->color >> 24) & 0xFF) * \
 		ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) \
 		+ px->diffuse.x)));

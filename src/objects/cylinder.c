@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/06 07:24:05 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 09:19:43 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,12 @@ int	get_cylinder_surface_data(t_object cy, t_px *px)
 	return (px->color);
 }
 
-t_xyz	get_uvcoord_cy(t_object cy, t_px px)
+t_xyz	get_uvcoord_cy(t_object cy, t_px px, t_scene *scene)
 {
 	t_xyz		axis_hp;
 	t_xyz		uv;
 
+	(void)scene;
 	axis_hp = v_add(cy.pOrigin, v_multiply(cy.vNormal, px.hit_height));
 	uv = v_subtract(px.hitpoint, axis_hp);
 	uv.x = atan2(uv.z, uv.x);

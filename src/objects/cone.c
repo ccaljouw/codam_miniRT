@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/06 07:13:45 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/06 09:19:35 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,13 @@ int	get_cone_surface_data(t_object co, t_px *px)
 	return (px->color);
 }
 
-t_xyz	get_uvcoord_co(t_object co, t_px px)
+t_xyz	get_uvcoord_co(t_object co, t_px px, t_scene *scene)
 {
 	t_xyz		axis_hp;
 	t_xyz		uv;
 
 
+	(void)scene;
 	axis_hp = v_add(co.pOrigin, v_multiply(co.vNormal, px.hit_height));
 	uv = v_subtract(px.hitpoint, axis_hp);
 	uv.x = atan2(uv.z, uv.x);
