@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/07 12:15:31 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 13:18:40 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	get_color(t_px *px, t_scene *scene)
 	object = (t_object *)px->hitobject;
 	if (!object)
 		return (px->color = 0 << 24 | 0 << 16 | 0 << 8 | 255);
+	get_uv(px, scene);
 	get_text_pxcolor(px);
 	map_procedure(px);
 	px->rgb[0] = (int)(((px->color >> 24) & 0xFF) * \
