@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/07 11:16:01 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 11:37:02 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,24 @@ available procedures:
 	3	gradient;
 */
 
-int	checkered(t_px *px, t_xyz uv, t_scene *scene)
+int	checkered(t_px *px, int mod)
 {
-	(void)scene;
-	uv.x *= 20;
-	uv.y *= 20;
-	px->text_coord.x = fabs(floor(uv.x));
-	px->text_coord.y = fabs(floor(uv.y));
-	px->text_coord.z = fabs(floor(uv.z));
-	px->text_coord.x = (int)px->text_coord.x % 2;
-	px->text_coord.y = (int)px->text_coord.y % 2;
-	px->text_coord.z = (int)px->text_coord.z % 2;
-	if (((int)px->text_coord.x ^ (int)px->text_coord.y) ^ (int)px->text_coord.z)
+	t_xyz	coord;
+	
+	px->uv.x *= 20;
+	px->uv.y *= 20;
+	coord.x = fabs(floor(px->uv.x));
+	coord.y = fabs(floor(px->uv.y));
+	coord.z = fabs(floor(px->uv.z));
+	coord.x = (int)coord.x % mod;
+	coord.y = (int)coord.y % mod;
+	coord.z = (int)coord.z % mod;
+	if (!(((int)coord.x ^ (int)coord.y) ^ (int)coord.z))
 		px->color = invert_color(px->color);
 	return (px->color);
 }
 
-int	v_checkered(t_px *px, t_xyz uv)
-{
-	uv.x *= 20;
-	uv.y *= 20;
-	px->text_coord.x = fabs(floor(uv.x));
-	px->text_coord.y = fabs(floor(uv.y));
-	px->text_coord.z = fabs(floor(uv.z));
-	px->text_coord.x = (int)px->text_coord.x % 3;
-	px->text_coord.y = (int)px->text_coord.y % 3;
-	px->text_coord.z = (int)px->text_coord.z % 3;
-	if (!(((int)px->text_coord.x ^ (int)px->text_coord.y) ^ (int)px->text_coord.z))
-		px->color = invert_color(px->color);
-	return (px->color);
-}
-
-int	gradient(t_px *px, t_xyz uv)
+int	gradient(t_px *px)
 {
 	int		r;
 	int		g;
@@ -60,7 +46,7 @@ int	gradient(t_px *px, t_xyz uv)
 	float	pos;
 	t_xyz	fact;
 
-	pos = bilinear_interpolation(uv.x, uv.y);
+	pos = bilinear_interpolation(px->uv.x, px->uv.y);
 	fact = color_map_5s(fabs(pos));
 	r = (int)(fact.x * 255.0);
 	g = (int)(fact.y * 255.0);

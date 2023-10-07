@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/02 15:10:18 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/06 17:01:11 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 11:46:57 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,17 @@ void	simple_rough(t_px *px, float min, float max)
 	perturb_normal(px, v_create(x, y, z));
 }
 
-void bump_gradient(t_px *px, t_scene *scene)
+void bump_gradient(t_px *px)
 {
-	t_xyz			uv;
 	t_xyz			fact;
-	static t_uv		*get_uv[4] = {get_uvcoord_sp, get_uvcoord_pl, \
-		get_uvcoord_cy , get_uvcoord_co};
+	float			pos;
 
-	uv = get_uv[px->hitobject->id](*px->hitobject, *px, scene);
-	fact = color_map_5s(fabs(uv.x));
+	pos = bilinear_interpolation(px->uv.x, px->uv.y);
+	fact = color_map_5s(fabs(pos));
 	perturb_normal(px, fact);
 }
 
-void	compute_pertubation(t_px *px, t_xyz uv, float scale, float reverse)
+void	compute_pertubation(t_px *px, float scale, float reverse)
 {
 	float	x;
 	float	y;
@@ -53,7 +51,8 @@ void	compute_pertubation(t_px *px, t_xyz uv, float scale, float reverse)
 	z = 0;
 	if (!px->hitobject->text)
 		return ;
-	gradient = texture_diff(px, uv);
+	gradient = px->uv;
+	// gradient = texture_diff(px, uv);
 	if (!reverse)
 	{
 		x = -gradient.x * scale;
@@ -85,12 +84,12 @@ void	perturb_normal(t_px *px, t_xyz perturbation)
 	px->surface_normal = v_normalize(px->surface_normal);
 }
 
-void	map_normal(t_px *px, t_scene *scene)
+void	map_normal(t_px *px)
 {
 	if (!px->hitobject->bump)
 		return;
 	if (px->hitobject->bump == 1)
 		simple_rough(px, 0, 1);
 	if (px->hitobject->bump == 2)
-		bump_gradient(px, scene);
+		bump_gradient(px);
 }

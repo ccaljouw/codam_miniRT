@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/06 09:24:01 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 11:43:15 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void	renderAscii(t_scene *scene)
 			if ((scene->pixels[y] + x)->hitobject != NULL)
 			{
 				get_surface_data(scene->pixels[y] + x);
-				map_normal(scene->pixels[y] + x, scene);
+				map_normal(scene->pixels[y] + x);
 				loop_lights(scene, scene->pixels[y] + x);
 			}
 			print_ascii(scene->pixels[y] + x, scene);

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/06 09:23:26 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 11:49:49 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	*routine(void *params)
 			if ((scene->pixels[y] + x)->hitobject != NULL)
 			{
 				get_surface_data(scene->pixels[y] + x);
-				map_normal(scene->pixels[y] + x, scene);
+				get_uv(scene->pixels[y] + x, scene);
+				map_normal(scene->pixels[y] + x);
 				loop_lights(scene, scene->pixels[y] + x);
 			}
 			x++;

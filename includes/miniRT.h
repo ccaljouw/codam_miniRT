@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/07 11:15:10 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 11:47:06 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,26 +94,25 @@ void	draw_image(t_scene *scene);
 int		get_text_pxcolor(t_px *px, mlx_texture_t *text, t_xyz n_uv);
 
 // bump_mapping.c
-void	map_normal(t_px *px, t_scene *scene);
-void	compute_pertubation(t_px *px, t_xyz uv, float scale, float reverse);
+void	map_normal(t_px *px);
+void	compute_pertubation(t_px *px, float scale, float reverse);
 void	perturb_normal(t_px *px, t_xyz pertubation);
 void	simple_rough(t_px *px, float min, float max);
 
 // procedural_textures.c
-int	checkered(t_px *px, t_xyz uv, t_scene *scene);
-int	v_checkered(t_px *px, t_xyz uv);
-int	gradient(t_px *px, t_xyz uv);
+int	checkered(t_px *px, int mod);
+int	gradient(t_px *px);
 
 // color_maps.c
 t_xyz	color_map_5s(float pos);
 
 // text_utils.c
 int		map_texture(t_px *px, t_scene *scene);
-int		map_procedure(t_px *px, t_scene *scene);
-float	get_text_val(mlx_texture_t *text, t_xyz coord);
+int		map_procedure(t_px *px);
 t_xyz	texture_diff(t_px *px, t_xyz uv);
 float	linear_interpolation(float v1, float v2, float pos, int smooth);
 float	bilinear_interpolation(float v1, float v2);
+float	get_uv(t_px *px, t_scene *scene);
 
 // shadow_ray.c
 float	get_shadow_ray(t_px *shadow_ray, t_light *light, t_px *px);
