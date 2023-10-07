@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/07 12:17:48 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 13:46:54 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_pixel
 	float		hit_distance;
 	float		hit_height;
 	int			color;
-	int			rgb[3];
+	// int			rgb[3];  // wordt maar in 1 functie gebruikt (get_color)
 }	t_px;
 
 typedef struct s_scene

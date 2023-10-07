@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/07 13:18:40 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 13:53:46 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ void	get_text_pxcolor(t_px *pix)
 	int 			text_y;
 	mlx_texture_t 	*text;
 
-	if (!pix->hitobject || !pix->hitobject->text)
+	if (!pix->hitobject)
+		return ;
+	if (!pix->hitobject->text)
 	{
 		pix->color = (pix->hitobject->rgb[0] << 24 | pix->hitobject->rgb[1] << 16 | pix->hitobject->rgb[2] << 8 | 255);
 		return ;
 	}
 	text = pix->hitobject->text;
-	// ft_printf("u:%f, v:%f\n", n_uv.x, n_uv.y);
 	text_x = floor(pix->uv.x * (float)text->width);
 	text_y = floor(pix->uv.y * (float)text->height);
-	// ft_printf("text_x:%d, text_y:%d, text2:%u, texth:%u\n--------------------\n", text_x, text_y, text->width, text->height);
 	if (text_y == 0 && text_x == 0)
 		px = 0;
 	else
@@ -87,33 +87,30 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param)
 			scene->selected = NULL;
 		else
 			scene->selected = scene->pixels[y][x].hitobject;
-		draw_image(scene);
+		// draw_image(scene);
+		render_image(scene);
 	}
 }
 
 int	get_color(t_px *px, t_scene *scene)
 {
-	t_object	*object;
-
-	object = (t_object *)px->hitobject;
-	if (!object)
+	int	rgb[3];
+	
+	if (!px->hitobject)
 		return (px->color = 0 << 24 | 0 << 16 | 0 << 8 | 255);
-	get_uv(px, scene);
-	get_text_pxcolor(px);
-	map_procedure(px);
-	px->rgb[0] = (int)(((px->color >> 24) & 0xFF) * \
+	rgb[0] = (int)(((px->color >> 24) & 0xFF) * \
 		ft_clamp(0, 1, ((scene->ambient->rgb_ratio[0] * px->facing_ratio) \
 		+ px->diffuse.x)));
-	px->rgb[1] = (int)(((px->color >> 16) & 0xFF) * \
+	rgb[1] = (int)(((px->color >> 16) & 0xFF) * \
 		ft_clamp(0, 1, ((scene->ambient->rgb_ratio[1] * px->facing_ratio) \
 		+ px->diffuse.y)));
-	px->rgb[2] = (int)(((px->color >> 8) & 0xFF) * \
+	rgb[2] = (int)(((px->color >> 8) & 0xFF) * \
 		ft_clamp(0, 1, ((scene->ambient->rgb_ratio[2] * px->facing_ratio) \
 		+ px->diffuse.z)));
-	px->rgb[0] = ft_clamp(0, 255, px->rgb[0] + 255 * px->specular.x);
-	px->rgb[1] = ft_clamp(0, 255, px->rgb[1] + 255 * px->specular.y);
-	px->rgb[2] = ft_clamp(0, 255, px->rgb[2] + 255 * px->specular.z);
-	px->color = px->rgb[0] << 24 | px->rgb[1] << 16 | px->rgb[2] << 8 | 255;
+	rgb[0] = ft_clamp(0, 255, rgb[0] + 255 * px->specular.x);
+	rgb[1] = ft_clamp(0, 255, rgb[1] + 255 * px->specular.y);
+	rgb[2] = ft_clamp(0, 255, rgb[2] + 255 * px->specular.z);
+	px->color = rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255;
 	if (px->hitobject && scene->selected == px->hitobject)
 		px->color = invert_color(px->color);
 	scene->min_x = (px->uv.x < scene->min_x ? px->uv.x : scene->min_x); // for testing
