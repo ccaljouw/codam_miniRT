@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/07 13:53:46 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 19:00:53 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,22 @@ void	image_to_window(t_scene *scene)
 	}
 }
 
-void	get_text_pxcolor(t_px *pix)
+int	get_text_pxcolor(mlx_texture_t *text, t_xyz uv)
 {
 	int				px;
 	int				text_x;
 	int 			text_y;
-	mlx_texture_t 	*text;
+	int				color;
 
-	if (!pix->hitobject)
-		return ;
-	if (!pix->hitobject->text)
-	{
-		pix->color = (pix->hitobject->rgb[0] << 24 | pix->hitobject->rgb[1] << 16 | pix->hitobject->rgb[2] << 8 | 255);
-		return ;
-	}
-	text = pix->hitobject->text;
-	text_x = floor(pix->uv.x * (float)text->width);
-	text_y = floor(pix->uv.y * (float)text->height);
+	text_x = floor(uv.x * (float)text->width);
+	text_y = floor(uv.y * (float)text->height);
 	if (text_y == 0 && text_x == 0)
 		px = 0;
 	else
 		px = (((text_y * text->width) + (text_x)) * 4) - 1;
-	pix->color = (text->pixels[px + 1] << 24) + (text->pixels[px + 2] << 16) \
+	color = (text->pixels[px + 1] << 24) + (text->pixels[px + 2] << 16) \
 				+ (text->pixels[px + 3] << 8) + text->pixels[px];
-	return ;
+	return (color);
 }
 
 void	draw_image(t_scene *scene)

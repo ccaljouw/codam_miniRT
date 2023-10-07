@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/07 13:46:54 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 17:20:15 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ typedef struct s_object
 	float			specular_size;
 	float			specular_weight;
 	int				rgb[3];
-	int				bump;
+	int				bump_proc;
 	int				text_proc;
 	mlx_texture_t	*text;
+	mlx_texture_t	*bump;
 	t_m44			rotate_matrix;
 }					t_object;
 

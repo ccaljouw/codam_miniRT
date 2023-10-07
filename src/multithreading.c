@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/07 13:53:39 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 18:27:02 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*routine(void *params)
 			{
 				get_surface_data(scene->pixels[y] + x);
 				get_uv(scene->pixels[y] + x, scene);
-				get_text_pxcolor(scene->pixels[y] + x);
+				map_texture(scene->pixels[y] + x);
 				map_procedure(scene->pixels[y] + x);
 				map_normal(scene->pixels[y] + x);
 				loop_lights(scene, scene->pixels[y] + x);

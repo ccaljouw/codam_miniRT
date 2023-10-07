@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/07 12:13:46 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 19:01:15 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,10 @@ void	image_to_window(t_scene *scene);
 int		get_color(t_px *px, t_scene *scene);
 void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param);
 void	draw_image(t_scene *scene);
-void	get_text_pxcolor(t_px *pix);
+int		get_text_pxcolor(mlx_texture_t *text, t_xyz uv);
 
 // bump_mapping.c
 void	map_normal(t_px *px);
-void	compute_pertubation(t_px *px, float scale, float reverse);
 void	perturb_normal(t_px *px, t_xyz pertubation);
 void	simple_rough(t_px *px, float min, float max);
 
@@ -108,7 +107,7 @@ t_xyz	color_map_5s(float pos);
 
 // text_utils.c
 int		map_procedure(t_px *px);
-t_xyz	texture_diff(t_px *px);
+void	map_texture(t_px *px);
 float	linear_interpolation(float v1, float v2, float pos, int smooth);
 float	bilinear_interpolation(float v1, float v2);
 float	get_uv(t_px *px, t_scene *scene);
