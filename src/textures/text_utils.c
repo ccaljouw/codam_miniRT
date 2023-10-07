@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/03 10:41:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/07 11:46:10 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 12:13:27 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@ float	get_uv(t_px *px, t_scene *scene)
 
 	px->uv = get_uv[px->hitobject->id](*px->hitobject, *px, scene);
 	return (0);
+}
+
+float	get_text_val(mlx_texture_t *text, t_xyz diff)
+{
+	float	val;
+	
+	(void)text;
+	(void)diff;
+	val = 0;
+	return (val); 
 }
 
 t_xyz	partial_diff(t_xyz disp, t_xyz uv, float h)
@@ -40,19 +50,19 @@ t_xyz	partial_diff(t_xyz disp, t_xyz uv, float h)
  * @param px 
  * @param uv 
  */
-// t_xyz	texture_diff(t_px *px, t_xyz uv)
-// {
-// 	t_xyz	u_disp;
-// 	t_xyz	v_disp;
-// 	float	u_grad;
-// 	float	v_grad;
+t_xyz	texture_diff(t_px *px)
+{
+	t_xyz	u_disp;
+	t_xyz	v_disp;
+	float	u_grad;
+	float	v_grad;
 	
-// 	u_disp = v_create(SHADOW_BIAS, 0, 0);
-// 	v_disp = v_create(0, SHADOW_BIAS, 0); //on y or z?
-// 	u_grad = get_text_val(px->hitobject->text, partial_diff(u_disp, px->uv, SHADOW_BIAS));
-// 	v_grad = get_text_val(px->hitobject->text, partial_diff(v_disp, px->uv, SHADOW_BIAS));
-// 	return(v_create(u_grad, v_grad, 0));
-// }
+	u_disp = v_create(SHADOW_BIAS, 0, 0);
+	v_disp = v_create(0, SHADOW_BIAS, 0); //on y or z?
+	u_grad = get_text_val(px->hitobject->text, partial_diff(u_disp, px->uv, SHADOW_BIAS));
+	v_grad = get_text_val(px->hitobject->text, partial_diff(v_disp, px->uv, SHADOW_BIAS));
+	return(v_create(u_grad, v_grad, 0));
+}
 
 int	map_procedure(t_px *px)
 {	
@@ -61,31 +71,11 @@ int	map_procedure(t_px *px)
 	if (!px->hitobject->text_proc)
 		return (px->color);
 	if (px->hitobject->text_proc == 1)
-		return (checkered(px, 1));
-	if (px->hitobject->text_proc == 2)
 		return (checkered(px, 2));
+	if (px->hitobject->text_proc == 2)
+		return (checkered(px, 3));
 	if (px->hitobject->text_proc == 3)
 		return (gradient(px));
-	return (px->color);	
-}
-
-int	map_texture(t_px *px, t_scene *scene)
-{
-	if (!px->hitobject)
-	{
-		px->color = (0 << 24 | 0 << 16 | 0 << 8 | 255);
-		return (px->color);
-	}
-	if (!px->hitobject->text)
-	{
-		px->color = (px->hitobject->rgb[0] << 24 | px->hitobject->rgb[1] << 16 | px->hitobject->rgb[2] << 8 | 255);
-		return (px->color);
-	}
-	scene->min_x = (px->uv.x < scene->min_x ? px->uv.x : scene->min_x); // for testing
-	scene->max_x = (px->uv.x > scene->max_x ? px->uv.x : scene->max_x);  // for testing
-	scene->min_y = (px->uv.y < scene->min_y ? px->uv.y : scene->min_y); // for testing
-	scene->max_y = (px->uv.y > scene->max_y ? px->uv.y : scene->max_y); // for testing
-	px->color = get_text_pxcolor(px, px->hitobject->text, px->uv); // for testing
 	return (px->color);	
 }
 

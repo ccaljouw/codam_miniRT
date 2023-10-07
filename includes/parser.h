@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/07 11:30:33 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 12:17:48 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ typedef struct s_object
 	t_type			id;
 	t_xyz			pOrigin;
 	t_xyz			vNormal;
-	float			diameter;
-	float			height;
+	t_xyz			angles;
+	float			diameter; //stor radius??
+	float			height; // nodig?
 	float			albedo;
 	float			specular_size;
 	float			specular_weight;
@@ -52,8 +53,6 @@ typedef struct s_object
 	int				bump;
 	int				text_proc;
 	mlx_texture_t	*text;
-	t_xyz			angles;
-	// t_xyz			rotation;
 	t_m44			rotate_matrix;
 }					t_object;
 
