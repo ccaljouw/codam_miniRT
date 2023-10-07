@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/03 10:41:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/06 17:00:30 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 11:14:40 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,22 @@ float	linear_interpolation(float v1, float v2, float pos, int smooth)
 	return (v1 + fade * (v2 - v1));
 }
 
+/**
+ * @brief interpolates x and y positions on scale [0,1] for x and [0,1] for y;
+ * 
+ * @param v1 
+ * @param v2 
+ * @param pos1 
+ * @param pos2 
+ * @return float 
+ */
+float bilinear_interpolation(float v1, float v2)
+{
+	float val1;
+	float val2;
+	
+	val1 = linear_interpolation(0, 1, v2, 0);
+	val2 = linear_interpolation(0, 1, v2, 0);
+	return (linear_interpolation(val1, val2, v1, 0));
+}
 

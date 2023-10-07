@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/06 17:10:09 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 11:16:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ int	gradient(t_px *px, t_xyz uv)
 	int		r;
 	int		g;
 	int		b;
+	float	pos;
 	t_xyz	fact;
 
-
-	fact = color_map_5s(fabs(uv.x));
+	pos = bilinear_interpolation(uv.x, uv.y);
+	fact = color_map_5s(fabs(pos));
 	r = (int)(fact.x * 255.0);
 	g = (int)(fact.y * 255.0);
 	b =	(int)(fact.z * 255.0);

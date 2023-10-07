@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/06 17:00:16 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 11:15:10 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int		map_procedure(t_px *px, t_scene *scene);
 float	get_text_val(mlx_texture_t *text, t_xyz coord);
 t_xyz	texture_diff(t_px *px, t_xyz uv);
 float	linear_interpolation(float v1, float v2, float pos, int smooth);
+float	bilinear_interpolation(float v1, float v2);
 
 // shadow_ray.c
 float	get_shadow_ray(t_px *shadow_ray, t_light *light, t_px *px);
