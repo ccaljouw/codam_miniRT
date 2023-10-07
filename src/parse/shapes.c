@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/07 19:14:04 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 21:03:29 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	set_procedure(char *param, t_scene *scene)
 	return (n);
 }
 
-int	set_bump(char *param, t_scene *scene)
+int	set_bump_procedure(char *param, t_scene *scene)
 {
 	int				n;
 
@@ -77,9 +77,9 @@ mlx_texture_t	*set_texture(char *param, t_scene *scene)
 void	set_surface_properties(char **param, t_object *object, int i, t_scene *s)
 {
 	object->text = set_texture(param[i++], s);
-	object->bump = s->textures[0]; // aanpassen
+	object->bump = set_texture(param[i++], s);
 	object->text_proc = set_procedure(param[i++], s);
-	object->bump_proc = set_bump(param[i++], s);
+	object->bump_proc = set_bump_procedure(param[i++], s);
 	object->albedo = set_albedo(param[i++], s);
 	object->specular_size = set_specular_size(param[i++], s);
 	object->specular_weight = set_specular_weight(param[i++], s);
@@ -101,7 +101,7 @@ void	init_plane(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 10)
+	if (i != 11)
 		exit_error(ERROR_PLANE, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_plane = ft_calloc(1, sizeof(t_object));
@@ -131,7 +131,7 @@ void	init_cylinder(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 12)
+	if (i != 13)
 		exit_error(ERROR_CYLINDER, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_cylinder = ft_calloc(1, sizeof(t_object));
@@ -163,7 +163,7 @@ void	init_cone(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 12)
+	if (i != 13)
 		exit_error(ERROR_CYLINDER, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_cone = ft_calloc(1, sizeof(t_object));
@@ -197,7 +197,7 @@ void	init_sphere(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 10)
+	if (i != 11)
 		exit_error(ERROR_SPHERE, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_sphere = ft_calloc(1, sizeof(t_object));

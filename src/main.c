@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/07 20:24:50 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 21:06:28 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	init_textures(t_scene *scene)
 	scene->textures = ft_calloc(NR_TEXTURES, sizeof(mlx_texture_t *));
 	if (!scene->textures)
 		exit_error(ERROR_MEM, NULL ,scene);
-	// scene->textures[0] = mlx_load_png("src/textures/checker.png");
-	scene->textures[0] = mlx_load_png("src/textures/golf3.png");
+	scene->textures[0] = mlx_load_png("src/textures/checker.png");
 	scene->textures[1] = mlx_load_png("src/textures/wereld.png");
 	scene->textures[2] = mlx_load_png("src/textures/rendering.png");
 	scene->textures[3] = mlx_load_png("src/textures/golf3.png");

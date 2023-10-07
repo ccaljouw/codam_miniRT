@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/02 15:10:18 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/07 20:32:38 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 21:07:05 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 Bump maps are created by pertubating the surface normal at the hitpoint
 
 available procedures:
-	1	simple_rough
-	2	bump_text
+	1	simple_rough	(a procedural bump map)
+	2	bump_bumptext 	(uses the object->bumptext)
+	3	bump_text		(uses the object->text that is also color mapped 
+						onto the object)
 */
 
 void	simple_rough(t_px *px, float min, float max)
@@ -38,12 +40,14 @@ void bump_bumptext(t_px *px)
 	int				color;
 	float			rgb[3];
 
-	color = px->color;
+	if (!px->hitobject->bump)
+		return ;
 	color = get_text_pxcolor(px->hitobject->bump, px->uv);
 	rgb[0] = (float)((color >> 24) & 0xFF) / 255.0;
 	rgb[1] = (float)((color >> 16) & 0xFF) / 255.0;
 	rgb[2] = (float)((color >> 8) & 0xFF) / 255.0;
 	fact = v_create(rgb[0] * 1, rgb[1] * 1, rgb[2] * 1);
+	// print_vector(fact);
 	perturb_normal(px, fact);
 }
 
