@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/07 23:36:09 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/08 20:55:18 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,10 @@ int	get_sphere_surface_data(t_object sph, t_px *px)
 t_xyz	get_uvcoord_sp(t_object sp, t_px px, t_scene *scene)
 {
 	t_xyz		uv;
-	t_m44		rotate;
 
 	(void)scene;
-	m44_rotate(&rotate, sp.angles.x, sp.angles.y, sp.angles.z);  // waarom -90?
 	uv = v_subtract(px.hitpoint, sp.pOrigin);
 	m44_multiply_vec3_dir(sp.rotate_matrix, uv, &uv);
-	// v_normalizep(&uv);
 	uv.x = 0.5 + atan2(uv.z, uv.x) / (2 * M_PI);
 	uv.y = 0.5 - asin(uv.y / (sp.diameter * 0.5)) / M_PI;
 	uv.z = 0;

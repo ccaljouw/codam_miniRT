@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/08 12:12:51 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/08 21:12:46 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	set_hp_info(float *hit_param, float height, float *hp_info)
  * 
  * @param ray 
  * @param cylinder 
- * @param hit_dist 
- * @param m 
+ * @param hp_info (float[2]) hp_info[0] = hit distance, hp_info[1] = hit height
+ * @param hit_param (float[4]) [0]:distance1 [1]:distance2 [2]:height1, [3]:height2
  * @return int 
  */
 int	test_cylinder(t_px *ray, t_object cylinder, float *hp_info)
@@ -112,20 +112,16 @@ t_xyz	get_uvcoord_cy(t_object cy, t_px px, t_scene *scene)
 {
 	t_xyz		axis_hp;
 	t_xyz		uv;
-	t_m44		rotate;
+
 
 	(void)scene;
-	m44_rotate(&rotate, cy.angles.x, cy.angles.y, cy.angles.z);  // waarom -90?
 	axis_hp = v_add(cy.pOrigin, v_multiply(cy.vNormal, px.hit_height));
 	uv = v_subtract(px.hitpoint, axis_hp);
-	uv.x =  0.5 + atan2(uv.z, uv.x) / (2 * M_PI);
-	// m44_multiply_vec3_dir(cy.rotate_matrix, uv, &uv);
-	uv.y = px.hit_height;
-	uv.z = 0;
-	uv.y = 1 - (uv.y/cy.height);
+	m44_multiply_vec3_dir(cy.rotate_matrix, uv, &uv); 
+	uv.x = 0.5 + (atan2(uv.z, uv.x) / (2 * M_PI));
+	uv.y = 1 - (px.hit_height / cy.height);
 	return (uv);
 }
-
 
 
 

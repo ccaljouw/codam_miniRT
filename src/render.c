@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/07 13:33:29 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/08 12:28:57 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void	render_image(t_scene *scene)
 	blocks = malloc(THREADS * sizeof(t_block));
 	if (!threads || !blocks)
 		exit_error(ERROR_MEM, NULL, scene);
-	calculate_angles(scene);
 	create_threads(scene, threads, blocks);
 	join_threads(threads, scene);
 	free(blocks);

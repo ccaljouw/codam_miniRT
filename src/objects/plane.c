@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/06 17:12:45 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/08 21:27:23 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,15 @@ t_xyz	get_uvcoord_pl(t_object pl, t_px px, t_scene *scene)
 	t_xyz	x_plane;
 	t_xyz	y_plane;
 	t_xyz	z_plane;
+	t_xyz	hp_in_object_space;
 
 	y_plane = pl.vNormal;
 	x_plane = v_cross(y_plane, scene->camera->orientation_v);
 	z_plane = v_cross(x_plane, y_plane);
+	hp_in_object_space = px.hitpoint;
 	// hp_in_object_space = v_subtract(px.hitpoint, pl.pOrigin); // weggehaald omdat het een bolling oplevert
-	uv.x = v_dot(px.hitpoint, x_plane);
-	uv.y = v_dot(px.hitpoint, z_plane);
+	uv.x = v_dot(hp_in_object_space, x_plane);
+	uv.y = v_dot(hp_in_object_space, z_plane);
 	uv.z = scene->camera->image_height * 0.015;
 	v_normalizep(&uv);
 	uv.x = ((uv.x + 1.0) * 0.5);
