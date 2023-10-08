@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/06 16:59:37 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/08 21:11:28 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,6 @@ int	test_cone(t_px *ray, t_object cone, float *hp_info)
 				+ v_dot(orig_to_center, cone.vNormal);
 	hit_param[3] = (v_dot(ray->direction, cone.vNormal) * hit_param[1]) \
 				+ v_dot(orig_to_center, cone.vNormal);
-	if (hit_param[0] < 0)
-	{
-		hit_param[0] = hit_param[1];
-		if (hit_param[0] < 0)
-			return (0);
-	}
 	return(set_hp_info(hit_param, cone.height, hp_info));
 }
 
@@ -88,10 +82,10 @@ t_xyz	get_uvcoord_co(t_object co, t_px px, t_scene *scene)
 	(void)scene;
 	axis_hp = v_add(co.pOrigin, v_multiply(co.vNormal, px.hit_height));
 	uv = v_subtract(px.hitpoint, axis_hp);
-	uv.x =  0.5 + atan2(uv.z, uv.x) / (2 * M_PI);
-	uv.y = px.hit_height;
+	m44_multiply_vec3_dir(co.rotate_matrix, uv, &uv);
+	uv.x = 0.5 + (atan2(uv.z, uv.x) / (2 * M_PI));
+	uv.y = 1 - (px.hit_height / co.height);
 	uv.z = 0;
-	uv.y = 1 - (uv.y/co.height);
 	return (uv);
 }
 

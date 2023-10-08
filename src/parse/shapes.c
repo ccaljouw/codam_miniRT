@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/08 06:47:19 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/08 21:03:15 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	init_plane(char **param, t_scene *scene)
 	new_plane->id = PL;
 	new_plane->pOrigin = set_xyz(param[1], scene);
 	new_plane->vNormal = set_xyz(param[2], scene);
+	new_plane->rotate_matrix = m44_init();
 	set_surface_properties(param, new_plane, 3, scene);
 	new_node->content = (void *)new_plane;
 	ft_lstadd_back(&scene->objects, new_node);
@@ -142,6 +143,7 @@ void	init_cylinder(char **param, t_scene *scene)
 	new_cylinder->vNormal = v_normalize(set_xyz(param[2], scene));
 	new_cylinder->diameter = to_float(param[3], scene);
 	new_cylinder->height = to_float(param[4], scene);
+	new_cylinder->rotate_matrix = m44_init();
 	set_surface_properties(param, new_cylinder, 5, scene);
 	new_node->content = (void *)new_cylinder;
 	ft_lstadd_back(&scene->objects, new_node);
@@ -174,6 +176,7 @@ void	init_cone(char **param, t_scene *scene)
 	new_cone->vNormal = v_normalize(set_xyz(param[2], scene));
 	new_cone->diameter = to_float(param[3], scene);
 	new_cone->height = to_float(param[4], scene);
+	new_cone->rotate_matrix = m44_init();
 	set_surface_properties(param, new_cone, 5, scene);
 	new_node->content = (void *)new_cone;
 	ft_lstadd_back(&scene->objects, new_node);

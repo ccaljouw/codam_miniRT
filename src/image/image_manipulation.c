@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/08 22:51:48 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/08 22:54:03 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,12 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 	set_rotation(&rotation, keydata);
 	rotation_matrix = m44_init();
 	m44_rotate(&rotation_matrix, -rotation.y, rotation.x, rotation.z);
-	if (scene->selected && scene->selected->id == SP)
+	if (scene->selected)
+	{
 		scene->selected->rotate_matrix = \
 			m44_dot_product(rotation_matrix, scene->selected->rotate_matrix);
+		m44_multiply_vec3_dir(rotation_matrix, *orientation, orientation);
+	}
 	else
 		m44_multiply_vec3_dir(rotation_matrix, *orientation, orientation);
 	print_vector(*orientation);

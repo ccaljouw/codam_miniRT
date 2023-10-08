@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/07 23:13:56 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/08 21:12:46 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,18 @@ t_xyz	get_abc_cyl(t_px *ray, t_xyz orig_to_center, t_object cylinder)
 
 int	set_hp_info(float *hit_param, float height, float *hp_info)
 {
-	// if ((hit_param[2] < height && hit_param[3] > 0) \
-	// 		|| (hit_param[3] < height && hit_param[2] > 0))
-	// {
-		if (hit_param[2] < height && hit_param[2] > 0)
-		{
-			hp_info[0] = hit_param[0];
-			hp_info[1] = hit_param[2];
-			return (1);
-		}
-		else if (hit_param[3] < height && hit_param[3] > 0)
-		{
-			hp_info[0] = hit_param[1];
-			hp_info[1] = hit_param[3];
-			return (1);
-		}
-		// ft_printf("m1:%f, m2:%f\n", hit_param[2], hit_param[3]);
-	// }
+	if (hit_param[0] > 0 && hit_param[2] < height && hit_param[2] > 0)
+	{
+		hp_info[0] = hit_param[0];
+		hp_info[1] = hit_param[2];
+		return (1);
+	}
+	else if (hit_param[1] > 0 && hit_param[3] < height && hit_param[3] > 0)
+	{
+		hp_info[0] = hit_param[1];
+		hp_info[1] = hit_param[3];
+		return (1);
+	}
 	hp_info[0] = 0;
 	return (0);
 }
@@ -60,8 +55,8 @@ int	set_hp_info(float *hit_param, float height, float *hp_info)
  * 
  * @param ray 
  * @param cylinder 
- * @param hit_dist 
- * @param m 
+ * @param hp_info (float[2]) hp_info[0] = hit distance, hp_info[1] = hit height
+ * @param hit_param (float[4]) [0]:distance1 [1]:distance2 [2]:height1, [3]:height2
  * @return int 
  */
 int	test_cylinder(t_px *ray, t_object cylinder, float *hp_info)
@@ -79,12 +74,6 @@ int	test_cylinder(t_px *ray, t_object cylinder, float *hp_info)
 				+ v_dot(orig_to_center, cylinder.vNormal);
 	hit_param[3] = (v_dot(ray->direction, cylinder.vNormal) * hit_param[1]) \
 				+ v_dot(orig_to_center, cylinder.vNormal);
-	if (hit_param[0] < 0)
-	{
-		hit_param[0] = hit_param[1];
-		if (hit_param[0] < 0)
-			return (0);
-	}
 	return(set_hp_info(hit_param, cylinder.height, hp_info));
 }
 
@@ -123,20 +112,16 @@ t_xyz	get_uvcoord_cy(t_object cy, t_px px, t_scene *scene)
 {
 	t_xyz		axis_hp;
 	t_xyz		uv;
-	t_m44		rotate;
+
 
 	(void)scene;
-	m44_rotate(&rotate, cy.angles.x, cy.angles.y, cy.angles.z);  // waarom -90?
 	axis_hp = v_add(cy.pOrigin, v_multiply(cy.vNormal, px.hit_height));
 	uv = v_subtract(px.hitpoint, axis_hp);
-	uv.x =  0.5 + atan2(uv.z, uv.x) / (2 * M_PI);
-	// m44_multiply_vec3_dir(cy.rotate_matrix, uv, &uv);
-	uv.y = px.hit_height;
-	// uv.z = 0;
-	uv.y = 1 - (uv.y/cy.height);
+	m44_multiply_vec3_dir(cy.rotate_matrix, uv, &uv); 
+	uv.x = 0.5 + (atan2(uv.z, uv.x) / (2 * M_PI));
+	uv.y = 1 - (px.hit_height / cy.height);
 	return (uv);
 }
-
 
 
 
