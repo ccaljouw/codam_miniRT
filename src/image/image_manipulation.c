@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   image_manipulation.c                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/07 12:21:06 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   image_manipulation.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/08 22:51:48 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 			m44_dot_product(rotation_matrix, scene->selected->rotate_matrix);
 	else
 		m44_multiply_vec3_dir(rotation_matrix, *orientation, orientation);
+	print_vector(*orientation);
 	cameraGeometry(scene);
 	render_image(scene);
 }
@@ -145,6 +146,22 @@ void	select_light(t_scene *scene)
 		ft_printf("no light selected\n");
 }
 
+void	adjust_ambient(t_scene *scene, mlx_key_data_t key_data)
+{
+	t_ambient	*a;
+
+	a = scene->ambient;
+	if (key_data.key == MLX_KEY_MINUS)
+		a->ratio -= .05;
+	if (key_data.key == MLX_KEY_EQUAL)
+		a->ratio += .05;
+	a->rgb_ratio[0] = ((float)a->rgb[0] / 255) * a->ratio;
+	a->rgb_ratio[1] = ((float)a->rgb[1] / 255) * a->ratio;
+	a->rgb_ratio[2] = ((float)a->rgb[2] / 255) * a->ratio;
+	ft_printf("ambient brightness: %f\n", a->ratio);
+	render_image(scene);
+}
+
 void	key_input(mlx_key_data_t k, void *param)
 {
 	t_scene		*scene;
@@ -166,6 +183,8 @@ void	key_input(mlx_key_data_t k, void *param)
 			move(k, scene);
 		if (k.key == MLX_KEY_L)
 			select_light(scene);
+		if (k.key == MLX_KEY_MINUS || k.key == MLX_KEY_EQUAL)
+			adjust_ambient(scene, k);
 		else
 			return ;
 	}

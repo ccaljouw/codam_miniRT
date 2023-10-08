@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/08 07:21:11 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/08 15:07:31 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	init_textures(t_scene *scene)
 	scene->textures[0] = mlx_load_png("png/text/checker.png");
 	scene->textures[1] = mlx_load_png("png/text/world.png");
 	scene->textures[2] = mlx_load_png("png/text/world2.png");
-	scene->textures[3] = mlx_load_png("png/text/rendering.png");
+	scene->textures[3] = mlx_load_png("png/text/sterren.png");
 	scene->textures[4] = mlx_load_png("png/bump/golf.png");
 	scene->textures[5] = mlx_load_png("png/bump/bump1.png");
 	scene->textures[6] = mlx_load_png("png/bump/bump2.png");
