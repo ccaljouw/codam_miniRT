@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/03 10:41:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/07 18:57:38 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 21:21:22 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ float	get_uv(t_px *px, t_scene *scene)
 void	map_texture(t_px *px)
 {
 	if (!!px->hitobject)
-		px->color = (0 >> 24 | 0 >> 16 | 0 >> 8 | 255);
+		px->color = (0 << 24 | 0 << 16 | 0 << 8 | 255);
 	if (!px->hitobject->text)
 		px->color = (px->hitobject->rgb[0] << 24 | px->hitobject->rgb[1] << 16 | px->hitobject->rgb[2] << 8 | 255);
 	else

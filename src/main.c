@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/07 21:06:28 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/08 07:21:11 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,31 @@ void	init_pixels(t_scene *scene)
 
 void	init_textures(t_scene *scene)
 {
+	int	i;
+
+	i = 0;
 	scene->textures = ft_calloc(NR_TEXTURES, sizeof(mlx_texture_t *));
 	if (!scene->textures)
 		exit_error(ERROR_MEM, NULL ,scene);
-	scene->textures[0] = mlx_load_png("src/textures/checker.png");
-	scene->textures[1] = mlx_load_png("src/textures/wereld.png");
-	scene->textures[2] = mlx_load_png("src/textures/rendering.png");
-	scene->textures[3] = mlx_load_png("src/textures/golf3.png");
-	scene->textures[4] = mlx_load_png("src/textures/world3.png");
-	if (!scene->textures[0] || !scene->textures[1] || !scene->textures[2] \
-		|| !scene->textures[3] || !scene->textures[4] )
-		exit_error(ERROR_PNG, "error loading png" ,scene);
+	scene->textures[0] = mlx_load_png("png/text/checker.png");
+	scene->textures[1] = mlx_load_png("png/text/world.png");
+	scene->textures[2] = mlx_load_png("png/text/world2.png");
+	scene->textures[3] = mlx_load_png("png/text/rendering.png");
+	scene->textures[4] = mlx_load_png("png/bump/golf.png");
+	scene->textures[5] = mlx_load_png("png/bump/bump1.png");
+	scene->textures[6] = mlx_load_png("png/bump/bump2.png");
+	scene->textures[7] = mlx_load_png("png/bump/bump3.png");
+	scene->textures[8] = mlx_load_png("png/bump/bump4.png");
+	scene->textures[9] = mlx_load_png("png/bump/bump5.png");
+	scene->textures[10] = mlx_load_png("png/bump/bump6.png");
+	scene->textures[11] = mlx_load_png("png/bump/bump7.png");
+	scene->textures[12] = mlx_load_png("png/bump/bump8.png");
+	scene->textures[13] = mlx_load_png("png/bump/bump9.png");
+	while (i < NR_TEXTURES)
+	{
+		if (!scene->textures[i++])
+			exit_error(ERROR_PNG, NULL ,scene);
+	}	
 }
 
 void	clean_scene(t_scene *scene)

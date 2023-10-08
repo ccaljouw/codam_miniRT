@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 16:09:09 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/04 11:08:38 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   errors.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 16:09:09 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/08 07:20:37 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ Please check path, extention and file permissions"
 # define ERROR_RGB "Incorrect RGB values provided"
 # define ERROR_F "Incorrect float provided"
 # define ERROR_THREAD "Multi threading"
-# define ERROR_PNG "Textures"
+# define ERROR_PNG "Error loading texture"
 # define USAGE_MSG "Usage: ./miniRT [path_to_file].rt [optional: -a]"
 
 #endif

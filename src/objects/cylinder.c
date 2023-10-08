@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/06 18:27:55 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/07 23:13:56 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ t_xyz	get_abc_cyl(t_px *ray, t_xyz orig_to_center, t_object cylinder)
 
 int	set_hp_info(float *hit_param, float height, float *hp_info)
 {
-	if ((hit_param[2] < height && hit_param[3] > 0) \
-			|| (hit_param[3] < height && hit_param[2] > 0))
-	{
+	// if ((hit_param[2] < height && hit_param[3] > 0) \
+	// 		|| (hit_param[3] < height && hit_param[2] > 0))
+	// {
 		if (hit_param[2] < height && hit_param[2] > 0)
 		{
 			hp_info[0] = hit_param[0];
@@ -46,7 +46,7 @@ int	set_hp_info(float *hit_param, float height, float *hp_info)
 			return (1);
 		}
 		// ft_printf("m1:%f, m2:%f\n", hit_param[2], hit_param[3]);
-	}
+	// }
 	hp_info[0] = 0;
 	return (0);
 }

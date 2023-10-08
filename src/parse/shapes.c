@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/07 21:03:29 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/08 06:47:19 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	set_bump_procedure(char *param, t_scene *scene)
 	int				n;
 
 	n = ft_atoi(param);
-	if (n < 0 || n > BUMP_MAPS)
+	if (n < 0 || n > BUMP_PROCEDURES)
 		exit_error("error bump map", "id invallid", scene);
 	return (n);
 }

@@ -6,16 +6,16 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 20:37:16 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/07 17:37:21 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/08 06:43:47 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINES_H
 # define DEFINES_H
 
-# define NR_TEXTURES		5
+# define NR_TEXTURES		14
 # define TEXT_PROCEDURES	3
-# define BUMP_MAPS 			3
+# define BUMP_PROCEDURES 	3
 
 # define ROT_X_N 			MLX_KEY_RIGHT
 # define ROT_X_P 			MLX_KEY_LEFT
