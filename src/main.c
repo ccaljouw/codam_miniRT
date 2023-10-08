@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/08 07:21:11 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/08 11:20:13 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	check_args(int argc, char **argv)
 		i++;
 	if (ft_strncmp(argv[1] + (i - 3), ".rt", 4) != 0)
 		exit_error(ERROR_PATH, USAGE_MSG, NULL);
-	if (argc == 3 && !(!ft_strcmp(argv[2], "-ai") || !ft_strcmp(argv[2], "-a")))
+	if (argc == 3 && !(!ft_strcmp(argv[2], "-a")))
 		exit_error(ERROR_FLAG, USAGE_MSG, NULL);
 }
 
@@ -181,12 +181,12 @@ int	main(int argc, char **argv)
 {
 	t_scene			*scene;
 
-	// atexit(leaks_f); //leaks!!
+	atexit(leaks_f);
 	check_args(argc, argv);
 	scene = init_scene(argv[1]);
-	if (argv[2] && (!ft_strcmp(argv[2], "-a") || !ft_strcmp(argv[2], "-ai")))
+	if (argv[2] && (!ft_strcmp(argv[2], "-a")))
 		renderAscii(scene);
-	if (argc == 2 || !ft_strcmp(argv[2], "-ai"))
+	if (argc == 2)
 	{
 		scene->mlx = mlx_init(scene->p_width, scene->p_height, "RAY'S TRACERS", true);
 		if (!scene->mlx)
