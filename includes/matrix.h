@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   matrix.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/15 22:32:55 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/09/30 16:26:04 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   matrix.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/15 22:32:55 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/08 23:10:52 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_m44	m44_init(void);
 void	m44_print(t_m44 matrix);
 void	m44_copy(t_m44	src, t_m44 *dst);
 t_m44	m44_dot_product(t_m44 m1, t_m44 m2);
-
 
 // MATRIX x VEC3 UTILS
 

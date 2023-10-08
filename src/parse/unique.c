@@ -6,13 +6,13 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/03 21:55:31 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/08 23:56:28 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-void	cameraGeometry(t_scene *scene)
+void	camera_geo(t_scene *scene)
 {
 	t_camera	*cam;
 	t_m44		direction;
@@ -51,14 +51,14 @@ void	init_camera(char **param, t_scene *s)
 	s->camera->orientation_v = set_xyz(param[2], s);
 	if (s->camera->orientation_v.x < -1 || s->camera->orientation_v.x > 1 \
 	|| s->camera->orientation_v.y < -1 || s->camera->orientation_v.y > 1 \
-	|| s->camera->orientation_v.z < -1 || s->camera->orientation_v.z > 1 )
+	|| s->camera->orientation_v.z < -1 || s->camera->orientation_v.z > 1)
 		exit_error(ERROR_CAM, "incorrect orientation [-1, 1]", s);
 	s->camera->fov = ft_atoi(param[3]);
 	if (s->camera->fov < 0 || s->camera->fov > 180)
 		exit_error(ERROR_CAM, "incorrect fov [0, 180]", s);
 	if (!s->camera->fov && !ft_strcmp(param[3], "0"))
 		exit_error("incorrect fov", NULL, s);
-	cameraGeometry(s);
+	camera_geo(s);
 	ft_putstr_fd("\033[34;1mCamera config:\t\t  \033[0m", 1);
 }
 
@@ -71,7 +71,7 @@ void	init_camera(char **param, t_scene *s)
 void	init_ambient(char **param, t_scene *scene)
 {
 	int			i;
-	t_ambient	*ambient; // added this to keep the lines under 80 chars.
+	t_ambient	*ambient;
 
 	if (scene->ambient)
 		exit_error(ERROR_SCENE, "redefinition of ambient lighting", scene);
@@ -87,7 +87,7 @@ void	init_ambient(char **param, t_scene *scene)
 	if (ambient->ratio < 0.0 || ambient->ratio > 1)
 		exit_error(ERROR_AMB, "incorrect lighting ratio [0.0, 1.0]", scene);
 	set_rgb(param[2], ambient->rgb, scene);
-	ambient->rgb_ratio[0] = ((float)ambient->rgb[0] / 255) * ambient->ratio;	// calculate ratios here to assure its only done once
+	ambient->rgb_ratio[0] = ((float)ambient->rgb[0] / 255) * ambient->ratio;
 	ambient->rgb_ratio[1] = ((float)ambient->rgb[1] / 255) * ambient->ratio;
 	ambient->rgb_ratio[2] = ((float)ambient->rgb[2] / 255) * ambient->ratio;
 	scene->ambient = ambient;
@@ -110,35 +110,4 @@ void	init_resolution(char **param, t_scene *s)
 		exit_error(ERROR_RES, "incorrect values \
 				[0, MAX_WIDTH / MAX_HEIGHT]", s);
 	ft_putstr_fd("\033[34;1mResolution config:\t\t  \033[0m", 1);
-}
-
-void	init_lights(char **param, t_scene *s)
-{
-	t_list		*new_node;
-	t_light		*new_light;
-	int	i;
-
-	i = 0;
-	while (param[i])
-		i++;
-	if (i != 4)
-		exit_error(ERROR_LIGHT, "incorrect number of arguments", s);
-	new_node = ft_lstnew(NULL);
-	new_light = malloc(sizeof(t_light));
-	if (!new_light || !new_node)
-		exit_error(ERROR_MEM, NULL, s);
-	new_light->light_point = set_xyz(param[1], s);
-	new_light->brightness = to_float(param[2], s);
-	if (new_light->brightness < 0.0 || new_light->brightness > 1.0)
-		exit_error(ERROR_LIGHT, "Incorrect brightness values [0.0, 1.0]", s);
-	set_rgb(param[3], new_light->rgb, s);
-	new_light->l2w = m44_init();
-	m44_translate_by_vector(&new_light->l2w, new_light->light_point);
-	m44_multiply_vec3(new_light->l2w, v_create(0, 0, 0), &new_light->origin);
-	new_light->rgb_ratios = v_create(new_light->rgb[0] / (float)255, \
-		new_light->rgb[1] / (float)255, new_light->rgb[2] / (float)255);
-	new_light->rgb_ratios = v_multiply(new_light->rgb_ratios, new_light->brightness);
-	new_node->content = (void *)new_light;
-	ft_lstadd_back(&s->lights, new_node);
-	ft_putstr_fd("\033[34;1mLight config:\t\t  \033[0m", 1);
 }

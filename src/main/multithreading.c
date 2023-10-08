@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   multithreading.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/07 18:27:02 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   multithreading.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/20 14:21:20 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/09 00:23:59 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,7 @@ void	*routine(void *params)
 		x = 0;
 		while (x < scene->p_width)
 		{
-			get_ray(scene->pixels[y] + x, x, y, scene);
-			trace_ray(scene->pixels[y] + x, scene);
-			if ((scene->pixels[y] + x)->hitobject != NULL)
-			{
-				get_surface_data(scene->pixels[y] + x);
-				get_uv(scene->pixels[y] + x, scene);
-				map_texture(scene->pixels[y] + x);
-				map_procedure(scene->pixels[y] + x);
-				map_normal(scene->pixels[y] + x);
-				loop_lights(scene, scene->pixels[y] + x);
-			}
+			get_pixel_data(scene->pixels[y] + x, scene, x, y);
 			x++;
 		}
 		y++;
@@ -88,5 +78,6 @@ void	join_threads(pthread_t *threads, t_scene *scene)
 		i++;
 	}
 	draw_image(scene);
-	ft_printf("minx:%f, maxx:%f, miny:%f, maxy:%f\n", scene->min_x, scene->max_x, scene->min_y, scene->max_y);
+	ft_printf("minx:%f, maxx:%f, miny:%f, maxy:%f\n", \
+		scene->min_x, scene->max_x, scene->min_y, scene->max_y);
 }

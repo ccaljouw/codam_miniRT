@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   sphere.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/08 20:55:18 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   sphere.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/14 17:54:01 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/08 23:45:39 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	test_sphere(t_px *ray, t_object sphere, float *hp_info)
 	hit_dist1 = 0;
 	hit_dist2 = 0;
 	radius = sphere.diameter * 0.5;
-	orig_to_center = v_subtract(ray->cam_origin, sphere.pOrigin);
+	orig_to_center = v_subtract(ray->cam_origin, sphere.p_origin);
 	abc.x = v_dot(ray->direction, ray->direction);
 	abc.y = 2 * v_dot(ray->direction, orig_to_center);
 	abc.z = v_dot(orig_to_center, orig_to_center) - (radius * radius);
@@ -100,8 +100,9 @@ int	test_sphere(t_px *ray, t_object sphere, float *hp_info)
  */
 int	get_sphere_surface_data(t_object sph, t_px *px)
 {
-	px->hitpoint = v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
-	px->surface_normal = v_subtract(sph.pOrigin, px->hitpoint);
+	px->hitpoint = \
+			v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
+	px->surface_normal = v_subtract(sph.p_origin, px->hitpoint);
 	v_normalizep(&px->surface_normal);
 	px->facing_ratio = v_dot(px->surface_normal, px->direction);
 	px->surface_normal = v_multiply(px->surface_normal, -1);
@@ -113,12 +114,10 @@ t_xyz	get_uvcoord_sp(t_object sp, t_px px, t_scene *scene)
 	t_xyz		uv;
 
 	(void)scene;
-	uv = v_subtract(px.hitpoint, sp.pOrigin);
+	uv = v_subtract(px.hitpoint, sp.p_origin);
 	m44_multiply_vec3_dir(sp.rotate_matrix, uv, &uv);
 	uv.x = 0.5 + atan2(uv.z, uv.x) / (2 * M_PI);
 	uv.y = 0.5 - asin(uv.y / (sp.diameter * 0.5)) / M_PI;
 	uv.z = 0;
 	return (uv);
 }
-
-

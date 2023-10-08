@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   color_maps.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/04 15:11:27 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/07 09:32:17 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   color_maps.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/04 15:11:27 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/09 00:00:58 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-void	get_position_range(int *stop_range, int nr_pos, float pos, t_stop *stops)
+void	get_position_range(int *st_range, int nr_pos, float pos, t_stop *stops)
 {
 	int		i;
 	float	diff;
@@ -26,13 +26,13 @@ void	get_position_range(int *stop_range, int nr_pos, float pos, t_stop *stops)
 		if (fabs(t) < diff)
 		{
 			diff = fabs(t);
-			stop_range[0] = i;	
+			st_range[0] = i;
 			if (t < 0.0)
-				stop_range[1] = ft_min((nr_pos - 1), (i + 1));
+				st_range[1] = ft_min((nr_pos - 1), (i + 1));
 			else if (t > 0.0)
-				stop_range[1] = ft_max((i - 1), 0);
+				st_range[1] = ft_max((i - 1), 0);
 			else
-				stop_range[1] = i;
+				st_range[1] = i;
 		}
 		i++;
 	}
@@ -40,12 +40,12 @@ void	get_position_range(int *stop_range, int nr_pos, float pos, t_stop *stops)
 
 t_xyz	get_rgb_fact(float pos, int *stop_range, t_stop *stops)
 {
-	float x1;
-	float x2;
-	int	  t;
-	t_xyz rgb_fact;
-	t_xyz temp;
-	
+	float	x1;
+	float	x2;
+	int		t;
+	t_xyz	rgb_fact;
+	t_xyz	temp;
+
 	if (stop_range[0] == stop_range[1])
 		return (stops[stop_range[0]].rgb_fact);
 	if (stop_range[0] > stop_range[1])
@@ -56,7 +56,8 @@ t_xyz	get_rgb_fact(float pos, int *stop_range, t_stop *stops)
 	}
 	x1 = stops[stop_range[0]].pos;
 	x2 = stops[stop_range[1]].pos;
-	temp = v_subtract(stops[stop_range[1]].rgb_fact, stops[stop_range[0]].rgb_fact);
+	temp = v_subtract(stops[stop_range[1]].rgb_fact,
+			stops[stop_range[0]].rgb_fact);
 	temp = v_divide(temp, x2 - x1);
 	temp = v_multiply(temp, pos - x1);
 	rgb_fact = v_add(stops[stop_range[0]].rgb_fact, temp);
@@ -75,7 +76,7 @@ t_xyz	color_map_5s(float pos)
 	stops[3].pos = 0.75;
 	stops[4].pos = 1;
 	stops[0].rgb_fact = v_create(1, 0, 0);
-	stops[1].rgb_fact = v_create(1,	0.5, 0);
+	stops[1].rgb_fact = v_create(1, 0.5, 0);
 	stops[2].rgb_fact = v_create(1, 1, 0);
 	stops[3].rgb_fact = v_create(0, 1, 0.5);
 	stops[4].rgb_fact = v_create(0, 0, 1);

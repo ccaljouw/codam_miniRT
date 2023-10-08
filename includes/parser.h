@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/08 12:28:18 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/09 00:27:21 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
  * @brief 	object struct containing parameters for each object type
  * 
  * @param	id (t_type) SP: sphere, PL: plane, CY: cylinder, CO: cone
- * @param	pOrigin (t_xyz) x,y,z coordinates of the object origin
+ * @param	p_origin (t_xyz) x,y,z coordinates of the object origin
  * @param	diameter (float) the diameter (of sphere or cylinder)
  * @param	rgb	(int[3]) R,G,B colors in range [0-255]
  * @param	vNormal (t_xyz) 33d normalized normal vector (of plane). 
@@ -41,8 +41,8 @@
 typedef struct s_object
 {
 	t_type			id;
-	t_xyz			pOrigin;
-	t_xyz			vNormal;
+	t_xyz			p_origin;
+	t_xyz			v_normal;
 	float			diameter; //store radius??
 	float			height; // nodig?
 	float			albedo;
@@ -78,7 +78,6 @@ typedef struct s_pixel
 	float		hit_distance;
 	float		hit_height;
 	int			color;
-	// int			rgb[3];  // wordt maar in 1 functie gebruikt (get_color)
 }	t_px;
 
 typedef struct s_scene
@@ -86,8 +85,8 @@ typedef struct s_scene
 	mlx_t			*mlx;
 	mlx_image_t		*image;
 	mlx_texture_t	**textures;
-	t_ambient		*ambient; // bij één ambient light kan dit op de stack?
-	t_camera		*camera; // bij éen camera kan dit op de stack?
+	t_ambient		*ambient; // op stack?
+	t_camera		*camera; // op stack?
 	t_list			*lights;
 	t_list			*objects;
 	t_px			**pixels;
@@ -98,10 +97,10 @@ typedef struct s_scene
 	int				must_resize;
 	t_object		*selected;
 	t_list			*selected_light;
-	float		min_x;  //remove
-	float		max_x; //remove
-	float		min_y; //remove
-	float		max_y;//remove
+	float			min_x; //remove
+	float			max_x; //remove
+	float			min_y; //remove
+	float			max_y; //remove
 }					t_scene;
 
 typedef struct s_block
@@ -118,16 +117,23 @@ void			parse_type(char *line, t_scene *scene);
 t_xyz			set_xyz(char *param, t_scene *scene);
 void			set_rgb(char *param, int *rgb, t_scene *scene);
 mlx_texture_t	*set_texture(char *param, t_scene *scene);
+int				set_procedure(char *param, t_scene *scene);
+int				set_bump_procedure(char *param, t_scene *scene);
+float			set_specular_size(char *param, t_scene *scene);
+float			set_specular_weight(char *param, t_scene *scene);
+float			set_albedo(char *param, t_scene *scene);
+void			set_surface_properties(char **param, t_object *obj, \
+												int i, t_scene *s);
 float			to_float(char *param, t_scene *scene);
 void			init_ambient(char **param, t_scene *scene);
 void			init_camera(char **param, t_scene *scene);
-void			cameraGeometry(t_scene *scene);
+void			camera_geo(t_scene *scene);
 void			init_lights(char **param, t_scene *s);
 void			init_sphere(char **param, t_scene *scene);
 void			init_plane(char **param, t_scene *scene);
 void			init_cylinder(char **param, t_scene *scene);
 void			init_cone(char **param, t_scene *scene);
 void			init_resolution(char **param, t_scene *scene);
-void			calculate_angles(t_scene *scene);
+// void			calculate_angles(t_scene *scene);
 
 #endif

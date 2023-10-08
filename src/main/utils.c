@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/04 11:14:26 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 00:13:04 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  */
 void	swap(float *x1, float *x2)
 {
-	float temp;
+	float	temp;
 
 	temp = *x1;
 	*x1 = *x2;
@@ -61,7 +61,6 @@ float	ft_clamp(float min, float max, float input)
 		return (min);
 	return (input);
 }
-
 
 void	print_vector(t_xyz vector)
 {

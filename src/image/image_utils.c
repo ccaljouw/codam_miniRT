@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   image_utils.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/07 19:00:53 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   image_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/08 23:21:49 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
-
 
 void	image_to_window(t_scene *scene)
 {
@@ -20,7 +19,7 @@ void	image_to_window(t_scene *scene)
 		mlx_close_window(scene->mlx);
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
 	}
-	if (mlx_image_to_window(scene->mlx, scene->image, 0, 0) == - 1)
+	if (mlx_image_to_window(scene->mlx, scene->image, 0, 0) == -1)
 	{
 		mlx_close_window(scene->mlx);
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
@@ -31,7 +30,7 @@ int	get_text_pxcolor(mlx_texture_t *text, t_xyz uv)
 {
 	int				px;
 	int				text_x;
-	int 			text_y;
+	int				text_y;
 	int				color;
 
 	text_x = floor(uv.x * (float)text->width);
@@ -56,38 +55,18 @@ void	draw_image(t_scene *scene)
 		x = 0;
 		while (x < scene->p_width)
 		{
-			// get_color(scene->pixels[y] + x, scene);	
-			mlx_put_pixel(scene->image, x, y, get_color(scene->pixels[y] + x, scene));
+			mlx_put_pixel \
+				(scene->image, x, y, get_color(scene->pixels[y] + x, scene));
 			x++;
 		}
 		y++;
 	}
 }
 
-void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *param)
-{
-	t_scene 	*scene;
-	int			x;
-	int			y;
-
-	(void)mod;
-	scene = (t_scene *)param;
-	if (b == MLX_MOUSE_BUTTON_LEFT && a == MLX_PRESS)
-	{
-		mlx_get_mouse_pos(scene->mlx, &x, &y);
-		if (scene->selected == scene->pixels[y][x].hitobject)
-			scene->selected = NULL;
-		else
-			scene->selected = scene->pixels[y][x].hitobject;
-		// draw_image(scene);
-		render_image(scene);
-	}
-}
-
 int	get_color(t_px *px, t_scene *scene)
 {
 	int	rgb[3];
-	
+
 	if (!px->hitobject)
 		return (px->color = 0 << 24 | 0 << 16 | 0 << 8 | 255);
 	rgb[0] = (int)(((px->color >> 24) & 0xFF) * \

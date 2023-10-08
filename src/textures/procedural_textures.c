@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   procedural_textures.c                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/27 21:18:09 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/07 11:37:02 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   procedural_textures.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/27 21:18:09 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/09 00:01:05 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ available procedures:
 int	checkered(t_px *px, int mod)
 {
 	t_xyz	coord;
-	
+
 	px->uv.x *= 20;
 	px->uv.y *= 20;
 	coord.x = fabs(floor(px->uv.x));
@@ -50,9 +50,7 @@ int	gradient(t_px *px)
 	fact = color_map_5s(fabs(pos));
 	r = (int)(fact.x * 255.0);
 	g = (int)(fact.y * 255.0);
-	b =	(int)(fact.z * 255.0);
-	// ft_printf("r:%d, g:%d, b:%d\n", r, g, b);
+	b = (int)(fact.z * 255.0);
 	px->color = (r << 24 | g << 16 | b << 8 | 255);
 	return (px->color);
 }
-

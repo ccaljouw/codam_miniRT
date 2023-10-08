@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parse.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/08 12:25:11 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/08 23:57:05 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	set_rgb(char *param, int *rgb, t_scene *scene)
 	rgb[1] = ft_atou_base(input[1], "0123456789", "");
 	rgb[2] = ft_atou_base(input[2], "0123456789", "");
 	if ((!rgb[0] && ft_strcmp(input[0], "0")) \
-			|| (!rgb[1]  && ft_strcmp(input[1], "0")) \
+			|| (!rgb[1] && ft_strcmp(input[1], "0")) \
 			|| (!rgb[2] && ft_strcmp(input[2], "0")))
 		exit_error(ERROR_RGB, NULL, scene);
-	if (rgb[0] > 255 || rgb[1]  > 255 || rgb[2] > 255)
+	if (rgb[0] > 255 || rgb[1] > 255 || rgb[2] > 255)
 		exit_error(ERROR_RGB, NULL, scene);
 	ft_clean_split_arr(&input);
 }
@@ -169,22 +169,3 @@ void	parse_file(char *file, t_scene *scene)
 	}
 	close(fd);
 }
-
-// void	calculate_angles(t_scene *scene)
-// {
-// 	t_list		*objects;
-// 	t_object	*object;
-// 	int			i = 0;
-	
-// 	objects = scene->objects;
-// 	while (objects)
-// 	{
-		
-// 		object = (t_object *)objects->content;
-// 		object->angles.x = v_angle(object->vNormal, v_create(1, 0, 0));
-// 		object->angles.y = v_angle(object->vNormal, v_create(0, 1, 0));
-// 		object->angles.z = v_angle(object->vNormal, v_create(0, 0, 1));
-// 		objects = objects->next;
-// 		i++;
-// 	}
-// }

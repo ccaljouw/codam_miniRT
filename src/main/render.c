@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   render.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/08 12:28:57 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/09 00:23:26 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	get_ray(t_px *px, int x, int y, t_scene *s)
 	float	cam_x;
 	float	cam_y;
 	t_xyz	cam_v3;
-	
+
 	ft_bzero(px, sizeof(t_px));
 	px->cam_origin = s->camera->origin;
 	cam_x = (2 * (((float)x + 0.5) / s->camera->image_width) - 1) \
@@ -99,6 +99,21 @@ void	get_surface_data(t_px *px)
 	px->color = surface_data[object->id](*px->hitobject, px);
 }
 
+void	get_pixel_data(t_px	*px, t_scene *scene, int x, int y)
+{
+	get_ray(px, x, y, scene);
+	trace_ray(px, scene);
+	if ((px)->hitobject != NULL)
+	{
+		get_surface_data(px);
+		get_uv(px, scene);
+		map_texture(px);
+		map_procedure(px);
+		map_normal(px);
+		loop_lights(scene, px);
+	}
+}
+
 /**
  * @brief Render image with nr of threads defined in parser.h
  * 
@@ -117,76 +132,4 @@ void	render_image(t_scene *scene)
 	join_threads(threads, scene);
 	free(blocks);
 	free(threads);
-}
-
-void	print_ascii(t_px *px, t_scene *scene)
-{
-	float	color_ratio;
-
-	color_ratio = 0;
-	if (px->hitobject)
-	{
-		px->color = get_color(px, scene);
-		color_ratio = ((px->color >> 24) & 0xFF) / (float)255 * 0.299;
-		color_ratio += ((px->color >> 16) & 0xFF) / (float)255 * 0.587;
-		color_ratio += ((px->color >> 8) & 0xFF) / (float)255 * 0.114;
-		ft_printf("\e[48;5;%im \e[0m", (int)(232 + color_ratio * 23));
-	}
-	else
-		ft_printf("\e[48;5;232m \e[0m");
-}
-
-void	set_ascii_params(t_scene *scene)
-{
-	int	i;
-
-	i = 0;
-	while (i < scene->p_height)
-		free(scene->pixels[i++]);
-	free(scene->pixels);
-	i = 0;
-	scene->camera->aspect_ratio = (float)ASCII_WIDTH / ASCII_HEIGHT * 0.6;
-	scene->camera->image_width = ASCII_WIDTH;
-	scene->camera->image_height = ASCII_HEIGHT;
-	scene->pixels = ft_calloc(ASCII_HEIGHT, sizeof(t_px *));
-	scene->p_height = ASCII_HEIGHT;
-	scene->p_width = ASCII_WIDTH;
-	if (!scene->pixels)
-		exit_error(ERROR_MEM, NULL, scene);
-	while (i < ASCII_HEIGHT)
-	{
-		scene->pixels[i] = ft_calloc(ASCII_WIDTH, sizeof(t_px));
-		if (!scene->pixels[i])
-			exit_error(ERROR_MEM, NULL, scene);
-		i++;
-	}
-}
-
-void	renderAscii(t_scene *scene)
-{
-	int	x;
-	int	y;
-
-	set_ascii_params(scene);
-	y = 0;
-	while (y < scene->camera->image_height)
-	{
-		x = 0;
-		while (x < scene->camera->image_width)
-		{
-			get_ray(scene->pixels[y] + x, x, y, scene);
-			trace_ray(scene->pixels[y] + x, scene);
-			if ((scene->pixels[y] + x)->hitobject != NULL)
-			{
-				get_surface_data(scene->pixels[y] + x);
-				map_normal(scene->pixels[y] + x);
-				loop_lights(scene, scene->pixels[y] + x);
-			}
-			print_ascii(scene->pixels[y] + x, scene);
-			x++;
-		}
-		ft_printf("\n");
-		y++;
-	}
-	exit_error(SUCCESS, NULL, scene);
 }

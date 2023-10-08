@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/08 22:53:36 by albertvanan      ###   ########.fr       */
+/*   Created: 2023/10/09 00:05:54 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/09 00:06:32 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <miniRT.h>
+#include "miniRT.h"
 
 /**
  * @brief checks that there are 2 arguments provided 
@@ -57,7 +57,7 @@ void	init_textures(t_scene *scene)
 	i = 0;
 	scene->textures = ft_calloc(NR_TEXTURES, sizeof(mlx_texture_t *));
 	if (!scene->textures)
-		exit_error(ERROR_MEM, NULL ,scene);
+		exit_error(ERROR_MEM, NULL, scene);
 	scene->textures[0] = mlx_load_png("png/text/checker.png");
 	scene->textures[1] = mlx_load_png("png/text/world.png");
 	scene->textures[2] = mlx_load_png("png/text/world2.png");
@@ -75,42 +75,8 @@ void	init_textures(t_scene *scene)
 	while (i < NR_TEXTURES)
 	{
 		if (!scene->textures[i++])
-			exit_error(ERROR_PNG, NULL ,scene);
-	}	
-}
-
-void	clean_scene(t_scene *scene)
-{
-	int	y;
-
-	y = 0;
-	ft_printf("i was called to clean\n");
-	if (scene->image)
-		mlx_delete_image(scene->mlx, scene->image);
-	if (scene->mlx)
-		mlx_terminate(scene->mlx);
-	if (scene->ambient)
-		free(scene->ambient);
-	if (scene->camera)
-		free(scene->camera);
-	ft_lstclear(&scene->lights, free);
-	ft_lstclear(&scene->objects, free);
-	ft_printf("pixels add %p, p_beight %i\n", scene->pixels, scene->p_height);
-	if (scene->pixels)
-	{
-		// ft_printf("cleaning pixelsn\n");
-		while (y < scene->p_height)
-		{
-			// ft_printf("\t row %i\n", y);
-			free(scene->pixels[y]);
-			scene->pixels[y] = NULL;
-			y++;
-		}
+			exit_error(ERROR_PNG, NULL, scene);
 	}
-	free(scene->pixels);
-	// scene->pixels = NULL;
-	// free(scene);
-	// scene = NU
 }
 
 /**
@@ -136,73 +102,4 @@ t_scene	*init_scene(char *file)
 	ft_putendl_fd("\033[32;1m\nScene set up\n\033[0m", 2);
 	init_pixels(scene);
 	return (scene);
-}
-
-void	do_resize(void *param)
-{
-	t_scene 	*scene;
-	mlx_image_t	*buf;
-	int			i;
-
-	scene = (t_scene *)param;
-	if (scene->must_resize)
-	{
-		i = 0;
-		if (scene->pixels)
-		{
-			while (i < scene->p_height)
-			{
-				free(scene->pixels[i]);
-				scene->pixels[i] = NULL;
-				i++;
-			}
-			free(scene->pixels);
-			scene->pixels = NULL;
-		}
-		scene->p_width = scene->n_width;
-		scene->p_height = scene->n_height;
-		buf = scene->image;
-		scene->image = mlx_new_image(scene->mlx, scene->p_width, scene->p_height);
-		init_pixels(scene);
-		cameraGeometry(scene);
-		render_image(scene);
-		image_to_window(scene);
-		mlx_delete_image(scene->mlx, buf);
-		scene->must_resize = 0;
-	}
-}
-
-void	leaks_f()
-{
-	system("leaks -q miniRT");
-}
-
-int	main(int argc, char **argv)
-{
-	t_scene			*scene;
-
-	atexit(leaks_f);
-	check_args(argc, argv);
-	scene = init_scene(argv[1]);
-	if (argv[2] && (!ft_strcmp(argv[2], "-a")))
-		renderAscii(scene);
-	if (argc == 2)
-	{
-		scene->mlx = mlx_init(scene->p_width, scene->p_height, "RAY'S TRACERS", true);
-		if (!scene->mlx)
-			exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
-		scene->image = mlx_new_image(scene->mlx, scene->p_width, scene->p_height);
-		render_image(scene);
-		image_to_window(scene);
-		mlx_key_hook(scene->mlx, key_input, scene);
-		mlx_mouse_hook(scene->mlx, select_object, scene);
-		mlx_resize_hook(scene->mlx, set_resize_flag, scene);
-		mlx_loop_hook(scene->mlx, do_resize, scene);
-		mlx_loop(scene->mlx);
-	}
-	// while (1)
-	// 	;
-	// clean_scene(scene);
-	// free (scene);
-	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   matrix_utils.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/02/12 16:32:58 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/09/30 16:22:25 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   matrix_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/12 16:32:58 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/08 23:29:10 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,3 @@ void	m44_print(t_m44 matrix)
 	}
 	ft_printf("\n");
 }
-
-
