@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/08 23:45:09 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 22:07:54 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,24 @@ int	get_cone_surface_data(t_object co, t_px *px)
 
 t_xyz	get_uvcoord_co(t_object co, t_px px, t_scene *scene)
 {
-	t_xyz		axis_hp;
-	t_xyz		uv;
+	t_xyz	uv;
+	t_xyz	x_plane;
+	t_xyz	z_plane;
+	t_xyz	v;
+	t_xyz	hp_in_object_space;
 
-	(void)scene;
-	axis_hp = v_add(co.p_origin, v_multiply(co.v_normal, px.hit_height));
-	uv = v_subtract(px.hitpoint, axis_hp);
-	m44_multiply_vec3_dir(co.rotate_matrix, uv, &uv);
-	uv.x = 0.5 + (atan2(uv.z, uv.x) / (2 * M_PI));
-	uv.y = 1 - (px.hit_height / co.height);
-	uv.z = 0;
+	x_plane = v_cross(co.v_normal, scene->camera->orientation_v);
+	z_plane = v_cross(co.v_normal, x_plane);
+
+	v = v_subtract(co.p_origin, px.hitpoint);
+	hp_in_object_space.y = v_dot(co.v_normal, v);
+	v_normalizep(&v);
+	hp_in_object_space.x = v_dot(x_plane, v);
+	hp_in_object_space.z = v_dot(z_plane, v);
+	m44_multiply_vec3_dir(co.rotate_matrix, hp_in_object_space, \
+												&hp_in_object_space);
+	uv.x = (atan2(hp_in_object_space.x, hp_in_object_space.z) \
+												/ (2 * M_PI)) + 0.5;
+	uv.y = (hp_in_object_space.y / co.height) + 1;
 	return (uv);
 }

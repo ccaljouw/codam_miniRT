@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 22:32:55 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/08 23:10:52 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 22:11:21 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	m44_translate_by_vector(t_m44 *matrix, t_xyz vector);
 void	m44_rotate(t_m44 *matrix, float x, float y, float z);
 void	m44_scale(t_m44 *matrix, float x, float y, float z);
 void	m44_translate(t_m44 *matrix, float x, float y, float z);
+t_m44	m44_rotate_axis(float angle, char axis);
 
 // MATRIX INVERSION
 

@@ -6,13 +6,11 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:28:29 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/05 11:13:21 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 22:11:54 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
-
-static t_m44	m44_rotate_axis(float angle, char axis);
 
 void	m44_rotate(t_m44 *matrix, float x, float y, float z)
 {
@@ -32,7 +30,7 @@ void	m44_rotate(t_m44 *matrix, float x, float y, float z)
  * @param angle angle in degrees
  * @param axis axis to rotate on
  */
-static t_m44	m44_rotate_axis(float angle, char axis)
+t_m44	m44_rotate_axis(float angle, char axis)
 {
 	t_m44	matrix;
 
