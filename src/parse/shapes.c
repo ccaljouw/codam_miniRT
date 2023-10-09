@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/09 22:12:28 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 23:39:21 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_plane(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 11)
+	if (i != 4 && i != 4 + BONUS * BONUS_SPECS)
 		exit_error(ERROR_PLANE, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_plane = ft_calloc(1, sizeof(t_object));
@@ -37,7 +37,8 @@ void	init_plane(char **param, t_scene *scene)
 	new_plane->p_origin = set_xyz(param[1], scene);
 	new_plane->v_normal = set_xyz(param[2], scene);
 	new_plane->rotate_matrix = m44_init();
-	set_surface_properties(param, new_plane, 3, scene);
+	set_surface_properties(&param[3], new_plane, i - BONUS_SPECS, scene);
+	new_plane->plane_z = scene->camera->image_height * 0.05;
 	new_node->content = (void *)new_plane;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mPlane config:\t\t  \033[0m", 1);
@@ -58,7 +59,7 @@ void	init_cylinder(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 13)
+	if (i != 6 && i != 6 + BONUS * BONUS_SPECS)
 		exit_error(ERROR_CYLINDER, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_cylinder = ft_calloc(1, sizeof(t_object));
@@ -70,7 +71,7 @@ void	init_cylinder(char **param, t_scene *scene)
 	new_cylinder->diameter = to_float(param[3], scene);
 	new_cylinder->height = to_float(param[4], scene);
 	new_cylinder->rotate_matrix = m44_rotate_axis(180, 'y');
-	set_surface_properties(param, new_cylinder, 5, scene);
+	set_surface_properties(&param[5], new_cylinder, i - BONUS_SPECS, scene);
 	new_node->content = (void *)new_cylinder;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mCylinder config:\t  \033[0m", 1);
@@ -89,10 +90,12 @@ void	init_cone(char **param, t_scene *scene)
 	int			i;
 
 	i = 0;
+	if (!BONUS)
+		exit_error(ERROR_CONE, "cone not implemented in mandatory", scene);
 	while (param[i])
 		i++;
-	if (i != 13)
-		exit_error(ERROR_CYLINDER, "incorrect number of arguments", scene);
+	if (i != 6 && i != 6 + BONUS * BONUS_SPECS)
+		exit_error(ERROR_CONE, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_cone = ft_calloc(1, sizeof(t_object));
 	if (!new_node || !new_cone)
@@ -103,7 +106,7 @@ void	init_cone(char **param, t_scene *scene)
 	new_cone->diameter = to_float(param[3], scene);
 	new_cone->height = to_float(param[4], scene);
 	new_cone->rotate_matrix = m44_rotate_axis(180, 'y');
-	set_surface_properties(param, new_cone, 5, scene);
+	set_surface_properties(&param[5], new_cone, i - BONUS_SPECS, scene);
 	new_node->content = (void *)new_cone;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mCone config:\t\t  \033[0m", 1);
@@ -124,7 +127,7 @@ void	init_sphere(char **param, t_scene *scene)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 11)
+	if (i != 4 && i != 4 + BONUS * BONUS_SPECS)
 		exit_error(ERROR_SPHERE, "incorrect number of arguments", scene);
 	new_node = ft_lstnew(NULL);
 	new_sphere = ft_calloc(1, sizeof(t_object));
@@ -135,7 +138,7 @@ void	init_sphere(char **param, t_scene *scene)
 	new_sphere->p_origin = set_xyz(param[1], scene);
 	new_sphere->diameter = to_float(param[2], scene);
 	new_sphere->rotate_matrix = m44_init();
-	set_surface_properties(param, new_sphere, 3, scene);
+	set_surface_properties(&param[3], new_sphere, i - BONUS_SPECS, scene);
 	new_node->content = (void *)new_sphere;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mSphere config:\t\t  \033[0m", 1);

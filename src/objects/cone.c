@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/09 22:07:54 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 22:16:19 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ t_xyz	get_uvcoord_co(t_object co, t_px px, t_scene *scene)
 
 	x_plane = v_cross(co.v_normal, scene->camera->orientation_v);
 	z_plane = v_cross(co.v_normal, x_plane);
-
 	v = v_subtract(co.p_origin, px.hitpoint);
 	hp_in_object_space.y = v_dot(co.v_normal, v);
 	v_normalizep(&v);

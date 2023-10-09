@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 20:37:16 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/08 22:56:45 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 22:36:01 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # define NR_TEXTURES		14
 # define TEXT_PROCEDURES	3
 # define BUMP_PROCEDURES 	3
+
+# define ALBEDO				.18
 
 # define ROT_X_N 			MLX_KEY_RIGHT
 # define ROT_X_P 			MLX_KEY_LEFT
@@ -45,5 +47,10 @@
 
 # define ASCII_WIDTH  		120
 # define ASCII_HEIGHT 		40
+
+# define BONUS_SPECS		7
+# ifndef BONUS
+#  define BONUS				1
+# endif
 
 #endif

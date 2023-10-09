@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/09 21:55:11 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 23:38:28 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ typedef struct s_object
 	mlx_texture_t	*text;
 	mlx_texture_t	*bump;
 	t_m44			rotate_matrix;
-	// t_m44			texture_matrix;
-	// bool			rotate_y;
+	float			plane_z;
 }					t_object;
 
 /**
@@ -99,6 +98,7 @@ typedef struct s_scene
 	int				must_resize;
 	t_object		*selected;
 	t_list			*selected_light;
+	bool			single_light;
 	float			min_x; //remove
 	float			max_x; //remove
 	float			min_y; //remove

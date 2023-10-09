@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   errors.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:09:09 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/08 07:20:37 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   errors.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:09:09 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/09 23:21:57 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ Please check path, extention and file permissions"
 # define ERROR_SPHERE  "Incorrect parameters provided for Sphere"
 # define ERROR_PLANE "Incorrect parameters provided for Plane"
 # define ERROR_CYLINDER "Incorrect parameters provided for Cylinder"
+# define ERROR_CONE "Incorrect parameters provided for Cone"
 # define ERROR_RES "Incorrect parameters provided for Resolution"
 # define ERROR_SCENE "Incorrect scene provided"
 # define ERROR_XYZ "Incorrect coordinates provided"
@@ -35,5 +36,10 @@ Please check path, extention and file permissions"
 # define ERROR_THREAD "Multi threading"
 # define ERROR_PNG "Error loading texture"
 # define USAGE_MSG "Usage: ./miniRT [path_to_file].rt [optional: -a]"
+
+# define L_IN_MANDATORY	"only the L object is allowed in mandatory, \
+as multiple lights are forbidden"
+# define L_MULTIPLE "when 'L' is used, only a single light is allowed. \
+Use 'l' instead for multple lights"
 
 #endif

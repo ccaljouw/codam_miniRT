@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/09 21:58:03 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 23:38:54 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_xyz	get_uvcoord_pl(t_object pl, t_px px, t_scene *scene)
 	hp_in_object_space = px.hitpoint;
 	uv.x = v_dot(hp_in_object_space, x_plane);
 	uv.y = v_dot(hp_in_object_space, z_plane);
-	uv.z = scene->camera->image_height * 0.05;
+	uv.z = pl.plane_z;
 	v_normalizep(&uv);
 	uv.x = ((uv.x + 1.0) * 0.5);
 	uv.y = (uv.y + 1.0) * 0.5;

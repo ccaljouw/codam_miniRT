@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/09 00:27:32 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 23:55:43 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ t_xyz		get_uvcoord_co(t_object co, t_px px, t_scene *scene);
 pthread_t	*create_threads( \
 			t_scene *scene, pthread_t *threads, t_block *blocks);
 void		join_threads(pthread_t *threads, t_scene *scene);
+t_block		set_block(t_scene *scene, int y, int blocksize);
+void		*routine(void *params);
 
 // key_hooks.c
 void		key_input(mlx_key_data_t k, void *param);

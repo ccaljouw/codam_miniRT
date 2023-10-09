@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/08 23:57:05 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 23:01:39 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,19 @@ float	to_float(char *param, t_scene *scene)
 	return ((float)(d * neg));
 }
 
+// char	*ft_strmap(char *str, int (*f)(int c))
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		str[i] = f(str[i]);
+// 		i++;
+// 	}
+// 	return (str);
+// }
+
 /**
  * @brief Takes an input line and parses this into the correct type
  * 
@@ -116,17 +129,17 @@ void	parse_type(char *line, t_scene *scene)
 {
 	int			i;
 	char		**param;
-	static char	*type[9] = {"A", "C", "l", "sp", "pl", "cy", "R", "co"};
+	static char	*type[9] = {"A", "C", "l", "L", "sp", "pl", "cy", "R", "co"};
 	static t_f	*parse[9] = {init_ambient, init_camera, init_lights, \
-							init_sphere, init_plane, init_cylinder, \
-							init_resolution, init_cone};
+							init_lights, init_sphere, init_plane, \
+							init_cylinder, init_resolution, init_cone};
 
 	i = 0;
 	replace(line, ' ', '\t');
 	param = ft_split(line, '\t');
 	if (!param)
 		exit_error(ERROR_MEM, NULL, scene);
-	while (param[0] && i < 8)
+	while (param[0] && i < 10)
 	{
 		if (!ft_strcmp(type[i], param[0]))
 		{
@@ -136,7 +149,7 @@ void	parse_type(char *line, t_scene *scene)
 		}
 		i++;
 	}
-	if (i == 8)
+	if (i == 10)
 		exit_error(ERROR_SCENE, "incorrect type", scene);
 	ft_clean_split_arr(&param);
 }

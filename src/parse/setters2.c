@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:50:10 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/08 23:56:43 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 23:35:08 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ mlx_texture_t	*set_texture(char *param, t_scene *scene)
 
 	n = ft_atoi(param);
 	if (n < 0 || n > NR_TEXTURES)
-		exit_error(ERROR_PNG, "texture id invallid", scene);
+		exit_error(ERROR_PNG, "texture id invalid", scene);
 	if (n && n <= NR_TEXTURES)
 		return (scene->textures[n - 1]);
 	return (NULL);
@@ -26,12 +26,20 @@ mlx_texture_t	*set_texture(char *param, t_scene *scene)
 
 void	set_surface_properties(char **param, t_object *obj, int i, t_scene *s)
 {
-	obj->text = set_texture(param[i++], s);
-	obj->bump = set_texture(param[i++], s);
-	obj->text_proc = set_procedure(param[i++], s);
-	obj->bump_proc = set_bump_procedure(param[i++], s);
-	obj->albedo = set_albedo(param[i++], s);
-	obj->specular_size = set_specular_size(param[i++], s);
-	obj->specular_weight = set_specular_weight(param[i++], s);
-	set_rgb(param[i], obj->rgb, s);
+	if (BONUS && i > 0)
+	{
+		obj->text = set_texture(*param, s);
+		obj->bump = set_texture(*(param + 1), s);
+		obj->text_proc = set_procedure(*(param + 2), s);
+		obj->bump_proc = set_bump_procedure(*(param + 3), s);
+		obj->albedo = set_albedo(*(param + 4), s);
+		obj->specular_size = set_specular_size(*(param + 5), s);
+		obj->specular_weight = set_specular_weight(*(param + 6), s);
+		set_rgb(*(param + 7), obj->rgb, s);
+	}
+	else
+	{
+		obj->albedo = .18;
+		set_rgb(*(param), obj->rgb, s);
+	}
 }

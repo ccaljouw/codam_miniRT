@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/09 00:23:26 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 23:57:34 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,23 @@ void	render_image(t_scene *scene)
 	pthread_t	*threads;
 	t_block		*blocks;
 
-	threads = malloc(THREADS * sizeof(pthread_t));
 	blocks = malloc(THREADS * sizeof(t_block));
-	if (!threads || !blocks)
-		exit_error(ERROR_MEM, NULL, scene);
-	create_threads(scene, threads, blocks);
-	join_threads(threads, scene);
-	free(blocks);
-	free(threads);
+	if (BONUS)
+	{
+		threads = malloc(THREADS * sizeof(pthread_t));
+		if (!threads || !blocks)
+			exit_error(ERROR_MEM, NULL, scene);
+		create_threads(scene, threads, blocks);
+		join_threads(threads, scene);
+		free(blocks);
+		free(threads);
+	}
+	else
+	{
+		if (!blocks)
+			exit_error(ERROR_MEM, NULL, scene);
+		blocks[0] = set_block(scene, 0, scene->p_height);
+		routine(&blocks[0]);
+		draw_image(scene);
+	}
 }

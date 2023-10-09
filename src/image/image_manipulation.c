@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/09 22:12:50 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 23:08:12 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void	zoom(mlx_key_data_t keydata, t_scene *s)
 static void	set_rotation(t_xyz *rotation, mlx_key_data_t keydata)
 {
 	if (keydata.key == ROT_X_P)
-		rotation->x = 10;
-	if (keydata.key == ROT_X_N)
-		rotation->x = -10;
-	if (keydata.key == ROT_Y_N)
 		rotation->y = 10;
-	if (keydata.key == ROT_Y_P)
+	if (keydata.key == ROT_X_N)
 		rotation->y = -10;
+	if (keydata.key == ROT_Y_N)
+		rotation->x = 10;
+	if (keydata.key == ROT_Y_P)
+		rotation->x = -10;
 	if (keydata.key == ROT_Z_N)
 		rotation->z = 10;
 	if (keydata.key == ROT_Z_P)
@@ -70,10 +70,10 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 		orientation = &scene->camera->orientation_v;
 	set_rotation(&rotation, keydata);
 	rotation_matrix = m44_init();
-	m44_rotate(&rotation_matrix, -rotation.y, rotation.x, rotation.z);
+	m44_rotate(&rotation_matrix, rotation.x, rotation.y, -rotation.z);
 	if (scene->selected)
 	{
-		if (scene->selected->id == SP || rotation.x != 0)
+		if (scene->selected->id == SP || rotation.y != 0)
 			scene->selected->rotate_matrix = m44_dot_product(rotation_matrix, \
 											scene->selected->rotate_matrix);
 		m44_multiply_vec3_dir(rotation_matrix, *orientation, orientation);
