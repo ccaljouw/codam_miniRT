@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 00:05:54 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/09 00:06:32 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 21:07:16 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ void	init_textures(t_scene *scene)
 	scene->textures[11] = mlx_load_png("png/bump/bump7.png");
 	scene->textures[12] = mlx_load_png("png/bump/bump8.png");
 	scene->textures[13] = mlx_load_png("png/bump/bump9.png");
+	scene->max_x = -1;
+	scene->max_y = -1;
+	scene->min_x = 1000000;
+	scene->min_y = 1000000;
+
 	while (i < NR_TEXTURES)
 	{
 		if (!scene->textures[i++])

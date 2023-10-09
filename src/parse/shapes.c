@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/08 23:56:39 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 21:55:00 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	init_cylinder(char **param, t_scene *scene)
 	new_cylinder->diameter = to_float(param[3], scene);
 	new_cylinder->height = to_float(param[4], scene);
 	new_cylinder->rotate_matrix = m44_init();
+	// new_cylinder->texture_matrix = m44_init();
 	set_surface_properties(param, new_cylinder, 5, scene);
 	new_node->content = (void *)new_cylinder;
 	ft_lstadd_back(&scene->objects, new_node);

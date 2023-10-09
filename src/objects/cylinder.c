@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/08 23:45:24 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/09 21:59:09 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,52 @@ int	get_cylinder_surface_data(t_object cy, t_px *px)
 
 t_xyz	get_uvcoord_cy(t_object cy, t_px px, t_scene *scene)
 {
-	t_xyz		axis_hp;
+	// t_xyz		axis_hp;
 	t_xyz		uv;
+	// t_xyz		new_normal;
 
 	(void)scene;
-	axis_hp = v_add(cy.p_origin, v_multiply(cy.v_normal, px.hit_height));
-	uv = v_subtract(px.hitpoint, axis_hp);
-	m44_multiply_vec3_dir(cy.rotate_matrix, uv, &uv); 
-	uv.x = 0.5 + (atan2(uv.z, uv.x) / (2 * M_PI));
-	uv.y = 1 - (px.hit_height / cy.height);
+	t_xyz	ex;
+	t_xyz	ez;
+	t_xyz	v;
+	t_xyz	xyz;
+
+	ex = v_cross(cy.v_normal, scene->camera->orientation_v);
+	ez = v_cross(cy.v_normal, ex);
+
+	v = v_subtract(cy.p_origin, px.hitpoint);
+	xyz.y = v_dot(cy.v_normal, v);
+	v_normalizep(&v);
+	
+	xyz.x = v_dot(ex, v);
+	xyz.z = v_dot(ez, v);
+		m44_multiply_vec3_dir(cy.rotate_matrix, xyz, &xyz);
+	uv.x = (atan2(xyz.x, xyz.z) / (2 * M_PI)) + 0.5;
+	uv.y = (xyz.y / cy.height) + 1;
+	// uv.z = 0;
+	// v_normalizep(&uv);
+
+
+	// m44_rota
+	// axis_hp = v_add(cy.p_origin, v_multiply(cy.v_normal, px.hit_height));
+	// // ft_printf("vnormal: ");
+	// // print_vector(cy.v_normal);
+	// uv = v_subtract(px.hitpoint, axis_hp);
+	// // v_normalizep(&uv);
+	// // ft_printf("before: ");
+	// // print_vector(uv);
+	// // m44_multiply_vec3_dir(cy.rotate_matrix, uv, &uv); 
+	// // ft_printf("before: ");
+	// // print_vector(uv);
+	// // if (uv.z == 0)
+	// // 	uv.z += .1;
+	// // v_normalizep(&uv);
+	// uv.x = 0.5 + (atan2(uv.z, uv.x) / (2 * M_PI)) ;
+	// // uv.x = atan2()
+	// uv.y = 1 - (px.hit_height / cy.height);
+	// ft_printf("after: ");
+	// print_vector(uv);
+	// uv.z = 100;
+	// v_normalizep(&uv);
 	return (uv);
 }
