@@ -49,7 +49,9 @@ OBJ_BONUS	:=  $(addprefix obj_bonus/, \
 				$(addprefix light/, shadow_ray.o light_types.o) \
 				)
 
-all: $(NAME)
+all: bonus
+
+mandatory: $(NAME)    #change before submission!!
 
 $(NAME): $(OBJ) $(LIBS)
 	@$(CC) $(CFLAGS) $^ -o $@  $(LIBFLAGS)
