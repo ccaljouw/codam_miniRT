@@ -95,4 +95,4 @@ re:
 	@rm -rf obj/
 	@$(MAKE) all
 
-.PHONY: all test bonus clean fclean re
+.PHONY: all mandatory bonus clean fclean re
