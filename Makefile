@@ -6,19 +6,20 @@ RESET	:= \033[0m
 
 NAME 		:= miniRT
 CC 			:= cc
-CFLAGS 		:= -Wall -Wextra -Werror -O3 #-pthread #-g -fsanitize=address
+CFLAGS 		:= -Wall -Wextra -Werror -O3 #-g -fsanitize=address
+CFLAGS_BONUS := -D BONUS=1 -pthread 
 LIBFT	 	:= ./libs/libft
 LIBMLX		:= ./libs/MLX42/build
 LIBS		:= $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a 
 HEADERS		:= -I $(LIBFT)  -I $(LIBMLX) -I includes/ -I ./libs/MLX42/include/MLX42
-TEST		?= 0;
 
 UNAME		:= $(shell uname)
 
 ifeq ($(UNAME),Darwin)
-	THREADS = $(shell sysctl -n hw.ncpu)
+	CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
+	# CFLAGS += "-D THREADS=1"
 else ifeq ($(UNAME),Linux)
-	THREADS = $(shell nproc --all)"
+	CFLAGS += "-D THREADS=$(shell nproc --all)"
 endif
 
 ifeq ($(USER), cariencaljouw)
@@ -29,15 +30,8 @@ else
 	LIBFLAGS	= -ldl -lglfw -lm
 endif
 
-ifeq ($(TEST), 1)
-	MAIN_SRC	:= testing/main.c
-else
-	MAIN_SRC	:= src/main.c
-endif
-
-# MAIN		:= obj/main/main.o
 OBJ 		:= $(addprefix obj/, \
-				$(addprefix main/, main.o utils.o render.o multithreading.o init.o ascii.o key_hooks.o) \
+				$(addprefix main/, main.o utils.o render.o init.o ascii.o key_hooks.o dummy.o) \
 				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o) \
 				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o) \
 				$(addprefix image/, image_manipulation.o image_utils.o resize_select.o) \
@@ -45,50 +39,44 @@ OBJ 		:= $(addprefix obj/, \
 				$(addprefix textures/, text_utils.o color_maps.o procedural_textures.o bump_mapping.o) \
 				$(addprefix light/, shadow_ray.o light_types.o) \
 				)
-TEST_OBJ	:= #$(addprefix testing/obj/, utils.o)
+OBJ_BONUS	:=  $(addprefix obj_bonus/, \
+				$(addprefix main/, main.o utils.o render.o init.o ascii.o key_hooks.o multithreading.o) \
+				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o) \
+				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o) \
+				$(addprefix image/, image_manipulation.o image_utils.o resize_select.o) \
+				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o vector2.o vector3.o matrix_vector_utils.o) \
+				$(addprefix textures/, text_utils.o color_maps.o procedural_textures.o bump_mapping.o) \
+				$(addprefix light/, shadow_ray.o light_types.o) \
+				)
 
-all: bonus_one $(NAME)
+all: $(NAME)
 
-bonus_zero:
-	$(eval THREADS = 1)
-	$(eval CFLAGS += -D BONUS=0 -D THREADS=$(THREADS))
-	
-bonus_one:
-	$(eval CFLAGS += -D BONUS=1 -D THREADS=$(THREADS))
-
-mandatory:  bonus_zero $(NAME)
-
-$(NAME): $(MAIN) $(OBJ) $(TEST_OBJ) $(LIBS) 
-	# $(eval CFLAGS += -D THREADS=$(THREADS))
+$(NAME): $(OBJ) $(LIBS)
 	@$(CC) $(CFLAGS) $^ -o $@  $(LIBFLAGS)
 	@echo "$(GREEN)$(BOLD)miniRT made$(RESET)"
 
-bonus: $(MAIN) $(OBJ) $(LIBS)
-	@$(CC) $(CFLAGS) $(CODAMFLAGS) $^ -o $@
-
-test:
-	@$(MAKE) re TEST=1
+bonus: $(OBJ_BONUS) $(LIBS)
+	@$(CC) $(CFLAGS) $(CFLAGS_BONUS) $^ -o $(NAME)  $(LIBFLAGS)
+	@echo "$(GREEN)$(BOLD)miniRT bonus made$(RESET)"
 
 $(LIBS): 
 	@$(MAKE) -C $(LIBFT)
 	@$(MAKE) -C $(LIBMLX)
 	@echo "$(BLUE)Compiling object files miniRT:$(RESET)"
 
-$(MAIN): 
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $(MAIN_SRC) -o obj/main.o $(HEADERS)
 
 $(OBJ): obj/%.o : src/%.c 
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $^ -o $@  $(HEADERS)
 
-$(TEST_OBJ): testing/obj/%.o : testing/%.c 
+$(OBJ_BONUS): obj_bonus/%.o : src/%.c 
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c  $^ -o $@ $(HEADERS)
+	$(CC) $(CFLAGS) $(CFLAGS_BONUS) -c $^ -o $@  $(HEADERS)
 
 clean:
 	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"
 	@rm -rf obj/
+	@rm -rf obj_bonus/
 	@$(MAKE) -C $(LIBFT) clean
 
 fclean: clean

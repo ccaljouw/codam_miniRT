@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/09 23:55:43 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   miniRT.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/10 10:46:07 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,10 @@ int			get_parabolic_hitpoints(t_xyz abc, float *hp1, float *hp2);
 // render.c
 void		get_ray(t_px *px, int x, int y, t_scene *s);
 void		trace_ray(t_px *px, t_scene *s);
-void		get_surface_data(t_px *px);
+// void		get_surface_data(t_px *px);
 void		get_pixel_data(t_px	*px, t_scene *scene, int x, int y);
 void		render_image(t_scene *scene);
+void		*routine(void *params);
 
 // objects/sphere.c
 int			test_sphere(t_px *ray, t_object sphere, float *hp_info);
@@ -85,7 +86,7 @@ pthread_t	*create_threads( \
 			t_scene *scene, pthread_t *threads, t_block *blocks);
 void		join_threads(pthread_t *threads, t_scene *scene);
 t_block		set_block(t_scene *scene, int y, int blocksize);
-void		*routine(void *params);
+void		render_threads(t_scene *scene);
 
 // key_hooks.c
 void		key_input(mlx_key_data_t k, void *param);

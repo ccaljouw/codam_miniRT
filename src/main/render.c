@@ -1,16 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/09 23:57:34 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   render.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/10 10:55:03 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
+
+void	*routine(void *params)
+{
+	int		x;
+	int		y;
+	t_scene	*scene;
+	t_block	*block;
+
+	block = (t_block *)params;
+	scene = block->scene;
+	y = block->y;
+	while (y < block->y_max)
+	{
+		x = 0;
+		while (x < scene->p_width)
+		{
+			get_pixel_data(scene->pixels[y] + x, scene, x, y);
+			x++;
+		}
+		y++;
+	}
+	return (NULL);
+}
 
 /**
  * @brief The workhorse: Get the ray object. 
@@ -88,24 +111,17 @@ void	trace_ray(t_px *px, t_scene *s)
 	}
 }
 
-void	get_surface_data(t_px *px)
+void	get_pixel_data(t_px	*px, t_scene *scene, int x, int y)
 {
-	t_object				*object;
 	static t_surface_data	*surface_data[4] = \
 	{get_sphere_surface_data, get_plane_surface_data, \
 	get_cylinder_surface_data, get_cone_surface_data};
 
-	object = (t_object *)px->hitobject;
-	px->color = surface_data[object->id](*px->hitobject, px);
-}
-
-void	get_pixel_data(t_px	*px, t_scene *scene, int x, int y)
-{
 	get_ray(px, x, y, scene);
 	trace_ray(px, scene);
 	if ((px)->hitobject != NULL)
 	{
-		get_surface_data(px);
+		surface_data[px->hitobject->id](*px->hitobject, px);
 		get_uv(px, scene);
 		map_texture(px);
 		map_procedure(px);
@@ -121,26 +137,16 @@ void	get_pixel_data(t_px	*px, t_scene *scene, int x, int y)
  */
 void	render_image(t_scene *scene)
 {
-	pthread_t	*threads;
-	t_block		*blocks;
+	t_block		block;
 
-	blocks = malloc(THREADS * sizeof(t_block));
 	if (BONUS)
-	{
-		threads = malloc(THREADS * sizeof(pthread_t));
-		if (!threads || !blocks)
-			exit_error(ERROR_MEM, NULL, scene);
-		create_threads(scene, threads, blocks);
-		join_threads(threads, scene);
-		free(blocks);
-		free(threads);
-	}
+		render_threads(scene);
 	else
 	{
-		if (!blocks)
-			exit_error(ERROR_MEM, NULL, scene);
-		blocks[0] = set_block(scene, 0, scene->p_height);
-		routine(&blocks[0]);
-		draw_image(scene);
+		block.scene = scene;
+		block.y = 0;
+		block.y_max = scene->p_height;
+		routine(&block);
 	}
+	draw_image(scene);
 }
