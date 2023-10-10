@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bump_mapping.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 15:10:18 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/08 23:58:44 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/10 16:27:30 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -14,6 +14,9 @@ texture procedures:
 	1. checkered
 	2. v_checkered
 	3. gradient red to blue
+	4. gradient black to white
+	5. gradient red to blue merged with object/texture color
+	6. gradient black to white merged with object/texture color
 
 
 bump procedures:

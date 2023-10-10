@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   multithreading.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/20 14:21:20 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/10 10:48:55 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   multithreading.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/20 14:21:20 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/10 17:15:38 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	render_threads(t_scene *scene)
 {
 	pthread_t	*threads;
 	t_block		*blocks;
-	
+
 	blocks = malloc(THREADS * sizeof(t_block));
 	threads = malloc(THREADS * sizeof(pthread_t));
 	if (!threads || !blocks)

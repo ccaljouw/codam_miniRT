@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/10 14:37:29 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:14:37 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	gradient_interpolated(t_px *px, t_colormap map)
 	pos = bilinear_interpolation(px->uv.x, px->uv.y);
 	fact = map(fabs(pos));
 	r = ((int)(fact.x * 255.0) + ((px->color >> 24) & 0xFF)) / 2;
-	g = ((int)(fact.y * 255.0)  + ((px->color >> 16) & 0xFF)) / 2;
+	g = ((int)(fact.y * 255.0) + ((px->color >> 16) & 0xFF)) / 2;
 	b = ((int)(fact.z * 255.0) + ((px->color >> 8) & 0xFF)) / 2;
 	px->color = (r << 24 | g << 16 | b << 8 | 255);
 	return (px->color);

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 15:11:27 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/10 14:21:29 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:14:21 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_xyz	get_rgb_fact(float pos, int *stop_range, t_stop *stops)
 	{
 		t = stop_range[0];
 		stop_range[0] = stop_range[1];
-		stop_range[1] = t; 
+		stop_range[1] = t;
 	}
 	x1 = stops[stop_range[0]].pos;
 	x2 = stops[stop_range[1]].pos;

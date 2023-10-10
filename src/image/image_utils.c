@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/08 23:21:49 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/10 17:13:51 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,6 @@ int	get_color(t_px *px, t_scene *scene)
 	px->color = rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255;
 	if (px->hitobject && scene->selected == px->hitobject)
 		px->color = invert_color(px->color);
-	scene->min_x = (px->uv.x < scene->min_x ? px->uv.x : scene->min_x); // for testing
-	scene->max_x = (px->uv.x > scene->max_x ? px->uv.x : scene->max_x);  // for testing
-	scene->min_y = (px->uv.y < scene->min_y ? px->uv.y : scene->min_y); // for testing
-	scene->max_y = (px->uv.y > scene->max_y ? px->uv.y : scene->max_y); // for testing
 	return (px->color);
 }
 
