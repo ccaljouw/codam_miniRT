@@ -1,0 +1,22 @@
+Overview of textures and bump maps:
+
+textures:
+	1. checker
+	2. world
+	3. world2
+	4. sterren
+
+bump textures:
+	4. golf
+	6-14. bump 1 tm 9
+
+texture procedures:
+	1. checkered
+	2. v_checkered
+	3. gradient red to blue
+
+
+bump procedures:
+	1. simple_rough
+	2. bump based on bump texture
+	3. bump based on texture

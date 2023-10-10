@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   text_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:41:09 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/09 00:01:09 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/10 14:32:10 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,13 @@ int	map_procedure(t_px *px)
 	if (px->hitobject->text_proc == 2)
 		return (checkered(px, 3));
 	if (px->hitobject->text_proc == 3)
-		return (gradient(px));
+		return (gradient(px, color_map_rb));
+	if (px->hitobject->text_proc == 4)
+		return (gradient(px, color_map_bw));
+	if (px->hitobject->text_proc == 5)
+		return (gradient_interpolated(px, color_map_rb));
+	if (px->hitobject->text_proc == 6)
+		return (gradient_interpolated(px, color_map_bw));
 	return (px->color);
 }
 

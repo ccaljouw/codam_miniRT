@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   miniRT.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/10 10:46:07 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/10 14:27:42 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 typedef int		t_hit_test(t_px *ray, t_object, float *hp_info);
 typedef int		t_surface_data(t_object obj, t_px *px);
 typedef int		t_get_color(t_object obj, t_px px);
+typedef	t_xyz	t_colormap(float pos);
 typedef t_xyz	t_uv(t_object obj, t_px px, t_scene *scene);
 typedef t_xyz	t_n_uv(t_object obj, t_xyz uv);
 
@@ -117,10 +118,12 @@ void		simple_rough(t_px *px, float min, float max);
 
 // procedural_textures.c
 int			checkered(t_px *px, int mod);
-int			gradient(t_px *px);
+int			gradient(t_px *px, t_colormap map);
+int			gradient_interpolated(t_px *px, t_colormap map);
 
 // color_maps.c
-t_xyz		color_map_5s(float pos);
+t_xyz		color_map_rb(float pos);
+t_xyz		color_map_bw(float pos);
 
 // text_utils.c
 int			map_procedure(t_px *px);

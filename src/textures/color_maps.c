@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_maps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 15:11:27 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/09 00:00:58 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/10 14:21:29 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_xyz	get_rgb_fact(float pos, int *stop_range, t_stop *stops)
 	return (rgb_fact);
 }
 
-t_xyz	color_map_5s(float pos)
+t_xyz	color_map_rb(float pos)
 {
 	int		stop_range[2];
 	t_stop	stops[5];
@@ -80,6 +80,27 @@ t_xyz	color_map_5s(float pos)
 	stops[2].rgb_fact = v_create(1, 1, 0);
 	stops[3].rgb_fact = v_create(0, 1, 0.5);
 	stops[4].rgb_fact = v_create(0, 0, 1);
+	get_position_range(stop_range, 5, pos, stops);
+	fact = get_rgb_fact(pos, stop_range, stops);
+	return (fact);
+}
+
+t_xyz	color_map_bw(float pos)
+{
+	int		stop_range[2];
+	t_stop	stops[5];
+	t_xyz	fact;
+
+	stops[0].pos = 0;
+	stops[1].pos = 0.25;
+	stops[2].pos = 0.5;
+	stops[3].pos = 0.75;
+	stops[4].pos = 1;
+	stops[0].rgb_fact = v_create(0, 0, 0);
+	stops[1].rgb_fact = v_create(0.25, 0.25, 0.25);
+	stops[2].rgb_fact = v_create(0.5, 0.5, 0.5);
+	stops[3].rgb_fact = v_create(0.75, 0.75, 0.75);
+	stops[4].rgb_fact = v_create(1, 1, 1);
 	get_position_range(stop_range, 5, pos, stops);
 	fact = get_rgb_fact(pos, stop_range, stops);
 	return (fact);

@@ -9,8 +9,8 @@ C	0,2,-14		0,0,1		70
 # objects 
 # [t bt p b]: texture, bump_texture, text_procedure, bump_procedure
 #[ID	origin		axis		diameter	height		t bt p b		albedo		specular_size	specular_weight		color
-sp		-4,3,0 					7						3 0 0 3			18				5				200			255,0,0
-sp		4,3,0					7						3 5 0 2			18				5				200			255,255,255
+sp		-4,3,0 					7						0 0 4 0			18				5				200			255,0,0
+sp		4,3,0					7						0 5 0 2			18				5				200			255,255,255
 # sp		-4,5,-1					8					0 0 0 1															200,200,200
 # sp		4,5,-1					8					0 0 0 0															200,200,200
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   procedural_textures.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 21:18:09 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/09 00:01:05 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/10 14:37:29 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	checkered(t_px *px, int mod)
 	return (px->color);
 }
 
-int	gradient(t_px *px)
+int	gradient(t_px *px, t_colormap map)
 {
 	int		r;
 	int		g;
@@ -47,10 +47,27 @@ int	gradient(t_px *px)
 	t_xyz	fact;
 
 	pos = bilinear_interpolation(px->uv.x, px->uv.y);
-	fact = color_map_5s(fabs(pos));
+	fact = map(fabs(pos));
 	r = (int)(fact.x * 255.0);
 	g = (int)(fact.y * 255.0);
 	b = (int)(fact.z * 255.0);
+	px->color = (r << 24 | g << 16 | b << 8 | 255);
+	return (px->color);
+}
+
+int	gradient_interpolated(t_px *px, t_colormap map)
+{
+	float	pos;
+	t_xyz	fact;
+	int		r;
+	int		g;
+	int		b;
+
+	pos = bilinear_interpolation(px->uv.x, px->uv.y);
+	fact = map(fabs(pos));
+	r = ((int)(fact.x * 255.0) + ((px->color >> 24) & 0xFF)) / 2;
+	g = ((int)(fact.y * 255.0)  + ((px->color >> 16) & 0xFF)) / 2;
+	b = ((int)(fact.z * 255.0) + ((px->color >> 8) & 0xFF)) / 2;
 	px->color = (r << 24 | g << 16 | b << 8 | 255);
 	return (px->color);
 }
