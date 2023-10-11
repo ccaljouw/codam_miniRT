@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/11 11:52:32 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/11 13:02:50 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,12 @@
 # include <stdbool.h>
 # include <defines.h>
 # include <errors.h>
-# include <types.h>
 # include <vector.h>
 # include <matrix.h>
+# include <types.h>
 # include <parser.h>
 # include <stdlib.h>
 # include <math.h>
-
-// fuction pointer for intersection test functions of different objects
-typedef int		t_hit_test(t_px *ray, t_object, float *hp_info);
-typedef int		t_surface_data(t_object obj, t_px *px);
-typedef int		t_get_color(t_object obj, t_px px);
-typedef	t_xyz	t_colormap(float pos);
-typedef t_xyz	t_uv(t_object obj, t_px px, t_scene *scene);
-typedef t_xyz	t_n_uv(t_object obj, t_xyz uv);
 
 //utils.c
 void		exit_error(char *error_msg, char *optional_str, t_scene *data);

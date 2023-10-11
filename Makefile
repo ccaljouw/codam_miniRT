@@ -34,7 +34,7 @@ OBJ 		:= $(addprefix obj/, \
 				$(addprefix main/, main.o utils.o render.o init.o ascii.o key_hooks.o dummy.o) \
 				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o) \
 				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o) \
-				$(addprefix image/, image_manipulation.o image_utils.o resize_select.o) \
+				$(addprefix image/, image_manipulation.o image_utils.o select.o resize.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o vector2.o vector3.o matrix_vector_utils.o) \
 				$(addprefix textures/, text_utils.o color_maps.o procedural_textures.o bump_mapping.o) \
 				$(addprefix light/, shadow_ray.o light_types.o) \
@@ -43,7 +43,7 @@ OBJ_BONUS	:=  $(addprefix obj_bonus/, \
 				$(addprefix main/, main.o utils.o render.o init.o ascii.o key_hooks.o multithreading.o) \
 				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o) \
 				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o) \
-				$(addprefix image/, image_manipulation.o image_utils.o resize_select.o) \
+				$(addprefix image/, image_manipulation.o image_utils.o select.o resize.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o vector2.o vector3.o matrix_vector_utils.o) \
 				$(addprefix textures/, text_utils.o color_maps.o procedural_textures.o bump_mapping.o) \
 				$(addprefix light/, shadow_ray.o light_types.o reflection.o) \
