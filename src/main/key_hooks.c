@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:13:35 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/11 16:00:39 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/12 00:24:51 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	key_input2(mlx_key_data_t k, t_scene *scene)
 		adjust_ambient(scene, k);
 	if (k.key == MLX_KEY_P)
 		save_scene(scene);
+	if (k.key == MLX_KEY_BACKSPACE)
+		delete_object(scene);
+	if (k.key >= MLX_KEY_1 && k.key <= MLX_KEY_4)
+		add_object(scene, k.key - 49);
+	if (k.key == MLX_KEY_5)
+		add_light(scene);
 }
 
 void	key_input(mlx_key_data_t k, void *param)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   setters2.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/08 23:50:10 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/11 13:13:49 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   setters2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/08 23:50:10 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/12 00:04:39 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	set_surface_properties(char **param, t_object *obj, int i, t_scene *s)
 		obj->text = set_texture(*param, s);
 		if (obj->text && obj->id == PL)
 			obj->plane_z = (obj->text->height * sqrtf(s->p_height)) / 500;
-		ft_printf("plane_z %f\n", obj->plane_z);
 		obj->bump = set_texture(*(param + 1), s);
 		obj->text_proc = set_procedure(*(param + 2), s);
 		obj->bump_proc = set_bump_procedure(*(param + 3), s);
