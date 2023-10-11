@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/09 23:38:28 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/11 12:33:17 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_object
 	mlx_texture_t	*text;
 	mlx_texture_t	*bump;
 	t_m44			rotate_matrix;
+	float			refl;
 	float			plane_z;
 }					t_object;
 
@@ -79,6 +80,8 @@ typedef struct s_pixel
 	float		hit_distance;
 	float		hit_height;
 	int			color;
+	int			refl_count;
+
 }	t_px;
 
 typedef struct s_scene

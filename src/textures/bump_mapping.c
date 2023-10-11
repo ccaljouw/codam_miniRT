@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   bump_mapping.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/02 15:10:18 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/10 16:27:30 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   bump_mapping.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/02 15:10:18 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/10/11 09:52:57 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	bump_bumptext(t_px *px)
 	rgb[0] = (float)((color >> 24) & 0xFF) / 255.0;
 	rgb[1] = (float)((color >> 16) & 0xFF) / 255.0;
 	rgb[2] = (float)((color >> 8) & 0xFF) / 255.0;
-	fact = v_create(rgb[0] * 1, rgb[1] * 1, rgb[2] * 1);
+	fact = v_create(rgb[0], rgb[1], rgb[2]);
 	perturb_normal(px, fact);
 }
 

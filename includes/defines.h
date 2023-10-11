@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/27 20:37:16 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/10 16:27:35 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   defines.h                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/27 20:37:16 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/10/11 10:23:45 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define BUMP_PROCEDURES 	3
 
 # define ALBEDO				.18
+
+# define REFL_DEPT			1
 
 # define ROT_X_N 			MLX_KEY_RIGHT
 # define ROT_X_P 			MLX_KEY_LEFT

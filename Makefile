@@ -16,8 +16,8 @@ HEADERS		:= -I $(LIBFT)  -I $(LIBMLX) -I includes/ -I ./libs/MLX42/include/MLX42
 UNAME		:= $(shell uname)
 
 ifeq ($(UNAME),Darwin)
-	CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
-	# CFLAGS += "-D THREADS=1"
+	# CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
+	CFLAGS += "-D THREADS=1"
 else ifeq ($(UNAME),Linux)
 	CFLAGS += "-D THREADS=$(shell nproc --all)"
 endif
@@ -46,7 +46,7 @@ OBJ_BONUS	:=  $(addprefix obj_bonus/, \
 				$(addprefix image/, image_manipulation.o image_utils.o resize_select.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o vector2.o vector3.o matrix_vector_utils.o) \
 				$(addprefix textures/, text_utils.o color_maps.o procedural_textures.o bump_mapping.o) \
-				$(addprefix light/, shadow_ray.o light_types.o) \
+				$(addprefix light/, shadow_ray.o light_types.o reflection.o) \
 				)
 
 all: bonus

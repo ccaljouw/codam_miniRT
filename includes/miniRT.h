@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/10 14:27:42 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   miniRT.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/11 11:52:32 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,8 @@ void		loop_lights(t_scene *scene, t_px *px);
 void		specular(t_light *light, t_px *shadow_ray, t_px *px);
 void		diffuse(t_light *light, \
 					t_px *px, t_px *shadow_ray, float light_radius);
+
+// reflection.c
+int			get_pixel_data_reflection(t_px	*px, t_scene *scene, int x, int y);
 
 #endif

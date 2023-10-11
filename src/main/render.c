@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/10 10:55:03 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/11 12:37:45 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	*routine(void *params)
 		x = 0;
 		while (x < scene->p_width)
 		{
+			scene->pixels[y][x].refl_count = 0;
 			get_pixel_data(scene->pixels[y] + x, scene, x, y);
 			x++;
 		}
@@ -126,6 +127,8 @@ void	get_pixel_data(t_px	*px, t_scene *scene, int x, int y)
 		map_texture(px);
 		map_procedure(px);
 		map_normal(px);
+		if (px->hitobject->id == SP)
+			px->color = get_pixel_data_reflection(px, scene, x, y);
 		loop_lights(scene, px);
 	}
 }
