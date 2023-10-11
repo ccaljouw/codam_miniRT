@@ -1,0 +1,27 @@
+#################################################
+#			scenes/saved_scene_0.rt				#
+#################################################
+
+
+#resolution
+#	width	height
+R	867		608
+
+#ambient
+#	brightness [0-1]			color
+A	1.8							255,255,255
+
+#lights (L for single, l for multiple)
+#	origin					brightness [0-1]			color
+l	0.000,18.500,-16.000	0.800000					255,255,255
+
+#camera
+#	origin					orientation					field of view (deg)
+C	0.000,2.000,-14.000		0.000,-0.172,0.984			65
+
+#objects
+#ID	origin					axis				diameter	height	t	bt	p	b	albedo (%)	specular_size (1-10)	spec_weight (%)	refl	color
+sp	-6.000,4.000,-1.000								5.0				0	0	0	0		18			5						0			1.000	255,0,0
+sp	0.000,4.000,0.000								5.0				0	0	0	0		18			5						0			1.000	0,255,0
+sp	6.000,4.000,1.000								5.0				0	0	0	0		18			5						0			1.000	0,0,255
+pl	0.000,0.000,0.000		0.000,-0.939,0.342						0	0	1	0		18			5						90			1.000	255,255,255
