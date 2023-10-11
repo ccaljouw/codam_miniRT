@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   select.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/08 23:15:09 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/11 11:43:32 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   select.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/08 23:15:09 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/10/11 13:42:45 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *p)
 			scene->selected = NULL;
 		else
 			scene->selected = scene->pixels[y][x].hitobject;
-		draw_image(scene);
+		render_image(scene);
 	}
 }

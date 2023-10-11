@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/11 09:21:47 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/11 13:21:55 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/11 13:49:41 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_px	get_reflection_ray(t_px *px)
 	return (refl_ray);
 }
 
-int	get_pixel_data_reflection(t_px	*px, t_scene *scene, int x, int y)
+int	get_pixel_data_reflection(t_px	*px, t_scene *scene)
 {
 	int						color;
 	t_px					refl_ray;
@@ -44,9 +44,12 @@ int	get_pixel_data_reflection(t_px	*px, t_scene *scene, int x, int y)
 		map_procedure(&refl_ray);
 		map_normal(&refl_ray);
 		if (refl_ray.hitobject->refl && px->refl_count < REFL_DEPT)
-			get_pixel_data_reflection(&refl_ray, scene, x, y);
-		loop_lights(scene, &refl_ray);
-		color = get_color(&refl_ray, scene);
+			color = get_pixel_data_reflection(&refl_ray, scene);
+		else
+		{
+			loop_lights(scene, &refl_ray);
+			color = get_color(&refl_ray, scene);
+		}
 		return (color);
 	}
 	return (0 << 24 | 0 << 16 | 0 << 8 | 255);

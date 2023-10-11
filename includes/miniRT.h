@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/11 13:02:50 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/11 13:35:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,6 @@ void		diffuse(t_light *light, \
 					t_px *px, t_px *shadow_ray, float light_radius);
 
 // reflection.c
-int			get_pixel_data_reflection(t_px	*px, t_scene *scene, int x, int y);
+int			get_pixel_data_reflection(t_px	*px, t_scene *scene);
 
 #endif
