@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   setters2.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/08 23:50:10 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/11 12:11:27 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   setters2.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/08 23:50:10 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/10/11 13:13:49 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	set_surface_properties(char **param, t_object *obj, int i, t_scene *s)
 		obj->albedo = set_albedo(*(param + 4), s);
 		obj->specular_size = set_specular_size(*(param + 5), s);
 		obj->specular_weight = set_specular_weight(*(param + 6), s);
-		set_rgb(*(param + 7), obj->rgb, s);
+		obj->refl = to_float(*(param + 7), s);
+		set_rgb(*(param + 8), obj->rgb, s);
 	}
 	else
 	{

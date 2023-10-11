@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 20:37:16 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/11 10:23:45 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/11 13:12:55 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # define ALBEDO				.18
 
-# define REFL_DEPT			1
+# define REFL_DEPT			3
 
 # define ROT_X_N 			MLX_KEY_RIGHT
 # define ROT_X_P 			MLX_KEY_LEFT
@@ -50,7 +50,7 @@
 # define ASCII_WIDTH  		120
 # define ASCII_HEIGHT 		40
 
-# define BONUS_SPECS		7
+# define BONUS_SPECS		8
 # ifndef BONUS
 #  define BONUS				0
 # endif
