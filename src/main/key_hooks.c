@@ -6,11 +6,21 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:13:35 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/08 23:20:35 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/11 16:00:39 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+void	key_input2(mlx_key_data_t k, t_scene *scene)
+{
+	if (k.key == MLX_KEY_L)
+		select_light(scene);
+	if (k.key == MLX_KEY_MINUS || k.key == MLX_KEY_EQUAL)
+		adjust_ambient(scene, k);
+	if (k.key == MLX_KEY_P)
+		save_scene(scene);
+}
 
 void	key_input(mlx_key_data_t k, void *param)
 {
@@ -31,11 +41,6 @@ void	key_input(mlx_key_data_t k, void *param)
 			|| k.key == MOVE_LEFT || k.key == MOVE_RIGHT \
 			|| k.key == MOVE_FRONT || k.key == MOVE_BACK)
 			move(k, scene);
-		if (k.key == MLX_KEY_L)
-			select_light(scene);
-		if (k.key == MLX_KEY_MINUS || k.key == MLX_KEY_EQUAL)
-			adjust_ambient(scene, k);
-		else
-			return ;
+		key_input2(k, scene);
 	}
 }

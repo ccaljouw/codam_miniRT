@@ -6,12 +6,11 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/09 23:01:39 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/11 14:33:55 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
-#include <fcntl.h>
 
 /**
  * @brief Returns the xyz object based on string input

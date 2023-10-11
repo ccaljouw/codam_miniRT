@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/11 12:08:32 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/11 16:23:46 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINIRT_H
 
 # include <MLX42.h>
+# include <fcntl.h>
 # include <libft.h>
 # include <stdbool.h>
 # include <defines.h>
@@ -24,6 +25,7 @@
 # include <parser.h>
 # include <stdlib.h>
 # include <math.h>
+# include <save.h>
 
 //utils.c
 void		exit_error(char *error_msg, char *optional_str, t_scene *data);
@@ -123,6 +125,13 @@ void		map_texture(t_px *px);
 float		linear_interpolation(float v1, float v2, float pos, int smooth);
 float		bilinear_interpolation(float v1, float v2);
 float		get_uv(t_px *px, t_scene *scene);
+
+// save.c
+void		save_scene(t_scene *s);
+
+// light_manipulations.c
+void		adjust_light_brightness(mlx_key_data_t keydata, t_light *light);
+void		adjust_ambient(t_scene *scene, mlx_key_data_t key_data);
 
 // shadow_ray.c
 float		get_shadow_ray(t_px *shadow_ray, t_light *light, t_px *px);

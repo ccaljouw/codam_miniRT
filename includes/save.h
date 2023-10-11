@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dummy.c                                            :+:      :+:    :+:   */
+/*   save.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 14:21:20 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/11 16:25:12 by albertvanan      ###   ########.fr       */
+/*   Created: 2023/10/11 16:01:02 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/11 16:08:12 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <miniRT.h>
+#ifndef SAVE_H
+# define SAVE_H
 
-void	render_threads(t_scene *scene)
-{
-	(void)scene;
-}
+void	print_objects(t_list *objects, t_scene *s, int fd);
+int		get_texture_id(t_scene *s, mlx_texture_t *text);
+void	p_v(t_xyz v, int fd);
+void	p_rgb(int rgb[3], int fd);
+int		get_texture_id(t_scene *s, mlx_texture_t *text);
 
-void	save_scene(t_scene *scene)
-{
-	(void)scene;
-}
+#endif
