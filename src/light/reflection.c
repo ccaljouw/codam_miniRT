@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/11 09:21:47 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/11 21:25:24 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/11 23:08:33 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,18 @@ int	get_pixel_data_reflection(t_px	*px, t_scene *scene)
 
 	refl_ray = calloc(1, sizeof(t_px));
 	color = (0 << 24 | 0 << 16 | 0 << 8 | 255);
-	if (!px->hitobject)
-		return (0 << 24 | 0 << 16 | 0<< 8 | 255);
 	px->refl_count++;
 	get_reflection_ray(px, refl_ray);
 	trace_ray(refl_ray, scene);
 	if (refl_ray->hitobject != NULL)
 	{
-		surface_data[refl_ray->hitobject->id](*refl_ray->hitobject, refl_ray);
+		surface_data[refl_ray->hitobject->id](refl_ray->hitobject, refl_ray);
 		get_uv(refl_ray, scene);
 		map_texture(refl_ray);
 		map_procedure(refl_ray);
 		map_normal(refl_ray);
 		if (refl_ray->hitobject->refl && px->refl_count < REFL_DEPT)
 			color = get_pixel_data_reflection(refl_ray, scene);
-		else
-		{
-			loop_lights(scene, refl_ray);
-			color = get_color(refl_ray, scene);
-		}
 	}
 	free(refl_ray);
 	return (blend_color(px->color, color, px->hitobject->refl));

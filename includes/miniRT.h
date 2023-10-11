@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/11 16:44:08 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/11 23:10:22 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,29 @@ int			get_parabolic_hitpoints(t_xyz abc, float *hp1, float *hp2);
 // render.c
 void		get_ray(t_px *px, int x, int y, t_scene *s);
 void		trace_ray(t_px *px, t_scene *s);
-// void		get_surface_data(t_px *px);
 void		get_pixel_data(t_px	*px, t_scene *scene, int x, int y);
 void		render_image(t_scene *scene);
 void		*routine(void *params);
 
 // objects/sphere.c
-int			test_sphere(t_px *ray, t_object sphere, float *hp_info);
-int			get_sphere_surface_data(t_object sph, t_px *px);
-t_xyz		get_uvcoord_sp(t_object sp, t_px px, t_scene *scene);
+int			test_sphere(t_px *ray, t_object *sphere, float *hp_info);
+int			get_sphere_surface_data(t_object *sph, t_px *px);
+t_xyz		get_uvcoord_sp(t_object *sp, t_px *px, t_scene *scene);
 
 // objects/plane.c
-int			test_plane(t_px *ray, t_object plane, float *hp_info);
-int			get_plane_surface_data(t_object plane, t_px *px);
-t_xyz		get_uvcoord_pl(t_object pl, t_px px, t_scene *scene);
+int			test_plane(t_px *ray, t_object *plane, float *hp_info);
+int			get_plane_surface_data(t_object *plane, t_px *px);
+t_xyz		get_uvcoord_pl(t_object *pl, t_px *px, t_scene *scene);
 
 // objects/cylinder.c
-int			test_cylinder(t_px *ray, t_object cylinder, float *hp_info);
-int			get_cylinder_surface_data(t_object cy, t_px *px);
-t_xyz		get_uvcoord_cy(t_object cy, t_px px, t_scene *scene);
+int			test_cylinder(t_px *ray, t_object *cylinder, float *hp_info);
+int			get_cylinder_surface_data(t_object *cy, t_px *px);
+t_xyz		get_uvcoord_cy(t_object *cy, t_px *px, t_scene *scene);
 
 // objects/cone.c
-int			test_cone(t_px *ray, t_object cone, float *hp_info);
-int			get_cone_surface_data(t_object co, t_px *px);
-t_xyz		get_uvcoord_co(t_object co, t_px px, t_scene *scene);
+int			test_cone(t_px *ray, t_object *cone, float *hp_info);
+int			get_cone_surface_data(t_object *co, t_px *px);
+t_xyz		get_uvcoord_co(t_object *co, t_px *px, t_scene *scene);
 
 // multithreading.c
 pthread_t	*create_threads( \

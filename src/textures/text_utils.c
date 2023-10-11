@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   text_utils.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 10:41:09 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/10 14:32:10 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   text_utils.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/03 10:41:09 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/10/11 22:58:57 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ float	get_uv(t_px *px, t_scene *scene)
 	static t_uv	*get_uv[4] = {get_uvcoord_sp, get_uvcoord_pl, \
 		get_uvcoord_cy, get_uvcoord_co};
 
-	px->uv = get_uv[px->hitobject->id](*px->hitobject, *px, scene);
+	px->uv = get_uv[px->hitobject->id](px->hitobject, px, scene);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/11 16:57:13 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/11 23:10:16 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	trace_ray(t_px *px, t_scene *s)
 	{
 		ft_bzero(hp, sizeof(float) * 2);
 		object = (t_object *)objects->content;
-		if (hit_test[object->id](px, *object, hp))
+		if (hit_test[object->id](px, object, hp))
 		{
 			if (!px->hitobject || px->hit_distance > hp[0])
 			{
@@ -122,7 +122,7 @@ void	get_pixel_data(t_px	*px, t_scene *scene, int x, int y)
 	trace_ray(px, scene);
 	if ((px)->hitobject != NULL)
 	{
-		surface_data[px->hitobject->id](*px->hitobject, px);
+		surface_data[px->hitobject->id](px->hitobject, px);
 		get_uv(px, scene);
 		map_texture(px);
 		map_procedure(px);

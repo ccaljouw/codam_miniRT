@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/11 16:49:38 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/11 23:06:21 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,12 +178,10 @@ typedef struct light_s
 }	t_light;
 
 // fuction pointer for intersection test functions of different objects
-typedef int		t_hit_test(t_px *ray, t_object, float *hp_info);
-typedef int		t_surface_data(t_object obj, t_px *px);
-typedef int		t_get_color(t_object obj, t_px px);
+typedef int		t_hit_test(t_px *ray, t_object *object, float *hp_info);
+typedef int		t_surface_data(t_object *obj, t_px *px);
 typedef t_xyz	t_colormap(float pos);
-typedef t_xyz	t_uv(t_object obj, t_px px, t_scene *scene);
-typedef t_xyz	t_n_uv(t_object obj, t_xyz uv);
+typedef t_xyz	t_uv(t_object *obj, t_px *px, t_scene *scene);
 
 typedef void	t_f(char **param, t_scene *scene);
 

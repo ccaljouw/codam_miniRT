@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cylinder.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/09 22:16:10 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cylinder.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/11 23:04:31 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,22 @@ int	set_hp_info(float *hit_param, float height, float *hp_info)
  * 					[3]:height2
  * @return int 
  */
-int	test_cylinder(t_px *ray, t_object cylinder, float *hp_info)
+int	test_cylinder(t_px *ray, t_object *cylinder, float *hp_info)
 {
 	t_xyz	orig_to_center;
 	t_xyz	abc;
 	float	hit_param[4];
 
 	ft_bzero(hit_param, 4 * sizeof(float));
-	orig_to_center = v_subtract(ray->cam_origin, cylinder.p_origin);
-	abc = get_abc_cyl(ray, orig_to_center, cylinder);
+	orig_to_center = v_subtract(ray->cam_origin, cylinder->p_origin);
+	abc = get_abc_cyl(ray, orig_to_center, *cylinder);
 	if (!get_parabolic_hitpoints(abc, &hit_param[0], &hit_param[1]))
 		return (0);
-	hit_param[2] = (v_dot(ray->direction, cylinder.v_normal) * hit_param[0]) \
-				+ v_dot(orig_to_center, cylinder.v_normal);
-	hit_param[3] = (v_dot(ray->direction, cylinder.v_normal) * hit_param[1]) \
-				+ v_dot(orig_to_center, cylinder.v_normal);
-	return (set_hp_info(hit_param, cylinder.height, hp_info));
+	hit_param[2] = (v_dot(ray->direction, cylinder->v_normal) * hit_param[0]) \
+				+ v_dot(orig_to_center, cylinder->v_normal);
+	hit_param[3] = (v_dot(ray->direction, cylinder->v_normal) * hit_param[1]) \
+				+ v_dot(orig_to_center, cylinder->v_normal);
+	return (set_hp_info(hit_param, cylinder->height, hp_info));
 }
 
 /**
@@ -87,31 +87,31 @@ int	test_cylinder(t_px *ray, t_object cylinder, float *hp_info)
  * @param px 
  * @return float 
  */
-int	get_cylinder_surface_data(t_object cy, t_px *px)
+int	get_cylinder_surface_data(t_object *cy, t_px *px)
 {
 	t_xyz		v;
 	t_xyz		top;
 
 	px->hitpoint = \
 			v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
-	top = v_add(px->hitpoint, v_multiply(cy.v_normal, cy.height));
-	if (v_magnitude(v_subtract(px->hitpoint, top)) < (cy.diameter * 0.5))
-		px->surface_normal = cy.v_normal;
-	else if (v_magnitude(v_subtract(px->hitpoint, cy.p_origin)) \
-					< (cy.diameter * 0.5))
-		px->surface_normal = v_multiply(cy.v_normal, -1);
+	top = v_add(px->hitpoint, v_multiply(cy->v_normal, cy->height));
+	if (v_magnitude(v_subtract(px->hitpoint, top)) < (cy->diameter * 0.5))
+		px->surface_normal = cy->v_normal;
+	else if (v_magnitude(v_subtract(px->hitpoint, cy->p_origin)) \
+					< (cy->diameter * 0.5))
+		px->surface_normal = v_multiply(cy->v_normal, -1);
 	else
 	{
-		v = v_subtract(cy.p_origin, px->hitpoint);
-		px->surface_normal = v_cross(v, cy.v_normal);
-		px->surface_normal = v_cross(px->surface_normal, cy.v_normal);
+		v = v_subtract(cy->p_origin, px->hitpoint);
+		px->surface_normal = v_cross(v, cy->v_normal);
+		px->surface_normal = v_cross(px->surface_normal, cy->v_normal);
 		v_normalizep(&px->surface_normal);
 	}
 	px->facing_ratio = fabsf(v_dot(px->surface_normal, px->direction));
 	return (px->color);
 }
 
-t_xyz	get_uvcoord_cy(t_object cy, t_px px, t_scene *scene)
+t_xyz	get_uvcoord_cy(t_object *cy, t_px *px, t_scene *scene)
 {
 	t_xyz	uv;
 	t_xyz	x_plane;
@@ -119,17 +119,17 @@ t_xyz	get_uvcoord_cy(t_object cy, t_px px, t_scene *scene)
 	t_xyz	v;
 	t_xyz	hp_in_object_space;
 
-	x_plane = v_cross(cy.v_normal, scene->camera->orientation_v);
-	z_plane = v_cross(cy.v_normal, x_plane);
-	v = v_subtract(cy.p_origin, px.hitpoint);
-	hp_in_object_space.y = v_dot(cy.v_normal, v);
+	x_plane = v_cross(cy->v_normal, scene->camera->orientation_v);
+	z_plane = v_cross(cy->v_normal, x_plane);
+	v = v_subtract(cy->p_origin, px->hitpoint);
+	hp_in_object_space.y = v_dot(cy->v_normal, v);
 	v_normalizep(&v);
 	hp_in_object_space.x = v_dot(x_plane, v);
 	hp_in_object_space.z = v_dot(z_plane, v);
-	m44_multiply_vec3_dir(cy.rotate_matrix, hp_in_object_space, \
+	m44_multiply_vec3_dir(cy->rotate_matrix, hp_in_object_space, \
 												&hp_in_object_space);
 	uv.x = (atan2(hp_in_object_space.x, hp_in_object_space.z) \
 												/ (2 * M_PI)) + 0.5;
-	uv.y = (hp_in_object_space.y / cy.height) + 1;
+	uv.y = (hp_in_object_space.y / cy->height) + 1;
 	return (uv);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   shadow_ray.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 22:58:06 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/08 23:26:38 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   shadow_ray.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/24 22:58:06 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/10/11 23:06:51 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	trace_shadow(t_px *px, t_scene *s)
 	while (objects)
 	{
 		object = (t_object *)objects->content;
-		if (hit_test[object->id](px, *object, hp))
+		if (hit_test[object->id](px, object, hp))
 		{
 			if (px->hit_distance > hp[0])
 			{
