@@ -16,8 +16,8 @@ HEADERS		:= -I $(LIBFT)  -I $(LIBMLX) -I includes/ -I ./libs/MLX42/include/MLX42
 UNAME		:= $(shell uname)
 
 ifeq ($(UNAME),Darwin)
-	# CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
-	CFLAGS += "-D THREADS=1"
+	CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
+	# CFLAGS += "-D THREADS=1"
 else ifeq ($(UNAME),Linux)
 	CFLAGS += "-D THREADS=$(shell nproc --all)"
 endif
@@ -34,7 +34,7 @@ OBJ 		:= $(addprefix obj/, \
 				$(addprefix main/, main.o utils.o render.o init.o ascii.o key_hooks.o dummy.o) \
 				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o) \
 				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o) \
-				$(addprefix image/, image_manipulation.o image_utils.o select.o resize.o) \
+				$(addprefix image/, image_manipulation.o image_utils.o select.o resize.o light_manipulation.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o vector2.o vector3.o matrix_vector_utils.o) \
 				$(addprefix textures/, text_utils.o color_maps.o procedural_textures.o bump_mapping.o) \
 				$(addprefix light/, shadow_ray.o light_types.o) \
@@ -43,10 +43,11 @@ OBJ_BONUS	:=  $(addprefix obj_bonus/, \
 				$(addprefix main/, main.o utils.o render.o init.o ascii.o key_hooks.o multithreading.o) \
 				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o) \
 				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o) \
-				$(addprefix image/, image_manipulation.o image_utils.o select.o resize.o) \
+				$(addprefix image/, image_manipulation.o image_utils.o select.o resize.o light_manipulation.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o vector2.o vector3.o matrix_vector_utils.o) \
 				$(addprefix textures/, text_utils.o color_maps.o procedural_textures.o bump_mapping.o) \
 				$(addprefix light/, shadow_ray.o light_types.o reflection.o) \
+				$(addprefix save/, save.o print_shapes.o save_util.o) \
 				)
 
 all: bonus
@@ -91,8 +92,8 @@ fclean: clean
 re: 
 	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"
 	@rm -f $(NAME)
-	@rm -f ./test
 	@rm -rf obj/
+	@rm -rf obj_bonus/
 	@$(MAKE) all
 
 .PHONY: all mandatory bonus clean fclean re

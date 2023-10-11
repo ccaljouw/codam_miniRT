@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/09 23:01:39 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parse.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/11 16:46:10 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
-#include <fcntl.h>
 
 /**
  * @brief Returns the xyz object based on string input
@@ -105,19 +104,6 @@ float	to_float(char *param, t_scene *scene)
 	d += i;
 	return ((float)(d * neg));
 }
-
-// char	*ft_strmap(char *str, int (*f)(int c))
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		str[i] = f(str[i]);
-// 		i++;
-// 	}
-// 	return (str);
-// }
 
 /**
  * @brief Takes an input line and parses this into the correct type

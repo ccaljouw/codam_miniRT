@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   image_manipulation.c                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/09 23:08:12 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   image_manipulation.c                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/10/11 16:47:26 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,7 @@ void	zoom(mlx_key_data_t keydata, t_scene *s)
 	}
 	else if (s->selected_light)
 	{
-		if (keydata.key == ZOOM_IN)
-			((t_light *)(s->selected_light->content))->rgb_ratios = v_multiply \
-			(((t_light *)(s->selected_light->content))->rgb_ratios, 1.1);
-		if (keydata.key == ZOOM_OUT)
-			((t_light *)(s->selected_light->content))->rgb_ratios = v_multiply \
-			(((t_light *)(s->selected_light->content))->rgb_ratios, 0.9);
+		adjust_light_brightness(keydata, (t_light *)s->selected_light->content);
 	}
 	else
 	{
@@ -107,21 +102,5 @@ void	move(mlx_key_data_t keydata, t_scene *scene)
 	if (keydata.key == MOVE_BACK)
 		pos->z -= .5;
 	camera_geo(scene);
-	render_image(scene);
-}
-
-void	adjust_ambient(t_scene *scene, mlx_key_data_t key_data)
-{
-	t_ambient	*a;
-
-	a = scene->ambient;
-	if (key_data.key == MLX_KEY_MINUS)
-		a->ratio -= .05;
-	if (key_data.key == MLX_KEY_EQUAL)
-		a->ratio += .05;
-	a->rgb_ratio[0] = ((float)a->rgb[0] / 255) * a->ratio;
-	a->rgb_ratio[1] = ((float)a->rgb[1] / 255) * a->ratio;
-	a->rgb_ratio[2] = ((float)a->rgb[2] / 255) * a->ratio;
-	ft_printf("ambient brightness: %f\n", a->ratio);
 	render_image(scene);
 }
