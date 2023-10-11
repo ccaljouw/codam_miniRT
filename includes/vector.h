@@ -6,15 +6,25 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:21:26 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/08 23:31:15 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/11 12:08:24 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 
-# include "types.h"
 # include <math.h>
+
+/**
+ * @brief struct with points x, y and z. Can be used to represent 
+ * either a point(p), vector(v) or normal(n)
+ */
+typedef struct xyz_s
+{
+	float	x;
+	float	y;
+	float	z;
+}			t_xyz;
 
 t_xyz	v_create(float x, float y, float z);
 t_xyz	v_copy(t_xyz a);

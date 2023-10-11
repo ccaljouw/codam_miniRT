@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   resize_select.c                                    :+:      :+:    :+:   */
+/*   resize.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/08 23:15:09 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/09 00:14:50 by albertvanan      ###   ########.fr       */
+/*   Created: 2023/10/11 11:42:35 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/11 11:51:31 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,19 @@ static void	free_pixels(t_scene *scene)
 	}
 }
 
+void	scale_plane_z(t_list *objects, int height)
+{
+	t_object	*cur;
+
+	while (objects)
+	{
+		cur = (t_object *)objects->content;
+		if (cur->id == PL && cur->text)
+			cur->plane_z = (cur->text->height * sqrtf(height)) / 500;
+		objects = objects->next;
+	}
+}
+
 void	do_resize(void *param)
 {
 	t_scene		*scene;
@@ -54,60 +67,12 @@ void	do_resize(void *param)
 		buf = scene->image;
 		scene->image = \
 				mlx_new_image(scene->mlx, scene->p_width, scene->p_height);
+		scale_plane_z(scene->objects, scene->p_height);
 		init_pixels(scene);
 		camera_geo(scene);
 		render_image(scene);
 		image_to_window(scene);
 		mlx_delete_image(scene->mlx, buf);
 		scene->must_resize = 0;
-	}
-}
-
-void	select_light(t_scene *scene)
-{
-	int		i;
-	t_list	*li;
-
-	if (scene->selected)
-	{
-		scene->selected = NULL;
-		render_image(scene);
-	}
-	if (!scene->selected_light)
-		scene->selected_light = scene->lights;
-	else
-		scene->selected_light = scene->selected_light->next;
-	if (scene->selected_light)
-	{
-		li = scene->lights;
-		i = 1;
-		while (li && li != scene->selected_light)
-		{
-			li = li->next;
-			i++;
-		}
-		ft_printf("light %i selected\n", i);
-	}
-	else
-		ft_printf("no light selected\n");
-}
-
-void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *p)
-{
-	t_scene	*scene;
-	int		x;
-	int		y;
-
-	(void)mod;
-	scene = (t_scene *)p;
-	if (b == MLX_MOUSE_BUTTON_LEFT && a == MLX_PRESS)
-	{
-		mlx_get_mouse_pos(scene->mlx, &x, &y);
-		if (scene->selected == scene->pixels[y][x].hitobject)
-			scene->selected = NULL;
-		else
-			scene->selected = scene->pixels[y][x].hitobject;
-		// draw_image(scene);
-		render_image(scene);
 	}
 }

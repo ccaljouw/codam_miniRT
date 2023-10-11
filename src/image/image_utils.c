@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/10 17:13:51 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/11 11:37:31 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	draw_image(t_scene *scene)
 int	get_color(t_px *px, t_scene *scene)
 {
 	int	rgb[3];
+	int	color;
 
 	if (!px->hitobject)
 		return (px->color = 0 << 24 | 0 << 16 | 0 << 8 | 255);
@@ -81,10 +82,10 @@ int	get_color(t_px *px, t_scene *scene)
 	rgb[0] = ft_clamp(0, 255, rgb[0] + 255 * px->specular.x);
 	rgb[1] = ft_clamp(0, 255, rgb[1] + 255 * px->specular.y);
 	rgb[2] = ft_clamp(0, 255, rgb[2] + 255 * px->specular.z);
-	px->color = rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255;
+	color = rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255;
 	if (px->hitobject && scene->selected == px->hitobject)
-		px->color = invert_color(px->color);
-	return (px->color);
+		color = invert_color(color);
+	return (color);
 }
 
 int	invert_color(int color)

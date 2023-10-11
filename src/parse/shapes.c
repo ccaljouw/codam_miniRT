@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/09 23:39:21 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/11 11:55:36 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	init_plane(char **param, t_scene *scene)
 	new_plane->p_origin = set_xyz(param[1], scene);
 	new_plane->v_normal = set_xyz(param[2], scene);
 	new_plane->rotate_matrix = m44_init();
+	new_plane->plane_z = scene->camera->image_height * 0.03;
 	set_surface_properties(&param[3], new_plane, i - BONUS_SPECS, scene);
-	new_plane->plane_z = scene->camera->image_height * 0.05;
 	new_node->content = (void *)new_plane;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mPlane config:\t\t  \033[0m", 1);
