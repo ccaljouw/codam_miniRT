@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/11 23:06:21 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 09:27:32 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,12 +169,10 @@ typedef struct grid_s
  */
 typedef struct light_s
 {
-	t_xyz		light_point;
 	t_xyz		origin;
 	float		brightness;
 	int			rgb[3];
 	t_xyz		rgb_ratios;
-	t_m44		l2w;
 }	t_light;
 
 // fuction pointer for intersection test functions of different objects

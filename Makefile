@@ -6,7 +6,7 @@ RESET	:= \033[0m
 
 NAME 		:= miniRT
 CC 			:= cc
-CFLAGS 		:= -Wall -Wextra -Werror -O3 -g -fsanitize=address
+CFLAGS 		:= -Wall -Wextra -Werror -O3 #-g -fsanitize=address
 CFLAGS_BONUS := -D BONUS=1 -pthread 
 LIBFT	 	:= ./libs/libft
 LIBMLX		:= ./libs/MLX42/build
@@ -47,7 +47,7 @@ OBJ_BONUS	:=  $(addprefix obj_bonus/, \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o vector2.o vector3.o matrix_vector_utils.o) \
 				$(addprefix textures/, text_utils.o color_maps.o procedural_textures.o bump_mapping.o) \
 				$(addprefix light/, shadow_ray.o light_types.o reflection.o) \
-				$(addprefix save/, save.o print_shapes.o save_util.o) \
+				$(addprefix edit/, save.o print_shapes.o save_util.o add_delete.o) \
 				)
 
 all: bonus

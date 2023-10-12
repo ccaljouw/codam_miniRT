@@ -1,30 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   image_manipulation.c                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/11 16:47:26 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   image_manipulation.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/11 23:00:31 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
+void	adjust_diameter_height(mlx_key_data_t keydata, t_object *obj)
+{
+	if (keydata.key == ZOOM_IN)
+	{
+		if (keydata.modifier == MLX_SHIFT)
+			obj->height += .2;
+		else
+			obj->diameter += .2;
+	}
+	if (keydata.key == ZOOM_OUT)
+	{
+		if (keydata.modifier == MLX_SHIFT)
+			obj->height -= .2;
+		else
+			obj->diameter -= .2;
+	}
+}
+
 void	zoom(mlx_key_data_t keydata, t_scene *s)
 {
 	if (s->selected)
-	{
-		if (keydata.key == ZOOM_IN)
-			s->selected->diameter++;
-		if (keydata.key == ZOOM_OUT)
-			s->selected->diameter--;
-	}
+		adjust_diameter_height(keydata, s->selected);
 	else if (s->selected_light)
-	{
 		adjust_light_brightness(keydata, (t_light *)s->selected_light->content);
-	}
 	else
 	{
 		if (keydata.key == ZOOM_IN)

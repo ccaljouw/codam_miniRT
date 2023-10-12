@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/11 23:10:22 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 09:27:25 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,11 @@ float		get_uv(t_px *px, t_scene *scene);
 
 // save.c
 void		save_scene(t_scene *s);
+
+// add_delete.c
+void		delete_object(t_scene *scene);
+void		add_object(t_scene *scene, int id);
+void		add_light(t_scene *scene);
 
 // light_manipulations.c
 void		adjust_light_brightness(mlx_key_data_t keydata, t_light *light);

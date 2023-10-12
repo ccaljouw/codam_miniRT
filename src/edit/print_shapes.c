@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   print_shapes.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/11 16:03:04 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/11 17:02:47 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   print_shapes.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/11 16:03:04 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/11 23:50:50 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	print_texture_settings(t_scene *s, t_object *obj, int fd)
 	ft_dprintf(fd, "%i\t", get_texture_id(s, obj->bump));
 	ft_dprintf(fd, "%i\t%i\t\t", obj->text_proc, obj->bump_proc);
 	ft_dprintf(fd, "%i\t\t\t", (int)(obj->albedo * 100));
-	ft_dprintf(fd, "%i\t\t\t\t\t\t", (int)(300 / obj->specular_size));
+	if (obj->specular_size != 0)
+		ft_dprintf(fd, "%i\t\t\t\t\t\t", (int)(300 / obj->specular_size));
+	else
+		ft_dprintf(fd, "0\t\t\t\t\t\t");
 	ft_dprintf(fd, "%i\t\t\t", (int)(obj->specular_weight * 100));
 	ft_dprintf(fd, "%.3f\t", obj->refl);
 	p_rgb(obj->rgb, fd);
