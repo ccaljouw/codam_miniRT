@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/12 09:29:47 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/12 15:00:27 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ int	main(int argc, char **argv)
 		render_ascii(s);
 	if (argc == 2)
 	{
-		s->mlx = mlx_init(s->p_width, s->p_height, "RAY'S TRACERS", true);
+		s->mlx = mlx_init(s->file_width, s->file_height, "RAY'S TRACERS", true);
 		if (!s->mlx)
 			exit_error((char *)mlx_strerror(mlx_errno), NULL, s);
-		s->image = mlx_new_image(s->mlx, s->p_width, s->p_height);
+		s->image = mlx_new_image(s->mlx, s->file_width, s->file_height);
 		render_image(s);
 		image_to_window(s);
 		mlx_key_hook(s->mlx, key_input, s);

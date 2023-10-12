@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 00:08:47 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/12 09:27:57 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/12 14:48:31 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	set_ascii_params(t_scene *scene)
 	free(scene->pixels);
 	i = 0;
 	scene->camera->aspect_ratio = (float)ASCII_WIDTH / ASCII_HEIGHT * 0.6;
-	scene->camera->image_width = ASCII_WIDTH;
-	scene->camera->image_height = ASCII_HEIGHT;
+	// scene->camera->image_width = ASCII_WIDTH;
+	// scene->camera->image_height = ASCII_HEIGHT;
 	scene->pixels = ft_calloc(ASCII_HEIGHT, sizeof(t_px *));
 	scene->p_height = ASCII_HEIGHT;
 	scene->p_width = ASCII_WIDTH;
@@ -82,10 +82,10 @@ void	render_ascii(t_scene *scene)
 
 	set_ascii_params(scene);
 	y = 0;
-	while (y < scene->camera->image_height)
+	while (y < scene->p_height)
 	{
 		x = 0;
-		while (x < scene->camera->image_width)
+		while (x < scene->p_width)
 		{
 			get_pixel_data(scene->pixels[y] + x, scene, x, y);
 			print_ascii(scene->pixels[y] + x, scene);

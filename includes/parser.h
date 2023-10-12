@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:10:24 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/11 13:03:05 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/12 13:47:53 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ void			camera_geo(t_scene *scene);
 void			init_lights(char **param, t_scene *s);
 void			init_sphere(char **param, t_scene *scene);
 void			init_plane(char **param, t_scene *scene);
-void			init_cylinder(char **param, t_scene *scene);
+void			init_cyl(char **param, t_scene *scene);
 void			init_cone(char **param, t_scene *scene);
+void			init_triangle(char **param, t_scene *scene);
 void			init_resolution(char **param, t_scene *scene);
 // void			calculate_angles(t_scene *scene);
 

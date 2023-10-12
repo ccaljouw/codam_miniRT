@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:55:32 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/12 00:25:08 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/12 13:53:46 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ void	init_lights(char **param, t_scene *s)
 	set_light_params(nw_lite, s, param);
 	new_node->content = (void *)nw_lite;
 	ft_lstadd_back(&s->lights, new_node);
-	ft_putstr_fd("\033[34;1mLight config:\t\t  \033[0m", 1);
+	ft_putstr_fd("\033[34;1mLight config:\t\t\033[0m", 1);
 }

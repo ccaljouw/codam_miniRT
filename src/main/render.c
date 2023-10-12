@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   render.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/12 10:27:21 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/12 14:48:53 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void	get_ray(t_px *px, int x, int y, t_scene *s)
 
 	ft_bzero(px, sizeof(t_px));
 	px->cam_origin = s->camera->origin;
-	cam_x = (2 * (((float)x + 0.5) / s->camera->image_width) - 1) \
+	cam_x = (2 * (((float)x + 0.5) / s->p_width) - 1) \
 						* s->camera->aspect_ratio * s->camera->fov_scale;
-	cam_y = (1 - 2 * ((float)y + 0.5) / s->camera->image_height) \
+	cam_y = (1 - 2 * ((float)y + 0.5) / s->p_height) \
 						* s->camera->fov_scale;
 	cam_v3 = v_create(cam_x, cam_y, 1);
 	m44_multiply_vec3_dir(s->camera->cam2world, cam_v3, \

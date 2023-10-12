@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   types.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/12 10:23:37 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   types.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/12 14:54:01 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ typedef enum e_type
 	SP = 0,
 	PL,
 	CY,
-	CO
+	CO,
+	TR
 }	t_type;
 
 /**
@@ -46,6 +47,9 @@ typedef struct s_object
 	t_type			id;
 	t_xyz			p_origin;
 	t_xyz			v_normal;
+	t_xyz			p1;
+	t_xyz			p2;
+	t_xyz			p3;
 	float			diameter; //store radius??
 	float			height;
 	float			albedo;
@@ -104,8 +108,6 @@ typedef struct camera_s
 	t_xyz	view_point;
 	t_xyz	orientation_v;
 	int		fov;
-	int		image_width;
-	int		image_height;
 	float	aspect_ratio;
 	float	fov_scale;
 	t_m44	cam2world;
@@ -121,6 +123,8 @@ typedef struct s_scene
 	t_list			*lights;
 	t_list			*objects;
 	t_px			**pixels;
+	int				file_height;
+	int				file_width;
 	int				p_width;
 	int				p_height;
 	int				n_width;
