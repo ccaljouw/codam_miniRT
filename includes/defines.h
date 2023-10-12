@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 20:37:16 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/12 10:10:09 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 10:23:25 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@
 
 # define ASCII_WIDTH  		120
 # define ASCII_HEIGHT 		40
+# define ASCII_RED			0.299
+# define ASCII_GREEN		0.587
+# define ASCII_BLUE			0.114
+
+# define NEW_LIGHT_DIST		10
+# define NEW_OBJECT_DIST	5
 
 # define BONUS_SPECS		8
 # ifndef BONUS

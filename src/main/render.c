@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/12 09:27:43 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 10:27:21 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	*routine(void *params)
 }
 
 /**
- * @brief The workhorse: Get the ray object. 
+ * @brief Get the ray object. 
  * 		* 	adds the cam origin to each pixel struct
  *
  * 		*	recalculates the pixels from raster space (ie 1024 x 768) 

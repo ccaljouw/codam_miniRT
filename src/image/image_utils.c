@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/11 11:37:31 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/12 09:39:20 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,17 @@ void	draw_image(t_scene *scene)
 	}
 }
 
+/**
+ * @brief Calculate the color of a pixel:
+ * 	-	get the ambient color by multiplying the rgb color of the object
+ * 		with the facing ratio of the ray
+ * 	-	add the specular reflection which is the specular ratio multiplied
+ * 		rgb white
+ * 
+ * @param px 
+ * @param scene 
+ * @return int 
+ */
 int	get_color(t_px *px, t_scene *scene)
 {
 	int	rgb[3];
@@ -88,6 +99,12 @@ int	get_color(t_px *px, t_scene *scene)
 	return (color);
 }
 
+/**
+ * @brief Turn a color into its inverse.
+ * 
+ * @param color 
+ * @return int 
+ */
 int	invert_color(int color)
 {
 	int	r;

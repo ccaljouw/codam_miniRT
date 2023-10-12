@@ -1,17 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   key_hooks.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/08 23:13:35 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/12 00:24:51 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   key_hooks.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/08 23:13:35 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/10/12 10:27:14 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+/**
+ * @brief More key hooks:
+ * 	L:			select light (in loop)
+ * 	-/+:		adjust ambient brightness
+ * 	P:			print scene info to file
+ * 	BACKSPACE:	delete selected object/light
+ * 	1-4:		add new SP/PL/CY/CO
+ * 	5:			add new light
+ * 
+ * @param k 
+ * @param scene 
+ */
 void	key_input2(mlx_key_data_t k, t_scene *scene)
 {
 	if (k.key == MLX_KEY_L)
@@ -28,6 +40,21 @@ void	key_input2(mlx_key_data_t k, t_scene *scene)
 		add_light(scene);
 }
 
+/**
+ * @brief Key hooks:
+ * 	ESCAPE:		close the program
+ * 	I/O:		zoom camera / adjust diameter
+ *	SHIFT+I/O:	adjust height
+ *	ARROW L/R:	rotate over Y axis
+ *	ARROR U/D:	rotate over X axis
+ *	< / >:		rotate over Z axis
+ *	W / S:		move over x axis
+ * 	A / D:		move over y axis
+ *  Q / E:		move over z axis
+ * 
+ * @param k 
+ * @param param 
+ */
 void	key_input(mlx_key_data_t k, void *param)
 {
 	t_scene		*scene;

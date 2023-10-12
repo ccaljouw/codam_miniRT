@@ -1,17 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   save.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/11 16:00:07 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/11 17:03:16 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   save.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/11 16:00:07 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/12 09:52:00 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+/**
+ * @brief Print the lights in scene struct [s] to [fd]
+ * 
+ * @param lights 
+ * @param s 
+ * @param fd 
+ */
 void	print_lights(t_list *lights, t_scene *s, int fd)
 {
 	t_light	*light;
@@ -31,6 +38,13 @@ void	print_lights(t_list *lights, t_scene *s, int fd)
 	ft_dprintf(fd, "\n");
 }
 
+/**
+ * @brief Print the parameters of a scene to [fd]
+ * 
+ * @param s 
+ * @param fd 
+ * @param fname 
+ */
 void	print_scene(t_scene *s, int fd, char *fname)
 {
 	int	chars;
@@ -59,6 +73,12 @@ void	print_scene(t_scene *s, int fd, char *fname)
 	print_objects(s->objects, s, fd);
 }
 
+/**
+ * @brief Get the index of the latest save_scene, increment it with one
+ * 		and create a new file. Print the scene parameters to this file.
+ * 
+ * @param s 
+ */
 void	save_scene(t_scene *s)
 {
 	int			fd;
