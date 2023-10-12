@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/11 09:21:47 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/12 13:19:29 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 18:51:46 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,20 @@ void	get_reflection_ray(t_px *px, t_px *refl_ray)
 	refl_ray->direction = v_subtract(px->direction, v_multiply(px->surface_normal, (2 * dot)));
 }
 
-void	get_refraction_ray(t_px *px, t_px *refl_ray)
+void	get_refraction_ray(t_px *px, t_px *refr_ray)
 {
+	float	refr;
 	float	dot;
+	float	root;
+	t_xyz	direction;
 
-	refl_ray->cam_origin = \
-			v_add(px->hitpoint, px->surface_normal);
+	refr = 1 / px->hitobject->refr;
 	dot = v_dot(px->direction, px->surface_normal);
-	refl_ray->direction = v_subtract(px->direction, v_multiply(px->surface_normal, \
-			(2 * dot * px->hitobject->refr)));
+	root = sqrt(1 - refr * refr * (1 - dot * dot));
+	direction = v_multiply(px->surface_normal, refr * dot - root);
+	direction = v_add(direction, v_multiply(px->direction, refr));
+	refr_ray->cam_origin = v_multiply(px->hitpoint, 0.01);
+	refr_ray->direction = v_normalize(direction);
 }
 
 int	get_pixel_data_transport(t_px	*px, t_scene *scene, t_px *ray)
@@ -65,8 +70,7 @@ int	get_pixel_data_transport(t_px	*px, t_scene *scene, t_px *ray)
 		map_texture(ray);
 		map_procedure(ray);
 		map_normal(ray);
-		if ((ray->hitobject->refl && px->refl_count < REFL_DEPT) \
-			|| (ray->hitobject->transp && ray->hitobject->refl != 1))
+		if ((ray->hitobject->refl && px->refl_count < REFL_DEPT))
 			light_transport(ray, scene);
 		loop_lights(scene, ray);
 		color = get_color(ray, scene);
@@ -84,6 +88,7 @@ void	light_transport(t_px *px, t_scene *scene)
 	color1 = px->color;
 	if (px->hitobject->refl)
 	{
+		px->refl_count++;
 		refl_ray = calloc(1, sizeof(t_px));
 		get_reflection_ray(px, refl_ray);
 		color1 = get_pixel_data_transport(px, scene, refl_ray);
