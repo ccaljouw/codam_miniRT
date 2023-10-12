@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parse.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 18:29:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/11 16:46:10 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/12 16:14:27 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,21 @@ float	to_float(char *param, t_scene *scene)
 	return ((float)(d * neg));
 }
 
+void	print_param_line(char **param)
+{
+	int	i;
+
+	i = 0;
+	while (param[i])
+	{
+		ft_printf("%s", param[i]);
+		if (param[i + 1])
+			ft_printf("\t");
+		i++;
+	}
+	ft_printf("\n");
+}
+
 /**
  * @brief Takes an input line and parses this into the correct type
  * 
@@ -115,10 +130,11 @@ void	parse_type(char *line, t_scene *scene)
 {
 	int			i;
 	char		**param;
-	static char	*type[9] = {"A", "C", "l", "L", "sp", "pl", "cy", "R", "co"};
-	static t_f	*parse[9] = {init_ambient, init_camera, init_lights, \
-							init_lights, init_sphere, init_plane, \
-							init_cylinder, init_resolution, init_cone};
+	static char	*type[10] = {"A", "C", "l", "L", "sp", \
+							"pl", "cy", "R", "co", "tr"};
+	static t_f	*parse[10] = {init_ambient, init_camera, init_lights, \
+							init_lights, init_sphere, init_plane, init_cyl, \
+							init_resolution, init_cone, init_triangle};
 
 	i = 0;
 	replace(line, ' ', '\t');
@@ -130,7 +146,7 @@ void	parse_type(char *line, t_scene *scene)
 		if (!ft_strcmp(type[i], param[0]))
 		{
 			parse[i](param, scene);
-			ft_putendl_fd(line, 1);
+			print_param_line(param);
 			break ;
 		}
 		i++;

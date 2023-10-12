@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:42:35 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/11 11:51:31 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/12 15:48:37 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,25 @@ void	scale_plane_z(t_list *objects, int height)
 
 void	do_resize(void *param)
 {
-	t_scene		*scene;
+	t_scene		*s;
 	mlx_image_t	*buf;
 
-	scene = (t_scene *)param;
-	if (scene->must_resize)
+	s = (t_scene *)param;
+	if (s->must_resize)
 	{
-		free_pixels(scene);
-		scene->p_width = scene->n_width;
-		scene->p_height = scene->n_height;
-		buf = scene->image;
-		scene->image = \
-				mlx_new_image(scene->mlx, scene->p_width, scene->p_height);
-		scale_plane_z(scene->objects, scene->p_height);
-		init_pixels(scene);
-		camera_geo(scene);
-		render_image(scene);
-		image_to_window(scene);
-		mlx_delete_image(scene->mlx, buf);
-		scene->must_resize = 0;
+		free_pixels(s);
+		s->file_height = s->n_height;
+		s->file_width = s->n_width;
+		s->p_width = s->file_width + AA * (AA_SAMPLES - 1) * s->file_width;
+		s->p_height = s->file_height + AA * (AA_SAMPLES - 1) * s->file_height;
+		buf = s->image;
+		s->image = mlx_new_image(s->mlx, s->p_width, s->p_height);
+		scale_plane_z(s->objects, s->file_height);
+		init_pixels(s);
+		camera_geo(s);
+		render_image(s);
+		image_to_window(s);
+		mlx_delete_image(s->mlx, buf);
+		s->must_resize = 0;
 	}
 }

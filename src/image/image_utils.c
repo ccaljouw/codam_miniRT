@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/12 09:39:20 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/12 15:56:17 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,23 @@ void	draw_image(t_scene *scene)
 	int	y;
 
 	y = 0;
-	while (y < scene->p_height)
+	if (AA)
 	{
-		x = 0;
-		while (x < scene->p_width)
+		draw_aa(scene);
+	}
+	else
+	{
+		while (y < scene->p_height)
 		{
-			mlx_put_pixel \
-				(scene->image, x, y, get_color(scene->pixels[y] + x, scene));
-			x++;
+			x = 0;
+			while (x < scene->p_width)
+			{
+				mlx_put_pixel(scene->image, x, y, \
+						get_color(scene->pixels[y] + x, scene));
+				x++;
+			}
+			y++;
 		}
-		y++;
 	}
 }
 

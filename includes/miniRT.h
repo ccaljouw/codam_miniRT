@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/12 18:45:05 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 18:54:09 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ int			test_cone(t_px *ray, t_object *cone, float *hp_info);
 int			get_cone_surface_data(t_object *co, t_px *px);
 t_xyz		get_uvcoord_co(t_object *co, t_px *px, t_scene *scene);
 
+// objects/triangle.c
+int			test_sphere(t_px *ray, t_object *sphere, float *hp_info);
+int			get_triangle_surface_data(t_object *tr, t_px *px);
+t_xyz		get_uvcoord_tr(t_object *sp, t_px *px, t_scene *scene);
+
 // multithreading.c
 pthread_t	*create_threads( \
 			t_scene *scene, pthread_t *threads, t_block *blocks);
@@ -103,6 +108,10 @@ void		image_to_window(t_scene *scene);
 int			get_color(t_px *px, t_scene *scene);
 void		draw_image(t_scene *scene);
 int			get_text_pxcolor(mlx_texture_t *text, t_xyz uv);
+
+// antialias.c
+void		draw_aa(t_scene *scene);
+int			get_aa_color(int x, int y, t_scene *s);
 
 // bump_mapping.c
 void		map_normal(t_px *px);

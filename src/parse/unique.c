@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/08 23:56:28 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/12 15:48:50 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ void	camera_geo(t_scene *scene)
 	if (cam->orientation_v.x == 0 && cam->orientation_v.y == 0 \
 		&& cam->orientation_v.z == 0)
 		exit_error(ERROR_CAM, "orientation (0,0,0)", scene);
-	cam->image_width = scene->p_width;
-	cam->image_height = scene->p_height;
-	cam->aspect_ratio = (float)scene->p_width / scene->p_height;
+	cam->aspect_ratio = (float)scene->file_width / scene->file_height;
 	cam->fov_scale = tan(ft_rad(cam->fov * 0.5));
 	cam->cam2world = m44_init();
 	m44_translate_by_vector(&cam->cam2world, cam->view_point);
@@ -59,7 +57,7 @@ void	init_camera(char **param, t_scene *s)
 	if (!s->camera->fov && !ft_strcmp(param[3], "0"))
 		exit_error("incorrect fov", NULL, s);
 	camera_geo(s);
-	ft_putstr_fd("\033[34;1mCamera config:\t\t  \033[0m", 1);
+	ft_putstr_fd("\033[34;1mCamera config:\t\t\033[0m", 1);
 }
 
 /**
@@ -91,7 +89,7 @@ void	init_ambient(char **param, t_scene *scene)
 	ambient->rgb_ratio[1] = ((float)ambient->rgb[1] / 255) * ambient->ratio;
 	ambient->rgb_ratio[2] = ((float)ambient->rgb[2] / 255) * ambient->ratio;
 	scene->ambient = ambient;
-	ft_putstr_fd("\033[34;1mAmbient lighting config: \033[0m", 1);
+	ft_putstr_fd("\033[34;1mAmbient light config:\t\033[0m", 1);
 }
 
 void	init_resolution(char **param, t_scene *s)
@@ -103,11 +101,13 @@ void	init_resolution(char **param, t_scene *s)
 		i++;
 	if (i != 3)
 		exit_error(ERROR_RES, "incorrect number of arguments", s);
-	s->p_width = to_float(param[1], s);
-	s->p_height = to_float(param[2], s);
-	if (s->p_width < 0 || s->p_width > MAX_WIDTH \
-						|| s->p_height < 0 || s->p_height > MAX_HEIGHT)
+	s->file_width = to_float(param[1], s);
+	s->file_height = to_float(param[2], s);
+	if (s->file_width < 0 || s->file_width > MAX_WIDTH \
+						|| s->file_height < 0 || s->file_height > MAX_HEIGHT)
 		exit_error(ERROR_RES, "incorrect values \
 				[0, MAX_WIDTH / MAX_HEIGHT]", s);
-	ft_putstr_fd("\033[34;1mResolution config:\t\t  \033[0m", 1);
+	s->p_height = s->file_height + AA * (AA_SAMPLES - 1) * s->file_height;
+	s->p_width = s->file_width + AA * (AA_SAMPLES - 1) * s->file_width;
+	ft_putstr_fd("\033[34;1mResolution config:\t\t\033[0m", 1);
 }

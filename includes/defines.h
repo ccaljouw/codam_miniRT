@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 20:37:16 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/12 12:56:34 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 18:58:36 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 # define NR_TEXTURES		14
 # define TEXT_PROCEDURES	6
 # define BUMP_PROCEDURES 	3
+# define AA					0
+# define AA_SAMPLES			8
 
 # define ALBEDO				.18
-
 # define REFL_DEPT			3
 
 # define ROT_X_N 			MLX_KEY_RIGHT
