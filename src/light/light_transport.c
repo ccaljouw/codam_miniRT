@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   reflection.c                                       :+:    :+:            */
+/*   light_transport.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/11 09:21:47 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/12 10:20:06 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 13:19:29 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,34 +37,66 @@ void	get_reflection_ray(t_px *px, t_px *refl_ray)
 	refl_ray->direction = v_subtract(px->direction, v_multiply(px->surface_normal, (2 * dot)));
 }
 
-int	get_pixel_data_reflection(t_px	*px, t_scene *scene)
+void	get_refraction_ray(t_px *px, t_px *refl_ray)
+{
+	float	dot;
+
+	refl_ray->cam_origin = \
+			v_add(px->hitpoint, px->surface_normal);
+	dot = v_dot(px->direction, px->surface_normal);
+	refl_ray->direction = v_subtract(px->direction, v_multiply(px->surface_normal, \
+			(2 * dot * px->hitobject->refr)));
+}
+
+int	get_pixel_data_transport(t_px	*px, t_scene *scene, t_px *ray)
 {
 	int						color;
-	t_px					*refl_ray;
 	static t_surface_data	*surface_data[4] = \
 		{get_sphere_surface_data, get_plane_surface_data, \
 		get_cylinder_surface_data, get_cone_surface_data};
 
-	refl_ray = calloc(1, sizeof(t_px));
 	color = (0 << 24 | 0 << 16 | 0 << 8 | 255);
 	px->refl_count++;
-	get_reflection_ray(px, refl_ray);
-	trace_ray(refl_ray, scene);
-	if (refl_ray->hitobject != NULL)
+	trace_ray(ray, scene);
+	if (ray->hitobject != NULL)
 	{
-		surface_data[refl_ray->hitobject->id](refl_ray->hitobject, refl_ray);
-		get_uv(refl_ray, scene);
-		map_texture(refl_ray);
-		map_procedure(refl_ray);
-		map_normal(refl_ray);
-		if (refl_ray->hitobject->refl && refl_ray->hitobject != px->hitobject && px->refl_count < REFL_DEPT)
-			color = get_pixel_data_reflection(refl_ray, scene);
-		else
-		{
-			loop_lights(scene, refl_ray);
-			color = get_color(refl_ray, scene);
-		}
+		surface_data[ray->hitobject->id](ray->hitobject, ray);
+		get_uv(ray, scene);
+		map_texture(ray);
+		map_procedure(ray);
+		map_normal(ray);
+		if ((ray->hitobject->refl && px->refl_count < REFL_DEPT) \
+			|| (ray->hitobject->transp && ray->hitobject->refl != 1))
+			light_transport(ray, scene);
+		loop_lights(scene, ray);
+		color = get_color(ray, scene);
 	}
-	free(refl_ray);
-	return (blend_color(color, px->color, px->hitobject->refl));
+	return (color);
+}
+
+void	light_transport(t_px *px, t_scene *scene)
+{
+	t_px	*refl_ray;
+	t_px	*refr_ray;
+	int		color1;
+	int		color2;
+	
+	color1 = px->color;
+	if (px->hitobject->refl)
+	{
+		refl_ray = calloc(1, sizeof(t_px));
+		get_reflection_ray(px, refl_ray);
+		color1 = get_pixel_data_transport(px, scene, refl_ray);
+		free(refl_ray);
+	}
+	if (px->hitobject->transp && px->hitobject->refl != 1)
+	{
+		refr_ray = calloc(1, sizeof(t_px));
+		get_refraction_ray(px, refr_ray);
+		color2 = get_pixel_data_transport(px, scene, refr_ray);
+		free(refr_ray);
+	}
+	else
+		color2 = px->color;
+	px->color = blend_color(color1, color2, px->hitobject->refl);
 }

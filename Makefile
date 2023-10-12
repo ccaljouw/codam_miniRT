@@ -46,7 +46,7 @@ OBJ_BONUS	:=  $(addprefix obj_bonus/, \
 				$(addprefix image/, image_manipulation.o image_utils.o select.o resize.o light_manipulation.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o vector2.o vector3.o matrix_vector_utils.o) \
 				$(addprefix textures/, text_utils.o color_maps.o procedural_textures.o bump_mapping.o) \
-				$(addprefix light/, shadow_ray.o light_types.o reflection.o) \
+				$(addprefix light/, shadow_ray.o light_types.o light_transport.o) \
 				$(addprefix edit/, save.o print_shapes.o save_util.o add_delete.o) \
 				)
 

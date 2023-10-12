@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   save.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/11 16:00:07 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/12 09:52:00 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   save.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/11 16:00:07 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/10/12 11:58:21 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	print_scene(t_scene *s, int fd, char *fname)
 	ft_dprintf(fd, "\t%i\n\n", s->camera->fov);
 	ft_dprintf(fd, "#objects\n#ID\torigin\t\t\t\t\taxis\t\t\t\tdiameter\theight\t");
 	ft_dprintf(fd, "t\tbt\tp\tb\talbedo (%%)\t");
-	ft_dprintf(fd, "specular_size (1-10)\tspec_weight (%%)\trefl\tcolor\n");
+	ft_dprintf(fd, "specular_size (1-10)\tspec_weight (%%)\trefl\trefr\ttransp\tcolor\n");
 	print_objects(s->objects, s, fd);
 }
 

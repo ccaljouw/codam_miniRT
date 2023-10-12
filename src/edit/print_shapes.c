@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/11 16:03:04 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/12 10:25:31 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 11:59:00 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	print_texture_settings(t_scene *s, t_object *obj, int fd)
 		ft_dprintf(fd, "0\t\t\t\t\t\t");
 	ft_dprintf(fd, "%i\t\t\t", (int)(obj->specular_weight * 100));
 	ft_dprintf(fd, "%.3f\t", obj->refl);
+	ft_dprintf(fd, "%.3f\t", obj->refr);
+	ft_dprintf(fd, "%.3f\t", obj->transp);
 	p_rgb(obj->rgb, fd);
 }
 

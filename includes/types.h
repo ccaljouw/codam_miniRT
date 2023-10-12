@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/12 10:23:37 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 12:26:24 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_object
 	float			specular_size;
 	float			specular_weight;
 	float			refl;
+	float			refr;
+	float			transp;
 	int				rgb[3];
 	int				bump_proc;
 	int				text_proc;
@@ -180,7 +182,6 @@ typedef int		t_hit_test(t_px *ray, t_object *object, float *hp_info);
 typedef int		t_surface_data(t_object *obj, t_px *px);
 typedef t_xyz	t_colormap(float pos);
 typedef t_xyz	t_uv(t_object *obj, t_px *px, t_scene *scene);
-
 typedef void	t_f(char **param, t_scene *scene);
 typedef void	t_print_object(t_object *object, t_scene *s, int fd);
 

@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 20:37:16 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/12 10:23:25 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 12:56:34 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 # define NEW_LIGHT_DIST		10
 # define NEW_OBJECT_DIST	5
 
-# define BONUS_SPECS		8
+# define BONUS_SPECS		10
 # ifndef BONUS
 #  define BONUS				0
 # endif
