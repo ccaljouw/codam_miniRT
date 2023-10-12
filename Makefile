@@ -31,7 +31,7 @@ else
 endif
 
 OBJ 		:= $(addprefix obj/, \
-				$(addprefix main/, main.o utils.o render.o init.o ascii.o key_hooks.o dummy.o) \
+				$(addprefix main/, main.o utils.o render.o init.o ascii.o key_hooks.o dummy.o dummy2.o) \
 				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o) \
 				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o) \
 				$(addprefix image/, image_manipulation.o image_utils.o select.o resize.o light_manipulation.o) \

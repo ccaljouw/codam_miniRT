@@ -6,12 +6,17 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/11 16:21:52 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/12 09:29:47 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
+/**
+ * @brief Free all malloc'ed values if they are not NULL
+ * 
+ * @param scene 
+ */
 void	clean_scene(t_scene *scene)
 {
 	int	y;

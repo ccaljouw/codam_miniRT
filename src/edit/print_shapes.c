@@ -6,12 +6,20 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:03:04 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/11 23:50:50 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/12 09:48:20 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+/**
+ * @brief Print the texture and surface settings of [obj] 
+ * 			to file descriptor [fd]
+ * 
+ * @param s 
+ * @param obj 
+ * @param fd 
+ */
 void	print_texture_settings(t_scene *s, t_object *obj, int fd)
 {
 	ft_dprintf(fd, "\t%i\t", get_texture_id(s, obj->text));
@@ -27,8 +35,13 @@ void	print_texture_settings(t_scene *s, t_object *obj, int fd)
 	p_rgb(obj->rgb, fd);
 }
 
-typedef void	t_print_object(t_object *object, t_scene *s, int fd);
-
+/**
+ * @brief Print a plane object to file descriptor [fd]
+ * 
+ * @param pl 
+ * @param s 
+ * @param fd 
+ */
 void	print_plane(t_object *pl, t_scene *s, int fd)
 {
 	(void)pl;
@@ -40,6 +53,13 @@ void	print_plane(t_object *pl, t_scene *s, int fd)
 	print_texture_settings(s, pl, fd);
 }
 
+/**
+ * @brief Print a cylinder or cone objet to file descriptor [fd]
+ * 
+ * @param cy 
+ * @param s 
+ * @param fd 
+ */
 void	print_cylinder(t_object *cy, t_scene *s, int fd)
 {
 	(void)cy;
@@ -55,6 +75,13 @@ void	print_cylinder(t_object *cy, t_scene *s, int fd)
 	print_texture_settings(s, cy, fd);
 }
 
+/**
+ * @brief Print a sphere object to file descriptor [fd]
+ * 
+ * @param sp 
+ * @param s 
+ * @param fd 
+ */
 void	print_sphere(t_object *sp, t_scene *s, int fd)
 {
 	(void)sp;
@@ -65,6 +92,13 @@ void	print_sphere(t_object *sp, t_scene *s, int fd)
 	print_texture_settings(s, sp, fd);
 }
 
+/**
+ * @brief Loop through the [objects] list and print it to [fd]
+ * 
+ * @param objects 
+ * @param s 
+ * @param fd 
+ */
 void	print_objects(t_list *objects, t_scene *s, int fd)
 {
 	static t_print_object	*print_object[4] = {print_sphere, print_plane, \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 00:05:54 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/10 17:16:21 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/12 09:43:10 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void	check_args(int argc, char **argv)
 		exit_error(ERROR_FLAG, USAGE_MSG, NULL);
 }
 
+/**
+ * @brief Init the pixel array
+ * 
+ * @param scene 
+ */
 void	init_pixels(t_scene *scene)
 {
 	int	i;
@@ -50,6 +55,11 @@ void	init_pixels(t_scene *scene)
 	}
 }
 
+/**
+ * @brief Load the textures
+ * 
+ * @param scene 
+ */
 void	init_textures(t_scene *scene)
 {
 	int	i;

@@ -6,14 +6,14 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:44:22 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/09 00:13:04 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/12 09:31:40 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
 /**
- * @brief swap x1 and x2
+ * @brief swap floats x1 and x2
  * 
  * @param x0 
  * @param x1 
@@ -27,6 +27,14 @@ void	swap(float *x1, float *x2)
 	*x2 = temp;
 }
 
+/**
+ * @brief Exits the program and display [error_msg] and optional nullable
+ * 		[optional string]. Exits with 0 when the [error_msg] is "Closing MLX"
+ * 
+ * @param error_msg 
+ * @param optional_str 
+ * @param scene 
+ */
 void	exit_error(char *error_msg, char *optional_str, t_scene *scene)
 {
 	if (!ft_strcmp("Closing MLX", error_msg))
@@ -62,11 +70,24 @@ float	ft_clamp(float min, float max, float input)
 	return (input);
 }
 
+/**
+ * @brief For debug, print the values of a vector and add a newline
+ * 
+ * @param vector 
+ */
 void	print_vector(t_xyz vector)
 {
 	ft_printf("[%.3f, %.3f, %.3f]\n", vector.x, vector.y, vector.z);
 }
 
+/**
+ * @brief Replace character [replace] with character [with] in the 
+ * 		string [str]
+ * 
+ * @param str 
+ * @param replace 
+ * @param with 
+ */
 void	replace(char *str, char replace, char with)
 {
 	int	i;

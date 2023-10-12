@@ -6,12 +6,20 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 00:08:47 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/09 00:24:45 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/12 09:27:57 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+/**
+ * @brief Print a pixel as an ascii space with background color. Color
+ * 		is converted to grayscale using standard perceived values
+ * 		(roughly 15% blue, 30% red and 55% green)
+ * 
+ * @param px 
+ * @param scene 
+ */
 void	print_ascii(t_px *px, t_scene *scene)
 {
 	float	color_ratio;
@@ -20,15 +28,22 @@ void	print_ascii(t_px *px, t_scene *scene)
 	if (px->hitobject)
 	{
 		px->color = get_color(px, scene);
-		color_ratio = ((px->color >> 24) & 0xFF) / (float)255 * 0.299;
-		color_ratio += ((px->color >> 16) & 0xFF) / (float)255 * 0.587;
-		color_ratio += ((px->color >> 8) & 0xFF) / (float)255 * 0.114;
+		color_ratio = ((px->color >> 24) & 0xFF) / (float)255 * ASCII_RED;
+		color_ratio += ((px->color >> 16) & 0xFF) / (float)255 * ASCII_GREEN;
+		color_ratio += ((px->color >> 8) & 0xFF) / (float)255 * ASCII_BLUE;
 		ft_printf("\e[48;5;%im \e[0m", (int)(232 + color_ratio * 23));
 	}
 	else
 		ft_printf("\e[48;5;232m \e[0m");
 }
 
+/**
+ * @brief Set the scene paramaters right for ascii. Frees the allocated pixel
+ * 		data for MLX display, then recreates a new pixel array with ascii
+ * 		width and height.
+ * 
+ * @param scene 
+ */
 void	set_ascii_params(t_scene *scene)
 {
 	int	i;
@@ -55,6 +70,11 @@ void	set_ascii_params(t_scene *scene)
 	}
 }
 
+/**
+ * @brief Render the image in ascii
+ * 
+ * @param scene 
+ */
 void	render_ascii(t_scene *scene)
 {
 	int	x;

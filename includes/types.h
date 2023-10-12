@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/12 00:05:39 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/12 09:47:15 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,5 +184,6 @@ typedef t_xyz	t_uv(t_object obj, t_px px, t_scene *scene);
 typedef t_xyz	t_n_uv(t_object obj, t_xyz uv);
 
 typedef void	t_f(char **param, t_scene *scene);
+typedef void	t_print_object(t_object *object, t_scene *s, int fd);
 
 #endif

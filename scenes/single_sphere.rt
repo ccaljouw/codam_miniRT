@@ -1,19 +1,26 @@
-R	500	500
-A	0.3						255,255,255
+#################################################
+#			scenes/single_sphere.rt				#
+#################################################
 
-l	3,3,-8		0.7			255,255,255
-# l	-3,-3,-8		0.7			255,255,255
 
-C	0,0,-14		0,0,1		70
+#resolution
+#	width	height
+R	500		500
 
-# objects 
-#[ID	origin		axis		diameter	height		t bt p b			albedo		specular_size	specular_weight		color
-# sp		-4,3,0 					7						1 0	1			255,0,0
-sp		0,0,0					5						0 0 0 0				18					5				80		255,0,0
-# sp		-4,5,-1					8						0			0			1			200,200,200
-# sp		4,5,-1					8						0			0			0			200,200,200
+#ambient
+#	brightness [0-1]			color
+A	0.3							255,255,255
 
-pl		0,-10,0		0,-1,0								0 0 0 0				18					100				100		104,104,104
+#lights (L for single, l for multiple)
+#	origin					brightness [0-1]			color
+l	3.000,3.000,-8.000		0.699999					0,255,0
 
-pl		0,10,0		0,1,0								0 0 0 0				18					100				100		128,0,0
+#camera
+#	origin					orientation					field of view (deg)
+C	0.000,0.000,-14.000		0.000,0.000,1.000			70
 
+#objects
+#ID	origin					axis				diameter	height	t	bt	p	b	albedo (%)	specular_size (1-10)	spec_weight (%)	refl	color
+sp	0.000,0.000,0.000								5.0				0	0	0	0		18			5						80			0.000	255,0,0
+pl	0.000,-10.000,0.000		0.000,-1.000,0.000						0	0	0	0		18			100						100			0.000	104,104,104
+pl	0.000,10.000,0.000		0.000,1.000,0.000						0	0	0	0		18			100						100			0.000	128,0,0
