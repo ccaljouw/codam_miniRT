@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 20:37:16 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/12 09:27:16 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 10:10:09 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 
 # define ZOOM_IN 			MLX_KEY_I
 # define ZOOM_OUT 			MLX_KEY_O
+
+# define REFLECTION			MLX_KEY_R
 
 # define EPSILON 			0.0000000000000000000001
 # define LIGHT_BOOST 		10000

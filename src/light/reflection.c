@@ -6,25 +6,25 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/11 09:21:47 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/12 09:33:24 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 10:20:06 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-int		blend_color(int c1, int c2, int fact_b)
+int		blend_color(int c1, int c2, float fact_c1)
 {
-	int						r;
-	int						g;
-	int						b;
+	float	r;
+	float	g;
+	float	b;
 	
-	r = ((c1 >> 24) & 0xFF) + (((c2 >> 24) & 0xFF) * fact_b);
-	g = ((c1 >> 16) & 0xFF) + (((c2 >> 16) & 0xFF) * fact_b);
-	b = ((c1 >> 8) & 0xFF) + (((c2 >> 8) & 0xFF)* fact_b);
-	r /= (1 + fact_b);
-	g /= (1 + fact_b);
-	b /= (1 + fact_b);
-	return (r << 24 | g << 16 | b << 8 | 255);
+	r = ((c1 >> 24) & 0xFF) * fact_c1;
+	g = ((c1 >> 16) & 0xFF) * fact_c1;
+	b = ((c1 >> 8) & 0xFF)  * fact_c1;
+	r += ((c2 >> 24) & 0xFF) * (1 - fact_c1);
+	g += ((c2 >> 16) & 0xFF) * (1 - fact_c1);
+	b += ((c2 >> 8) & 0xFF)  * (1 - fact_c1);
+	return ((int)r << 24 | (int)g << 16 | (int)b << 8 | 255);
 }
 
 void	get_reflection_ray(t_px *px, t_px *refl_ray)
@@ -32,7 +32,7 @@ void	get_reflection_ray(t_px *px, t_px *refl_ray)
 	float	dot;
 
 	refl_ray->cam_origin = \
-			v_add(px->hitpoint, v_multiply(px->surface_normal, SHADOW_BIAS));
+			v_add(px->hitpoint, px->surface_normal);
 	dot = v_dot(px->direction, px->surface_normal);
 	refl_ray->direction = v_subtract(px->direction, v_multiply(px->surface_normal, (2 * dot)));
 }
@@ -66,5 +66,5 @@ int	get_pixel_data_reflection(t_px	*px, t_scene *scene)
 		}
 	}
 	free(refl_ray);
-	return (blend_color(px->color, color, px->hitobject->refl));
+	return (blend_color(color, px->color, px->hitobject->refl));
 }
