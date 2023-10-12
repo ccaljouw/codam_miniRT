@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/12 18:54:33 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 20:12:19 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ void	get_pixel_data(t_px	*px, t_scene *scene, int x, int y)
 		get_uv(px, scene);
 		map_texture(px);
 		map_procedure(px);
-		map_normal(px);
 		light_transport(px, scene);
+		map_normal(px);
 		loop_lights(scene, px);
 	}
 }

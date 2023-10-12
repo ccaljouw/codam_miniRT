@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/11 09:21:47 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/12 18:51:46 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/12 20:12:37 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ int	get_pixel_data_transport(t_px	*px, t_scene *scene, t_px *ray)
 		{get_sphere_surface_data, get_plane_surface_data, \
 		get_cylinder_surface_data, get_cone_surface_data};
 
-	color = (0 << 24 | 0 << 16 | 0 << 8 | 255);
-	px->refl_count++;
 	trace_ray(ray, scene);
 	if (ray->hitobject != NULL)
 	{
@@ -69,12 +67,14 @@ int	get_pixel_data_transport(t_px	*px, t_scene *scene, t_px *ray)
 		get_uv(ray, scene);
 		map_texture(ray);
 		map_procedure(ray);
-		map_normal(ray);
-		if ((ray->hitobject->refl && px->refl_count < REFL_DEPT))
+		if ((ray->hitobject->refl && ray->hitobject != px->hitobject && px->refl_count < REFL_DEPT))
 			light_transport(ray, scene);
+		map_normal(ray);
 		loop_lights(scene, ray);
 		color = get_color(ray, scene);
 	}
+	else
+		color = (0 << 24 | 0 << 16 | 0 << 8 | 255);
 	return (color);
 }
 
@@ -85,7 +85,6 @@ void	light_transport(t_px *px, t_scene *scene)
 	int		color1;
 	int		color2;
 	
-	color1 = px->color;
 	if (px->hitobject->refl)
 	{
 		px->refl_count++;
@@ -94,10 +93,14 @@ void	light_transport(t_px *px, t_scene *scene)
 		color1 = get_pixel_data_transport(px, scene, refl_ray);
 		free(refl_ray);
 	}
+	else
+		color1 = px->color;
 	if (px->hitobject->transp && px->hitobject->refl != 1)
 	{
 		refr_ray = calloc(1, sizeof(t_px));
 		get_refraction_ray(px, refr_ray);
+		if (refr_ray->hitobject == px->hitobject)
+			get_refraction_ray(px, refr_ray);
 		color2 = get_pixel_data_transport(px, scene, refr_ray);
 		free(refr_ray);
 	}
