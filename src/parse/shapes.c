@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   shapes.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/13 13:05:01 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   shapes.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/13 16:56:06 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	init_plane(char **param, t_scene *scene)
 	new_plane->p_origin = set_xyz(param[1], scene);
 	new_plane->v_normal = set_xyz(param[2], scene);
 	new_plane->rotate_matrix = m44_init();
-	new_plane->plane_y = scene->p_height * 0.05;
-	new_plane->plane_x = scene->p_width * 0.05;
+	new_plane->plane_y = scene->file_height * 0.05;
+	new_plane->plane_x = scene->file_width * 0.05;
 	set_surface_properties(&param[3], new_plane, i - BONUS_SPECS, scene);
 	new_node->content = (void *)new_plane;
 	ft_lstadd_back(&scene->objects, new_node);
