@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/12 16:04:36 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/13 10:26:23 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,14 @@ t_xyz	get_uvcoord_pl(t_object *pl, t_px *px, t_scene *scene)
 	t_xyz	hp_in_object_space;
 
 	y_plane = pl->v_normal;
-	x_plane = v_cross(y_plane, scene->camera->orientation_v);
+	x_plane = v_cross(y_plane, v_create(0,1,0));
+	if (x_plane.x == 0 && x_plane.y == 0 && x_plane.z == 0)
+		x_plane = v_cross(y_plane, v_create(1,0,0));
 	z_plane = v_cross(x_plane, y_plane);
 	hp_in_object_space = px->hitpoint;
-	uv.x = v_dot(hp_in_object_space, x_plane);
-	uv.y = v_dot(hp_in_object_space, z_plane);
-	uv.z = pl->plane_z;
-	v_normalizep(&uv);
-	uv.x = ((uv.x + 1.0) * 0.5);
-	uv.y = (uv.y + 1.0) * 0.5;
-	uv.z = 0;
+	uv.x = v_dot(hp_in_object_space, x_plane) / (scene->file_width * 0.05);
+	uv.y = v_dot(hp_in_object_space, z_plane) / (scene->file_height * 0.05);
+	uv.x = (uv.x + 1) * 0.5;
+	uv.y = (uv.y + 1) * 0.5;
 	return (uv);
 }
