@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/12 21:59:02 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/13 16:27:53 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void		add_light(t_scene *scene);
 void		adjust_light_brightness(mlx_key_data_t keydata, t_light *light);
 void		adjust_ambient(t_scene *scene, mlx_key_data_t key_data);
 
+
 // shadow_ray.c
 float		get_shadow_ray(t_px *shadow_ray, t_light *light, t_px *px);
 int			trace_shadow(t_px *px, t_scene *s);
@@ -155,7 +156,11 @@ void		specular(t_light *light, t_px *shadow_ray, t_px *px);
 void		diffuse(t_light *light, \
 					t_px *px, t_px *shadow_ray, float light_radius);
 
-// reflection.c
-void		light_transport(t_px *px, t_scene *scene, int *count);
+// light_transport.c
+int			light_transport(t_px *px, t_scene *scene, int *count);
+
+// light_types.c
+void		reflection_ray(t_px *px, t_px *refl_ray, t_scene *scene);
+void		refraction_ray(t_px *px, t_px *refr_ray, t_scene *scene);
 
 #endif

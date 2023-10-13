@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/08 23:24:44 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/12 12:39:16 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/13 16:18:09 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,33 @@ void	specular(t_light *light, t_px *shadow_ray, t_px *px)
 								px->hitobject->specular_size));
 	ratio = v_multiply(ratio, px->hitobject->specular_weight);
 	px->specular = v_add(px->specular, ratio);
+}
+
+void	reflection_ray(t_px *px, t_px *refl_ray, t_scene *scene)
+{
+	float	dot;
+
+	refl_ray->cam_origin = \
+			v_add(px->hitpoint, px->surface_normal);
+	dot = v_dot(px->direction, px->surface_normal);
+	refl_ray->direction = v_subtract(px->direction, v_multiply(px->surface_normal, (2 * dot)));
+	trace_ray(refl_ray, scene);
+}
+
+void	refraction_ray(t_px *px, t_px *refr_ray, t_scene *scene)
+{
+	float	refr;
+	float	dot;
+	float	root;
+	t_xyz	direction;
+
+	refr = 1 / px->hitobject->refr;
+	dot = v_dot(px->direction, px->surface_normal);
+	root = sqrt(1 - refr * refr * (1 - dot * dot));
+	direction = v_multiply(px->surface_normal, refr * dot - root);
+	direction = v_add(direction, v_multiply(px->direction, refr));
+	refr_ray->cam_origin = v_multiply(px->hitpoint, 0.01);
+	refr_ray->direction = v_normalize(direction);
+	trace_ray(refr_ray, scene);
+	// ft_printf("after trace refraction, hp:%p\n", refr_ray->hitpoint);
 }

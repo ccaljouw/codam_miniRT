@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/11 11:42:35 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/13 13:09:06 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/13 14:57:38 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,6 @@ static void	free_pixels(t_scene *scene)
 	}
 }
 
-// void	scale_plane(t_list *objects, int height, int width)
-// {
-// 	t_object	*cur;
-
-// 	while (objects)
-// 	{
-// 		cur = (t_object *)objects->content;
-// 		if (cur->id == PL && cur->text)
-// 		{
-// 			cur->plane_y = (cur->text->height * sqrtf(height)) / 500;
-// 			cur->plane_x = (cur->text->width * sqrtf(width)) / 500;
-// 		}
-// 		objects = objects->next;
-// 	}
-// }
-
 void	do_resize(void *param)
 {
 	t_scene		*s;
@@ -71,7 +55,6 @@ void	do_resize(void *param)
 		s->p_height = s->file_height + AA * (AA_SAMPLES - 1) * s->file_height;
 		buf = s->image;
 		s->image = mlx_new_image(s->mlx, s->p_width, s->p_height);
-		// scale_plane(s->objects, s->file_height, s->file_width);
 		init_pixels(s);
 		camera_geo(s);
 		render_image(s);

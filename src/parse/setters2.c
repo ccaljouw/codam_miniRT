@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/08 23:50:10 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/13 13:08:40 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/13 14:57:12 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ void	set_surface_properties(char **param, t_object *obj, int i, t_scene *s)
 	if (BONUS && i > 0)
 	{
 		obj->text = set_texture(*param, s);
-		// if (obj->text && obj->id == PL)
-		// {
-		// 	obj->plane_y = (obj->text->height * sqrtf(s->file_height)) / s->file_height;
-		// 	obj->plane_x = (obj->text->width * sqrtf(s->file_height)) / s->file_height;
-		// }
 		obj->bump = set_texture(*(param + 1), s);
 		obj->text_proc = set_procedure(*(param + 2), s);
 		obj->bump_proc = set_bump_procedure(*(param + 3), s);
