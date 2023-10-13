@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   select.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/08 23:15:09 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/11 13:42:45 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   select.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/08 23:15:09 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/13 16:23:53 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,21 @@ void	select_light(t_scene *scene)
 
 void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *p)
 {
-	t_scene	*scene;
-	int		x;
-	int		y;
+	t_scene		*scene;
+	t_object	*clicked_object;
+	int			x;
+	int			y;
 
 	(void)mod;
 	scene = (t_scene *)p;
 	if (b == MLX_MOUSE_BUTTON_LEFT && a == MLX_PRESS)
 	{
 		mlx_get_mouse_pos(scene->mlx, &x, &y);
-		if (scene->selected == scene->pixels[y][x].hitobject)
+		clicked_object = scene->pixels[y * scene->aa][x * scene->aa].hitobject;
+		if (clicked_object == scene->selected)
 			scene->selected = NULL;
 		else
-			scene->selected = scene->pixels[y][x].hitobject;
+			scene->selected = clicked_object;
 		render_image(scene);
 	}
 }

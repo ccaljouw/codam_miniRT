@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   resize.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/11 11:42:35 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/13 13:09:06 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   resize.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/11 11:42:35 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/13 16:39:38 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,10 @@ void	do_resize(void *param)
 		free_pixels(s);
 		s->file_height = s->n_height;
 		s->file_width = s->n_width;
-		s->p_width = s->file_width + AA * (AA_SAMPLES - 1) * s->file_width;
-		s->p_height = s->file_height + AA * (AA_SAMPLES - 1) * s->file_height;
+		s->p_width = s->file_width + (s->aa - 1) * s->file_width;
+		s->p_height = s->file_height + (s->aa - 1) * s->file_height;
 		buf = s->image;
 		s->image = mlx_new_image(s->mlx, s->p_width, s->p_height);
-		// scale_plane(s->objects, s->file_height, s->file_width);
 		init_pixels(s);
 		camera_geo(s);
 		render_image(s);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   types.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/13 13:05:09 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   types.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/13 15:54:57 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct s_scene
 	int				p_height;
 	int				n_width;
 	int				n_height;
+	int				aa;
 	int				must_resize;
 	t_object		*selected;
 	t_list			*selected_light;

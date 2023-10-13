@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   defines.h                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/27 20:37:16 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/13 12:41:17 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   defines.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/27 20:37:16 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/13 16:03:06 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define NR_TEXTURES		14
 # define TEXT_PROCEDURES	6
 # define BUMP_PROCEDURES 	3
-# define AA					0
-# define AA_SAMPLES			8
+// # define AA					1
+// # define AA_SAMPLES			2
 
 # define ALBEDO				.18
 # define REFL_DEPT			3
@@ -49,6 +49,7 @@
 # define IM_HEIGHT 			512
 # define MAX_WIDTH 			1024
 # define MAX_HEIGHT 		1024
+# define MAX_AA				5
 
 # define ASCII_WIDTH  		120
 # define ASCII_HEIGHT 		40

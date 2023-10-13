@@ -6,7 +6,7 @@ RESET	:= \033[0m
 
 NAME 		:= miniRT
 CC 			:= cc
-CFLAGS 		:= -Wall -Wextra -Werror -O3 -g -fsanitize=address
+CFLAGS 		:= -Wall -Wextra -Werror -O3 #-g -fsanitize=address
 CFLAGS_BONUS := -D BONUS=1 -pthread 
 LIBFT	 	:= ./libs/libft
 LIBMLX		:= ./libs/MLX42/build
@@ -32,7 +32,7 @@ endif
 
 OBJ 		:= $(addprefix obj/, \
 				$(addprefix main/, main.o utils.o render.o init.o ascii.o key_hooks.o dummy.o dummy2.o) \
-				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o) \
+				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o parse_util.o) \
 				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o triangle.o) \
 				$(addprefix image/, image_manipulation.o image_utils.o select.o resize.o light_manipulation.o anti_alias.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o vector2.o vector3.o matrix_vector_utils.o) \
@@ -41,7 +41,7 @@ OBJ 		:= $(addprefix obj/, \
 				)
 OBJ_BONUS	:=  $(addprefix obj_bonus/, \
 				$(addprefix main/, main.o utils.o render.o init.o ascii.o key_hooks.o multithreading.o) \
-				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o) \
+				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o parse_util.o) \
 				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o triangle.o) \
 				$(addprefix image/, image_manipulation.o image_utils.o select.o resize.o light_manipulation.o anti_alias.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o vector2.o vector3.o matrix_vector_utils.o) \

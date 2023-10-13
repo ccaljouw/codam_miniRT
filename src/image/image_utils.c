@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/12 15:56:17 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/13 16:05:26 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	draw_image(t_scene *scene)
 	int	y;
 
 	y = 0;
-	if (AA)
+	if (scene->aa > 1)
 	{
 		draw_aa(scene);
 	}

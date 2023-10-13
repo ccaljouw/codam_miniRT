@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   save.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/11 16:00:07 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/12 11:58:21 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   save.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/11 16:00:07 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/13 16:32:50 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,27 +49,28 @@ void	print_scene(t_scene *s, int fd, char *fname)
 {
 	int	chars;
 
-	ft_dprintf(fd, "#################################################\n");
+	p(fd, "#################################################\n");
 	chars = ft_dprintf(fd, "#\t\t\t%s\t\t\t", fname);
 	if (chars < 31)
 		ft_dprintf(fd, "\t");
-	ft_dprintf(fd, "#\n#################################################\n\n\n");
-	ft_dprintf(fd, "#resolution\n#\twidth\theight\n");
-	ft_dprintf(fd, "R\t%i\t\t%i\n\n", s->p_width, s->p_height);
-	ft_dprintf(fd, "#ambient\n#\tbrightness [0-1]\t\t\tcolor\n");
+	p(fd, "#\n#################################################\n\n\n");
+	p(fd, "#resolution\n#\twidth\theight\tanti-alias [0-5]\n");
+	ft_dprintf(fd, "R\t%i\t\t%i\t\t%i\n\n", \
+			s->p_width, s->p_height, (int)(floor(s->aa / 2)));
+	p(fd, "#ambient\n#\tbrightness [0-1]\t\t\tcolor\n");
 	ft_dprintf(fd, "A\t%.1f\t\t\t\t\t\t\t", s->ambient->ratio);
 	p_rgb(s->ambient->rgb, fd);
-	ft_dprintf(fd, "\n#lights (L for single, l for multiple)\n");
-	ft_dprintf(fd, "#\torigin\t\t\t\t\tbrightness [0-1]\t\t\tcolor\n");
+	p(fd, "\n#lights (L for single, l for multiple)\n");
+	p(fd, "#\torigin\t\t\t\t\tbrightness [0-1]\t\t\tcolor\n");
 	print_lights(s->lights, s, fd);
-	ft_dprintf(fd, "#camera\n#\torigin\t\t\t\t\torientation\t\t\t\t\tfield of view (deg)\n");
-	ft_dprintf(fd, "C\t");
+	p(fd, "#camera\n#\torigin\t\t\t\t\torientation\t\t\t\t\tfield of view (deg)\n");
+	p(fd, "C\t");
 	p_v(s->camera->origin, fd);
 	p_v(s->camera->orientation_v, fd);
 	ft_dprintf(fd, "\t%i\n\n", s->camera->fov);
-	ft_dprintf(fd, "#objects\n#ID\torigin\t\t\t\t\taxis\t\t\t\tdiameter\theight\t");
-	ft_dprintf(fd, "t\tbt\tp\tb\talbedo (%%)\t");
-	ft_dprintf(fd, "specular_size (1-10)\tspec_weight (%%)\trefl\trefr\ttransp\tcolor\n");
+	p(fd, "#objects\n#ID\torigin\t\t\t\t\taxis\t\t\t\tdiameter\theight\t");
+	p(fd, "t\tbt\tp\tb\talbedo (%%)\t");
+	p(fd, "specular_size (1-10)\tspec_weight (%%)\trefl\trefr\ttransp\tcolor\n");
 	print_objects(s->objects, s, fd);
 }
 

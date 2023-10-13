@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 15:55:07 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/12 15:55:37 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/13 16:02:58 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	get_aa_color(int x, int y, t_scene *s)
 
 	i = 0;
 	ft_bzero(&sum_rgb, sizeof(int) * 3);
-	while (i < AA_SAMPLES)
+	while (i < s->aa)
 	{
 		j = 0;
-		while (j < AA_SAMPLES)
+		while (j < s->aa)
 		{
 			cur_rgb = get_color(s->pixels[y + i] + x + j, s);
 			sum_rgb[0] += (cur_rgb >> 24) & 0xFF;
@@ -34,9 +34,9 @@ int	get_aa_color(int x, int y, t_scene *s)
 		}
 		i++;
 	}
-	sum_rgb[0] /= AA_SAMPLES * AA_SAMPLES;
-	sum_rgb[1] /= AA_SAMPLES * AA_SAMPLES;
-	sum_rgb[2] /= AA_SAMPLES * AA_SAMPLES;
+	sum_rgb[0] /= s->aa * s->aa;
+	sum_rgb[1] /= s->aa * s->aa;
+	sum_rgb[2] /= s->aa * s->aa;
 	return (sum_rgb[0] << 24 | sum_rgb[1] << 16 | sum_rgb[2] << 8 | 255);
 }
 
@@ -46,16 +46,16 @@ void	draw_aa(t_scene *scene)
 	int		y;
 
 	y = 0;
-	while (y < scene->p_height - AA_SAMPLES)
+	while (y < scene->p_height - scene->aa)
 	{
 		x = 0;
-		while (x < scene->p_width - AA_SAMPLES)
+		while (x < scene->p_width - scene->aa)
 		{
 			get_aa_color(x, y, scene);
-			mlx_put_pixel(scene->image, x / AA_SAMPLES, y / AA_SAMPLES, \
+			mlx_put_pixel(scene->image, x / scene->aa, y / scene->aa, \
 						get_aa_color(x, y, scene));
-			x += AA_SAMPLES;
+			x += scene->aa;
 		}
-		y += AA_SAMPLES;
+		y += scene->aa;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:07:30 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/12 09:49:48 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/13 16:17:09 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,9 @@ int	get_texture_id(t_scene *s, mlx_texture_t *text)
 	if (i == -1)
 		return (0);
 	return (i + 1);
+}
+
+void	p(int fd, char *s)
+{
+	ft_dprintf(fd, s);
 }

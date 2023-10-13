@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/12 15:48:50 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/13 16:07:37 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	init_resolution(char **param, t_scene *s)
 	i = 0;
 	while (param[i])
 		i++;
-	if (i != 3)
+	if (i != 3 && i != 4)
 		exit_error(ERROR_RES, "incorrect number of arguments", s);
 	s->file_width = to_float(param[1], s);
 	s->file_height = to_float(param[2], s);
@@ -107,7 +107,13 @@ void	init_resolution(char **param, t_scene *s)
 						|| s->file_height < 0 || s->file_height > MAX_HEIGHT)
 		exit_error(ERROR_RES, "incorrect values \
 				[0, MAX_WIDTH / MAX_HEIGHT]", s);
-	s->p_height = s->file_height + AA * (AA_SAMPLES - 1) * s->file_height;
-	s->p_width = s->file_width + AA * (AA_SAMPLES - 1) * s->file_width;
+	if (param[3])
+		s->aa = ft_atoi(param[3]) * 2;
+	if (s->aa > MAX_AA * 2 || s->aa < 0)
+		exit_error(ERROR_RES, "invalud AA value", s);
+	if (s->aa == 0)
+		s->aa = 1;
+	s->p_height = s->file_height + (s->aa - 1) * s->file_height;
+	s->p_width = s->file_width + (s->aa - 1) * s->file_width;
 	ft_putstr_fd("\033[34;1mResolution config:\t\t\033[0m", 1);
 }
