@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/13 13:06:05 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/13 13:19:44 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,24 @@ int	get_plane_surface_data(t_object *plane, t_px *px)
 	return (px->color);
 }
 
+/**
+ * @brief Get the uvcoord pl object
+ * Calculates texture uv by calculating 2 planes
+ * 1 (x_plane): the cross product (getting the perendicular plane) of 
+ * 				the plane normal with a random other vector.
+ * 2 (y_plane): the cross product of x_plane with the plane normal
+ * 				to be able to get a cross product for y_plane  
+ * 				x_plane cannot be 0. If this is the case another random 
+ * 				vector is used.
+ * u and v are the distance of these planes to the hitpoint.
+ * To solve the problem of infinity u and v are calculated takint the 
+ * odulo of the resulting value.
+ * 
+ * @param pl 
+ * @param px 
+ * @param scene 
+ * @return t_xyz 
+ */
 t_xyz	get_uvcoord_pl(t_object *pl, t_px *px, t_scene *scene)
 {
 	t_xyz	uv;
