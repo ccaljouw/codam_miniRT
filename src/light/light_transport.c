@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/11 09:21:47 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/13 16:32:30 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/13 16:39:15 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,41 @@ int	get_pixel_data_transport(t_px	*px, t_scene *scene, t_px *ray, int *count)
 	return (color);
 }
 
+t_px	*reflection_ray(t_px *px, t_scene *scene)
+{
+	float	dot;
+	t_px	*refl_ray;
+	
+	refl_ray = calloc(1, sizeof(t_px));
+	refl_ray->cam_origin = \
+			v_add(px->hitpoint, px->surface_normal);
+	dot = v_dot(px->direction, px->surface_normal);
+	refl_ray->direction = v_subtract(px->direction, v_multiply(px->surface_normal, (2 * dot)));
+	trace_ray(refl_ray, scene);
+	return (refl_ray);
+}
+
+t_px	*refraction_ray(t_px *px, t_scene *scene)
+{
+	float	refr;
+	float	dot;
+	float	root;
+	t_xyz	direction;
+	t_px	*refr_ray;
+
+	refr_ray = calloc(1, sizeof(t_px));
+	refr = 1 / px->hitobject->refr;
+	dot = v_dot(px->direction, px->surface_normal);
+	root = sqrt(1 - refr * refr * (1 - dot * dot));
+	direction = v_multiply(px->surface_normal, refr * dot - root);
+	direction = v_add(direction, v_multiply(px->direction, refr));
+	refr_ray->cam_origin = v_multiply(px->hitpoint, 0.01);
+	refr_ray->direction = v_normalize(direction);
+	trace_ray(refr_ray, scene);
+	return (refr_ray);
+	// ft_printf("after trace refraction, hp:%p\n", refr_ray->hitpoint);
+}
+
 int	light_transport(t_px *px, t_scene *scene, int *count)
 {
 	t_px	*refl_ray;
@@ -68,8 +103,7 @@ int	light_transport(t_px *px, t_scene *scene, int *count)
 	if (px->hitobject->refl && *count < REFL_DEPT)
 	{
 		*count += 1;
-		refl_ray = calloc(1, sizeof(t_px));
-		reflection_ray(px, refl_ray, scene);
+		refl_ray = reflection_ray(px, scene);
 		if (!(refl_ray->hitobject && refl_ray->hitobject->transp))
 			color1 = get_pixel_data_transport(px, scene, refl_ray, count);
 		else if (refl_ray->hitobject)
@@ -78,8 +112,7 @@ int	light_transport(t_px *px, t_scene *scene, int *count)
 	}
 	if (px->hitobject->transp && px->hitobject->refl != 1)
 	{
-		refr_ray = calloc(1, sizeof(t_px));
-		refraction_ray(px, refr_ray, scene);
+		refr_ray = refraction_ray(px, scene);
 		color2 = get_pixel_data_transport(px, scene, refr_ray, count);
 		free(refr_ray);
 	}

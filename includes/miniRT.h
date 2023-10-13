@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/13 16:27:53 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/13 16:35:44 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,8 +159,5 @@ void		diffuse(t_light *light, \
 // light_transport.c
 int			light_transport(t_px *px, t_scene *scene, int *count);
 
-// light_types.c
-void		reflection_ray(t_px *px, t_px *refl_ray, t_scene *scene);
-void		refraction_ray(t_px *px, t_px *refr_ray, t_scene *scene);
 
 #endif
