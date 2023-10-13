@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 00:05:54 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/12 09:43:10 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/13 16:05:16 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,9 @@ t_scene	*init_scene(char *file)
 		exit_error(ERROR_MEM, NULL, NULL);
 	scene->p_width = IM_WIDTH;
 	scene->p_height = IM_HEIGHT;
+	scene->file_width = IM_WIDTH;
+	scene->file_height = IM_HEIGHT;
+	scene->aa = 1;
 	scene->must_resize = false;
 	init_textures(scene);
 	parse_file(file, scene);

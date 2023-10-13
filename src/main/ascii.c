@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 00:08:47 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/12 14:48:31 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/13 16:39:27 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void	set_ascii_params(t_scene *scene)
 	free(scene->pixels);
 	i = 0;
 	scene->camera->aspect_ratio = (float)ASCII_WIDTH / ASCII_HEIGHT * 0.6;
-	// scene->camera->image_width = ASCII_WIDTH;
-	// scene->camera->image_height = ASCII_HEIGHT;
 	scene->pixels = ft_calloc(ASCII_HEIGHT, sizeof(t_px *));
 	scene->p_height = ASCII_HEIGHT;
 	scene->p_width = ASCII_WIDTH;

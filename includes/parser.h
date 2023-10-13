@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/12 13:47:53 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/13 16:34:56 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ float			set_albedo(char *param, t_scene *scene);
 void			set_surface_properties(char **param, t_object *obj, \
 												int i, t_scene *s);
 float			to_float(char *param, t_scene *scene);
+void			print_param_line(char **param);
 void			init_ambient(char **param, t_scene *scene);
 void			init_camera(char **param, t_scene *scene);
 void			camera_geo(t_scene *scene);
