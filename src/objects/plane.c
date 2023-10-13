@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/13 10:26:23 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/13 13:06:05 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,16 @@ t_xyz	get_uvcoord_pl(t_object *pl, t_px *px, t_scene *scene)
 	t_xyz	uv;
 	t_xyz	x_plane;
 	t_xyz	y_plane;
-	t_xyz	z_plane;
-	t_xyz	hp_in_object_space;
 
-	y_plane = pl->v_normal;
-	x_plane = v_cross(y_plane, v_create(0,1,0));
+	(void)scene;
+	x_plane = v_normalize(v_cross(pl->v_normal, v_create(0,1,0)));
 	if (x_plane.x == 0 && x_plane.y == 0 && x_plane.z == 0)
-		x_plane = v_cross(y_plane, v_create(1,0,0));
-	z_plane = v_cross(x_plane, y_plane);
-	hp_in_object_space = px->hitpoint;
-	uv.x = v_dot(hp_in_object_space, x_plane) / (scene->file_width * 0.05);
-	uv.y = v_dot(hp_in_object_space, z_plane) / (scene->file_height * 0.05);
-	uv.x = (uv.x + 1) * 0.5;
-	uv.y = (uv.y + 1) * 0.5;
+		x_plane = v_normalize(v_cross(pl->v_normal, v_create(1,0,0)));
+	y_plane = v_normalize(v_cross(x_plane, pl->v_normal));
+	uv.x = fmod(v_dot(px->hitpoint, x_plane), pl->plane_x);
+	uv.y = fmod(v_dot(px->hitpoint, y_plane), pl->plane_y);
+	uv.x = 1 - ((uv.x + pl->plane_x) / (pl->plane_x * 2));
+	uv.y = 1 - ((uv.y + pl->plane_y) / (pl->plane_y * 2));
+	uv.z = 0;
 	return (uv);
 }

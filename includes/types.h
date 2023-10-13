@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/13 10:05:34 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/13 13:05:09 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ typedef struct s_object
 	mlx_texture_t	*text;
 	mlx_texture_t	*bump;
 	t_m44			rotate_matrix;
-	float			plane_z;
 	float			plane_x;
+	float			plane_y;
 }					t_object;
 
 /**
