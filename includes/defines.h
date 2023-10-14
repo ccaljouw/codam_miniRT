@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 20:37:16 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/13 17:32:10 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/14 17:32:17 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // # define AA_SAMPLES			2
 
 # define ALBEDO				.18
-# define REFL_DEPT			3
+# define REFL_DEPT			6
 
 # define ROT_X_N 			MLX_KEY_RIGHT
 # define ROT_X_P 			MLX_KEY_LEFT

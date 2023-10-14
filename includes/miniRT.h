@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/14 15:02:18 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/14 17:37:34 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			get_parabolic_hitpoints(t_xyz abc, float *hp1, float *hp2);
 // render.c
 void		get_ray(t_px *px, int x, int y, t_scene *s);
 void		trace_ray(t_px *px, t_scene *s);
-void		get_pixel_data(t_px	*px, t_scene *scene);
+int			get_pixel_data(t_px	*px, t_scene *scene);
 void		render_image(t_scene *scene);
 void		*routine(void *params);
 
@@ -157,7 +157,9 @@ void		diffuse(t_light *light, \
 					t_px *px, t_px *shadow_ray, float light_radius);
 
 // light_transport.c
-int			light_transport(t_px *px, t_scene *scene, int *count);
+void		light_transport(t_px *px, t_scene *scene);
+int			reflection(t_px *px, t_scene *scene);
+int			refraction(t_px *px, t_scene *scene);
 
 
 #endif

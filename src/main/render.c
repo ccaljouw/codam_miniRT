@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/14 15:01:43 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/14 17:37:12 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	trace_ray(t_px *px, t_scene *s)
 	}
 }
 
-void	get_pixel_data(t_px	*px, t_scene *scene)
+int	get_pixel_data(t_px	*px, t_scene *scene)
 {
 	static t_surface_data	*surface_data[4] = \
 	{get_sphere_surface_data, get_plane_surface_data, \
@@ -126,10 +126,13 @@ void	get_pixel_data(t_px	*px, t_scene *scene)
 		get_uv(px, scene);
 		map_texture(px);
 		map_procedure(px);
-		light_transport(px, scene, &px->refl_count);
+		light_transport(px, scene);
 		map_normal(px);
 		loop_lights(scene, px);
+		return (px->color);
 	}
+	return (255);
+	
 }
 
 /**
