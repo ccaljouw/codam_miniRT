@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/14 16:14:06 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/14 18:22:26 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/14 18:27:49 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,11 @@ void	light_transport(t_px *px, t_scene *scene)
 	if (px->hitobject->transp)
 		color_refr = refraction(px, scene);
 	if (color_refl && color_refr)
+	{
+		color_refr = blend_color(color_refr, px->color, \
+													px->hitobject->transp);
 		px->color = blend_color(color_refl, color_refr, px->hitobject->refl);
+	}
 	else if (color_refl)
 		px->color = blend_color(color_refl, px->color, px->hitobject->refl);
 	else
