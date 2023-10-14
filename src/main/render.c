@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/12 21:58:08 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/14 15:01:43 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	*routine(void *params)
 		while (x < scene->p_width)
 		{
 			scene->pixels[y][x].refl_count = 0;
-			get_pixel_data(scene->pixels[y] + x, scene, x, y);
+			get_ray(scene->pixels[y] + x, x, y, scene);
+			trace_ray(scene->pixels[y] + x, scene);
+			get_pixel_data(scene->pixels[y] + x, scene);
 			x++;
 		}
 		y++;
@@ -112,14 +114,12 @@ void	trace_ray(t_px *px, t_scene *s)
 	}
 }
 
-void	get_pixel_data(t_px	*px, t_scene *scene, int x, int y)
+void	get_pixel_data(t_px	*px, t_scene *scene)
 {
 	static t_surface_data	*surface_data[4] = \
 	{get_sphere_surface_data, get_plane_surface_data, \
 	get_cylinder_surface_data, get_cone_surface_data};
 
-	get_ray(px, x, y, scene);
-	trace_ray(px, scene);
 	if ((px)->hitobject != NULL)
 	{
 		surface_data[px->hitobject->id](px->hitobject, px);
