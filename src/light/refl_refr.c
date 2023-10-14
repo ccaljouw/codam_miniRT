@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/14 16:14:06 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/14 22:18:12 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/14 22:40:32 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_px	*refraction_ray(t_px *px, t_scene *scene)
 	refr_ray = calloc(1, sizeof(t_px));
 	if (!refr_ray)
 		exit_error(ERROR_MEM, NULL, scene);
-	refr_ray->transp_count += 1;
+	refr_ray->transp_count = px->transp_count + 1;
 	refr = 1 / px->hitobject->refr;
 	dot = v_dot(px->direction, px->surface_normal);
 	root = sqrt(1 - refr * refr * (1 - dot * dot));
@@ -61,7 +61,7 @@ t_px	*reflection(t_px *px, t_scene *scene)
 	refl_ray = calloc(1, sizeof(t_px));
 	if (!refl_ray)
 		exit_error(ERROR_MEM, NULL, scene);
-	refl_ray->refl_count += 1;
+	refl_ray->refl_count = px->refl_count + 1;
 	refl_ray->cam_origin = \
 			v_add(px->hitpoint, px->surface_normal);
 	dot = v_dot(px->direction, px->surface_normal);
@@ -80,7 +80,7 @@ t_px	*refraction(t_px *px, t_scene *scene)
 	t_px	*refr_ray;
 
 	refr_ray = refraction_ray(px, scene);
-	px->refl_count += 1;
+	px->refl_count = px->refl_count + 1;
 	trace_ray(refr_ray, scene);
 	if (refr_ray->hitobject == px->hitobject)
 		refr_ray->color = 255;
