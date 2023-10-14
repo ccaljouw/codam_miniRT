@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/11 09:21:47 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/13 16:39:15 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/14 14:58:55 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ t_px	*reflection_ray(t_px *px, t_scene *scene)
 	t_px	*refl_ray;
 	
 	refl_ray = calloc(1, sizeof(t_px));
+	if (!refl_ray)
+		exit_error(ERROR_MEM, NULL, scene);
 	refl_ray->cam_origin = \
 			v_add(px->hitpoint, px->surface_normal);
 	dot = v_dot(px->direction, px->surface_normal);
@@ -79,6 +81,8 @@ t_px	*refraction_ray(t_px *px, t_scene *scene)
 	t_px	*refr_ray;
 
 	refr_ray = calloc(1, sizeof(t_px));
+	if (!refr_ray)
+		exit_error(ERROR_MEM, NULL, scene);
 	refr = 1 / px->hitobject->refr;
 	dot = v_dot(px->direction, px->surface_normal);
 	root = sqrt(1 - refr * refr * (1 - dot * dot));
