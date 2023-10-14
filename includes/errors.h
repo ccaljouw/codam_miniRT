@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:09:09 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/09 23:21:57 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/13 21:37:30 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ Please check path, extention and file permissions"
 # define ERROR_PLANE "Incorrect parameters provided for Plane"
 # define ERROR_CYLINDER "Incorrect parameters provided for Cylinder"
 # define ERROR_CONE "Incorrect parameters provided for Cone"
+# define ERROR_TR "Incorrect parameters provided for Triangle"
 # define ERROR_RES "Incorrect parameters provided for Resolution"
 # define ERROR_SCENE "Incorrect scene provided"
 # define ERROR_XYZ "Incorrect coordinates provided"

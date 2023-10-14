@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   image_manipulation.c                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/13 09:59:22 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   image_manipulation.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/14 23:20:39 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	rotate(mlx_key_data_t keydata, t_scene *scene)
 	}
 	else
 		m44_multiply_vec3_dir(rotation_matrix, *orientation, orientation);
+	ft_printf("new orientation: ");
+	print_vector(*orientation);
 	camera_geo(scene);
 	render_image(scene);
 }
@@ -112,6 +114,8 @@ void	move(mlx_key_data_t keydata, t_scene *scene)
 		pos->z += .5;
 	if (keydata.key == MOVE_BACK)
 		pos->z -= .5;
+	ft_printf("new position: ");
+	print_vector(*pos);
 	camera_geo(scene);
 	render_image(scene);
 }

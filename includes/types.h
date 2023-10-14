@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/13 15:54:57 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/14 22:01:44 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ typedef struct s_object
 	t_type			id;
 	t_xyz			p_origin;
 	t_xyz			v_normal;
-	t_xyz			p1;
-	t_xyz			p2;
-	t_xyz			p3;
+	t_xyz			p[3];
+	t_xyz			edge[3];
 	float			diameter; //store radius??
 	float			height;
 	float			albedo;

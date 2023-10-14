@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   shadow_ray.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/24 22:58:06 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/11 23:06:51 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   shadow_ray.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/24 22:58:06 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/13 23:16:59 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	trace_shadow(t_px *px, t_scene *s)
 {
 	float				hp[2];
-	static t_hit_test	*hit_test[4] = \
-				{test_sphere, test_plane, test_cylinder, test_cone};
+	static t_hit_test	*hit_test[5] = \
+			{test_sphere, test_plane, test_cylinder, test_cone, test_triangle};
 	t_list				*objects;
 	t_object			*object;
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   shapes.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/13 17:32:30 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   shapes.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/14 23:01:40 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,22 @@ void	init_sphere(char **param, t_scene *scene)
 	ft_putstr_fd("\033[34;1mSphere config:\t\t\033[0m", 1);
 }
 
+void	triangle_vectors(t_object *tr)
+{
+	t_xyz	p0p1;
+	t_xyz	p0p2;
+
+	p0p1 = v_subtract(tr->p[1], tr->p[0]);
+	p0p2 = v_subtract(tr->p[2], tr->p[0]);
+	tr->v_normal = v_normalize(v_cross(p0p1, p0p2));
+	tr->edge[0] = v_subtract(tr->p[1], tr->p[0]);
+	tr->edge[1] = v_subtract(tr->p[2], tr->p[1]);
+	tr->edge[2] = v_subtract(tr->p[0], tr->p[2]);
+	// print_vector(p1p2);
+	// print_vector(p1p3);
+	// print_vector(tr->v_normal);
+}
+
 void	init_triangle(char **param, t_scene *scene)
 {
 	t_list		*new_node;
@@ -155,19 +171,20 @@ void	init_triangle(char **param, t_scene *scene)
 	while (param[i])
 		i++;
 	if (!BONUS)
-		exit_error(ERROR_CONE, "triangle not implemented in mandatory", scene);
-	if (i != 6 + BONUS_SPECS)
-		exit_error(ERROR_SPHERE, "incorrect number of arguments", scene);
+		exit_error(ERROR_TR, "triangle not implemented in mandatory", scene);
+	if (i != 5 && i != 5 + BONUS_SPECS)
+		exit_error(ERROR_TR, "incorrect number of arguments", scene);
 	new_tr = ft_calloc(1, sizeof(t_object));
 	new_node = ft_lstnew(new_tr);
 	if (!new_tr || !new_node)
 		exit_error(ERROR_MEM, NULL, scene);
 	new_tr->id = TR;
-	new_tr->v_normal = set_xyz(param[1], scene);
-	new_tr->p1 = set_xyz(param[2], scene);
-	new_tr->p2 = set_xyz(param[3], scene);
-	new_tr->p3 = set_xyz(param[4], scene);
-	set_surface_properties(&param[5], new_tr, i - BONUS_SPECS, scene);
+	// new_tr->v_normal = set_xyz(param[1], scene);
+	new_tr->p[0] = set_xyz(param[1], scene);
+	new_tr->p[1] = set_xyz(param[2], scene);
+	new_tr->p[2] = set_xyz(param[3], scene);
+	triangle_vectors(new_tr);
+	set_surface_properties(&param[4], new_tr, i - BONUS_SPECS, scene);
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mTriangle config:\t\033[0m", 1);
 }

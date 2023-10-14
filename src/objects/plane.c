@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:14:41 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/13 16:44:15 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/13 22:49:54 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	get_plane_surface_data(t_object *plane, t_px *px)
 		px->surface_normal = v_multiply(plane->v_normal, -1);
 	else
 	{
-		px->surface_normal = v_multiply(plane->v_normal, 1);
+		px->surface_normal = plane->v_normal;
 		px->facing_ratio *= -1;
 	}
 	return (px->color);

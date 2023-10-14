@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   render.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/12 21:58:08 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/14 14:46:02 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	get_ray(t_px *px, int x, int y, t_scene *s)
 void	trace_ray(t_px *px, t_scene *s)
 {
 	float				hp[2];
-	static t_hit_test	*hit_test[4] = \
-						{test_sphere, test_plane, test_cylinder, test_cone};
+	static t_hit_test	*hit_test[5] = \
+						{test_sphere, test_plane, test_cylinder, test_cone, test_triangle};
 	t_list				*objects;
 	t_object			*object;
 
@@ -103,6 +103,7 @@ void	trace_ray(t_px *px, t_scene *s)
 		{
 			if (!px->hitobject || px->hit_distance > hp[0])
 			{
+				// ft_printf("object: ")
 				px->hitobject = object;
 				px->hit_distance = hp[0];
 				px->hit_height = hp[1];
@@ -114,14 +115,16 @@ void	trace_ray(t_px *px, t_scene *s)
 
 void	get_pixel_data(t_px	*px, t_scene *scene, int x, int y)
 {
-	static t_surface_data	*surface_data[4] = \
+	static t_surface_data	*surface_data[5] = \
 	{get_sphere_surface_data, get_plane_surface_data, \
-	get_cylinder_surface_data, get_cone_surface_data};
+	get_cylinder_surface_data, get_cone_surface_data, \
+	get_triangle_surface_data};
 
 	get_ray(px, x, y, scene);
 	trace_ray(px, scene);
 	if ((px)->hitobject != NULL)
 	{
+		// ft_printf("object %i\n", px->hitobject->id);
 		surface_data[px->hitobject->id](px->hitobject, px);
 		get_uv(px, scene);
 		map_texture(px);

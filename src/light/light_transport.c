@@ -1,42 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   light_transport.c                                  :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/11 09:21:47 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/13 16:39:15 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   light_transport.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/11 09:21:47 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/13 23:17:38 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-int		blend_color(int c1, int c2, float fact_c1)
+int	blend_color(int c1, int c2, float fact_c1)
 {
 	float	r;
 	float	g;
 	float	b;
-	
+
 	if (fact_c1 == 1)
 		return (c1);
 	if (fact_c1 == 0)
 		return (c2);
 	r = ((c1 >> 24) & 0xFF) * fact_c1;
 	g = ((c1 >> 16) & 0xFF) * fact_c1;
-	b = ((c1 >> 8) & 0xFF)  * fact_c1;
+	b = ((c1 >> 8) & 0xFF) * fact_c1;
 	r += ((c2 >> 24) & 0xFF) * (1 - fact_c1);
 	g += ((c2 >> 16) & 0xFF) * (1 - fact_c1);
-	b += ((c2 >> 8) & 0xFF)  * (1 - fact_c1);
+	b += ((c2 >> 8) & 0xFF) * (1 - fact_c1);
 	return ((int)r << 24 | (int)g << 16 | (int)b << 8 | 255);
 }
 
 int	get_pixel_data_transport(t_px	*px, t_scene *scene, t_px *ray, int *count)
 {
 	int						color;
-	static t_surface_data	*surface_data[4] = \
+	static t_surface_data	*surface_data[5] = \
 		{get_sphere_surface_data, get_plane_surface_data, \
-		get_cylinder_surface_data, get_cone_surface_data};
+		get_cylinder_surface_data, get_cone_surface_data, \
+		get_triangle_surface_data};
 
 	(void)px;
 	if (ray->hitobject != NULL)
@@ -60,7 +61,7 @@ t_px	*reflection_ray(t_px *px, t_scene *scene)
 {
 	float	dot;
 	t_px	*refl_ray;
-	
+
 	refl_ray = calloc(1, sizeof(t_px));
 	refl_ray->cam_origin = \
 			v_add(px->hitpoint, px->surface_normal);
@@ -78,7 +79,7 @@ t_px	*refraction_ray(t_px *px, t_scene *scene)
 	t_xyz	direction;
 	t_px	*refr_ray;
 
-	refr_ray = calloc(1, sizeof(t_px));
+	refr_ray = ft_calloc(1, sizeof(t_px));
 	refr = 1 / px->hitobject->refr;
 	dot = v_dot(px->direction, px->surface_normal);
 	root = sqrt(1 - refr * refr * (1 - dot * dot));
@@ -97,7 +98,7 @@ int	light_transport(t_px *px, t_scene *scene, int *count)
 	t_px	*refr_ray;
 	int		color1;
 	int		color2;
-	
+
 	color1 = px->color;
 	color2 = px->color;
 	if (px->hitobject->refl && *count < REFL_DEPT)

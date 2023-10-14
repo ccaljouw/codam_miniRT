@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   miniRT.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/13 16:35:44 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/13 21:55:21 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int			get_cone_surface_data(t_object *co, t_px *px);
 t_xyz		get_uvcoord_co(t_object *co, t_px *px, t_scene *scene);
 
 // objects/triangle.c
-int			test_sphere(t_px *ray, t_object *sphere, float *hp_info);
+int			test_triangle(t_px *ray, t_object *sphere, float *hp_info);
 int			get_triangle_surface_data(t_object *tr, t_px *px);
 t_xyz		get_uvcoord_tr(t_object *sp, t_px *px, t_scene *scene);
 

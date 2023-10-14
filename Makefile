@@ -6,7 +6,7 @@ RESET	:= \033[0m
 
 NAME 		:= miniRT
 CC 			:= cc
-CFLAGS 		:= -Wall -Wextra -Werror -O3 #-g -fsanitize=address
+CFLAGS 		:= -Wall -Wextra -Werror -O3 -g -fsanitize=address
 CFLAGS_BONUS := -D BONUS=1 -pthread 
 LIBFT	 	:= ./libs/libft
 LIBMLX		:= ./libs/MLX42/build
@@ -16,8 +16,8 @@ HEADERS		:= -I $(LIBFT)  -I $(LIBMLX) -I includes/ -I ./libs/MLX42/include/MLX42
 UNAME		:= $(shell uname)
 
 ifeq ($(UNAME),Darwin)
-	# CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
-	CFLAGS += "-D THREADS=1"
+	CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
+	# CFLAGS += "-D THREADS=1"
 else ifeq ($(UNAME),Linux)
 	CFLAGS += "-D THREADS=$(shell nproc --all)"
 endif

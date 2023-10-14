@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/13 16:07:37 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/14 23:10:20 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	init_ambient(char **param, t_scene *scene)
 	if (!ambient)
 		exit_error(ERROR_MEM, NULL, scene);
 	ambient->ratio = to_float(param[1], scene);
-	if (ambient->ratio < 0.0 || ambient->ratio > 1)
-		exit_error(ERROR_AMB, "incorrect lighting ratio [0.0, 1.0]", scene);
+	// if (ambient->ratio < 0.0 || ambient->ratio > 1)
+	// 	exit_error(ERROR_AMB, "incorrect lighting ratio [0.0, 1.0]", scene);
 	set_rgb(param[2], ambient->rgb, scene);
 	ambient->rgb_ratio[0] = ((float)ambient->rgb[0] / 255) * ambient->ratio;
 	ambient->rgb_ratio[1] = ((float)ambient->rgb[1] / 255) * ambient->ratio;
