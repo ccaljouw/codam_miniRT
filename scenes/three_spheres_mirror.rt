@@ -3,9 +3,8 @@
 #################################################
 
 
-#resolution
-#	width	height
-R	867		608
+#	width	height	anti-alias [0-5]
+R	867		608		0
 
 #ambient
 #	brightness [0-1]			color

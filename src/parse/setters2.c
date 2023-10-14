@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/08 23:50:10 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/13 17:32:21 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/14 18:06:45 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	set_surface_properties(char **param, t_object *obj, int i, t_scene *s)
 		obj->albedo = set_albedo(*(param + 4), s);
 		obj->specular_size = set_specular_size(*(param + 5), s);
 		obj->specular_weight = set_specular_weight(*(param + 6), s);
-		obj->refl = to_float(*(param + 7), s);
+		obj->refl = to_float(*(param + 7), s);  // should check between 0 and 1
 		obj->refr = to_float(*(param + 8), s);
-		obj->transp = to_float(*(param + 9), s);
+		obj->transp = to_float(*(param + 9), s); // should chekc between 0 and 1
 		set_rgb(*(param + 10), obj->rgb, s);
 	}
 	else

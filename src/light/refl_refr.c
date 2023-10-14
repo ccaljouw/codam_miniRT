@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/14 16:14:06 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/14 17:37:20 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/14 18:18:29 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	reflection(t_px *px, t_scene *scene)
 	refl_ray->direction = v_subtract(px->direction, \
 				v_multiply(px->surface_normal, (2 * dot)));
 	trace_ray(refl_ray, scene);
-	if (refl_ray->hit_distance)
+	if (refl_ray->hitobject)
 		color = get_pixel_data(refl_ray, scene);
 	else
 		color = 255;
@@ -107,7 +107,7 @@ void	light_transport(t_px *px, t_scene *scene)
 	if (color_refl && color_refr)
 		px->color = blend_color(color_refl, color_refr, px->hitobject->refl);
 	else if (color_refl)
-		px->color = color_refl;
+		px->color = blend_color(color_refl, px->color, px->hitobject->refl);
 	else
 		px->color = color_refr;
 }
