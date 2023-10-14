@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/14 22:01:44 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/14 23:28:14 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_pixel
 	float		hit_distance;
 	float		hit_height; // nodig?
 	int			refl_count;
+	int			transp_count;
 	int			color;
 }	t_px;
 

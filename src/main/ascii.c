@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ascii.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 00:08:47 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/13 16:39:27 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ascii.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/09 00:08:47 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/10/14 15:04:03 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ void	render_ascii(t_scene *scene)
 		x = 0;
 		while (x < scene->p_width)
 		{
-			get_pixel_data(scene->pixels[y] + x, scene, x, y);
+			get_ray(scene->pixels[y] + x, x, y, scene);
+			trace_ray(scene->pixels[y] + x, scene);
+			get_pixel_data(scene->pixels[y] + x, scene);
 			print_ascii(scene->pixels[y] + x, scene);
 			x++;
 		}

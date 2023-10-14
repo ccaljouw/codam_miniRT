@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/14 14:46:02 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/14 23:28:35 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void	*routine(void *params)
 		while (x < scene->p_width)
 		{
 			scene->pixels[y][x].refl_count = 0;
-			get_pixel_data(scene->pixels[y] + x, scene, x, y);
+			scene->pixels[y][x].transp_count = 0;
+			get_ray(scene->pixels[y] + x, x, y, scene);
+			trace_ray(scene->pixels[y] + x, scene);
+			get_pixel_data(scene->pixels[y] + x, scene);
 			x++;
 		}
 		y++;
@@ -113,15 +116,13 @@ void	trace_ray(t_px *px, t_scene *s)
 	}
 }
 
-void	get_pixel_data(t_px	*px, t_scene *scene, int x, int y)
+int	get_pixel_data(t_px	*px, t_scene *scene)
 {
 	static t_surface_data	*surface_data[5] = \
 	{get_sphere_surface_data, get_plane_surface_data, \
 	get_cylinder_surface_data, get_cone_surface_data, \
 	get_triangle_surface_data};
 
-	get_ray(px, x, y, scene);
-	trace_ray(px, scene);
 	if ((px)->hitobject != NULL)
 	{
 		// ft_printf("object %i\n", px->hitobject->id);
@@ -129,10 +130,13 @@ void	get_pixel_data(t_px	*px, t_scene *scene, int x, int y)
 		get_uv(px, scene);
 		map_texture(px);
 		map_procedure(px);
-		light_transport(px, scene, &px->refl_count);
+		light_transport(px, scene);
 		map_normal(px);
 		loop_lights(scene, px);
+		return (px->color);
 	}
+	return (255);
+	
 }
 
 /**

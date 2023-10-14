@@ -1,11 +1,11 @@
 #################################################
-#			scenes/saved_scene_2.rt				#
+#			three_spheres_refl.rt				#
 #################################################
 
 
 #resolution
-#	width	height
-R	867		608
+#	width	height	aa
+R	867		608		5	
 
 #ambient
 #	brightness [0-1]			color
