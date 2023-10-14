@@ -16,8 +16,8 @@ HEADERS		:= -I $(LIBFT)  -I $(LIBMLX) -I includes/ -I ./libs/MLX42/include/MLX42
 UNAME		:= $(shell uname)
 
 ifeq ($(UNAME),Darwin)
-	CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
-	# CFLAGS += "-D THREADS=1"
+	# CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
+	CFLAGS += "-D THREADS=1"
 else ifeq ($(UNAME),Linux)
 	CFLAGS += "-D THREADS=$(shell nproc --all)"
 endif

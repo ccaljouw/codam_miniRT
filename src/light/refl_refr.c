@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/14 16:14:06 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/14 18:27:49 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/14 22:18:12 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,41 +31,17 @@ int		blend_color(int c1, int c2, float fact_c1)
 	return ((int)r << 24 | (int)g << 16 | (int)b << 8 | 255);
 }
 
-int	reflection(t_px *px, t_scene *scene)
+t_px	*refraction_ray(t_px *px, t_scene *scene)
 {
-	float	dot;
-	t_px	*refl_ray;
-	int		color;
-	
-	refl_ray = calloc(1, sizeof(t_px));
-	if (!refl_ray)
-		exit_error(ERROR_MEM, NULL, scene);
-	refl_ray->cam_origin = \
-			v_add(px->hitpoint, px->surface_normal);
-	dot = v_dot(px->direction, px->surface_normal);
-	refl_ray->direction = v_subtract(px->direction, \
-				v_multiply(px->surface_normal, (2 * dot)));
-	trace_ray(refl_ray, scene);
-	if (refl_ray->hitobject)
-		color = get_pixel_data(refl_ray, scene);
-	else
-		color = 255;
-	free(refl_ray);
-	return (color);
-}
-
-int	refraction(t_px *px, t_scene *scene)
-{
+	t_px	*refr_ray;
 	float	refr;
 	float	dot;
 	float	root;
-	t_px	*refr_ray;
-	int		color;
 
-	color = 255;
 	refr_ray = calloc(1, sizeof(t_px));
 	if (!refr_ray)
 		exit_error(ERROR_MEM, NULL, scene);
+	refr_ray->transp_count += 1;
 	refr = 1 / px->hitobject->refr;
 	dot = v_dot(px->direction, px->surface_normal);
 	root = sqrt(1 - refr * refr * (1 - dot * dot));
@@ -74,13 +50,43 @@ int	refraction(t_px *px, t_scene *scene)
 	refr_ray->direction = v_add(refr_ray->direction , \
 									v_multiply(px->direction, refr));
 	refr_ray->direction = v_normalize(refr_ray->direction );
+	return (refr_ray);
+}
+
+t_px	*reflection(t_px *px, t_scene *scene)
+{
+	float	dot;
+	t_px	*refl_ray;
+	
+	refl_ray = calloc(1, sizeof(t_px));
+	if (!refl_ray)
+		exit_error(ERROR_MEM, NULL, scene);
+	refl_ray->refl_count += 1;
+	refl_ray->cam_origin = \
+			v_add(px->hitpoint, px->surface_normal);
+	dot = v_dot(px->direction, px->surface_normal);
+	refl_ray->direction = v_subtract(px->direction, \
+				v_multiply(px->surface_normal, (2 * dot)));
+	trace_ray(refl_ray, scene);
+	if (refl_ray->hitobject)
+		get_pixel_data(refl_ray, scene);
+	else
+		refl_ray->color = 255;
+	return (refl_ray);
+}
+
+t_px	*refraction(t_px *px, t_scene *scene)
+{
+	t_px	*refr_ray;
+
+	refr_ray = refraction_ray(px, scene);
+	px->refl_count += 1;
 	trace_ray(refr_ray, scene);
 	if (refr_ray->hitobject == px->hitobject)
-		return (0);
+		refr_ray->color = 255;
 	else if (refr_ray->hitobject)
-		color = get_pixel_data(refr_ray, scene);
-	free(refr_ray);
-	return (color);
+		get_pixel_data(refr_ray, scene);
+	return (refr_ray);
 }
 
 /**
@@ -91,28 +97,25 @@ int	refraction(t_px *px, t_scene *scene)
  */
 void	light_transport(t_px *px, t_scene *scene)
 {
-	int	color_refl;
-	int	color_refr;
+	t_px	*refl_ray;
+	t_px	*refr_ray;
 
-	color_refl = 0;
-	color_refr = 0;
-	if ((!px->hitobject->refl && !px->hitobject->transp) \
-							|| px->refl_count > REFL_DEPT)
-		return ;
-	px->refl_count++;
-	if (px->hitobject->refl)
-		color_refl = reflection(px, scene);
-	if (px->hitobject->transp)
-		color_refr = refraction(px, scene);
-	if (color_refl && color_refr)
+	refl_ray = NULL;
+	refr_ray = NULL;
+	if (px->hitobject->refl && px->refl_count < REFL_DEPT)
+		refl_ray = reflection(px, scene);
+	if (px->hitobject->transp && px->transp_count < REFL_DEPT)
+		refr_ray = refraction(px, scene);
+	if (refr_ray)
 	{
-		color_refr = blend_color(color_refr, px->color, \
-													px->hitobject->transp);
-		px->color = blend_color(color_refl, color_refr, px->hitobject->refl);
+		px->color = blend_color(refr_ray->color, px->color, px->hitobject->transp);
+		px->transp_count += refr_ray->transp_count;
+		free(refr_ray);
 	}
-	else if (color_refl)
-		px->color = blend_color(color_refl, px->color, px->hitobject->refl);
-	else
-		px->color = blend_color(color_refr, px->color, \
-							(1 - px->hitobject->refl) * px->hitobject->transp);
+	if (refl_ray)
+	{
+		px->color = blend_color(refl_ray->color, px->color, px->hitobject->refl);
+		px->refl_count += refl_ray->refl_count;
+		free(refl_ray);
+	}
 }

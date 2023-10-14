@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/14 17:37:12 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/14 22:20:50 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	*routine(void *params)
 		while (x < scene->p_width)
 		{
 			scene->pixels[y][x].refl_count = 0;
+			scene->pixels[y][x].transp_count = 0;
 			get_ray(scene->pixels[y] + x, x, y, scene);
 			trace_ray(scene->pixels[y] + x, scene);
 			get_pixel_data(scene->pixels[y] + x, scene);
