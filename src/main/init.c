@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 00:05:54 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/13 16:05:16 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 23:03:04 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ t_scene	*init_scene(char *file)
 	scene->file_height = IM_HEIGHT;
 	scene->aa = 1;
 	scene->must_resize = false;
+	scene->max_reflect = STD_REFLECT;
 	init_textures(scene);
 	parse_file(file, scene);
 	if (!scene->ambient || !scene->camera)

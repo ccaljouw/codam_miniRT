@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:14:06 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/15 22:22:01 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 23:01:52 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,9 @@ void	light_transport(t_px *px, t_scene *scene)
 
 	refl_ray = NULL;
 	refr_ray = NULL;
-	if (px->hitobject->refl && px->refl_count < REFL_DEPT)
+	if (px->hitobject->refl && px->refl_count < scene->max_reflect)
 		refl_ray = reflection(px, scene);
-	if (px->hitobject->transp && px->transp_count < REFL_DEPT)
+	if (px->hitobject->transp && px->transp_count < MAX_REFRACT)
 		refr_ray = refraction(px, scene);
 	if (refr_ray)
 	{

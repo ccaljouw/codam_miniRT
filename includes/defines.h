@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 20:37:16 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/15 20:14:23 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 23:24:20 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@
 // # define AA_SAMPLES			2
 
 # define ALBEDO				.18
-# define REFL_DEPT			5
+# define MAX_REFRACT		5
+# define STD_REFLECT		5
+# define MAX_REFLECT		10
 
 # define ROT_X_N 			MLX_KEY_RIGHT
 # define ROT_X_P 			MLX_KEY_LEFT

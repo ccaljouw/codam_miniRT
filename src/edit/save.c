@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:00:07 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/15 00:59:45 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 23:42:32 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	print_scene(t_scene *s, int fd, char *fname)
 	if (chars < 31)
 		ft_dprintf(fd, "\t");
 	p(fd, "#\n#################################################\n\n\n");
-	p(fd, "#resolution\n#\twidth\theight\tanti-alias [0-5]\n");
-	ft_dprintf(fd, "R\t%i\t\t%i\t\t%i\n\n", \
-			s->p_width, s->p_height, (int)(floor(s->aa / 2)));
+	p(fd, "#resolution\n#\twidth\theight\tanti-alias [0-5]\t# reflections\n");
+	ft_dprintf(fd, "R\t%i\t\t%i\t\t%i\t\t\t\t\t%i\n\n", \
+			s->p_width, s->p_height, (int)(floor(s->aa / 2)), s->max_reflect);
 	p(fd, "#ambient\n#\tbrightness [0-1]\t\t\tcolor\n");
 	ft_dprintf(fd, "A\t%.1f\t\t\t\t\t\t\t", s->ambient->ratio);
 	p_rgb(s->ambient->rgb, fd);

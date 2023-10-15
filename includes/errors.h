@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:09:09 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/13 21:37:30 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 23:12:24 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ Please check path, extention and file permissions"
 # define ERROR_THREAD "Multi threading"
 # define ERROR_PNG "Error loading texture"
 # define USAGE_MSG "Usage: ./miniRT [path_to_file].rt [optional: -a]"
+# define ERROR_REFL "Incorrect reflection paramater provided"
+# define ERROR_TRANSP "Incorrect transparancy paramater provided"
 
 # define L_IN_MANDATORY	"only the L object is allowed in mandatory, \
 as multiple lights are forbidden"

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 14:42:48 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/15 17:19:30 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 23:00:07 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	p_is_outside(t_xyz p1, t_xyz p2, t_xyz	p3, t_xyz p)
 	t_xyz	vp;
 	t_xyz	a;
 	t_xyz	b;
-	
+
 	v1 = v_subtract(p2, p1);
 	v2 = v_subtract(p3, p1);
 	vp = v_subtract(p, p1);
@@ -68,12 +68,6 @@ int	p_is_outside(t_xyz p1, t_xyz p2, t_xyz	p3, t_xyz p)
 
 int	check_inside_triangle(t_object *tr, t_xyz p)
 {
-	// if (p_is_outside(tr->p[0], tr->p[1], tr->p[2], p))
-	// 	return (0);
-	// if (p_is_outside(tr->p[1], tr->p[2], tr->p[0], p))
-	// 	return (0);
-	// if (p_is_outside(tr->p[2], tr->p[0], tr->p[1], p))
-	// 	return (0);
 	t_xyz	cur;
 	int		i;
 

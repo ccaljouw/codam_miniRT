@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/15 19:17:58 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 23:01:18 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ typedef struct s_scene
 	t_object		*selected;
 	t_list			*selected_light;
 	bool			single_light;
+	int				max_reflect;
 }					t_scene;
 
 typedef struct s_block
