@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   shapes.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/15 00:11:25 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   shapes.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/15 13:09:19 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,10 +145,34 @@ void	init_sphere(char **param, t_scene *scene)
 	ft_putstr_fd("\033[34;1mSphere config:\t\t\033[0m", 1);
 }
 
+void min_max_values(float *min_max, t_object *tr)
+{
+	int		i;
+
+	i = 0;
+	min_max[0] = 1000000;
+	min_max[1] = -1000000;
+	min_max[2] = 1000000;
+	min_max[3] = -1000000;
+	while (i < 3)
+	{
+		if (tr->p[i].x < min_max[0])
+			min_max[0] = tr->p[i].x;
+		if (tr->p[i].x > min_max[1])
+			min_max[1] = tr->p[i].x;
+		if (tr->p[i].y < min_max[2])
+			min_max[2] = tr->p[i].y;
+		if (tr->p[i].y > min_max[3])
+			min_max[3] = tr->p[i].y;
+		i++;
+	}
+}
+
 void	triangle_vectors(t_object *tr)
 {
 	t_xyz	p0p1;
 	t_xyz	p0p2;
+	float	min_max[4];
 
 	p0p1 = v_subtract(tr->p[1], tr->p[0]);
 	p0p2 = v_subtract(tr->p[2], tr->p[0]);
@@ -156,9 +180,9 @@ void	triangle_vectors(t_object *tr)
 	tr->edge[0] = v_subtract(tr->p[1], tr->p[0]);
 	tr->edge[1] = v_subtract(tr->p[2], tr->p[1]);
 	tr->edge[2] = v_subtract(tr->p[0], tr->p[2]);
-	// print_vector(p1p2);
-	// print_vector(p1p3);
-	// print_vector(tr->v_normal);
+	min_max_values(min_max, tr);
+	tr->plane_y = min_max[3] - min_max[2];
+	tr->plane_x = min_max[1] - min_max[0];
 }
 
 void	init_triangle(char **param, t_scene *scene)
