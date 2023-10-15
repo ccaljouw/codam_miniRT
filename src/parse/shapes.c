@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/15 18:16:40 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 00:09:50 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void	init_sphere(char **param, t_scene *scene)
 }
 
 
-void min_max_values(float *min_max, t_object *tr)
+void 	min_max_values(float *min_max, t_object *tr)
 {
 	int		i;
 
