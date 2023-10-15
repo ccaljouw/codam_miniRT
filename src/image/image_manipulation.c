@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/15 00:47:35 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 10:33:42 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,24 +82,30 @@ static void	set_rotation(t_xyz *rotation, mlx_key_data_t keydata)
 		rotation->z = -10;
 }
 
-void	rotate_object(t_scene *s, t_m44 r_m, t_xyz rot, t_xyz *orientation)
+void	rotate_object(t_object *cur, t_m44 rot_matrix, t_xyz rot, t_xyz *orientation)
 {
-	int	i;
+	int			i;
+	t_m44		tr;
+	t_m44		tr_i;
 
-	if (s->selected->id == TR)
+	if (cur->id == TR)
 	{
+		tr = m44_init();
+		m44_translate_by_vector(&tr, v_subtract(v_create(0, 0, 0), cur->p[0]));
+		m44_invert(tr, &tr_i);
 		i = -1;
 		while (++i < 3)
-			m44_multiply_vec3_dir(r_m, s->selected->p[i], &s->selected->p[i]);
-		triangle_vectors(s->selected);
+		{
+			m44_multiply_vec3(tr, cur->p[i], &cur->p[i]);
+			m44_multiply_vec3_dir(rot_matrix, cur->p[i], &cur->p[i]);
+			m44_multiply_vec3(tr_i, cur->p[i], &cur->p[i]);
+		}
+		triangle_vectors(cur);
 	}
-	else if (s->selected->id == SP || rot.y != 0)
-	{
-		s->selected->rotate_matrix = \
-				m44_dot_product(r_m, s->selected->rotate_matrix);
-	}
-	if (s->selected->id != TR)
-		m44_multiply_vec3_dir(r_m, *orientation, orientation);
+	else if (cur->id == SP || rot.y != 0)
+		cur->rotate_matrix = m44_dot_product(rot_matrix, cur->rotate_matrix);
+	if (cur->id != TR)
+		m44_multiply_vec3_dir(rot_matrix, *orientation, orientation);
 }
 
 void	rotate(mlx_key_data_t keydata, t_scene *s)
@@ -117,9 +123,7 @@ void	rotate(mlx_key_data_t keydata, t_scene *s)
 	rotation_matrix = m44_init();
 	m44_rotate(&rotation_matrix, rotation.x, rotation.y, -rotation.z);
 	if (s->selected)
-	{
-		rotate_object(s, rotation_matrix, rotation, orientation);
-	}
+		rotate_object(s->selected, rotation_matrix, rotation, orientation);
 	else
 		m44_multiply_vec3_dir(rotation_matrix, *orientation, orientation);
 	ft_printf("new orientation: ");
