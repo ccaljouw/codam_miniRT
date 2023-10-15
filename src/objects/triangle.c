@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 14:42:48 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/15 13:05:33 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/15 14:45:09 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 int	get_triangle_surface_data(t_object *tr, t_px *px)
 {
-	(void)tr;
-	(void)px;
-
-	// ft_printf("triangle surface %f\n", px->hit_distance);
-	// print_vector(tr->v_normal);
 	px->hitpoint = \
 			v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
 	px->facing_ratio = v_dot(tr->v_normal, px->direction);
@@ -29,28 +24,6 @@ int	get_triangle_surface_data(t_object *tr, t_px *px)
 		px->surface_normal = tr->v_normal;
 		px->facing_ratio *= -1;
 	}
-	// px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, SHADOW_BIAS));
-	// px->surface_normal = tr->v_normal;
-	
-	// if (v_dot(px->surface_normal, px->direction) < 0)
-	// {
-	// 	px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, SHADOW_BIAS));
-	// 	// px->surface_normal = v_multiply(px->surface_normal, -1);
-	// }
-	// else
-	// {
-	// 	px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, -SHADOW_BIAS));
-	// // v_normalizep(&px->surface_normal);
-	// // px->surface_normal = v_multiply(px->surface_normal, -1);
-	// // px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, -SHADOW_BIAS));
-	// }
-	
-	// px->facing_ratio = v_dot(px->surface_normal, px->direction);
-	// if (px->facing_ratio < 0)
-	// 	px->facing_ratio *= -1;
-	// px->surface_normal = v_multiply(px->surface_normal, -1);
-	// return (0);
-
 	return (1);
 }
 
@@ -73,19 +46,43 @@ t_xyz	get_uvcoord_tr(t_object *tr, t_px *px, t_scene *scene)
 	return (uv);
 }
 
+int	p_is_outside(t_xyz p1, t_xyz p2, t_xyz	p3, t_xyz p)
+{
+	t_xyz	v1;
+	t_xyz	v2;
+	t_xyz	vp;
+	t_xyz	a;
+	t_xyz	b;
+	
+	v1 = v_subtract(p2, p1);
+	v2 = v_subtract(p3, p1);
+	vp = v_subtract(p, p1);
+	a = v_cross(v1, v2);
+	b = v_cross(v1, vp);
+	if ((v_dot(a, b) / (v_magnitude(a) * v_magnitude(b))) < 0)
+		return (1);
+	return (0);
+}
+
 int	check_inside_triangle(t_object *tr, t_xyz p)
 {
-	t_xyz	cur;
-	int		i;
+	if (p_is_outside(tr->p[0], tr->p[1], tr->p[2], p))
+		return (0);
+	if (p_is_outside(tr->p[1], tr->p[2], tr->p[0], p))
+		return (0);
+	if (p_is_outside(tr->p[2], tr->p[0], tr->p[1], p))
+		return (0);
+	// t_xyz	cur;
+	// int		i;
 
-	i = 0;
-	while (i < 3)
-	{
-		cur = v_cross(tr->edge[i], v_subtract(p, tr->p[i]));
-		if (v_dot(tr->v_normal, cur) < 0)
-			return (0);
-		i++;
-	}
+	// i = 0;
+	// while (i < 3)
+	// {
+	// 	cur = v_cross(tr->edge[i], v_subtract(p, tr->p[i]));
+	// 	if (v_dot(tr->v_normal, cur) < 0)
+	// 		return (0);
+	// 	i++;
+	// }
 	return (1);
 }
 

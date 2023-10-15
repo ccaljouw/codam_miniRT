@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/15 13:09:19 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/15 14:24:32 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,8 @@ void	triangle_vectors(t_object *tr)
 	t_xyz	p0p2;
 	float	min_max[4];
 
-	p0p1 = v_subtract(tr->p[1], tr->p[0]);
-	p0p2 = v_subtract(tr->p[2], tr->p[0]);
+	p0p1 = v_subtract(tr->p[0], tr->p[1]);
+	p0p2 = v_subtract(tr->p[2], tr->p[1]);
 	tr->v_normal = v_normalize(v_cross(p0p1, p0p2));
 	tr->edge[0] = v_subtract(tr->p[1], tr->p[0]);
 	tr->edge[1] = v_subtract(tr->p[2], tr->p[1]);

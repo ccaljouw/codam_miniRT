@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/14 16:14:06 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/15 13:10:32 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/15 14:57:27 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,16 @@ t_px	*refraction(t_px *px, t_scene *scene)
 	trace_ray(refr_ray, scene);
 	if (refr_ray->hitobject == px->hitobject)
 	{
+		ft_printf("first self hit\n");
 		free(refr_ray);
 		refr_ray = refraction_ray(px, scene, v_multiply(px->hitpoint, 0.01), px->surface_normal);
+		trace_ray(refr_ray, scene);
+	}
+	if (refr_ray->hitobject == px->hitobject)
+	{
+		ft_printf("second self hit\n");
+		free(refr_ray);
+		refr_ray = refraction_ray(px, scene, px->hitpoint, v_multiply(px->surface_normal, -1));
 		trace_ray(refr_ray, scene);
 	}
 	if (refr_ray->hitobject == px->hitobject)
