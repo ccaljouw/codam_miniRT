@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   add_delete.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/12 00:18:31 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/12 10:25:24 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   add_delete.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/12 00:18:31 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/15 01:36:16 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,18 @@ static t_xyz	get_new_object_origin(t_scene *s, int distance)
 	return (v_add(s->camera->origin, offset));
 }
 
+void	set_triangle_points(t_object *tr)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 3)
+		tr->p[i] = tr->p_origin;
+	tr->p[1].y += 1;
+	tr->p[2].x += 1;
+	triangle_vectors(tr);
+}
+
 /**
  * @brief Adds an object of type 'id'
  * 
@@ -82,9 +94,12 @@ void	add_object(t_scene *scene, int id)
 	new_object->id = id;
 	new_object->diameter = 1;
 	new_object->p_origin = get_new_object_origin(scene, NEW_OBJECT_DIST);
+	if (id == TR)
+		set_triangle_points(new_object);
+	else
+		new_object->v_normal = v_create(0, 1, 0);
 	if (id == PL)
 		new_object->p_origin.y -= 2;
-	new_object->v_normal = v_create(0, 1, 0);
 	new_object->height = 2;
 	new_object->albedo = ALBEDO;
 	new_object->rgb[0] = 255;

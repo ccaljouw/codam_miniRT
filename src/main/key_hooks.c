@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   key_hooks.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/08 23:13:35 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/12 10:27:14 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   key_hooks.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/08 23:13:35 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/15 01:34:53 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	key_input2(mlx_key_data_t k, t_scene *scene)
 		save_scene(scene);
 	if (k.key == MLX_KEY_BACKSPACE)
 		delete_object(scene);
-	if (k.key >= MLX_KEY_1 && k.key <= MLX_KEY_4)
+	if (k.key >= MLX_KEY_1 && k.key <= MLX_KEY_5)
 		add_object(scene, k.key - 49);
-	if (k.key == MLX_KEY_5)
+	if (k.key == MLX_KEY_6)
 		add_light(scene);
 }
 

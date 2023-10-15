@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:00:07 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/13 16:32:50 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 00:59:45 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	print_scene(t_scene *s, int fd, char *fname)
 	p_v(s->camera->origin, fd);
 	p_v(s->camera->orientation_v, fd);
 	ft_dprintf(fd, "\t%i\n\n", s->camera->fov);
-	p(fd, "#objects\n#ID\torigin\t\t\t\t\taxis\t\t\t\tdiameter\theight\t");
-	p(fd, "t\tbt\tp\tb\talbedo (%%)\t");
+	p(fd, "#objects\n#ID\torigin | p0\t\t\t\taxis | p1\t\t\t\tdiameter | p2");
+	p(fd, "\t\theight\tt\tbt\tp\tb\talbedo (%%)\t");
 	p(fd, "specular_size (1-10)\tspec_weight (%%)\trefl\trefr\ttransp\tcolor\n");
 	print_objects(s->objects, s, fd);
 }

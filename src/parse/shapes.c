@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/14 23:01:40 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 00:11:25 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,7 @@ void	init_triangle(char **param, t_scene *scene)
 	new_tr->p[0] = set_xyz(param[1], scene);
 	new_tr->p[1] = set_xyz(param[2], scene);
 	new_tr->p[2] = set_xyz(param[3], scene);
+	new_tr->rotate_matrix = m44_init();
 	triangle_vectors(new_tr);
 	set_surface_properties(&param[4], new_tr, i - BONUS_SPECS, scene);
 	ft_lstadd_back(&scene->objects, new_node);

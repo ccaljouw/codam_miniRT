@@ -4,7 +4,7 @@
 
 
 #resolution
-#	width	height
+#	width	height	anti-alias [0-5]
 R	800		600
 
 #ambient
@@ -19,4 +19,4 @@ A	0.6							255,255,255
 C	0.000,0.000,-14.000		0.000,0.000,1.000			65
 
 #objects
-#ID	origin					axis				diameter	height	t	bt	p	b	albedo (%)	specular_size (1-10)	spec_weight (%)	refl	color
+#ID	origin					axis				diameter	height	t	bt	p	b	albedo (%)	specular_size (1-10)	spec_weight (%)	refl	refr	transp	color

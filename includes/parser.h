@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:24 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/13 16:34:56 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 00:15:34 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void			init_plane(char **param, t_scene *scene);
 void			init_cyl(char **param, t_scene *scene);
 void			init_cone(char **param, t_scene *scene);
 void			init_triangle(char **param, t_scene *scene);
+void			triangle_vectors(t_object *tr);
 void			init_resolution(char **param, t_scene *scene);
 // void			calculate_angles(t_scene *scene);
 
