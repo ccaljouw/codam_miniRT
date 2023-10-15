@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/08 23:24:44 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/13 16:35:30 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/15 22:53:52 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	diffuse(t_light *light, t_px *px, t_px *shadow_ray, float light_radius)
 	px->diffuse = v_add(px->diffuse, ratio);
 }
 
-static t_xyz	reflect_ray(t_xyz normal, t_xyz angle)
+t_xyz	reflect_ray(t_xyz normal, t_xyz angle)
 {
 	return (v_subtract(angle, \
 			v_multiply(v_multiply(normal, v_dot(normal, angle)), 2)));
@@ -44,3 +44,19 @@ void	specular(t_light *light, t_px *shadow_ray, t_px *px)
 	px->specular = v_add(px->specular, ratio);
 }
 
+t_xyz	refract_ray(t_px *px, t_xyz normal)
+{
+	t_xyz	direction;
+	float	refr;
+	float	dot;
+	float	root;
+	
+	refr = 1 / px->hitobject->refr;
+	dot = v_dot(px->direction, normal);
+	root = sqrt(1 - refr * refr * (1 - dot * dot));
+	direction = v_multiply(normal, refr * dot - root);
+	direction = v_add(direction, \
+									v_multiply(px->direction, refr));
+	direction = v_normalize(direction);
+	return (direction);
+}
