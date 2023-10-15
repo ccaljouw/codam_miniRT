@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/15 18:02:05 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 18:16:40 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,12 +181,9 @@ void	triangle_vectors(t_object *tr)
 	tr->edge[0] = v_subtract(tr->p[1], tr->p[0]);
 	tr->edge[1] = v_subtract(tr->p[2], tr->p[1]);
 	tr->edge[2] = v_subtract(tr->p[0], tr->p[2]);
-		min_max_values(min_max, tr);
+	min_max_values(min_max, tr);
 	tr->plane_y = min_max[3] - min_max[2];
 	tr->plane_x = min_max[1] - min_max[0];
-	// print_vector(p1p2);
-	// print_vector(p1p3);
-	// print_vector(tr->v_normal);
 }
 
 void	init_triangle(char **param, t_scene *scene)

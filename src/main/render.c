@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/14 23:28:35 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 20:06:17 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void	trace_ray(t_px *px, t_scene *s)
 		{
 			if (!px->hitobject || px->hit_distance > hp[0])
 			{
-				// ft_printf("object: ")
 				px->hitobject = object;
 				px->hit_distance = hp[0];
 				px->hit_height = hp[1];
@@ -122,7 +121,8 @@ int	get_pixel_data(t_px	*px, t_scene *scene)
 	{get_sphere_surface_data, get_plane_surface_data, \
 	get_cylinder_surface_data, get_cone_surface_data, \
 	get_triangle_surface_data};
-
+	if (px->transp_count == REFL_DEPT)
+		return (255);
 	if ((px)->hitobject != NULL)
 	{
 		// ft_printf("object %i\n", px->hitobject->id);
