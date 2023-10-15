@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/13 16:05:26 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 11:58:21 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	draw_image(t_scene *scene)
 			y++;
 		}
 	}
+	ft_printf("done\n");
 }
 
 /**

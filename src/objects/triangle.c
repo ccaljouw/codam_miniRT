@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 14:42:48 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/15 10:18:32 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 16:31:57 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ int	get_triangle_surface_data(t_object *tr, t_px *px)
 
 	// ft_printf("triangle surface %f\n", px->hit_distance);
 	// print_vector(tr->v_normal);
+	/**plane way*/
 	px->hitpoint = \
 			v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
+
+
 	px->facing_ratio = v_dot(tr->v_normal, px->direction);
 	if (px->facing_ratio > 0)
 		px->surface_normal = v_multiply(tr->v_normal, -1);
@@ -29,20 +32,21 @@ int	get_triangle_surface_data(t_object *tr, t_px *px)
 		px->surface_normal = tr->v_normal;
 		px->facing_ratio *= -1;
 	}
+/** end plane way */
 	// px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, SHADOW_BIAS));
 	// px->surface_normal = tr->v_normal;
 	
 	// if (v_dot(px->surface_normal, px->direction) < 0)
 	// {
-	// 	px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, SHADOW_BIAS));
+	// 	// px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, SHADOW_BIAS));
 	// 	// px->surface_normal = v_multiply(px->surface_normal, -1);
 	// }
 	// else
 	// {
-	// 	px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, -SHADOW_BIAS));
+	// 	// px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, -SHADOW_BIAS));
 	// // v_normalizep(&px->surface_normal);
-	// // px->surface_normal = v_multiply(px->surface_normal, -1);
-	// // px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, -SHADOW_BIAS));
+	// px->surface_normal = v_multiply(px->surface_normal, -1);
+	// px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, -SHADOW_BIAS));
 	// }
 	
 	// px->facing_ratio = v_dot(px->surface_normal, px->direction);
