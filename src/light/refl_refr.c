@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:14:06 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/15 16:32:28 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 17:16:33 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		blend_color(int c1, int c2, float fact_c1)
 	return ((int)r << 24 | (int)g << 16 | (int)b << 8 | 255);
 }
 
-t_px	*refraction_ray(t_px *px, t_scene *scene)
+t_px	*refraction_ray(t_px *px, t_scene *scene, t_xyz hp, t_xyz normal)
 {
 	t_px	*refr_ray;
 	float	refr;
@@ -43,21 +43,10 @@ t_px	*refraction_ray(t_px *px, t_scene *scene)
 		exit_error(ERROR_MEM, NULL, scene);
 	refr_ray->transp_count = px->transp_count + 1;
 	refr = 1 / px->hitobject->refr;
-	dot = v_dot(px->direction, px->surface_normal);
-	// ft_printf("dot: %f, mag: %f\n", dot, v_magnitude(px->surface_normal));
-	// print_vector(px->surface_normal);
-	if (dot < 0)
-	{
-		refr_ray->surface_normal = v_multiply(px->surface_normal, -1);
-		// ft_printf("flipping\n");
-	}
+	dot = v_dot(px->direction, normal);
 	root = sqrt(1 - refr * refr * (1 - dot * dot));
-	if (((t_object *)px->hitobject)->id == PL ||((t_object *)px->hitobject)->id == TR)
-		refr_ray->cam_origin = v_add(px->hitpoint, v_multiply(px->surface_normal, -SHADOW_BIAS));
-	else
-		refr_ray->cam_origin =v_multiply(px->hitpoint, 0.01);
-	
-	refr_ray->direction = v_multiply(px->surface_normal, refr * dot - root);
+	refr_ray->cam_origin = v_add(hp, v_multiply(px->direction, SHADOW_BIAS));
+	refr_ray->direction = v_multiply(normal, refr * dot - root);
 	refr_ray->direction = v_add(refr_ray->direction , \
 									v_multiply(px->direction, refr));
 	refr_ray->direction = v_normalize(refr_ray->direction );
@@ -91,14 +80,25 @@ t_px	*refraction(t_px *px, t_scene *scene)
 	t_px	*refr_ray;
 	// float dot;
 
-	refr_ray = refraction_ray(px, scene);
-	px->refl_count = px->refl_count + 1;
-
+	refr_ray = refraction_ray(px, scene, px->hitpoint, px->surface_normal);
+	px->transp_count = px->transp_count + 1;
 	trace_ray(refr_ray, scene);
-	
+
 	if (refr_ray->hitobject == px->hitobject)
-		refr_ray->color = 255;
-	else if (refr_ray->hitobject)
+	{
+		free(refr_ray);
+		refr_ray = refraction_ray(px, scene, v_multiply(px->hitpoint, 0.01), px->surface_normal);
+		trace_ray(refr_ray, scene);
+	}
+	if (refr_ray->hitobject == px->hitobject)
+	{
+		free(refr_ray);
+		refr_ray = refraction_ray(px, scene, px->hitpoint, v_multiply(px->surface_normal, -1));
+		trace_ray(refr_ray, scene);
+	}
+	else if (refr_ray->hitobject == px->hitobject)
+		refr_ray->color = px->color;
+	else
 		get_pixel_data(refr_ray, scene);
 	return (refr_ray);
 }

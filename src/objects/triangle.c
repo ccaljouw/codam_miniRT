@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 14:42:48 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/15 16:31:57 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 17:19:30 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 
 int	get_triangle_surface_data(t_object *tr, t_px *px)
 {
-	(void)tr;
-	(void)px;
-
-	// ft_printf("triangle surface %f\n", px->hit_distance);
-	// print_vector(tr->v_normal);
-	/**plane way*/
 	px->hitpoint = \
 			v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
 
@@ -32,42 +26,54 @@ int	get_triangle_surface_data(t_object *tr, t_px *px)
 		px->surface_normal = tr->v_normal;
 		px->facing_ratio *= -1;
 	}
-/** end plane way */
-	// px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, SHADOW_BIAS));
-	// px->surface_normal = tr->v_normal;
-	
-	// if (v_dot(px->surface_normal, px->direction) < 0)
-	// {
-	// 	// px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, SHADOW_BIAS));
-	// 	// px->surface_normal = v_multiply(px->surface_normal, -1);
-	// }
-	// else
-	// {
-	// 	// px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, -SHADOW_BIAS));
-	// // v_normalizep(&px->surface_normal);
-	// px->surface_normal = v_multiply(px->surface_normal, -1);
-	// px->hitpoint = v_add(px->hitpoint, v_multiply(px->surface_normal, -SHADOW_BIAS));
-	// }
-	
-	// px->facing_ratio = v_dot(px->surface_normal, px->direction);
-	// if (px->facing_ratio < 0)
-	// 	px->facing_ratio *= -1;
-	// px->surface_normal = v_multiply(px->surface_normal, -1);
-	// return (0);
-
 	return (1);
 }
 
 t_xyz	get_uvcoord_tr(t_object *tr, t_px *px, t_scene *scene)
 {
-	(void)tr;
-	(void)px;
+	t_xyz	uv;
+	t_xyz	x_plane;
+	t_xyz	y_plane;
+
 	(void)scene;
-	return (v_create(0, 0, 0));
+	x_plane = v_normalize(v_cross(tr->v_normal, v_create(0, 1, 0)));
+	if (x_plane.x == 0 && x_plane.y == 0 && x_plane.z == 0)
+		x_plane = v_normalize(v_cross(tr->v_normal, v_create(1, 0, 0)));
+	y_plane = v_normalize(v_cross(x_plane, tr->v_normal));
+	uv.x = fmod(v_dot(px->hitpoint, x_plane), tr->plane_x);
+	uv.y = fmod(v_dot(px->hitpoint, y_plane), tr->plane_y);
+	uv.x = 1 - ((uv.x + tr->plane_x) / (tr->plane_x * 2));
+	uv.y = 1 - ((uv.y + tr->plane_y) / (tr->plane_y * 2));
+	uv.z = 0;
+	return (uv);
+}
+
+int	p_is_outside(t_xyz p1, t_xyz p2, t_xyz	p3, t_xyz p)
+{
+	t_xyz	v1;
+	t_xyz	v2;
+	t_xyz	vp;
+	t_xyz	a;
+	t_xyz	b;
+	
+	v1 = v_subtract(p2, p1);
+	v2 = v_subtract(p3, p1);
+	vp = v_subtract(p, p1);
+	a = v_cross(v1, v2);
+	b = v_cross(v1, vp);
+	if ((v_dot(v_normalize(a), b)) < 0)
+		return (1);
+	return (0);
 }
 
 int	check_inside_triangle(t_object *tr, t_xyz p)
 {
+	// if (p_is_outside(tr->p[0], tr->p[1], tr->p[2], p))
+	// 	return (0);
+	// if (p_is_outside(tr->p[1], tr->p[2], tr->p[0], p))
+	// 	return (0);
+	// if (p_is_outside(tr->p[2], tr->p[0], tr->p[1], p))
+	// 	return (0);
 	t_xyz	cur;
 	int		i;
 
