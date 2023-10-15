@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/15 11:39:22 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 00:31:36 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,15 +158,13 @@ void	adjust_position(t_xyz *pos, mlx_key_data_t keydata)
 void	translate_triangle(t_scene *s, mlx_key_data_t k)
 {
 	t_xyz	pos;
-	t_m44	translate;
 	int		i;
 
+	pos = v_create(0, 0, 0);
 	adjust_position(&pos, k);
-	translate = m44_init();
-	m44_translate_by_vector(&translate, pos);
 	i = -1;
 	while (++i < 3)
-		m44_multiply_vec3(translate, s->selected->p[i], &s->selected->p[i]);
+		s->selected->p[i] = v_add(s->selected->p[i], pos);
 }
 
 void	move(mlx_key_data_t keydata, t_scene *scene)
