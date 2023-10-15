@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/15 10:33:42 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/15 11:39:22 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,24 @@ void	adjust_diameter_height(mlx_key_data_t keydata, t_object *obj)
 void	scale_triangle(t_object *tr, mlx_key_data_t k)
 {
 	t_m44	scale;
+	t_m44	trm;
+	t_m44	tr_i;
 	int		i;
 
+	trm = m44_init();
+	m44_translate_by_vector(&trm, v_subtract(v_create(0, 0, 0), tr->p[0]));
+	m44_invert(trm, &tr_i);
 	scale = m44_init();
 	if (k.key == ZOOM_IN)
 		m44_scale(&scale, 1.1, 1.1, 1.1);
 	if (k.key == ZOOM_OUT)
-		m44_scale(&scale, 0.9, 0.9, 0.9);
+		m44_scale(&scale, 0.9, 0.9, 1.1);
 	i = -1;
 	while (++i < 3)
 	{
+		m44_multiply_vec3(trm, tr->p[i], &tr->p[i]);
 		m44_multiply_vec3(scale, tr->p[i], &tr->p[i]);
+		m44_multiply_vec3(tr_i, tr->p[i], &tr->p[i]);
 	}
 }
 
