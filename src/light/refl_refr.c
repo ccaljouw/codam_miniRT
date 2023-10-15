@@ -6,7 +6,7 @@
 /*   By: cariencaljouw <cariencaljouw@student.co      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/14 16:14:06 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/15 14:57:27 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/15 16:28:04 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_px	*refraction_ray(t_px *px, t_scene *scene, t_xyz hp, t_xyz normal)
 	refr = 1 / px->hitobject->refr;
 	dot = v_dot(px->direction, normal);
 	root = sqrt(1 - refr * refr * (1 - dot * dot));
-	refr_ray->cam_origin = hp;
+	refr_ray->cam_origin = v_add(hp, v_multiply(px->direction, SHADOW_BIAS));
 	refr_ray->direction = v_multiply(normal, refr * dot - root);
 	refr_ray->direction = v_add(refr_ray->direction , \
 									v_multiply(px->direction, refr));
@@ -84,21 +84,19 @@ t_px	*refraction(t_px *px, t_scene *scene)
 	trace_ray(refr_ray, scene);
 	if (refr_ray->hitobject == px->hitobject)
 	{
-		ft_printf("first self hit\n");
 		free(refr_ray);
 		refr_ray = refraction_ray(px, scene, v_multiply(px->hitpoint, 0.01), px->surface_normal);
 		trace_ray(refr_ray, scene);
 	}
 	if (refr_ray->hitobject == px->hitobject)
 	{
-		ft_printf("second self hit\n");
 		free(refr_ray);
 		refr_ray = refraction_ray(px, scene, px->hitpoint, v_multiply(px->surface_normal, -1));
 		trace_ray(refr_ray, scene);
 	}
-	if (refr_ray->hitobject == px->hitobject)
+	else if (refr_ray->hitobject == px->hitobject)
 		refr_ray->color = px->color;
-	else if (refr_ray->hitobject &&  px->transp_count < REFL_DEPT * 2)
+	else
 		get_pixel_data(refr_ray, scene);
 	return (refr_ray);
 }

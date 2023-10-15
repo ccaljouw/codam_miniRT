@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 14:42:48 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/15 14:45:09 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/15 15:40:56 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	p_is_outside(t_xyz p1, t_xyz p2, t_xyz	p3, t_xyz p)
 	vp = v_subtract(p, p1);
 	a = v_cross(v1, v2);
 	b = v_cross(v1, vp);
-	if ((v_dot(a, b) / (v_magnitude(a) * v_magnitude(b))) < 0)
+	if ((v_dot(v_normalize(a), b)) < 0)
 		return (1);
 	return (0);
 }
