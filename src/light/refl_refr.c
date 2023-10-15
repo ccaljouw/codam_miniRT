@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/14 16:14:06 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/15 23:29:23 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/15 23:46:03 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,9 @@ int	blend_color(int c1, int c2, float fact_c1)
 	return ((int)r << 24 | (int)g << 16 | (int)b << 8 | 255);
 }
 
-t_px	*get_refr_ray(t_px *px, t_scene *scene, t_xyz hp, t_xyz normal)
-{
-	t_px	*rfr_ray;
-
-	rfr_ray = ft_calloc(1, sizeof(t_px));
-	if (!rfr_ray)
-		exit_error(ERROR_MEM, NULL, scene);
-	rfr_ray->transp_count = px->transp_count + 1;
-	rfr_ray->refl_count = px->refl_count;
-	rfr_ray->cam_origin = v_add(hp, v_multiply(px->direction, SHADOW_BIAS));
-	rfr_ray->direction = refract_ray(px, normal);
-	return (rfr_ray);
-}
-
 t_px	*reflection(t_px *px, t_scene *scene)
 {
-	// float	dot;
 	t_px	*refl_ray;
-
 
 	refl_ray = ft_calloc(1, sizeof(t_px));
 	if (!refl_ray)
@@ -71,25 +55,21 @@ t_px	*refraction(t_px *px, t_scene *scene)
 {
 	t_px	*rfr_ray;
 
-	rfr_ray = get_refr_ray(px, scene, px->hitpoint, px->surface_normal);
+	rfr_ray = ft_calloc(1, sizeof(t_px));
+	if (!rfr_ray)
+		exit_error(ERROR_MEM, NULL, scene);
+	rfr_ray->transp_count = px->transp_count + 1;
+	rfr_ray->refl_count = px->refl_count;
+	rfr_ray->cam_origin = v_add(px->hitpoint, \
+				v_multiply(px->direction, SHADOW_BIAS));
+	rfr_ray->direction = refract_ray(px, px->surface_normal);
 	trace_ray(rfr_ray, scene);
 	if (rfr_ray->hitobject == px->hitobject)
 	{
-		// free(rfr_ray);
-		// rfr_ray = get_refr_ray(px, scene, \
-		// 		v_multiply(px->hitpoint, 0.01), px->surface_normal);
 		rfr_ray->cam_origin = v_add(v_multiply(px->hitpoint, 0.01), \
 				v_multiply(px->direction, SHADOW_BIAS));
 		trace_ray(rfr_ray, scene);
 	}
-	// else if (rfr_ray->hitobject == px->hitobject)
-	// {
-	// 	rfr_ray->direction = refract_ray(px, \
-	// 			v_multiply(px->surface_normal, -1));
-	// 	trace_ray(rfr_ray, scene);
-	// }
-	// else if (rfr_ray->hitobject == px->hitobject)
-	// 	rfr_ray->color = px->color;
 	if (rfr_ray->hitobject)
 		get_pixel_data(rfr_ray, scene);
 	else
