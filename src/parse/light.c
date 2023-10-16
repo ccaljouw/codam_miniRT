@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:55:32 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/14 23:10:32 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 16:21:18 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ static void	set_light_params(t_light *nw_lite, t_scene *s, char **param)
 {
 	nw_lite->origin = set_xyz(param[1], s);
 	nw_lite->brightness = to_float(param[2], s);
-	// if (nw_lite->brightness < 0.0 || nw_lite->brightness > 1.0)
-	// 	exit_error(ERROR_LIGHT, "Incorrect brightness values [0.0, 1.0]", s);
 	nw_lite->rgb_ratios = v_create(nw_lite->rgb[0] / (float)255, \
 		nw_lite->rgb[1] / (float)255, nw_lite->rgb[2] / (float)255);
 	nw_lite->rgb_ratios = v_multiply(nw_lite->rgb_ratios, nw_lite->brightness);

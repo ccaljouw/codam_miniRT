@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:03:04 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/15 01:02:53 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 16:16:37 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,26 +96,4 @@ void	print_triangle(t_object *tr, t_scene *s, int fd)
 	p_v(tr->p[2], fd);
 	ft_dprintf(fd, "\t");
 	print_texture_settings(s, tr, fd);
-}
-
-/**
- * @brief Loop through the [objects] list and print it to [fd]
- * 
- * @param objects 
- * @param s 
- * @param fd 
- */
-void	print_objects(t_list *objects, t_scene *s, int fd)
-{
-	static t_print_object	*print_object[5] = {print_sphere, print_plane, \
-										print_cylco, print_cylco, \
-										print_triangle};
-	t_object				*obj;
-
-	while (objects)
-	{
-		obj = (t_object *)objects->content;
-		print_object[obj->id](obj, s, fd);
-		objects = objects->next;
-	}
 }

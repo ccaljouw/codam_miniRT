@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 00:18:31 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 13:51:09 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 16:25:41 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,32 @@ static t_xyz	get_new_object_origin(t_scene *s, int distance)
 	return (v_add(s->camera->origin, offset));
 }
 
-void	set_triangle_points(t_object *tr)
+void	set_obj_params(t_object *obj, t_scene *scene)
 {
 	int	i;
 
-	i = -1;
-	while (++i < 3)
-		tr->p[i] = tr->p_origin;
-	tr->p[1].y += 1;
-	tr->p[2].x += 1;
-	triangle_vectors(tr);
+	if (obj->id == TR)
+	{
+		i = -1;
+		while (++i < 3)
+			obj->p[i] = obj->p_origin;
+		obj->p[1].y += 1;
+		obj->p[2].x += 1;
+		triangle_vectors(obj);
+	}
+	else
+		obj->v_normal = v_create(0, 1, 0);
+	if (obj->id == PL)
+		obj->p_origin.y -= 2;
+	obj->height = 2;
+	obj->albedo = ALBEDO;
+	obj->rgb[0] = 255;
+	obj->rgb[1] = 255;
+	obj->rgb[2] = 255;
+	obj->rotate_matrix = m44_init();
+	obj->refr = 1;
+	obj->plane_y = scene->file_height * 0.05;
+	obj->plane_x = scene->file_width * 0.05;
 }
 
 /**
@@ -94,19 +110,7 @@ void	add_object(t_scene *scene, int id)
 	new_object->id = id;
 	new_object->diameter = 1;
 	new_object->p_origin = get_new_object_origin(scene, NEW_OBJECT_DIST);
-	if (id == TR)
-		set_triangle_points(new_object);
-	else
-		new_object->v_normal = v_create(0, 1, 0);
-	if (id == PL)
-		new_object->p_origin.y -= 2;
-	new_object->height = 2;
-	new_object->albedo = ALBEDO;
-	new_object->rgb[0] = 255;
-	new_object->rgb[1] = 255;
-	new_object->rgb[2] = 255;
-	new_object->rotate_matrix = m44_init();
-	new_object->refr = 1;
+	set_obj_params(new_object, scene);
 	ft_lstadd_back(&scene->objects, new_node);
 	scene->selected = new_object;
 	render_image(scene);
