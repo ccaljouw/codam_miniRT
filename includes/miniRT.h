@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/15 22:54:03 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/16 13:34:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ void		diffuse(t_light *light, \
 void		light_transport(t_px *px, t_scene *scene);
 t_xyz		reflect_ray(t_xyz normal, t_xyz angle);
 t_xyz		refract_ray(t_px *px, t_xyz normal);
+int			blend_color(int c1, int c2, float fact_c1);
 
 
 #endif
