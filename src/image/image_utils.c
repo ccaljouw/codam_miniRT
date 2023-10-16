@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/16 14:06:29 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 14:37:26 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	draw_image(t_scene *scene)
 			y++;
 		}
 	}
-	// ft_printf("done\n");
 }
 
 /**
@@ -104,6 +103,10 @@ int	get_color(t_px *px, t_scene *scene)
 	color = rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255;
 	if (px->hitobject && scene->selected == px->hitobject)
 		color = invert_color(color);
+	if (px->rfr_color)
+		color = blend_color(px->rfr_color, color, px->hitobject->transp);
+	if (px->refl_color)
+		color = blend_color(px->refl_color, color, px->hitobject->refl);
 	return (color);
 }
 

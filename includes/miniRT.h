@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   miniRT.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/15 22:54:03 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/16 14:19:29 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		get_ray(t_px *px, int x, int y, t_scene *s);
 void		trace_ray(t_px *px, t_scene *s);
 int			get_pixel_data(t_px	*px, t_scene *scene);
 void		render_image(t_scene *scene);
-void		*routine(void *params);
+void		*render_routine(void *params);
 
 // objects/sphere.c
 int			test_sphere(t_px *ray, t_object *sphere, float *hp_info);
@@ -160,6 +160,7 @@ void		diffuse(t_light *light, \
 void		light_transport(t_px *px, t_scene *scene);
 t_xyz		reflect_ray(t_xyz normal, t_xyz angle);
 t_xyz		refract_ray(t_px *px, t_xyz normal);
+int			blend_color(int c1, int c2, float fact_c1);
 
 
 #endif

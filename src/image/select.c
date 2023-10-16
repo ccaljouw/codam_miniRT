@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:15:09 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/13 16:23:53 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 14:26:17 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *p)
 	int			y;
 
 	(void)mod;
+	if (!BONUS)
+		return ;
 	scene = (t_scene *)p;
 	if (b == MLX_MOUSE_BUTTON_LEFT && a == MLX_PRESS)
 	{

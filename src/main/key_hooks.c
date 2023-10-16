@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:13:35 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 14:05:33 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 14:27:28 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	change_texture(t_scene *s)
 void	change_aa(t_scene *s)
 {
 	if (s->aa == 1)
-		s->aa = 4;
+		s->aa = 2;
 	else
 		s->aa += 2;
 	if (s->aa > MAX_AA * 2)
@@ -156,6 +156,8 @@ void	key_input(mlx_key_data_t k, void *param)
 	{
 		if (k.key == MLX_KEY_ESCAPE)
 			exit_error(SUCCESS, NULL, scene);
+		if (!BONUS)
+			return ;
 		if (k.key == ZOOM_IN || k.key == ZOOM_OUT)
 			zoom(k, scene);
 		if (k.key == ROT_X_N || k.key == ROT_X_P \
