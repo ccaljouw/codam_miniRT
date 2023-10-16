@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/16 14:19:29 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 16:47:52 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,18 @@ void		do_resize(void *param);
 void		select_object( \
 			mouse_key_t b, action_t a, modifier_key_t mod, void *param);
 
-// image_mainpulation.c
-void		zoom(mlx_key_data_t keydata, t_scene *scene);
+// image_manipulation.c
+void		scale(mlx_key_data_t keydata, t_scene *scene);
 void		rotate(mlx_key_data_t keydata, t_scene *scene);
 void		adjust_ambient(t_scene *scene, mlx_key_data_t key_data);
 void		move(mlx_key_data_t keydata, t_scene *scene);
+
+// param_adjustments.c
+void		adjust_reflections(t_scene *s, mlx_key_data_t k);
+void		adjust_transparancy(t_scene *s, mlx_key_data_t k);
+void		change_texture(t_scene *s);
+void		change_aa(t_scene *s);
+void		change_bump(t_scene *scene, mlx_key_data_t k);
 
 // image_utils.c
 void		image_to_window(t_scene *scene);
@@ -146,7 +153,6 @@ void		add_light(t_scene *scene);
 void		adjust_light_brightness(mlx_key_data_t keydata, t_light *light);
 void		adjust_ambient(t_scene *scene, mlx_key_data_t key_data);
 
-
 // shadow_ray.c
 float		get_shadow_ray(t_px *shadow_ray, t_light *light, t_px *px);
 int			trace_shadow(t_px *px, t_scene *s);
@@ -156,11 +162,10 @@ void		specular(t_light *light, t_px *shadow_ray, t_px *px);
 void		diffuse(t_light *light, \
 					t_px *px, t_px *shadow_ray, float light_radius);
 
-// light_transport.c
+// refl_refr.c
 void		light_transport(t_px *px, t_scene *scene);
 t_xyz		reflect_ray(t_xyz normal, t_xyz angle);
 t_xyz		refract_ray(t_px *px, t_xyz normal);
 int			blend_color(int c1, int c2, float fact_c1);
-
 
 #endif

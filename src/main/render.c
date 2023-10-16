@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/16 14:48:33 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 14:58:05 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	*render_routine(void *params)
 		}
 		if (!(y % block->rows_per_bar_item))
 			ft_dprintf(2, "\033[32;1m▮\033[0m");
-			// ft_dprintf(2, "\e[42;1m \e[0m");
 		y++;
 	}
 	return (NULL);

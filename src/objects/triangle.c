@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 14:42:48 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/15 23:00:07 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 16:21:30 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	get_triangle_surface_data(t_object *tr, t_px *px)
 {
 	px->hitpoint = \
 			v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
-
-
 	px->facing_ratio = v_dot(tr->v_normal, px->direction);
 	if (px->facing_ratio > 0)
 		px->surface_normal = v_multiply(tr->v_normal, -1);

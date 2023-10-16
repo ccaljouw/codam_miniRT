@@ -6,95 +6,11 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:13:35 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 14:27:28 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 16:47:29 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-void	adjust_reflections(t_scene *s, mlx_key_data_t k)
-{
-	if (k.key == MLX_KEY_R)
-	{
-		if (!k.modifier)
-		{
-			(s->max_reflect)++;
-			if (s->max_reflect > MAX_REFLECT)
-				s->max_reflect = 0;
-			ft_printf("# of reflections: %i\n", s->max_reflect);
-			render_image(s);
-		}
-		else if (k.modifier == MLX_SHIFT && s->selected)
-		{
-			if ((((t_object *)s->selected)->refl) == 1)
-				(((t_object *)s->selected)->refl) = 0;
-			else
-			{
-				(((t_object *)s->selected)->refl) += .1;
-				if ((((t_object *)s->selected)->refl) > 1)
-					(((t_object *)s->selected)->refl) = 1;
-			}
-			ft_printf("new refl: %f\n", (((t_object *)s->selected)->refl));
-			render_image(s);
-		}
-
-	}
-}
-
-void	adjust_transparancy(t_scene *s, mlx_key_data_t k)
-{
-
-	if (s->selected)
-	{
-		if (!k.modifier)
-			((t_object *)s->selected)->transp += .1;
-		if (k.modifier == MLX_SHIFT)
-			((t_object *)s->selected)->transp -= .1;
-		if (((t_object *)s->selected)->transp > 1)
-			((t_object *)s->selected)->transp = 1;
-		if (((t_object *)s->selected)->transp < 0)
-			((t_object *)s->selected)->transp = 0;
-		ft_printf("new trans %f\n", ((t_object *)s->selected)->transp);
-	}
-	else
-		return ;
-	render_image(s);
-}
-
-void	change_texture(t_scene *s)
-{
-	t_object	*obj;
-	int			current_text;
-
-	if (s->selected)
-	{
-		obj = s->selected;
-		current_text = get_texture_id(s, obj->text);
-		if (current_text >= NR_TEXTURES)
-			current_text = 0;
-		obj->text = s->textures[current_text];
-		ft_printf("new texture %i\n", current_text);
-		render_image(s);
-	}
-}
-
-void	change_aa(t_scene *s)
-{
-	if (s->aa == 1)
-		s->aa = 2;
-	else
-		s->aa += 2;
-	if (s->aa > MAX_AA * 2)
-		s->aa = 1;
-	ft_printf("anti alias level: %i\n", (int)(floor(s->aa / 2)));
-	// s->p_height = s->file_height + (s->aa - 1) * s->file_height;
-	// s->p_width = s->file_width + (s->aa - 1) * s->file_width;
-	s->n_height = s->file_height;
-	s->n_width = s->file_width;
-	s->must_resize = true;
-	do_resize(s);
-	// render_image(s);
-}
 
 /**
  * @brief More key hooks:
@@ -130,6 +46,8 @@ void	key_input2(mlx_key_data_t k, t_scene *scene)
 		change_texture(scene);
 	if (k.key == MLX_KEY_A && k.modifier == MLX_SHIFT)
 		change_aa(scene);
+	if (k.key == MLX_KEY_B)
+		change_bump(scene, k);
 }
 
 /**
@@ -159,7 +77,7 @@ void	key_input(mlx_key_data_t k, void *param)
 		if (!BONUS)
 			return ;
 		if (k.key == ZOOM_IN || k.key == ZOOM_OUT)
-			zoom(k, scene);
+			scale(k, scene);
 		if (k.key == ROT_X_N || k.key == ROT_X_P \
 			|| k.key == ROT_Y_N || k.key == ROT_Y_P \
 			|| k.key == ROT_Z_N || k.key == ROT_Z_P)

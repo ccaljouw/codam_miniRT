@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:14:06 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/16 14:23:07 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 16:14:26 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int	blend_color(int c1, int c2, float fact_c1)
 		return (c2);
 	r = ((c1 >> 24) & 0xFF) * fact_c1;
 	g = ((c1 >> 16) & 0xFF) * fact_c1;
-	b = ((c1 >> 8) & 0xFF)  * fact_c1;
+	b = ((c1 >> 8) & 0xFF) * fact_c1;
 	r += ((c2 >> 24) & 0xFF) * (1 - fact_c1);
 	g += ((c2 >> 16) & 0xFF) * (1 - fact_c1);
-	b += ((c2 >> 8) & 0xFF)  * (1 - fact_c1);
+	b += ((c2 >> 8) & 0xFF) * (1 - fact_c1);
 	return ((int)r << 24 | (int)g << 16 | (int)b << 8 | 255);
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   light_types.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/08 23:24:44 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/15 22:53:52 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   light_types.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/08 23:24:44 by albertvanan       #+#    #+#             */
+/*   Updated: 2023/10/16 16:14:37 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_xyz	refract_ray(t_px *px, t_xyz normal)
 	float	refr;
 	float	dot;
 	float	root;
-	
+
 	refr = 1 / px->hitobject->refr;
 	dot = v_dot(px->direction, normal);
 	root = sqrt(1 - refr * refr * (1 - dot * dot));
