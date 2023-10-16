@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 20:37:16 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/15 23:24:20 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 14:30:01 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@
 
 # define NEW_LIGHT_DIST		10
 # define NEW_OBJECT_DIST	5
+
+# define PROGRESS_BAR_LEN	50
 
 # define BONUS_SPECS		10
 # ifndef BONUS

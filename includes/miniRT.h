@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   miniRT.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/16 13:34:01 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/16 14:19:29 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		get_ray(t_px *px, int x, int y, t_scene *s);
 void		trace_ray(t_px *px, t_scene *s);
 int			get_pixel_data(t_px	*px, t_scene *scene);
 void		render_image(t_scene *scene);
-void		*routine(void *params);
+void		*render_routine(void *params);
 
 // objects/sphere.c
 int			test_sphere(t_px *ray, t_object *sphere, float *hp_info);

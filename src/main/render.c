@@ -6,13 +6,13 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/15 23:59:36 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 14:48:33 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-void	*routine(void *params)
+void	*render_routine(void *params)
 {
 	int		x;
 	int		y;
@@ -34,6 +34,9 @@ void	*routine(void *params)
 			get_pixel_data(scene->pixels[y] + x, scene);
 			x++;
 		}
+		if (!(y % block->rows_per_bar_item))
+			ft_dprintf(2, "\033[32;1m▮\033[0m");
+			// ft_dprintf(2, "\e[42;1m \e[0m");
 		y++;
 	}
 	return (NULL);
@@ -145,6 +148,7 @@ void	render_image(t_scene *scene)
 {
 	t_block		block;
 
+	ft_dprintf(2, "\033[32;1m\nRendering\033[0m\t[");
 	if (BONUS)
 		render_threads(scene);
 	else
@@ -152,7 +156,9 @@ void	render_image(t_scene *scene)
 		block.scene = scene;
 		block.y = 0;
 		block.y_max = scene->p_height;
-		routine(&block);
+		block.rows_per_bar_item = scene->p_height / PROGRESS_BAR_LEN;
+		render_routine(&block);
 	}
 	draw_image(scene);
+	ft_dprintf(2, "]\n");
 }
