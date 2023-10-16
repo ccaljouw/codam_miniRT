@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/16 00:31:36 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 13:53:05 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,9 +172,7 @@ void	move(mlx_key_data_t keydata, t_scene *scene)
 	t_xyz	*pos;
 
 	if (scene->selected && scene->selected->id == TR)
-	{
 		translate_triangle(scene, keydata);
-	}
 	else
 	{
 		if (scene->selected && scene->selected->id != TR)

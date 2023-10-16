@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:13:35 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/15 23:57:05 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 14:05:33 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,24 @@ void	change_texture(t_scene *s)
 	}
 }
 
+void	change_aa(t_scene *s)
+{
+	if (s->aa == 1)
+		s->aa = 4;
+	else
+		s->aa += 2;
+	if (s->aa > MAX_AA * 2)
+		s->aa = 1;
+	ft_printf("anti alias level: %i\n", (int)(floor(s->aa / 2)));
+	// s->p_height = s->file_height + (s->aa - 1) * s->file_height;
+	// s->p_width = s->file_width + (s->aa - 1) * s->file_width;
+	s->n_height = s->file_height;
+	s->n_width = s->file_width;
+	s->must_resize = true;
+	do_resize(s);
+	// render_image(s);
+}
+
 /**
  * @brief More key hooks:
  * 	L:			select light (in loop)
@@ -110,6 +128,8 @@ void	key_input2(mlx_key_data_t k, t_scene *scene)
 		adjust_transparancy(scene, k);
 	if (k.key == MLX_KEY_Y)
 		change_texture(scene);
+	if (k.key == MLX_KEY_A && k.modifier == MLX_SHIFT)
+		change_aa(scene);
 }
 
 /**
@@ -142,9 +162,10 @@ void	key_input(mlx_key_data_t k, void *param)
 			|| k.key == ROT_Y_N || k.key == ROT_Y_P \
 			|| k.key == ROT_Z_N || k.key == ROT_Z_P)
 			rotate(k, scene);
-		if (k.key == MOVE_UP || k.key == MOVE_DOWN \
+		if ((k.key == MOVE_UP || k.key == MOVE_DOWN \
 			|| k.key == MOVE_LEFT || k.key == MOVE_RIGHT \
 			|| k.key == MOVE_FRONT || k.key == MOVE_BACK)
+			&& !k.modifier)
 			move(k, scene);
 		key_input2(k, scene);
 	}

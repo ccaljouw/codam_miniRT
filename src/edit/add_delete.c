@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 00:18:31 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 13:40:46 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 13:51:09 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	add_object(t_scene *scene, int id)
 	new_object->rgb[1] = 255;
 	new_object->rgb[2] = 255;
 	new_object->rotate_matrix = m44_init();
+	new_object->refr = 1;
 	ft_lstadd_back(&scene->objects, new_node);
 	scene->selected = new_object;
 	render_image(scene);
