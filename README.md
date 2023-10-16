@@ -1,9 +1,9 @@
 
 
 
-# H1 Key inputs
+# Key inputs
 
-# H2 Generic inputs
+## Generic inputs
 - `L`: select next light
 - `CMD+S`: save scene
 - `P`: adjust anti-alias level
@@ -11,7 +11,7 @@
 - `+/-`: adjust ambient brightness
 - SHIFT+movement(wasd, arrows) = fine adjustment
 
-# H2 With no object or light selected
+## With no object or light selected
 - `W/S`: move camera front/back
 - `A/D`: move camera left/right
 - `Q/E`: move camera up/down
@@ -20,13 +20,13 @@
 - `< / >`: rotate camera
 - `I/O`: zoom in/out (adjust field of view)
 
-# H2 with light selected
+## with light selected
 - `W/S`: move light front/back
 - `A/D`: move light left/right
 - `Q/E`: move light up/down
 - `I/O`: brightness up/down
 
-# H2 with object selected
+## with object selected
 - `W/S`: move object front/back
 - `A/D`: move object left/right
 - `Q/E`: move object up/down
@@ -42,19 +42,19 @@
 - `B`: cycle bump maps
 - `SHIFT+B`: cycle bump procedures
 
-Overview of textures and bump maps:
+# Overview of textures and bump maps:
 
-textures:
+## textures:
 	1. checker
 	2. world
 	3. world2
 	4. sterren
 
-bump textures:
+## bump textures:
 	4. golf
 	6-14. bump 1 tm 9
 
-texture procedures:
+## texture procedures:
 	1. checkered
 	2. v_checkered
 	3. gradient red to blue
@@ -63,7 +63,7 @@ texture procedures:
 	6. gradient black to white merged with object/texture color
 
 
-bump procedures:
+## bump procedures:
 	1. simple_rough
 	2. bump based on bump texture
 	3. bump based on texture
