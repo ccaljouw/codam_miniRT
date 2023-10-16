@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 16:18:29 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 16:19:04 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 23:07:01 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,23 @@
 
 void	adjust_position(t_xyz *pos, mlx_key_data_t keydata)
 {
+	float	coarse;	
+
+	coarse = 1;
+	if (keydata.modifier == MLX_SHIFT)
+		coarse = 10;
 	if (keydata.key == MOVE_UP)
-		pos->y += .5;
+		pos->y += .5 / coarse;
 	if (keydata.key == MOVE_DOWN)
-		pos->y -= .5;
+		pos->y -= .5 / coarse;
 	if (keydata.key == MOVE_LEFT)
-		pos->x -= .5;
+		pos->x -= .5 / coarse;
 	if (keydata.key == MOVE_RIGHT)
-		pos->x += .5;
+		pos->x += .5 / coarse;
 	if (keydata.key == MOVE_FRONT)
-		pos->z += .5;
+		pos->z += .5 / coarse;
 	if (keydata.key == MOVE_BACK)
-		pos->z -= .5;
+		pos->z -= .5 / coarse;
 }
 
 void	translate_triangle(t_scene *s, mlx_key_data_t k)

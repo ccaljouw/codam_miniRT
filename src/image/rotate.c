@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 16:17:07 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 16:17:51 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 23:12:39 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,23 @@
 
 static void	set_rotation(t_xyz *rotation, mlx_key_data_t keydata)
 {
+	int	coarse;
+
+	coarse = 1;
+	if (keydata.modifier == MLX_SHIFT)
+		coarse = 10;
 	if (keydata.key == ROT_X_P)
-		rotation->y = 10;
+		rotation->y = 10 / coarse;
 	if (keydata.key == ROT_X_N)
-		rotation->y = -10;
+		rotation->y = -10 / coarse;
 	if (keydata.key == ROT_Y_N)
-		rotation->x = 10;
+		rotation->x = 10 / coarse;
 	if (keydata.key == ROT_Y_P)
-		rotation->x = -10;
+		rotation->x = -10 / coarse;
 	if (keydata.key == ROT_Z_N)
-		rotation->z = 10;
+		rotation->z = 10 / coarse;
 	if (keydata.key == ROT_Z_P)
-		rotation->z = -10;
+		rotation->z = -10 / coarse;
 }
 
 void	rotate_object(t_object *cur, t_m44 rot_matrix, t_xyz rot, t_xyz *orient)

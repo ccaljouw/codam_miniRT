@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 15:56:54 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 22:59:54 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 23:28:07 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,42 @@
 
 void	adjust_reflections(t_scene *s, mlx_key_data_t k)
 {
-	if (k.key == MLX_KEY_R)
+	if (!s->selected)
 	{
-		if (!k.modifier)
-		{
-			(s->max_reflect)++;
-			if (s->max_reflect > MAX_REFLECT)
-				s->max_reflect = 0;
-			ft_printf("# of reflections: %i\n", s->max_reflect);
-			render_image(s);
-		}
-		else if (k.modifier == MLX_SHIFT && s->selected)
-		{
-			if ((((t_object *)s->selected)->refl) == 1)
-				(((t_object *)s->selected)->refl) = 0;
-			else
-			{
-				(((t_object *)s->selected)->refl) += .1;
-				if ((((t_object *)s->selected)->refl) > 1)
-					(((t_object *)s->selected)->refl) = 1;
-			}
-			ft_printf("new refl: %f\n", (((t_object *)s->selected)->refl));
-			render_image(s);
-		}
+		(s->max_reflect)++;
+		if (s->max_reflect > MAX_REFLECT)
+			s->max_reflect = 0;
+		ft_printf("# of reflections: %i\n", s->max_reflect);
+		render_image(s);
+	}
+	else if (s->selected)
+	{
+		if (k.modifier == MLX_SHIFT)
+			(((t_object *)s->selected)->refl) -= .1;
+		else
+			(((t_object *)s->selected)->refl) += .1;
+		if ((((t_object *)s->selected)->refl) < 0)
+			(((t_object *)s->selected)->refl) = 0;
+		if ((((t_object *)s->selected)->refl) > 1)
+			(((t_object *)s->selected)->refl) = 1;
+		ft_printf("new refl: %f\n", (((t_object *)s->selected)->refl));
+		render_image(s);
 	}
 }
 
 void	adjust_transparancy(t_scene *s, mlx_key_data_t k)
 {
-	if (s->selected)
-	{
-		if (!k.modifier)
-			((t_object *)s->selected)->transp += .1;
-		if (k.modifier == MLX_SHIFT)
-			((t_object *)s->selected)->transp -= .1;
-		if (((t_object *)s->selected)->transp > 1)
-			((t_object *)s->selected)->transp = 1;
-		if (((t_object *)s->selected)->transp < 0)
-			((t_object *)s->selected)->transp = 0;
-		ft_printf("new trans %f\n", ((t_object *)s->selected)->transp);
-	}
-	else
+	if (!s->selected || (k.modifier && k.modifier != MLX_SHIFT))
 		return ;
+	if (!k.modifier)
+		((t_object *)s->selected)->transp += .1;
+	if (k.modifier == MLX_SHIFT)
+		((t_object *)s->selected)->transp -= .1;
+	if (((t_object *)s->selected)->transp > 1)
+		((t_object *)s->selected)->transp = 1;
+	if (((t_object *)s->selected)->transp < 0)
+		((t_object *)s->selected)->transp = 0;
+	ft_printf("new trans %f\n", ((t_object *)s->selected)->transp);
 	render_image(s);
 }
 

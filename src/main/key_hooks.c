@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:13:35 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 22:49:57 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 23:10:15 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	key_input2(mlx_key_data_t k, t_scene *scene)
 		select_light(scene);
 	if (k.key == MLX_KEY_MINUS || k.key == MLX_KEY_EQUAL)
 		adjust_ambient(scene, k);
-	if (k.key == MLX_KEY_P)
+	if (k.key == MLX_KEY_S && k.modifier == MLX_SUPERKEY)
 		save_scene(scene);
 	if (k.key == MLX_KEY_BACKSPACE)
 		delete_object(scene);
@@ -44,7 +44,7 @@ void	key_input2(mlx_key_data_t k, t_scene *scene)
 		adjust_transparancy(scene, k);
 	if (k.key == MLX_KEY_Y)
 		change_texture(scene, k);
-	if (k.key == MLX_KEY_A && k.modifier == MLX_SHIFT)
+	if (k.key == MLX_KEY_P)
 		change_aa(scene);
 	if (k.key == MLX_KEY_B)
 		change_bump(scene, k);
@@ -85,7 +85,7 @@ void	key_input(mlx_key_data_t k, void *param)
 		if ((k.key == MOVE_UP || k.key == MOVE_DOWN \
 			|| k.key == MOVE_LEFT || k.key == MOVE_RIGHT \
 			|| k.key == MOVE_FRONT || k.key == MOVE_BACK)
-			&& !k.modifier)
+			&& k.modifier != MLX_SUPERKEY)
 			move(k, scene);
 		key_input2(k, scene);
 	}
