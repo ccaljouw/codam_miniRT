@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/16 14:29:37 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 23:36:10 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_object
 	t_xyz			v_normal;
 	t_xyz			p[3];
 	t_xyz			edge[3];
-	float			diameter; //store radius??
+	float			diameter;
 	float			height;
 	float			albedo;
 	float			specular_size;
@@ -87,7 +87,7 @@ typedef struct s_pixel
 	t_xyz		specular;
 	float		facing_ratio;
 	float		hit_distance;
-	float		hit_height; // nodig?
+	float		hit_height;
 	int			refl_count;
 	int			transp_count;
 	int			self_refr;
@@ -124,8 +124,8 @@ typedef struct s_scene
 	mlx_t			*mlx;
 	mlx_image_t		*image;
 	mlx_texture_t	**textures;
-	t_ambient		*ambient; // op stack?
-	t_camera		*camera; // op stack?
+	t_ambient		*ambient;
+	t_camera		*camera;
 	t_list			*lights;
 	t_list			*objects;
 	t_px			**pixels;
