@@ -1,6 +1,5 @@
-![Language](https://img.shields.io/static/v1?label=language&message=c&color=blue) ![Licence](https://img.shields.io/badge/license-MIT-green) ![Score](https://42-project-badge.glitch.me/users/rpinto-r/project/minirt) 
 
-Overview of textures and bump maps:
+
 
 # H1 Key inputs
 
@@ -43,6 +42,7 @@ Overview of textures and bump maps:
 - `B`: cycle bump maps
 - `SHIFT+B`: cycle bump procedures
 
+Overview of textures and bump maps:
 
 textures:
 	1. checker
