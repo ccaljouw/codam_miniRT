@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/16 16:19:24 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 22:04:51 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ void	scale(mlx_key_data_t keydata, t_scene *s)
 			s->camera->fov -= 5;
 		if (keydata.key == ZOOM_OUT)
 			s->camera->fov += 5;
+		if (s->camera->fov < 0)
+			s->camera->fov = 0;
+		if (s->camera->fov > 180)
+			s->camera->fov = 180;
+		ft_printf("new fov: %i\n", s->camera->fov);
 		camera_geo(s);
 	}
 	render_image(s);

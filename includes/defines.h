@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 20:37:16 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 14:30:01 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 22:42:47 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 
 # define IM_WIDTH 			512
 # define IM_HEIGHT 			512
-# define MAX_WIDTH 			1024
+# define MAX_WIDTH 			1600
 # define MAX_HEIGHT 		1024
 # define MAX_AA				5
 
