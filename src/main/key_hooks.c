@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:13:35 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 16:47:29 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 22:49:57 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	key_input2(mlx_key_data_t k, t_scene *scene)
 	if (k.key == MLX_KEY_T)
 		adjust_transparancy(scene, k);
 	if (k.key == MLX_KEY_Y)
-		change_texture(scene);
+		change_texture(scene, k);
 	if (k.key == MLX_KEY_A && k.modifier == MLX_SHIFT)
 		change_aa(scene);
 	if (k.key == MLX_KEY_B)

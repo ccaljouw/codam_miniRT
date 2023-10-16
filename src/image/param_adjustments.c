@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 15:56:54 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 16:47:41 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 22:59:54 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,32 @@ void	adjust_transparancy(t_scene *s, mlx_key_data_t k)
 	render_image(s);
 }
 
-void	change_texture(t_scene *s)
+void	change_texture(t_scene *s, mlx_key_data_t k)
 {
-	t_object	*obj;
-	int			current_text;
+	int	current_text;
 
-	if (s->selected)
+	if (!s->selected || (k.modifier && k.modifier != MLX_SHIFT))
+		return ;
+	if (!k.modifier)
 	{
-		obj = s->selected;
-		current_text = get_texture_id(s, obj->text);
+		current_text = get_texture_id(s, s->selected->text);
 		if (current_text == NR_TEXTURES)
 		{
-			obj->text = NULL;
+			s->selected->text = NULL;
 			current_text = -1;
 		}
 		else
-			obj->text = s->textures[current_text];
+			s->selected->text = s->textures[current_text];
 		ft_printf("new texture %i\n", current_text + 1);
-		render_image(s);
 	}
+	else
+	{
+		(s->selected->text_proc)++;
+		if (s->selected->text_proc > TEXT_PROCEDURES)
+			s->selected->text_proc = 0;
+		ft_printf("text proc: %i\n", s->selected->text_proc);
+	}
+	render_image(s);
 }
 
 void	change_aa(t_scene *s)

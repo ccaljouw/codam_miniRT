@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/16 16:47:52 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/16 22:46:51 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void		move(mlx_key_data_t keydata, t_scene *scene);
 // param_adjustments.c
 void		adjust_reflections(t_scene *s, mlx_key_data_t k);
 void		adjust_transparancy(t_scene *s, mlx_key_data_t k);
-void		change_texture(t_scene *s);
+void		change_texture(t_scene *s, mlx_key_data_t k);
 void		change_aa(t_scene *s);
 void		change_bump(t_scene *scene, mlx_key_data_t k);
 
