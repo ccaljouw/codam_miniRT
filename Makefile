@@ -13,14 +13,16 @@ LIBMLX		:= ./libs/MLX42/build
 LIBS		:= $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a 
 HEADERS		:= -I $(LIBFT)  -I $(LIBMLX) -I includes/ -I ./libs/MLX42/include/MLX42
 
+MAKEFLAGS	+= --no-print-directory
+
 UNAME		:= $(shell uname)
 ARCH		:= $(shell uname -m)
 
 ifeq ($(UNAME),Darwin)
-	CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
-	# CFLAGS += "-D THREADS=1"
+	CFLAGS += -D THREADS=$(shell sysctl -n hw.ncpu)
+	# CFLAGS += -D THREADS=1
 else ifeq ($(UNAME),Linux)
-	CFLAGS += "-D THREADS=$(shell nproc --all)"
+	CFLAGS += -D THREADS=$(shell nproc --all)
 endif
 
 ifeq ($(USER), cariencaljouw)
@@ -66,16 +68,16 @@ bonus: $(OBJ_BONUS) $(LIBS)
 $(LIBS): build_mlx
 	@$(MAKE) -C $(LIBFT)
 	@$(MAKE) -C $(LIBMLX)
-	@echo "$(BLUE)Compiling object files miniRT:$(RESET)"
-
 
 $(OBJ): obj/%.o : src/%.c 
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $^ -o $@  $(HEADERS)
+	@$(CC) $(CFLAGS) -c $^ -o $@  $(HEADERS)
+	@echo Creating miniRT object with flags $(CFLAGS): $@ "\033[1A\033[M"
 
 $(OBJ_BONUS): obj_bonus/%.o : src/%.c 
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(CFLAGS_BONUS) -c $^ -o $@  $(HEADERS)
+	@$(CC) $(CFLAGS) $(CFLAGS_BONUS) -c $^ -o $@  $(HEADERS)
+	@echo Creating miniRT object with flags $(CFLAGS): $@ "\033[1A\033[M"
 
 clean:
 	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"
@@ -89,7 +91,7 @@ fclean: clean
 	@$(MAKE) -C $(LIBFT) fclean
 	@$(MAKE) -C $(LIBMLX) clean
 
-clean_mlx: fclean
+clean_mlx:
 	@echo "$(RED)$(BOLD)Removing MLX build$(RESET)"
 	@rm -rf libs/MLX42/build
 	@echo "$(RED)$(BOLD)MLX build removed. Rebuild with make build_mlx$(RESET)"
@@ -97,10 +99,11 @@ clean_mlx: fclean
 
 build_mlx:
 ifeq ($(ARCH),arm64)
-	@echo "I should do something with arm64"
-	cd libs/MLX42 && cmake -B build -DCMAKE_OSX_ARCHITECTURES=arm64 && cmake --build build --parallel --config Release --target install
+	@echo "Building for arm64"
+	@cd libs/MLX42 && cmake -B build -DCMAKE_OSX_ARCHITECTURES=arm64 && cmake --build build --parallel --config Release --target install
 else
-	cd libs/MLX42 && cmake -B build && cmake --build build --parallel --config Release --target install
+	@echo "Building for x86"
+	@cd libs/MLX42 && cmake -B build
 endif
 
 re: 

@@ -105,7 +105,7 @@ ${NAME}	:	${OBJS}
 
 # make c files in to object files
 %.o : %.c
-	@echo Creating libft object: $@ "\x1b[1A\x1b[M"
+	@echo Creating libft object: $@ "\033[1A\033[M"
 	@${CC} ${CFLAGS} $^ -c
 
 #remove OBJS files
