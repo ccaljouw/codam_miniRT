@@ -5,7 +5,7 @@
 
 ## Generic inputs
 - `L`: select next light
-- `CMD+S`: save scene
+- `ENTER`: save scene
 - `P`: adjust anti-alias level
 - `R`: adjust reflection depth
 - `+/-`: adjust ambient brightness
