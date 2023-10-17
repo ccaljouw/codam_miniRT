@@ -14,6 +14,7 @@ LIBS		:= $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a
 HEADERS		:= -I $(LIBFT)  -I $(LIBMLX) -I includes/ -I ./libs/MLX42/include/MLX42
 
 UNAME		:= $(shell uname)
+ARCH		:= $(shell uname -m)
 
 ifeq ($(UNAME),Darwin)
 	CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
@@ -62,7 +63,7 @@ bonus: $(OBJ_BONUS) $(LIBS)
 	@$(CC) $(CFLAGS) $(CFLAGS_BONUS) $^ -o $(NAME)  $(LIBFLAGS)
 	@echo "$(GREEN)$(BOLD)miniRT bonus made$(RESET)"
 
-$(LIBS): 
+$(LIBS): build_mlx
 	@$(MAKE) -C $(LIBFT)
 	@$(MAKE) -C $(LIBMLX)
 	@echo "$(BLUE)Compiling object files miniRT:$(RESET)"
@@ -88,6 +89,19 @@ fclean: clean
 	@$(MAKE) -C $(LIBFT) fclean
 	@$(MAKE) -C $(LIBMLX) clean
 
+clean_mlx: fclean
+	@echo "$(RED)$(BOLD)Removing MLX build$(RESET)"
+	@rm -rf libs/MLX42/build
+	@echo "$(RED)$(BOLD)MLX build removed. Rebuild with make build_mlx$(RESET)"
+
+
+build_mlx:
+ifeq ($(ARCH),arm64)
+	@echo "I should do something with arm64"
+	cd libs/MLX42 && cmake -B build -DCMAKE_OSX_ARCHITECTURES=arm64 && cmake --build build --parallel --config Release --target install
+else
+	cd libs/MLX42 && cmake -B build && cmake --build build --parallel --config Release --target install
+endif
 
 re: 
 	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"
@@ -96,4 +110,4 @@ re:
 	@rm -rf obj_bonus/
 	@$(MAKE) all
 
-.PHONY: all mandatory bonus clean fclean re
+.PHONY: all mandatory bonus clean fclean re clean_mlx
