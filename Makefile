@@ -13,13 +13,16 @@ LIBMLX		:= ./libs/MLX42/build
 LIBS		:= $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a 
 HEADERS		:= -I $(LIBFT)  -I $(LIBMLX) -I includes/ -I ./libs/MLX42/include/MLX42
 
+MAKEFLAGS	+= --no-print-directory
+
 UNAME		:= $(shell uname)
+ARCH		:= $(shell uname -m)
 
 ifeq ($(UNAME),Darwin)
-	CFLAGS += "-D THREADS=$(shell sysctl -n hw.ncpu)"
-	# CFLAGS += "-D THREADS=1"
+	CFLAGS += -D THREADS=$(shell sysctl -n hw.ncpu)
+	# CFLAGS += -D THREADS=1
 else ifeq ($(UNAME),Linux)
-	CFLAGS += "-D THREADS=$(shell nproc --all)"
+	CFLAGS += -D THREADS=$(shell nproc --all)
 endif
 
 ifeq ($(USER), cariencaljouw)
@@ -62,19 +65,19 @@ bonus: $(OBJ_BONUS) $(LIBS)
 	@$(CC) $(CFLAGS) $(CFLAGS_BONUS) $^ -o $(NAME)  $(LIBFLAGS)
 	@echo "$(GREEN)$(BOLD)miniRT bonus made$(RESET)"
 
-$(LIBS): 
+$(LIBS): build_mlx
 	@$(MAKE) -C $(LIBFT)
 	@$(MAKE) -C $(LIBMLX)
-	@echo "$(BLUE)Compiling object files miniRT:$(RESET)"
-
 
 $(OBJ): obj/%.o : src/%.c 
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $^ -o $@  $(HEADERS)
+	@$(CC) $(CFLAGS) -c $^ -o $@  $(HEADERS)
+	@echo Creating miniRT object with flags $(CFLAGS): $@ "\033[1A\033[M"
 
 $(OBJ_BONUS): obj_bonus/%.o : src/%.c 
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(CFLAGS_BONUS) -c $^ -o $@  $(HEADERS)
+	@$(CC) $(CFLAGS) $(CFLAGS_BONUS) -c $^ -o $@  $(HEADERS)
+	@echo Creating miniRT object with flags $(CFLAGS): $@ "\033[1A\033[M"
 
 clean:
 	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"
@@ -88,6 +91,20 @@ fclean: clean
 	@$(MAKE) -C $(LIBFT) fclean
 	@$(MAKE) -C $(LIBMLX) clean
 
+clean_mlx:
+	@echo "$(RED)$(BOLD)Removing MLX build$(RESET)"
+	@rm -rf libs/MLX42/build
+	@echo "$(RED)$(BOLD)MLX build removed. Rebuild with make build_mlx$(RESET)"
+
+
+build_mlx:
+ifeq ($(ARCH),arm64)
+	@echo "Building for arm64"
+	@cd libs/MLX42 && cmake -B build -DCMAKE_OSX_ARCHITECTURES=arm64 && cmake --build build --parallel --config Release --target install
+else
+	@echo "Building for x86"
+	@cd libs/MLX42 && cmake -B build
+endif
 
 re: 
 	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"
@@ -96,4 +113,4 @@ re:
 	@rm -rf obj_bonus/
 	@$(MAKE) all
 
-.PHONY: all mandatory bonus clean fclean re
+.PHONY: all mandatory bonus clean fclean re clean_mlx
