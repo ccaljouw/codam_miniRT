@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   param_adjustments.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 15:56:54 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 23:28:07 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/17 14:09:20 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,26 @@ void	change_texture(t_scene *s, mlx_key_data_t k)
 
 void	change_aa(t_scene *s)
 {
-	if (s->aa == 1)
+	int	check_width;
+	int	check_height;
+	
+	if (s->aa == 1 )
 		s->aa = 2;
 	else
 		s->aa += 2;
 	if (s->aa > MAX_AA * 2)
 		s->aa = 1;
+	check_width = s->file_width + (s->aa - 1) * s->file_width;
+	check_height = s->file_height + (s->aa - 1) * s->file_height;
+	if (check_width * check_height > 40000000)
+	{
+		ft_printf("cannot increase anti alias level\n");
+		if (s->aa == 2)
+			s->aa = 1;
+		else
+			s->aa -= 2;
+		return ;
+	}
 	ft_printf("anti alias level: %i\n", (int)(floor(s->aa / 2)));
 	s->n_height = s->file_height;
 	s->n_width = s->file_width;

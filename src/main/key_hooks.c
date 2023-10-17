@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:13:35 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 23:10:15 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/17 13:59:16 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	key_input2(mlx_key_data_t k, t_scene *scene)
 		select_light(scene);
 	if (k.key == MLX_KEY_MINUS || k.key == MLX_KEY_EQUAL)
 		adjust_ambient(scene, k);
-	if (k.key == MLX_KEY_S && k.modifier == MLX_SUPERKEY)
+	if (k.key == MLX_KEY_ENTER)
 		save_scene(scene);
 	if (k.key == MLX_KEY_BACKSPACE)
 		delete_object(scene);
