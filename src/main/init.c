@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 00:05:54 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 23:33:58 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/18 10:15:58 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ t_scene	*init_scene(char *file)
 	scene->aa = 1;
 	scene->must_resize = false;
 	scene->max_reflect = STD_REFLECT;
+	scene->must_resize = 1;
 	init_textures(scene);
 	parse_file(file, scene);
 	if (!scene->ambient || !scene->camera)
