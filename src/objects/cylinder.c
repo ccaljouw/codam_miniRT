@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/11 23:04:31 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/18 15:54:49 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,11 @@ int	get_cylinder_surface_data(t_object *cy, t_px *px)
 		px->surface_normal = v_cross(px->surface_normal, cy->v_normal);
 		v_normalizep(&px->surface_normal);
 	}
-	px->facing_ratio = fabsf(v_dot(px->surface_normal, px->direction));
+	px->facing_ratio = v_dot(px->surface_normal, px->direction);
+	if (px->facing_ratio > 0)
+		px->surface_normal = v_multiply(px->surface_normal, -1);
+	else
+		px->facing_ratio *= -1;
 	return (px->color);
 }
 

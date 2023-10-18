@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   refl_refr.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/14 16:14:06 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/16 16:14:26 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   refl_refr.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/14 16:14:06 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/10/18 15:43:55 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_px	*reflection(t_px *px, t_scene *scene)
 	refl_ray->refl_count = px->refl_count + 1;
 	refl_ray->transp_count = px->transp_count;
 	refl_ray->cam_origin = \
-			v_add(px->hitpoint, px->surface_normal);
+			v_add(px->hitpoint, v_multiply(px->surface_normal, SHADOW_BIAS));
 	refl_ray->direction = reflect_ray(px->surface_normal, px->direction);
 	trace_ray(refl_ray, scene);
 	if (refl_ray->hitobject)

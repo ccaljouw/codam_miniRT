@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/11 23:03:56 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/18 15:25:51 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,11 @@ int	get_cone_surface_data(t_object *co, t_px *px)
 	px->surface_normal = \
 			v_subtract(px->surface_normal, v_multiply(co->v_normal, a));
 	v_normalizep(&px->surface_normal);
-	px->facing_ratio = fabsf(v_dot(px->surface_normal, px->direction));
+		px->facing_ratio = v_dot(px->surface_normal, px->direction);
+	if (px->facing_ratio > 0)
+		px->surface_normal = v_multiply(px->surface_normal, -1);
+	else
+		px->facing_ratio *= -1;
 	return (px->color);
 }
 

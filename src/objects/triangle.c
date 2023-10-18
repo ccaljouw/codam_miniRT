@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   triangle.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 14:42:48 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 16:21:30 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   triangle.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/12 14:42:48 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/10/18 15:49:05 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,6 @@ t_xyz	get_uvcoord_tr(t_object *tr, t_px *px, t_scene *scene)
 	uv.y = 1 - ((uv.y + tr->plane_y) / (tr->plane_y * 2));
 	uv.z = 0;
 	return (uv);
-}
-
-int	p_is_outside(t_xyz p1, t_xyz p2, t_xyz	p3, t_xyz p)
-{
-	t_xyz	v1;
-	t_xyz	v2;
-	t_xyz	vp;
-	t_xyz	a;
-	t_xyz	b;
-
-	v1 = v_subtract(p2, p1);
-	v2 = v_subtract(p3, p1);
-	vp = v_subtract(p, p1);
-	a = v_cross(v1, v2);
-	b = v_cross(v1, vp);
-	if ((v_dot(v_normalize(a), b)) < 0)
-		return (1);
-	return (0);
 }
 
 int	check_inside_triangle(t_object *tr, t_xyz p)

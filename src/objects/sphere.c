@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/14 17:54:01 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/11 23:05:09 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/18 15:40:51 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ int	get_sphere_surface_data(t_object *sph, t_px *px)
 	px->surface_normal = v_subtract(sph->p_origin, px->hitpoint);
 	v_normalizep(&px->surface_normal);
 	px->facing_ratio = v_dot(px->surface_normal, px->direction);
-	px->surface_normal = v_multiply(px->surface_normal, -1);
+	if (px->facing_ratio > 0)
+		px->surface_normal = v_multiply(px->surface_normal, -1);
+	else
+		px->facing_ratio *= -1;
 	return (px->color);
 }
 
