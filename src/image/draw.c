@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   image_utils.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/16 14:53:40 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/18 09:47:38 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-void	image_to_window(t_scene *scene)
+void	image_to_window(t_scene *scene, mlx_image_t *image)
 {
-	if (!scene->image)
+	if (!image)
 	{
 		mlx_close_window(scene->mlx);
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
 	}
-	if (mlx_image_to_window(scene->mlx, scene->image, 0, 0) == -1)
+	if (mlx_image_to_window(scene->mlx, image, 0, 0) == -1)
 	{
 		mlx_close_window(scene->mlx);
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
@@ -63,6 +63,31 @@ void	draw_image(t_scene *scene)
 			{
 				mlx_put_pixel(scene->image, x, y, \
 						get_color(scene->pixels[y] + x, scene));
+				x++;
+			}
+			y++;
+		}
+	}
+}
+
+void	draw_black(t_scene *scene)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	if (scene->aa > 1)
+	{
+		draw_aa(scene);
+	}
+	else
+	{
+		while (y < scene->p_height)
+		{
+			x = 0;
+			while (x < scene->p_width)
+			{
+				mlx_put_pixel(scene->render_image, x, y, 255);
 				x++;
 			}
 			y++;

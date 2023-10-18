@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/16 23:36:10 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/18 09:16:04 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef struct s_scene
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
+	mlx_image_t		*render_image;
 	mlx_texture_t	**textures;
 	t_ambient		*ambient;
 	t_camera		*camera;
@@ -141,6 +142,7 @@ typedef struct s_scene
 	t_list			*selected_light;
 	bool			single_light;
 	int				max_reflect;
+	int				frames;
 }					t_scene;
 
 typedef struct s_block

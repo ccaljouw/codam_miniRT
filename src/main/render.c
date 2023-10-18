@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/16 23:35:03 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/18 09:30:29 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,6 @@ void	render_image(t_scene *scene)
 		render_routine(&block);
 	}
 	draw_image(scene);
+	mlx_set_instance_depth(scene->render_image->instances, -1);
 	ft_dprintf(2, "]\n");
 }

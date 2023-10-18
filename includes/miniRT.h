@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/16 22:46:51 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/18 09:48:23 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,10 @@ void		change_aa(t_scene *s);
 void		change_bump(t_scene *scene, mlx_key_data_t k);
 
 // image_utils.c
-void		image_to_window(t_scene *scene);
+void		image_to_window(t_scene *scene, mlx_image_t *image);
 int			get_color(t_px *px, t_scene *scene);
 void		draw_image(t_scene *scene);
+void		draw_black(t_scene *scene);
 int			get_text_pxcolor(mlx_texture_t *text, t_xyz uv);
 
 // antialias.c
