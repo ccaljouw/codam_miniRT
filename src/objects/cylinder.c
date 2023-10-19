@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/19 13:02:06 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/19 21:54:22 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,32 @@ t_xyz	get_uvcoord_cy(t_object *cy, t_px *px, t_scene *scene)
 	t_xyz	uv;
 	t_xyz	x_plane;
 	t_xyz	z_plane;
+	// t_xyz	y_plane;
 	t_xyz	v;
 	t_xyz	hp_in_object_space;
 
 	//fix uv coordinates caps;
+	// if (px->cap)
+	// // 	ft_printf("got cy cap\n");
+	// {
+	// // if (px->cap)
+	
+	// x_plane = v_normalize(v_cross(cy->v_normal, v_create(0, 1, 0)));
+	// // if (x_plane.x == 0 && x_plane.y == 0 && x_plane.z == 0)
+	// // 	x_plane = v_normalize(v_cross(cy->v_normal, v_create(1, 0, 0)));
+	// y_plane = v_normalize(v_cross(x_plane, cy->v_normal));
+	// // uv.x = fmod(v_dot(px->hitpoint, x_plane), cy->plane_x);
+	// // uv.y = fmod(v_dot(px->hitpoint, y_plane), cy->plane_y);
+	// // uv.x = 1 - ((uv.x + cy->plane_x) / (cy->plane_x * 2));
+	// // uv.y = 1 - ((uv.y + cy->plane_y) / (cy->plane_y * 2));
+	// uv.x = v_dot(x_plane, px->hitpoint);
+	// uv.z = v_dot(y_plane, px->hitpoint);
+	// return (uv);
+
+	
+	// }
+	// else
+	// {
 	x_plane = v_cross(cy->v_normal, scene->camera->orientation_v);
 	z_plane = v_cross(cy->v_normal, x_plane);
 	v = v_subtract(cy->p_origin, px->hitpoint);
@@ -131,5 +153,11 @@ t_xyz	get_uvcoord_cy(t_object *cy, t_px *px, t_scene *scene)
 	uv.x = (atan2(hp_in_object_space.x, hp_in_object_space.z) \
 												/ (2 * M_PI)) + 0.5;
 	uv.y = (hp_in_object_space.y / cy->height) + 1;
+	// }
+	if (px->cap)
+	{
+		ft_printf("got cy cap\n");
+		print_vector(uv);
+	}
 	return (uv);
 }

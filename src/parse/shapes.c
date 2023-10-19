@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/19 17:21:11 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/19 21:32:41 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	init_cone(char **param, t_scene *scene)
 	t_object	*new_cone;
 	int			i;
 
+ft_printf("got cone");
 	i = 0;
 	if (!BONUS)
 		exit_error(ERROR_CONE, "cone not implemented in mandatory", scene);

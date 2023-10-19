@@ -1,8 +1,6 @@
 *.o
 .vscode/*
 a.out
-./libs
 */.DS_Storelibs/MLX42
-libs/MLX42/CMakeCache.txt libs/MLX42/CMakeFiles libs/MLX42/CMakeLists.txt libs/MLX42/CODE_OF_CONDUCT.md libs/MLX42/CONTRIBUTING.md libs/MLX42/LICENSE libs/MLX42/Makefile libs/MLX42/README.md libs/MLX42/SECURITY.md libs/MLX42/build libs/MLX42/cmake libs/MLX42/cmake_install.cmake libs/MLX42/docs libs/MLX42/include libs/MLX42/lib libs/MLX42/libmlx42.a libs/MLX42/mlx_frag_shader.c libs/MLX42/mlx_vert_shader.c libs/MLX42/shaders libs/MLX42/src libs/MLX42/tests libs/MLX42/tools
 libs/libft/libft.a
 miniRT

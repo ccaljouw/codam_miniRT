@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   capped.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/19 12:31:28 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/19 19:19:30 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   capped.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/19 12:31:28 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/19 22:36:50 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,15 @@ int	test_capped_cone(t_px *ray, t_object *cone, float *hp_info)
 
 	ft_bzero(hit_param, 4 * sizeof(float));
 	orig_to_center = v_subtract(ray->cam_origin, cone->p_origin);
-	abc = get_abc_cone(ray, *cone);
+	abc = get_abc_cone(ray, cone);
 	top = v_add(cone->p_origin, v_multiply(cone->v_normal, cone->height));
 	get_parabolic_hitpoints(abc, &hit_param[0], &hit_param[1]);
 	hit_param[2] = (v_dot(ray->direction, cone->v_normal) * hit_param[0]) \
 				+ v_dot(orig_to_center, cone->v_normal);
 	hit_param[3] = (v_dot(ray->direction, cone->v_normal) * hit_param[1]) \
 				+ v_dot(orig_to_center, cone->v_normal);
-	set_hp_info(hit_param, cone->height, hp_info);	
+	set_hp_info(hit_param, cone->height, hp_info);
+	// ft_printf("params: %f %f %f %f\n", hit_param[0], hit_param[1], hit_param[2], hit_param[3]);
 	if (test_cap(cone, ray, top, hp_info))
 		hp_info[1] = cone->height;
 	if (hp_info[0])

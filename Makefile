@@ -113,4 +113,4 @@ re:
 	@rm -rf obj_bonus/
 	@$(MAKE) all
 
-.PHONY: all mandatory bonus clean fclean re clean_mlx
+.PHONY: all mandatory bonus clean fclean re clean_mlx build_mlx

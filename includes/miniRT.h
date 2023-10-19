@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/19 12:34:28 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:08:18 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			get_cylinder_surface_data(t_object *cy, t_px *px);
 t_xyz		get_uvcoord_cy(t_object *cy, t_px *px, t_scene *scene);
 
 // objects/cone.c
-t_xyz		get_abc_cone(t_px *ray, t_object cone);
+t_xyz		get_abc_cone(t_px *ray, t_object *cone);
 int			test_cone(t_px *ray, t_object *cone, float *hp_info);
 int			get_cone_surface_data(t_object *co, t_px *px);
 t_xyz		get_uvcoord_co(t_object *co, t_px *px, t_scene *scene);

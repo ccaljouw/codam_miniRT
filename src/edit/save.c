@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:00:07 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 16:16:33 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/19 21:24:15 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ void	save_scene(t_scene *s)
  */
 void	print_objects(t_list *objects, t_scene *s, int fd)
 {
-	static t_print_object	*print_object[5] = {print_sphere, print_plane, \
-										print_cylco, print_cylco, \
-										print_triangle};
+	static t_print_object	*print_object[7] = {print_sphere, print_plane, \
+										print_cylco, print_cylco, print_cylco, \
+										print_cylco, print_triangle};
 	t_object				*obj;
 
 	while (objects)
