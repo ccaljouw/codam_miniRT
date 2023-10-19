@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/18 10:17:07 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/19 22:07:11 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ int	main(int argc, char **argv)
 			exit_error((char *)mlx_strerror(mlx_errno), NULL, s);
 		s->image = mlx_new_image(s->mlx, s->file_width, s->file_height);
 		s->render_image = mlx_new_image(s->mlx, s->file_width, s->file_height);
-		mlx_put_string(s->mlx, "rendering.......", 0, 0);
 		image_to_window(s, s->render_image);
-		s->n_width = s->mlx->width;
-		s->n_height = s->mlx->height;
+		render_image(s);
 		image_to_window(s, s->image);
 		mlx_key_hook(s->mlx, key_input, s);
 		mlx_mouse_hook(s->mlx, select_object, s);

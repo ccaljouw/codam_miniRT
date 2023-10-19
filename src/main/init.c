@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 00:05:54 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/18 10:15:58 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   init.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/09 00:05:54 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/10/19 22:07:45 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,8 @@ t_scene	*init_scene(char *file)
 	scene->file_width = IM_WIDTH;
 	scene->file_height = IM_HEIGHT;
 	scene->aa = 1;
-	scene->must_resize = false;
+	scene->must_resize = 0;
 	scene->max_reflect = STD_REFLECT;
-	scene->must_resize = 1;
 	init_textures(scene);
 	parse_file(file, scene);
 	if (!scene->ambient || !scene->camera)

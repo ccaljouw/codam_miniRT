@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/19 16:25:07 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   render.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/19 22:06:33 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,5 @@ void	render_image(t_scene *scene)
 		render_routine(&block);
 	}
 	draw_image(scene);
-	mlx_set_instance_depth(scene->render_image->instances, -1);
 	ft_dprintf(2, "]\n");
 }
