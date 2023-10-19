@@ -36,7 +36,7 @@ endif
 OBJ 		:= $(addprefix obj/, \
 				$(addprefix main/, main.o utils.o render.o init.o ascii.o key_hooks.o dummy.o dummy2.o) \
 				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o parse_util.o triangle.o) \
-				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o triangle.o) \
+				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o triangle.o capped.o) \
 				$(addprefix image/, scale.o draw.o select.o resize.o light_manipulation.o anti_alias.o param_adjustments.o rotate.o move.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o vector2.o vector3.o matrix_vector_utils.o) \
 				$(addprefix textures/, text_utils.o color_maps.o procedural_textures.o bump_mapping.o) \
@@ -45,7 +45,7 @@ OBJ 		:= $(addprefix obj/, \
 OBJ_BONUS	:=  $(addprefix obj_bonus/, \
 				$(addprefix main/, main.o utils.o render.o init.o ascii.o key_hooks.o multithreading.o) \
 				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o parse_util.o triangle.o) \
-				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o triangle.o) \
+				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o triangle.o capped.o) \
 				$(addprefix image/, scale.o draw.o select.o resize.o light_manipulation.o anti_alias.o param_adjustments.o rotate.o move.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o vector2.o vector3.o matrix_vector_utils.o) \
 				$(addprefix textures/, text_utils.o color_maps.o procedural_textures.o bump_mapping.o) \
