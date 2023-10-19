@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cone.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/30 19:23:25 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/19 17:32:53 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cone.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/10/19 21:27:13 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,18 @@
 t_xyz	get_abc_cone(t_px *ray, t_object cone)
 {
 	t_xyz	abc;
-	t_xyz	d;
 	t_xyz	co;
-	t_xyz	v;
-	t_xyz	a_ha_ht;
+	float	factor;
 
-	a_ha_ht.z = sqrt(pow(cone.diameter * 0.5, 2) + pow(cone.height * 0.5, 2));  // hypothanuse
-	a_ha_ht.x = acos((cone.height * 0.5) / a_ha_ht.z); 							// angle
-	a_ha_ht.y = 1.0 + pow(a_ha_ht.x * 0.5, 2);
-	d = ray->direction;
+	factor = 1 + ((cone.diameter * 0.25) / (cone.height)) * (cone.diameter * 0.5);
 	co = v_subtract(ray->cam_origin, cone.p_origin);
-	v = cone.v_normal;
-	abc.x = v_dot(d, d) - (a_ha_ht.y * pow(v_dot(v, d), 2));
-	abc.y = 2 * (v_dot(d, co) - (a_ha_ht.y * v_dot(v, d) * v_dot(v, co)));
-	abc.z = v_dot(co, co) - ((a_ha_ht.y * pow(v_dot(v, co), 2)));
+	abc.x = v_dot(ray->direction, ray->direction) \
+			- (pow(v_dot(ray->direction, cone.v_normal), 2) * factor);
+	abc.y = 2 * (v_dot(ray->direction, co) \
+			- (v_dot(ray->direction, cone.v_normal) \
+			* v_dot(co, cone.v_normal) * factor));
+	abc.z = v_dot(co, co) \
+			- (pow(v_dot(co, cone.v_normal), 2) * factor);
 	return (abc); 
 }
 
@@ -64,10 +62,8 @@ int	get_cone_surface_data(t_object *co, t_px *px)
 	t_xyz		hit_to_center;
 	float		a;
 	float		angle;
-	float		hypotenuse;
 
-	hypotenuse = sqrt(pow(co->diameter * 0.5, 2) + pow(co->height * 0.5, 2));
-	angle = acos((co->height * 0.5) / hypotenuse);
+	angle = atan2(co->diameter * 0.5, co->height);
 	a = px->hit_height * (angle * 0.5) * (angle * 0.5);
 	if (px->cap)
 		px->surface_normal = co->v_normal;
@@ -98,7 +94,6 @@ t_xyz	get_uvcoord_co(t_object *co, t_px *px, t_scene *scene)
 	t_xyz	v;
 	t_xyz	hp_in_object_space;
 
-	//fix uv coordinates caps;
 	x_plane = v_cross(co->v_normal, scene->camera->orientation_v);
 	z_plane = v_cross(co->v_normal, x_plane);
 	v = v_subtract(co->p_origin, px->hitpoint);
