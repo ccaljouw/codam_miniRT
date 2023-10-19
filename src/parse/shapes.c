@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/16 16:12:02 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/19 17:21:11 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ void	init_cone(char **param, t_scene *scene)
 	new_cone = ft_calloc(1, sizeof(t_object));
 	if (!new_node || !new_cone)
 		exit_error(ERROR_MEM, NULL, scene);
-	new_cone->id = CO;
+	if (!ft_strcmp(param[0], "co"))
+		new_cone->id = CO;
+	else
+		new_cone->id = CCO;
 	new_cone->p_origin = set_xyz(param[1], scene);
 	new_cone->v_normal = v_normalize(set_xyz(param[2], scene));
 	new_cone->diameter = to_float(param[3], scene);

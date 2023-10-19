@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/13 16:39:03 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/19 17:21:55 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	parse_type(char *line, t_scene *scene)
 	char		**param;
 	static char	*type[10] = {"A", "C", "l", "L", "sp", \
 							"pl", "cy", "R", "co", "tr"};
-	static t_f	*parse[10] = {init_ambient, init_camera, init_lights, \
+	static t_f	*parse[12] = {init_ambient, init_camera, init_lights, \
 							init_lights, init_sphere, init_plane, init_cyl, \
 							init_resolution, init_cone, init_triangle};
 

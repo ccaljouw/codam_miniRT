@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   render.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/19 10:10:01 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/19 16:25:07 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,9 @@ void	get_ray(t_px *px, int x, int y, t_scene *s)
 void	trace_ray(t_px *px, t_scene *s)
 {
 	float				hp[2];
-	static t_hit_test	*hit_test[5] = {test_sphere, test_plane, \
-							test_capped_cylinder, test_capped_cone, test_triangle};
+	static t_hit_test	*hit_test[7] = {test_sphere, test_plane, \
+							test_cylinder, test_capped_cylinder, \
+							test_cone, test_capped_cone, test_triangle};
 	t_list				*objects;
 	t_object			*object;
 
@@ -119,9 +120,10 @@ void	trace_ray(t_px *px, t_scene *s)
 
 int	get_pixel_data(t_px	*px, t_scene *scene)
 {
-	static t_surface_data	*surface_data[5] = \
+	static t_surface_data	*surface_data[7] = \
 	{get_sphere_surface_data, get_plane_surface_data, \
-	get_cylinder_surface_data, get_cone_surface_data, \
+	get_cylinder_surface_data, get_cylinder_surface_data, \
+	get_cone_surface_data, get_cone_surface_data, \
 	get_triangle_surface_data};
 
 	if ((px)->hitobject != NULL)

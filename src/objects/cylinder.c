@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cylinder.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/19 10:17:56 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/19 13:02:06 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,32 +79,6 @@ int	test_cylinder(t_px *ray, t_object *cylinder, float *hp_info)
 	return (set_hp_info(hit_param, cylinder->height, hp_info));
 }
 
-int	test_capped_cylinder(t_px *ray, t_object *cylinder, float *hp_info)
-{
-	t_xyz	orig_to_center;
-	t_xyz	abc;
-	t_xyz	top;
-	float	hit_param[4];
-
-	ft_bzero(hit_param, 4 * sizeof(float));
-	orig_to_center = v_subtract(ray->cam_origin, cylinder->p_origin);
-	abc = get_abc_cyl(ray, orig_to_center, *cylinder);
-	top = v_add(cylinder->p_origin, v_multiply(cylinder->v_normal, cylinder->height));
-	get_parabolic_hitpoints(abc, &hit_param[0], &hit_param[1]);
-	hit_param[2] = (v_dot(ray->direction, cylinder->v_normal) * hit_param[0]) \
-				+ v_dot(orig_to_center, cylinder->v_normal);
-	hit_param[3] = (v_dot(ray->direction, cylinder->v_normal) * hit_param[1]) \
-				+ v_dot(orig_to_center, cylinder->v_normal);
-	set_hp_info(hit_param, cylinder->height, hp_info);	
-	if (test_cap(cylinder, ray, cylinder->p_origin, hp_info))
-		hp_info[1] = 0;
-	if (test_cap(cylinder, ray, top, hp_info))
-		hp_info[1] = cylinder->height;
-	if (hp_info[0])
-		return (1);
-	return (0);
-}
-
 /**
  * @brief 
  * 
@@ -144,6 +118,7 @@ t_xyz	get_uvcoord_cy(t_object *cy, t_px *px, t_scene *scene)
 	t_xyz	v;
 	t_xyz	hp_in_object_space;
 
+	//fix uv coordinates caps;
 	x_plane = v_cross(cy->v_normal, scene->camera->orientation_v);
 	z_plane = v_cross(cy->v_normal, x_plane);
 	v = v_subtract(cy->p_origin, px->hitpoint);

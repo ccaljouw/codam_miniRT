@@ -1,45 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cone.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/19 10:18:40 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cone.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/30 19:23:25 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/19 17:32:53 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
-
-int		set_hp_info(float *hit_param, float height, float *hp_info);
-
-int	test_cap(t_object *object, t_px *ray, t_xyz origin, float *hp_info)
-{
-	float	angle;
-	float	dist;
-	t_xyz	hp;
-	t_xyz	orig_to_center;
-
-	angle = v_dot(object->v_normal, ray->direction);
-	if (fabs(angle) < EPSILON)
-		return (0);
-	orig_to_center = v_subtract(origin, ray->cam_origin);
-	dist = (v_dot(object->v_normal, orig_to_center) / angle) + SHADOW_BIAS;
-	if (dist < 0)
-		return (0);
-	hp = v_add(ray->cam_origin, v_multiply(ray->direction, dist));
-	if (fabs(v_magnitude(v_subtract(hp, origin))) < (object->diameter * 0.5))
-	{
-		if (dist < hp_info[0] || hp_info[0] == 0)
-		{
-			ray->cap = 1;
-			hp_info[0] = dist;
-		}
-		return (1);
-	}
-	return (0);
-}
 
 /**
  * @brief Get abc cone
@@ -54,20 +25,20 @@ t_xyz	get_abc_cone(t_px *ray, t_object cone)
 {
 	t_xyz	abc;
 	t_xyz	d;
-	t_xyz	x;
+	t_xyz	co;
 	t_xyz	v;
 	t_xyz	a_ha_ht;
 
-	a_ha_ht.z = sqrt(pow(cone.diameter * 0.5, 2) + pow(cone.height * 0.5, 2));
-	a_ha_ht.x = acos((cone.height * 0.5) / a_ha_ht.z);
-	a_ha_ht.y = 1 + (a_ha_ht.x * 0.5) * (a_ha_ht.x * 0.5);
+	a_ha_ht.z = sqrt(pow(cone.diameter * 0.5, 2) + pow(cone.height * 0.5, 2));  // hypothanuse
+	a_ha_ht.x = acos((cone.height * 0.5) / a_ha_ht.z); 							// angle
+	a_ha_ht.y = 1.0 + pow(a_ha_ht.x * 0.5, 2);
 	d = ray->direction;
-	x = v_subtract(ray->cam_origin, cone.p_origin);
-	v = v_normalize(cone.v_normal);
-	abc.x = v_dot(d, d) - (a_ha_ht.y * pow(v_dot(d, v), 2));
-	abc.y = 2 * (v_dot(d, x) - (a_ha_ht.y * v_dot(d, v) * v_dot(x, v)));
-	abc.z = v_dot(x, x) - ((a_ha_ht.y * pow(v_dot(x, v), 2)));
-	return (abc);
+	co = v_subtract(ray->cam_origin, cone.p_origin);
+	v = cone.v_normal;
+	abc.x = v_dot(d, d) - (a_ha_ht.y * pow(v_dot(v, d), 2));
+	abc.y = 2 * (v_dot(d, co) - (a_ha_ht.y * v_dot(v, d) * v_dot(v, co)));
+	abc.z = v_dot(co, co) - ((a_ha_ht.y * pow(v_dot(v, co), 2)));
+	return (abc); 
 }
 
 int	test_cone(t_px *ray, t_object *cone, float *hp_info)
@@ -88,30 +59,6 @@ int	test_cone(t_px *ray, t_object *cone, float *hp_info)
 	return (set_hp_info(hit_param, cone->height, hp_info));
 }
 
-int	test_capped_cone(t_px *ray, t_object *cone, float *hp_info)
-{
-	t_xyz	orig_to_center;
-	t_xyz	abc;
-	t_xyz	top;
-	float	hit_param[4];
-
-	ft_bzero(hit_param, 4 * sizeof(float));
-	orig_to_center = v_subtract(ray->cam_origin, cone->p_origin);
-	abc = get_abc_cone(ray, *cone);
-	top = v_add(cone->p_origin, v_multiply(cone->v_normal, cone->height));
-	get_parabolic_hitpoints(abc, &hit_param[0], &hit_param[1]);
-	hit_param[2] = (v_dot(ray->direction, cone->v_normal) * hit_param[0]) \
-				+ v_dot(orig_to_center, cone->v_normal);
-	hit_param[3] = (v_dot(ray->direction, cone->v_normal) * hit_param[1]) \
-				+ v_dot(orig_to_center, cone->v_normal);
-	set_hp_info(hit_param, cone->height, hp_info);	
-	if (test_cap(cone, ray, top, hp_info))
-		hp_info[1] = cone->height;
-	if (hp_info[0])
-		return (1);
-	return (0);
-}
-
 int	get_cone_surface_data(t_object *co, t_px *px)
 {
 	t_xyz		hit_to_center;
@@ -119,13 +66,13 @@ int	get_cone_surface_data(t_object *co, t_px *px)
 	float		angle;
 	float		hypotenuse;
 
-	// if (px->cap)
-	// 	px->surface_normal = co->v_normal;
-	// else
+	hypotenuse = sqrt(pow(co->diameter * 0.5, 2) + pow(co->height * 0.5, 2));
+	angle = acos((co->height * 0.5) / hypotenuse);
+	a = px->hit_height * (angle * 0.5) * (angle * 0.5);
+	if (px->cap)
+		px->surface_normal = co->v_normal;
+	else
 	{
-		hypotenuse = sqrt(pow(co->diameter * 0.5, 2) + pow(co->height * 0.5, 2));
-		angle = acos((co->height * 0.5) / hypotenuse);
-		a = px->hit_height * (angle * 0.5) * (angle * 0.5);
 		px->hitpoint = v_add(px->cam_origin, \
 					v_multiply(px->direction, px->hit_distance));
 		hit_to_center = v_subtract(px->hitpoint, co->p_origin);
@@ -151,6 +98,7 @@ t_xyz	get_uvcoord_co(t_object *co, t_px *px, t_scene *scene)
 	t_xyz	v;
 	t_xyz	hp_in_object_space;
 
+	//fix uv coordinates caps;
 	x_plane = v_cross(co->v_normal, scene->camera->orientation_v);
 	z_plane = v_cross(co->v_normal, x_plane);
 	v = v_subtract(co->p_origin, px->hitpoint);
