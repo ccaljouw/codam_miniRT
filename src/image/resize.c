@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   resize.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/11 11:42:35 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/18 10:17:03 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   resize.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/11 11:42:35 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/10/19 22:10:26 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	do_resize(void *param)
 
 	s = (t_scene *)param;
 	s->frames++;
-	if ((s->must_resize && s->frames > 5))
+	if ((s->must_resize && s->frames > 20))
 	{
 		free_pixels(s);
 		s->file_height = s->n_height;
