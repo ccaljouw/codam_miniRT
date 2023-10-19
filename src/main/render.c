@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/18 09:30:29 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   render.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/19 10:10:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	trace_ray(t_px *px, t_scene *s)
 {
 	float				hp[2];
 	static t_hit_test	*hit_test[5] = {test_sphere, test_plane, \
-							test_cylinder, test_cone, test_triangle};
+							test_capped_cylinder, test_capped_cone, test_triangle};
 	t_list				*objects;
 	t_object			*object;
 

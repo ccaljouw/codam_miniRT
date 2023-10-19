@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/18 09:48:23 by ccaljouw         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   miniRT.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/12 16:38:40 by ccaljouw      #+#    #+#                 */
+/*   Updated: 2023/10/19 10:07:01 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,14 @@ t_xyz		get_uvcoord_pl(t_object *pl, t_px *px, t_scene *scene);
 int			test_cylinder(t_px *ray, t_object *cylinder, float *hp_info);
 int			get_cylinder_surface_data(t_object *cy, t_px *px);
 t_xyz		get_uvcoord_cy(t_object *cy, t_px *px, t_scene *scene);
+int			test_capped_cylinder(t_px *ray, t_object *cylinder, float *hp_info);
 
 // objects/cone.c
 int			test_cone(t_px *ray, t_object *cone, float *hp_info);
 int			get_cone_surface_data(t_object *co, t_px *px);
 t_xyz		get_uvcoord_co(t_object *co, t_px *px, t_scene *scene);
+int			test_cap(t_object *object, t_px *ray, t_xyz origin, float *hp_info);
+int			test_capped_cone(t_px *ray, t_object *cone, float *hp_info);
 
 // objects/triangle.c
 int			test_triangle(t_px *ray, t_object *sphere, float *hp_info);

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/18 15:54:49 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/19 10:17:56 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,32 @@ int	test_cylinder(t_px *ray, t_object *cylinder, float *hp_info)
 	return (set_hp_info(hit_param, cylinder->height, hp_info));
 }
 
+int	test_capped_cylinder(t_px *ray, t_object *cylinder, float *hp_info)
+{
+	t_xyz	orig_to_center;
+	t_xyz	abc;
+	t_xyz	top;
+	float	hit_param[4];
+
+	ft_bzero(hit_param, 4 * sizeof(float));
+	orig_to_center = v_subtract(ray->cam_origin, cylinder->p_origin);
+	abc = get_abc_cyl(ray, orig_to_center, *cylinder);
+	top = v_add(cylinder->p_origin, v_multiply(cylinder->v_normal, cylinder->height));
+	get_parabolic_hitpoints(abc, &hit_param[0], &hit_param[1]);
+	hit_param[2] = (v_dot(ray->direction, cylinder->v_normal) * hit_param[0]) \
+				+ v_dot(orig_to_center, cylinder->v_normal);
+	hit_param[3] = (v_dot(ray->direction, cylinder->v_normal) * hit_param[1]) \
+				+ v_dot(orig_to_center, cylinder->v_normal);
+	set_hp_info(hit_param, cylinder->height, hp_info);	
+	if (test_cap(cylinder, ray, cylinder->p_origin, hp_info))
+		hp_info[1] = 0;
+	if (test_cap(cylinder, ray, top, hp_info))
+		hp_info[1] = cylinder->height;
+	if (hp_info[0])
+		return (1);
+	return (0);
+}
+
 /**
  * @brief 
  * 
@@ -90,16 +116,11 @@ int	test_cylinder(t_px *ray, t_object *cylinder, float *hp_info)
 int	get_cylinder_surface_data(t_object *cy, t_px *px)
 {
 	t_xyz		v;
-	t_xyz		top;
 
 	px->hitpoint = \
 			v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
-	top = v_add(px->hitpoint, v_multiply(cy->v_normal, cy->height));
-	if (v_magnitude(v_subtract(px->hitpoint, top)) < (cy->diameter * 0.5))
+	if (px->cap)
 		px->surface_normal = cy->v_normal;
-	else if (v_magnitude(v_subtract(px->hitpoint, cy->p_origin)) \
-					< (cy->diameter * 0.5))
-		px->surface_normal = v_multiply(cy->v_normal, -1);
 	else
 	{
 		v = v_subtract(cy->p_origin, px->hitpoint);

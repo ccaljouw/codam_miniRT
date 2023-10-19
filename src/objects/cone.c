@@ -6,13 +6,40 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/18 15:25:51 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/19 10:18:40 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
 int		set_hp_info(float *hit_param, float height, float *hp_info);
+
+int	test_cap(t_object *object, t_px *ray, t_xyz origin, float *hp_info)
+{
+	float	angle;
+	float	dist;
+	t_xyz	hp;
+	t_xyz	orig_to_center;
+
+	angle = v_dot(object->v_normal, ray->direction);
+	if (fabs(angle) < EPSILON)
+		return (0);
+	orig_to_center = v_subtract(origin, ray->cam_origin);
+	dist = (v_dot(object->v_normal, orig_to_center) / angle) + SHADOW_BIAS;
+	if (dist < 0)
+		return (0);
+	hp = v_add(ray->cam_origin, v_multiply(ray->direction, dist));
+	if (fabs(v_magnitude(v_subtract(hp, origin))) < (object->diameter * 0.5))
+	{
+		if (dist < hp_info[0] || hp_info[0] == 0)
+		{
+			ray->cap = 1;
+			hp_info[0] = dist;
+		}
+		return (1);
+	}
+	return (0);
+}
 
 /**
  * @brief Get abc cone
@@ -61,6 +88,30 @@ int	test_cone(t_px *ray, t_object *cone, float *hp_info)
 	return (set_hp_info(hit_param, cone->height, hp_info));
 }
 
+int	test_capped_cone(t_px *ray, t_object *cone, float *hp_info)
+{
+	t_xyz	orig_to_center;
+	t_xyz	abc;
+	t_xyz	top;
+	float	hit_param[4];
+
+	ft_bzero(hit_param, 4 * sizeof(float));
+	orig_to_center = v_subtract(ray->cam_origin, cone->p_origin);
+	abc = get_abc_cone(ray, *cone);
+	top = v_add(cone->p_origin, v_multiply(cone->v_normal, cone->height));
+	get_parabolic_hitpoints(abc, &hit_param[0], &hit_param[1]);
+	hit_param[2] = (v_dot(ray->direction, cone->v_normal) * hit_param[0]) \
+				+ v_dot(orig_to_center, cone->v_normal);
+	hit_param[3] = (v_dot(ray->direction, cone->v_normal) * hit_param[1]) \
+				+ v_dot(orig_to_center, cone->v_normal);
+	set_hp_info(hit_param, cone->height, hp_info);	
+	if (test_cap(cone, ray, top, hp_info))
+		hp_info[1] = cone->height;
+	if (hp_info[0])
+		return (1);
+	return (0);
+}
+
 int	get_cone_surface_data(t_object *co, t_px *px)
 {
 	t_xyz		hit_to_center;
@@ -68,18 +119,23 @@ int	get_cone_surface_data(t_object *co, t_px *px)
 	float		angle;
 	float		hypotenuse;
 
-	hypotenuse = sqrt(pow(co->diameter * 0.5, 2) + pow(co->height * 0.5, 2));
-	angle = acos((co->height * 0.5) / hypotenuse);
-	a = px->hit_height * (angle * 0.5) * (angle * 0.5);
-	px->hitpoint = v_add(px->cam_origin, \
-				v_multiply(px->direction, px->hit_distance));
-	hit_to_center = v_subtract(px->hitpoint, co->p_origin);
-	px->surface_normal = \
-			v_subtract(hit_to_center, v_multiply(co->v_normal, px->hit_height));
-	px->surface_normal = \
-			v_subtract(px->surface_normal, v_multiply(co->v_normal, a));
-	v_normalizep(&px->surface_normal);
-		px->facing_ratio = v_dot(px->surface_normal, px->direction);
+	// if (px->cap)
+	// 	px->surface_normal = co->v_normal;
+	// else
+	{
+		hypotenuse = sqrt(pow(co->diameter * 0.5, 2) + pow(co->height * 0.5, 2));
+		angle = acos((co->height * 0.5) / hypotenuse);
+		a = px->hit_height * (angle * 0.5) * (angle * 0.5);
+		px->hitpoint = v_add(px->cam_origin, \
+					v_multiply(px->direction, px->hit_distance));
+		hit_to_center = v_subtract(px->hitpoint, co->p_origin);
+		px->surface_normal = \
+				v_subtract(hit_to_center, v_multiply(co->v_normal, px->hit_height));
+		px->surface_normal = \
+				v_subtract(px->surface_normal, v_multiply(co->v_normal, a));
+		v_normalizep(&px->surface_normal);
+	}
+	px->facing_ratio = v_dot(px->surface_normal, px->direction);
 	if (px->facing_ratio > 0)
 		px->surface_normal = v_multiply(px->surface_normal, -1);
 	else
