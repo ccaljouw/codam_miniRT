@@ -98,13 +98,13 @@ clean_mlx:
 
 
 build_mlx:
-# ifeq ($(ARCH),arm64)
-# 	@echo "Building for arm64"
-# 	@cd libs/MLX42 && cmake -B build -DCMAKE_OSX_ARCHITECTURES=arm64 && cmake --build build --parallel --config Release --target install
-# else
-# 	@echo "Building for x86"
-# 	@cd libs/MLX42 && cmake -B build
-# endif
+ifeq ($(ARCH),arm64)
+	@echo "Building for arm64"
+	@cd libs/MLX42 && cmake -B build -DCMAKE_OSX_ARCHITECTURES=arm64 && cmake --build build --parallel --config Release --target install
+else
+	@echo "Building for x86"
+	@cd libs/MLX42 && cmake -B build
+endif
 
 re: 
 	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"
