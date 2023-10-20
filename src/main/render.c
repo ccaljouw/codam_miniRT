@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   render.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ccaljouw <ccaljouw@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/12 10:11:39 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/19 22:06:33 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/20 11:40:24 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,8 @@ int	get_pixel_data(t_px	*px, t_scene *scene)
 		get_uv(px, scene);
 		map_texture(px);
 		map_procedure(px);
-		light_transport(px, scene);
 		map_normal(px);
+		light_transport(px, scene);
 		loop_lights(scene, px);
 		return (px->color);
 	}
