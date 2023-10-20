@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   text_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:41:09 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/13 22:42:26 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/19 12:51:19 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 float	get_uv(t_px *px, t_scene *scene)
 {
-	static t_uv	*get_uv[5] = {get_uvcoord_sp, get_uvcoord_pl, \
-		get_uvcoord_cy, get_uvcoord_co, get_uvcoord_tr};
+	static t_uv	*get_uv[7] = {get_uvcoord_sp, get_uvcoord_pl, \
+		get_uvcoord_cy, get_uvcoord_cy, get_uvcoord_co, \
+		get_uvcoord_co, get_uvcoord_tr};
 
 	px->uv = get_uv[px->hitobject->id](px->hitobject, px, scene);
 	return (0);

@@ -5,7 +5,7 @@
 
 #resolution
 #	width	height	aa
-R	867		608		0	
+R	867		608		5	
 
 #ambient
 #	brightness [0-1]			color

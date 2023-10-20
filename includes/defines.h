@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 20:37:16 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 22:42:47 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/19 12:26:19 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # define NR_TEXTURES		14
 # define TEXT_PROCEDURES	6
 # define BUMP_PROCEDURES 	3
-// # define AA					1
-// # define AA_SAMPLES			2
 
 # define ALBEDO				.18
 # define MAX_REFRACT		5

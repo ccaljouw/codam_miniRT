@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/16 22:46:51 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/19 23:26:22 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,22 @@ int			get_plane_surface_data(t_object *plane, t_px *px);
 t_xyz		get_uvcoord_pl(t_object *pl, t_px *px, t_scene *scene);
 
 // objects/cylinder.c
+t_xyz		get_abc_cyl(t_px *ray, t_xyz orig_to_center, t_object cylinder);
+int			set_hp_info(float *hit_param, float height, float *hp_info);
 int			test_cylinder(t_px *ray, t_object *cylinder, float *hp_info);
 int			get_cylinder_surface_data(t_object *cy, t_px *px);
 t_xyz		get_uvcoord_cy(t_object *cy, t_px *px, t_scene *scene);
 
 // objects/cone.c
+t_xyz		get_abc_cone(t_px *ray, t_object *cone);
 int			test_cone(t_px *ray, t_object *cone, float *hp_info);
 int			get_cone_surface_data(t_object *co, t_px *px);
 t_xyz		get_uvcoord_co(t_object *co, t_px *px, t_scene *scene);
+
+// objects/capped.c
+int			test_cap(t_object *object, t_px *ray, t_xyz origin, float *hp_info);
+int			test_capped_cylinder(t_px *ray, t_object *cylinder, float *hp_info);
+int			test_capped_cone(t_px *ray, t_object *cone, float *hp_info);
 
 // objects/triangle.c
 int			test_triangle(t_px *ray, t_object *sphere, float *hp_info);
@@ -111,9 +119,10 @@ void		change_aa(t_scene *s);
 void		change_bump(t_scene *scene, mlx_key_data_t k);
 
 // image_utils.c
-void		image_to_window(t_scene *scene);
+void		image_to_window(t_scene *scene, mlx_image_t *image);
 int			get_color(t_px *px, t_scene *scene);
 void		draw_image(t_scene *scene);
+void		draw_black(t_scene *scene);
 int			get_text_pxcolor(mlx_texture_t *text, t_xyz uv);
 
 // antialias.c

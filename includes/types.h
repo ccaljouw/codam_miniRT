@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:10:32 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/16 23:36:10 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/19 23:02:48 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ typedef enum e_type
 	SP = 0,
 	PL,
 	CY,
+	CCY,
 	CO,
+	CCO,
 	TR
 }	t_type;
 
@@ -65,6 +67,7 @@ typedef struct s_object
 	t_m44			rotate_matrix;
 	float			plane_x;
 	float			plane_y;
+	float			angle;
 }					t_object;
 
 /**
@@ -94,6 +97,7 @@ typedef struct s_pixel
 	int			color;
 	int			refl_color;
 	int			rfr_color;
+	int			cap;
 }	t_px;
 
 /**
@@ -123,6 +127,7 @@ typedef struct s_scene
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
+	mlx_image_t		*render_image;
 	mlx_texture_t	**textures;
 	t_ambient		*ambient;
 	t_camera		*camera;
@@ -141,6 +146,7 @@ typedef struct s_scene
 	t_list			*selected_light;
 	bool			single_light;
 	int				max_reflect;
+	int				frames;
 }					t_scene;
 
 typedef struct s_block

@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:11:39 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/16 23:36:26 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/20 11:38:41 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,6 @@ void	clean_scene(t_scene *scene)
 	free(scene->pixels);
 }
 
-void	leaks_f(void)
-{
-	system("leaks -q miniRT");
-}
-
 int	main(int argc, char **argv)
 {
 	t_scene			*s;
@@ -63,8 +58,10 @@ int	main(int argc, char **argv)
 		if (!s->mlx)
 			exit_error((char *)mlx_strerror(mlx_errno), NULL, s);
 		s->image = mlx_new_image(s->mlx, s->file_width, s->file_height);
+		s->render_image = mlx_new_image(s->mlx, s->file_width, s->file_height);
+		image_to_window(s, s->render_image);
 		render_image(s);
-		image_to_window(s);
+		image_to_window(s, s->image);
 		mlx_key_hook(s->mlx, key_input, s);
 		mlx_mouse_hook(s->mlx, select_object, s);
 		mlx_resize_hook(s->mlx, set_resize_flag, s);

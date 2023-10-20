@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:03:04 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 16:16:37 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/19 23:07:10 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,9 @@ void	print_plane(t_object *pl, t_scene *s, int fd)
  */
 void	print_cylco(t_object *cy, t_scene *s, int fd)
 {
-	if (cy->id == CO)
-		ft_dprintf(fd, "co\t");
-	else
-		ft_dprintf(fd, "cy\t");
+	static char	*names[4] = {"cy", "ccy", "co", "cco"};
+
+	ft_dprintf(fd, "%s\t", names[cy->id - 2]);
 	p_v(cy->p_origin, fd);
 	p_v(cy->v_normal, fd);
 	ft_dprintf(fd, "%.1f\t\t\t\t\t", round(cy->diameter * 10) / 10);

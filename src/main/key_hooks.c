@@ -6,7 +6,7 @@
 /*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:13:35 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/17 13:59:16 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:14:19 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	key_input2(mlx_key_data_t k, t_scene *scene)
 		save_scene(scene);
 	if (k.key == MLX_KEY_BACKSPACE)
 		delete_object(scene);
-	if (k.key >= MLX_KEY_1 && k.key <= MLX_KEY_5)
+	if (k.key >= MLX_KEY_1 && k.key <= MLX_KEY_7)
 		add_object(scene, k.key - 49);
-	if (k.key == MLX_KEY_6)
+	if (k.key == MLX_KEY_8)
 		add_light(scene);
 	if (k.key == MLX_KEY_R)
 		adjust_reflections(scene, k);

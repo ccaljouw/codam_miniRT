@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shadow_ray.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:58:06 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/13 23:16:59 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/19 16:25:56 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 int	trace_shadow(t_px *px, t_scene *s)
 {
 	float				hp[2];
-	static t_hit_test	*hit_test[5] = \
-			{test_sphere, test_plane, test_cylinder, test_cone, test_triangle};
+	static t_hit_test	*hit_test[7] = {test_sphere, test_plane, \
+							test_cylinder, test_capped_cylinder, \
+							test_cone, test_capped_cone, test_triangle};
 	t_list				*objects;
 	t_object			*object;
 
 	objects = s->objects;
-	ft_bzero(hp, sizeof(float) * 2);
 	while (objects)
 	{
+		ft_bzero(hp, sizeof(float) * 2);
 		object = (t_object *)objects->content;
 		if (hit_test[object->id](px, object, hp))
 		{

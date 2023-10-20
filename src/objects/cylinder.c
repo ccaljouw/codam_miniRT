@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cylinder.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/20 18:26:44 by ccaljouw      #+#    #+#                 */
-/*   Updated: 2023/10/11 23:04:31 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/20 18:26:44 by ccaljouw          #+#    #+#             */
+/*   Updated: 2023/10/19 23:05:23 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,11 @@ int	test_cylinder(t_px *ray, t_object *cylinder, float *hp_info)
 int	get_cylinder_surface_data(t_object *cy, t_px *px)
 {
 	t_xyz		v;
-	t_xyz		top;
 
 	px->hitpoint = \
 			v_add(px->cam_origin, v_multiply(px->direction, px->hit_distance));
-	top = v_add(px->hitpoint, v_multiply(cy->v_normal, cy->height));
-	if (v_magnitude(v_subtract(px->hitpoint, top)) < (cy->diameter * 0.5))
+	if (px->cap)
 		px->surface_normal = cy->v_normal;
-	else if (v_magnitude(v_subtract(px->hitpoint, cy->p_origin)) \
-					< (cy->diameter * 0.5))
-		px->surface_normal = v_multiply(cy->v_normal, -1);
 	else
 	{
 		v = v_subtract(cy->p_origin, px->hitpoint);
@@ -107,7 +102,11 @@ int	get_cylinder_surface_data(t_object *cy, t_px *px)
 		px->surface_normal = v_cross(px->surface_normal, cy->v_normal);
 		v_normalizep(&px->surface_normal);
 	}
-	px->facing_ratio = fabsf(v_dot(px->surface_normal, px->direction));
+	px->facing_ratio = v_dot(px->surface_normal, px->direction);
+	if (px->facing_ratio > 0)
+		px->surface_normal = v_multiply(px->surface_normal, -1);
+	else
+		px->facing_ratio *= -1;
 	return (px->color);
 }
 

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   image_utils.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/16 14:53:40 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/20 10:54:01 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT.h>
 
-void	image_to_window(t_scene *scene)
+void	image_to_window(t_scene *scene, mlx_image_t *image)
 {
-	if (!scene->image)
+	if (!image)
 	{
 		mlx_close_window(scene->mlx);
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
 	}
-	if (mlx_image_to_window(scene->mlx, scene->image, 0, 0) == -1)
+	if (mlx_image_to_window(scene->mlx, image, 0, 0) == -1)
 	{
 		mlx_close_window(scene->mlx);
 		exit_error((char *)mlx_strerror(mlx_errno), NULL, scene);
@@ -33,8 +33,10 @@ int	get_text_pxcolor(mlx_texture_t *text, t_xyz uv)
 	int				text_y;
 	int				color;
 
-	text_x = floor(uv.x * (float)text->width);
-	text_y = floor(uv.y * (float)text->height);
+	uv.x = ft_clamp(0, 1, uv.x);
+	uv.y = ft_clamp(0, 1, uv.y);
+	text_x = floor(uv.x * ((float)text->width - 1));
+	text_y = floor(uv.y * ((float)text->height - 1));
 	if (text_y == 0 && text_x == 0)
 		px = 0;
 	else
@@ -69,6 +71,31 @@ void	draw_image(t_scene *scene)
 		}
 	}
 }
+
+// void	draw_black(t_scene *scene)
+// {
+// 	int	x;
+// 	int	y;
+
+// 	y = 0;
+// 	if (scene->aa > 1)
+// 	{
+// 		draw_aa(scene);
+// 	}
+// 	else
+// 	{
+// 		while (y < scene->p_height)
+// 		{
+// 			x = 0;
+// 			while (x < scene->p_width)
+// 			{
+// 				mlx_put_pixel(scene->render_image, x, y, 255);
+// 				x++;
+// 			}
+// 			y++;
+// 		}
+// 	}
+// }
 
 /**
  * @brief Calculate the color of a pixel:

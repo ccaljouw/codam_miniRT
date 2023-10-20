@@ -6,7 +6,7 @@ RESET	:= \033[0m
 
 NAME 		:= miniRT
 CC 			:= cc
-CFLAGS 		:= -Wall -Wextra -Werror -O3 #-g -fsanitize=address
+CFLAGS 		:= -Wall -Wextra -Werror -O3 
 CFLAGS_BONUS := -D BONUS=1 -pthread 
 LIBFT	 	:= ./libs/libft
 LIBMLX		:= ./libs/MLX42/build
@@ -36,7 +36,7 @@ endif
 OBJ 		:= $(addprefix obj/, \
 				$(addprefix main/, main.o utils.o render.o init.o ascii.o key_hooks.o dummy.o dummy2.o) \
 				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o parse_util.o triangle.o) \
-				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o triangle.o) \
+				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o triangle.o capped.o) \
 				$(addprefix image/, scale.o draw.o select.o resize.o light_manipulation.o anti_alias.o param_adjustments.o rotate.o move.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o vector2.o vector3.o matrix_vector_utils.o) \
 				$(addprefix textures/, text_utils.o color_maps.o procedural_textures.o bump_mapping.o) \
@@ -45,7 +45,7 @@ OBJ 		:= $(addprefix obj/, \
 OBJ_BONUS	:=  $(addprefix obj_bonus/, \
 				$(addprefix main/, main.o utils.o render.o init.o ascii.o key_hooks.o multithreading.o) \
 				$(addprefix parse/, parse.o unique.o shapes.o setters.o setters2.o light.o parse_util.o triangle.o) \
-				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o triangle.o) \
+				$(addprefix objects/, sphere.o plane.o cylinder.o cone.o triangle.o capped.o) \
 				$(addprefix image/, scale.o draw.o select.o resize.o light_manipulation.o anti_alias.o param_adjustments.o rotate.o move.o) \
 				$(addprefix math/, matrix_transformations.o matrix_utils.o matrix_inverse.o matrix_inverse_utils.o vector.o vector2.o vector3.o matrix_vector_utils.o) \
 				$(addprefix textures/, text_utils.o color_maps.o procedural_textures.o bump_mapping.o) \
@@ -53,9 +53,9 @@ OBJ_BONUS	:=  $(addprefix obj_bonus/, \
 				$(addprefix edit/, save.o print_shapes.o save_util.o add_delete.o) \
 				)
 
-all: bonus
+all: mandatory
 
-mandatory: $(NAME)    #change before submission!!
+mandatory: $(NAME)    
 
 $(NAME): $(OBJ) $(LIBS)
 	@$(CC) $(CFLAGS) $^ -o $@  $(LIBFLAGS)
@@ -113,4 +113,4 @@ re:
 	@rm -rf obj_bonus/
 	@$(MAKE) all
 
-.PHONY: all mandatory bonus clean fclean re clean_mlx
+.PHONY: all mandatory bonus clean fclean re clean_mlx build_mlx
