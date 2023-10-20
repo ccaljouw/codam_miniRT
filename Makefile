@@ -53,9 +53,9 @@ OBJ_BONUS	:=  $(addprefix obj_bonus/, \
 				$(addprefix edit/, save.o print_shapes.o save_util.o add_delete.o) \
 				)
 
-all: bonus
+all: mandatory
 
-mandatory: $(NAME)    #change before submission!!
+mandatory: $(NAME)    
 
 $(NAME): $(OBJ) $(LIBS)
 	@$(CC) $(CFLAGS) $^ -o $@  $(LIBFLAGS)

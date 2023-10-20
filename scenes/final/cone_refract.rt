@@ -5,7 +5,7 @@
 
 #resolution
 #	width	height	anti-alias [0-5]	# reflections
-R	800		600		0					5
+R	800		600		0					1
 
 #ambient
 #	brightness [0-1]			color
@@ -13,10 +13,15 @@ A	0.6							255,255,255
 
 #lights (L for single, l for multiple)
 #	origin					brightness [0-1]			color
+l	21.000,0.000,-12.000	1.200000					255,255,255
+l	-4.000,0.000,-26.510	1.299999					255,255,255
 
 #camera
 #	origin					orientation					field of view (deg)
-C	0.000,0.000,-14.000		0.000,0.000,1.000			65
+C	0.000,0.000,-40.500		0.000,0.000,0.998			65
 
 #objects
 #ID	origin | p0				axis | p1				diameter | p2		height	t	bt	p	b	albedo (%)	specular_size (1-10)	spec_weight (%)	refl	refr	transp	color
+co	0.000,8.000,-28.500		-0.000,-0.865,0.500		3.3					14.0		0	0	0	0		18			0						0			0.000	1.500	1.000	255,255,255
+pl	0.000,-9.000,-11.000	0.000,1.000,0.000									0	0	0	0		18			0						0			0.000	1.000	0.000	255,255,255
+pl	0.000,-2.000,-5.500		0.000,0.000,0.999									7	0	0	0		18			0						0			0.000	1.000	0.000	255,255,255
