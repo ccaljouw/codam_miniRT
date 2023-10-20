@@ -1,0 +1,23 @@
+#################################################
+#			scenes/saved_scene_9.rt				#
+#################################################
+
+
+#resolution
+#	width	height	anti-alias [0-5]	# reflections
+R	800		600		0					5
+
+#ambient
+#	brightness [0-1]			color
+A	0.6							255,255,255
+
+#lights (L for single, l for multiple)
+#	origin					brightness [0-1]			color
+
+#camera
+#	origin					orientation					field of view (deg)
+C	0.000,0.000,-14.000		0.000,0.000,1.000			65
+
+#objects
+#ID	origin | p0				axis | p1				diameter | p2		height	t	bt	p	b	albedo (%)	specular_size (1-10)	spec_weight (%)	refl	refr	transp	color
+ccy	0.000,0.000,-9.000		0.000,0.500,-0.866		1.0					2.0		0	0	0	0		18			0						0			0.000	1.000	0.000	255,255,255
