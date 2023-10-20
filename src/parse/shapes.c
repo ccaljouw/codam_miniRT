@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:39:58 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/19 21:32:41 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/19 23:21:26 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,16 @@ void	init_plane(char **param, t_scene *scene)
 	ft_putstr_fd("\033[34;1mPlane config:\t\t\033[0m", 1);
 }
 
+static void	set_cylco_params(char **p, t_scene *scene, t_object *cylco, int i)
+{
+	cylco->p_origin = set_xyz(p[1], scene);
+	cylco->v_normal = v_normalize(set_xyz(p[2], scene));
+	cylco->diameter = to_float(p[3], scene);
+	cylco->height = to_float(p[4], scene);
+	cylco->rotate_matrix = m44_rotate_axis(180, 'y');
+	set_surface_properties(&p[5], cylco, i - BONUS_SPECS, scene);
+}
+
 /**
  * @brief Initialises a cylinder in the scene.
  * 
@@ -66,20 +76,18 @@ void	init_cyl(char **param, t_scene *scene)
 	new_cylinder = ft_calloc(1, sizeof(t_object));
 	if (!new_node || !new_cylinder)
 		exit_error(ERROR_MEM, NULL, scene);
-	new_cylinder->id = CY;
-	new_cylinder->p_origin = set_xyz(param[1], scene);
-	new_cylinder->v_normal = v_normalize(set_xyz(param[2], scene));
-	new_cylinder->diameter = to_float(param[3], scene);
-	new_cylinder->height = to_float(param[4], scene);
-	new_cylinder->rotate_matrix = m44_rotate_axis(180, 'y');
-	set_surface_properties(&param[5], new_cylinder, i - BONUS_SPECS, scene);
+	if (!ft_strcmp(param[0], "cy"))
+		new_cylinder->id = CY;
+	else
+		new_cylinder->id = CCY;
+	set_cylco_params(param, scene, new_cylinder, i);
 	new_node->content = (void *)new_cylinder;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mCylinder config:\t\033[0m", 1);
 }
 
 /**
- * @brief Initialises a cylinder in the scene.
+ * @brief Initialises a cone in the scene.
  * 
  * @param param (char **) tab separated string input.
  * @param scene (t_scene) passed to clean up when input is invallid.
@@ -90,7 +98,6 @@ void	init_cone(char **param, t_scene *scene)
 	t_object	*new_cone;
 	int			i;
 
-ft_printf("got cone");
 	i = 0;
 	if (!BONUS)
 		exit_error(ERROR_CONE, "cone not implemented in mandatory", scene);
@@ -106,12 +113,7 @@ ft_printf("got cone");
 		new_cone->id = CO;
 	else
 		new_cone->id = CCO;
-	new_cone->p_origin = set_xyz(param[1], scene);
-	new_cone->v_normal = v_normalize(set_xyz(param[2], scene));
-	new_cone->diameter = to_float(param[3], scene);
-	new_cone->height = to_float(param[4], scene);
-	new_cone->rotate_matrix = m44_rotate_axis(180, 'y');
-	set_surface_properties(&param[5], new_cone, i - BONUS_SPECS, scene);
+	set_cylco_params(param, scene, new_cone, i);
 	new_node->content = (void *)new_cone;
 	ft_lstadd_back(&scene->objects, new_node);
 	ft_putstr_fd("\033[34;1mCone config:\t\t\033[0m", 1);

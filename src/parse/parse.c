@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:29:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/19 21:33:37 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/19 23:08:54 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	type_loop(char **param, char **type, t_f **parse, t_scene *scene)
 	int	i;
 
 	i = 0;
-	while (param[0] && i < 11)
+	while (param[0] && i < 12)
 	{
 		if (!ft_strcmp(type[i], param[0]))
 		{
@@ -40,19 +40,19 @@ void	parse_type(char *line, t_scene *scene)
 {
 	int			i;
 	char		**param;
-	static char	*type[11] = {"A", "C", "l", "L", "sp", \
-							"pl", "cy", "R", "co", "tr", "cco"};
-	static t_f	*parse[11] = {init_ambient, init_camera, init_lights, \
+	static char	*type[12] = {"A", "C", "l", "L", "sp", \
+							"pl", "cy", "R", "co", "tr", "cco", "ccy"};
+	static t_f	*parse[12] = {init_ambient, init_camera, init_lights, \
 							init_lights, init_sphere, init_plane, init_cyl, \
 							init_resolution, init_cone, init_triangle, \
-							init_cone};
+							init_cone, init_cyl};
 
 	replace(line, ' ', '\t');
 	param = ft_split(line, '\t');
 	if (!param)
 		exit_error(ERROR_MEM, NULL, scene);
 	i = type_loop(param, type, parse, scene);
-	if (i == 11)
+	if (i == 12)
 		exit_error(ERROR_SCENE, "incorrect type", scene);
 	ft_clean_split_arr(&param);
 }

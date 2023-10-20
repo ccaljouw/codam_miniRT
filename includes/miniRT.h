@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:38:40 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/19 20:08:18 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/19 23:26:22 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_xyz		get_uvcoord_pl(t_object *pl, t_px *px, t_scene *scene);
 
 // objects/cylinder.c
 t_xyz		get_abc_cyl(t_px *ray, t_xyz orig_to_center, t_object cylinder);
-int	set_hp_info(float *hit_param, float height, float *hp_info);
+int			set_hp_info(float *hit_param, float height, float *hp_info);
 int			test_cylinder(t_px *ray, t_object *cylinder, float *hp_info);
 int			get_cylinder_surface_data(t_object *cy, t_px *px);
 t_xyz		get_uvcoord_cy(t_object *cy, t_px *px, t_scene *scene);

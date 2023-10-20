@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   param_adjustments.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 15:56:54 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/17 14:09:20 by ccaljouw         ###   ########.fr       */
+/*   Updated: 2023/10/19 23:26:09 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ void	change_aa(t_scene *s)
 {
 	int	check_width;
 	int	check_height;
-	
-	if (s->aa == 1 )
+
+	if (s->aa == 1)
 		s->aa = 2;
 	else
 		s->aa += 2;

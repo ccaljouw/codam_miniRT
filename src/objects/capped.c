@@ -6,11 +6,11 @@
 /*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:31:28 by ccaljouw          #+#    #+#             */
-/*   Updated: 2023/10/19 22:36:50 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/19 23:22:09 by albertvanan      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <miniRT.h>
+#include <miniRT.h>
 
 int	test_cap(t_object *object, t_px *ray, t_xyz origin, float *hp_info)
 {
@@ -39,7 +39,7 @@ int	test_cap(t_object *object, t_px *ray, t_xyz origin, float *hp_info)
 	return (0);
 }
 
-int	test_capped_cylinder(t_px *ray, t_object *cylinder, float *hp_info)
+int	test_capped_cylinder(t_px *ray, t_object *cyl, float *hp_info)
 {
 	t_xyz	orig_to_center;
 	t_xyz	abc;
@@ -47,19 +47,19 @@ int	test_capped_cylinder(t_px *ray, t_object *cylinder, float *hp_info)
 	float	hit_param[4];
 
 	ft_bzero(hit_param, 4 * sizeof(float));
-	orig_to_center = v_subtract(ray->cam_origin, cylinder->p_origin);
-	abc = get_abc_cyl(ray, orig_to_center, *cylinder);
-	top = v_add(cylinder->p_origin, v_multiply(cylinder->v_normal, cylinder->height));
+	orig_to_center = v_subtract(ray->cam_origin, cyl->p_origin);
+	abc = get_abc_cyl(ray, orig_to_center, *cyl);
+	top = v_add(cyl->p_origin, v_multiply(cyl->v_normal, cyl->height));
 	get_parabolic_hitpoints(abc, &hit_param[0], &hit_param[1]);
-	hit_param[2] = (v_dot(ray->direction, cylinder->v_normal) * hit_param[0]) \
-				+ v_dot(orig_to_center, cylinder->v_normal);
-	hit_param[3] = (v_dot(ray->direction, cylinder->v_normal) * hit_param[1]) \
-				+ v_dot(orig_to_center, cylinder->v_normal);
-	set_hp_info(hit_param, cylinder->height, hp_info);	
-	if (test_cap(cylinder, ray, cylinder->p_origin, hp_info))
+	hit_param[2] = (v_dot(ray->direction, cyl->v_normal) * hit_param[0]) \
+				+ v_dot(orig_to_center, cyl->v_normal);
+	hit_param[3] = (v_dot(ray->direction, cyl->v_normal) * hit_param[1]) \
+				+ v_dot(orig_to_center, cyl->v_normal);
+	set_hp_info(hit_param, cyl->height, hp_info);
+	if (test_cap(cyl, ray, cyl->p_origin, hp_info))
 		hp_info[1] = 0;
-	if (test_cap(cylinder, ray, top, hp_info))
-		hp_info[1] = cylinder->height;
+	if (test_cap(cyl, ray, top, hp_info))
+		hp_info[1] = cyl->height;
 	if (hp_info[0])
 		return (1);
 	return (0);
@@ -82,7 +82,6 @@ int	test_capped_cone(t_px *ray, t_object *cone, float *hp_info)
 	hit_param[3] = (v_dot(ray->direction, cone->v_normal) * hit_param[1]) \
 				+ v_dot(orig_to_center, cone->v_normal);
 	set_hp_info(hit_param, cone->height, hp_info);
-	// ft_printf("params: %f %f %f %f\n", hit_param[0], hit_param[1], hit_param[2], hit_param[3]);
 	if (test_cap(cone, ray, top, hp_info))
 		hp_info[1] = cone->height;
 	if (hp_info[0])
