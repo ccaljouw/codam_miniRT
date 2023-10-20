@@ -72,12 +72,12 @@ $(LIBS): build_mlx
 $(OBJ): obj/%.o : src/%.c 
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $^ -o $@  $(HEADERS)
-	@echo Creating miniRT object with flags $(CFLAGS): $@ "\033[1A\033[M"
+	@echo Creating miniRT object with flags $(CFLAGS): $@ "\033[1A\033[m"
 
 $(OBJ_BONUS): obj_bonus/%.o : src/%.c 
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(CFLAGS_BONUS) -c $^ -o $@  $(HEADERS)
-	@echo Creating miniRT object with flags $(CFLAGS): $@ "\033[1A\033[M"
+	@echo Creating miniRT object with flags $(CFLAGS): $@ "\033[1A\033[m"
 
 clean:
 	@echo "$(BLUE)$(BOLD)Cleaning miniRT$(RESET)"
