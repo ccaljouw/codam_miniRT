@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   scale.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/16 22:04:51 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   scale.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/23 08:54:35 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/10/21 19:05:18 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	scale_triangle(t_object *tr, mlx_key_data_t k)
 		m44_multiply_vec3(scale, tr->p[i], &tr->p[i]);
 		m44_multiply_vec3(tr_i, tr->p[i], &tr->p[i]);
 	}
+	triangle_vectors(tr);
 }
 
 void	scale(mlx_key_data_t keydata, t_scene *s)

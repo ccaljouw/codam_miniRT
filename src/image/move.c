@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   move.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 16:18:29 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 23:07:01 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   move.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/16 16:18:29 by albertvanan   #+#    #+#                 */
+/*   Updated: 2023/10/21 19:05:42 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	translate_triangle(t_scene *s, mlx_key_data_t k)
 	i = -1;
 	while (++i < 3)
 		s->selected->p[i] = v_add(s->selected->p[i], pos);
+	triangle_vectors(s->selected);
 }
 
 void	move(mlx_key_data_t keydata, t_scene *scene)

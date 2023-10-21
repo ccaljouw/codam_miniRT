@@ -6,7 +6,7 @@
 /*   By: albertvanandel <albertvanandel@student.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/12 14:42:48 by albertvanan   #+#    #+#                 */
-/*   Updated: 2023/10/18 15:49:05 by cariencaljo   ########   odam.nl         */
+/*   Updated: 2023/10/21 19:54:54 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,13 @@ int	get_triangle_surface_data(t_object *tr, t_px *px)
 t_xyz	get_uvcoord_tr(t_object *tr, t_px *px, t_scene *scene)
 {
 	t_xyz	uv;
-	t_xyz	x_plane;
-	t_xyz	y_plane;
 
 	(void)scene;
-	x_plane = v_normalize(v_cross(tr->v_normal, v_create(0, 1, 0)));
-	if (x_plane.x == 0 && x_plane.y == 0 && x_plane.z == 0)
-		x_plane = v_normalize(v_cross(tr->v_normal, v_create(1, 0, 0)));
-	y_plane = v_normalize(v_cross(x_plane, tr->v_normal));
-	uv.x = fmod(v_dot(px->hitpoint, x_plane), tr->plane_x);
-	uv.y = fmod(v_dot(px->hitpoint, y_plane), tr->plane_y);
-	uv.x = 1 - ((uv.x + tr->plane_x) / (tr->plane_x * 2));
-	uv.y = 1 - ((uv.y + tr->plane_y) / (tr->plane_y * 2));
+	uv = v_subtract(px->hitpoint, tr->p_origin);
+	m44_multiply_vec3_dir(tr->rotate_matrix, uv, \
+												&uv);
+	uv.x = (uv.x / tr->plane_x);
+	uv.y = 1 - (uv.y / tr->plane_y);
 	uv.z = 0;
 	return (uv);
 }
