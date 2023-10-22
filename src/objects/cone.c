@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cone.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/30 19:23:25 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/19 23:22:34 by albertvanan      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cone.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: albertvanandel <albertvanandel@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
+/*   Updated: 2023/10/21 22:49:29 by cariencaljo   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_xyz	get_abc_cone(t_px *ray, t_object *cone)
 	float	factor;
 
 	factor = \
-		1 + ((cone->diameter * 0.25) / (cone->height)) * (cone->diameter * 0.5);
+		1 + (pow((cone->diameter * 0.5),2) / pow((cone->height),2));
 	co = v_subtract(ray->cam_origin, cone->p_origin);
 	abc.x = v_dot(ray->direction, ray->direction) \
 			- (pow(v_dot(ray->direction, cone->v_normal), 2) * factor);
@@ -93,7 +93,10 @@ t_xyz	get_uvcoord_co(t_object *co, t_px *px, t_scene *scene)
 	t_xyz	v;
 	t_xyz	hp_in_object_space;
 
-	x_plane = v_cross(co->v_normal, scene->camera->orientation_v);
+	(void)scene;
+	x_plane = v_normalize(v_cross(co->v_normal, v_create(1, 0, 0)));
+	if (x_plane.x == 0 && x_plane.y == 0 && x_plane.z == 0)
+		x_plane = v_normalize(v_cross(co->v_normal, v_create(0, 1, 0)));
 	z_plane = v_cross(co->v_normal, x_plane);
 	v = v_subtract(co->p_origin, px->hitpoint);
 	hp_in_object_space.y = v_dot(co->v_normal, v);
