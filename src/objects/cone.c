@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cone.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/09/30 19:23:25 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/21 22:49:29 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cone.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/30 19:23:25 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/24 13:02:16 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_xyz	get_abc_cone(t_px *ray, t_object *cone)
 	float	factor;
 
 	factor = \
-		1 + (pow((cone->diameter * 0.5),2) / pow((cone->height),2));
+		1 + (pow((cone->diameter * 0.5), 2) / pow((cone->height), 2));
 	co = v_subtract(ray->cam_origin, cone->p_origin);
 	abc.x = v_dot(ray->direction, ray->direction) \
 			- (pow(v_dot(ray->direction, cone->v_normal), 2) * factor);
@@ -37,7 +37,7 @@ t_xyz	get_abc_cone(t_px *ray, t_object *cone)
 			* v_dot(co, cone->v_normal) * factor));
 	abc.z = v_dot(co, co) \
 			- (pow(v_dot(co, cone->v_normal), 2) * factor);
-	return (abc); 
+	return (abc);
 }
 
 int	test_cone(t_px *ray, t_object *cone, float *hp_info)

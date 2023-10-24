@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 08:54:35 by cariencaljo       #+#    #+#             */
-/*   Updated: 2023/10/20 10:54:01 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/24 10:55:46 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,31 +71,6 @@ void	draw_image(t_scene *scene)
 		}
 	}
 }
-
-// void	draw_black(t_scene *scene)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	y = 0;
-// 	if (scene->aa > 1)
-// 	{
-// 		draw_aa(scene);
-// 	}
-// 	else
-// 	{
-// 		while (y < scene->p_height)
-// 		{
-// 			x = 0;
-// 			while (x < scene->p_width)
-// 			{
-// 				mlx_put_pixel(scene->render_image, x, y, 255);
-// 				x++;
-// 			}
-// 			y++;
-// 		}
-// 	}
-// }
 
 /**
  * @brief Calculate the color of a pixel:

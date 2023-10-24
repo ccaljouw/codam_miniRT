@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   refl_refr.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: albertvanandel <albertvanandel@student.      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/14 16:14:06 by cariencaljo   #+#    #+#                 */
-/*   Updated: 2023/10/18 15:43:55 by cariencaljo   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   refl_refr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/14 16:14:06 by cariencaljo       #+#    #+#             */
+/*   Updated: 2023/10/24 13:04:58 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	light_transport(t_px *px, t_scene *scene)
 		refr_ray = refraction(px, scene);
 	if (refr_ray)
 	{
-		px->rfr_color = get_color(refr_ray, scene); 
-		free(refr_ray); 
+		px->rfr_color = get_color(refr_ray, scene);
+		free(refr_ray);
 	}
 	if (refl_ray)
 	{

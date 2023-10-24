@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   select.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 23:15:09 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/16 14:26:17 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/24 13:01:12 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *p)
 	if (!BONUS)
 		return ;
 	scene = (t_scene *)p;
+	if (!scene->image)
+	{
+		ft_printf("nothing to select\n");
+		return ;
+	}
 	if (b == MLX_MOUSE_BUTTON_LEFT && a == MLX_PRESS)
 	{
 		mlx_get_mouse_pos(scene->mlx, &x, &y);
@@ -60,6 +65,7 @@ void	select_object(mouse_key_t b, action_t a, modifier_key_t mod, void *p)
 			scene->selected = NULL;
 		else
 			scene->selected = clicked_object;
-		render_image(scene);
+		if (clicked_object != NULL)
+			draw_image(scene);
 	}
 }

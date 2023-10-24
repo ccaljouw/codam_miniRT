@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_shapes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertvanandel <albertvanandel@student.    +#+  +:+       +#+        */
+/*   By: ccaljouw <ccaljouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:03:04 by albertvanan       #+#    #+#             */
-/*   Updated: 2023/10/19 23:07:10 by albertvanan      ###   ########.fr       */
+/*   Updated: 2023/10/24 13:02:54 by ccaljouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void	print_sphere(t_object *sp, t_scene *s, int fd)
 {
 	ft_dprintf(fd, "sp\t");
 	p_v(sp->p_origin, fd);
-	ft_dprintf(fd, "\t\t\t\t\t\t%.1f\t\t\t\t\t\t\t", round(sp->diameter * 10) / 10);
+	ft_dprintf(fd, "\t\t\t\t\t\t%.1f\t\t\t\t\t\t\t", \
+							round(sp->diameter * 10) / 10);
 	print_texture_settings(s, sp, fd);
 }
 
