@@ -27,8 +27,10 @@ endif
 
 ifeq ($(USER), cariencaljouw)
 	LIBFLAGS 	= -lglfw -L /opt/homebrew/Cellar/glfw/3.3.8/lib/ -framework Cocoa -framework OpenGL -framework IOKit
-else ifeq ($(USER), albertvanandel)
+# glfw library is expected to be in a standard library search path
+else ifeq ($(UNAME),Darwin)
 	LIBFLAGS 	= -lglfw  -framework Cocoa -framework OpenGL -framework IOKit	
+# glfw and OpenGL libraries are expected to be in a standard library search path
 else
 	LIBFLAGS	= -ldl -lglfw -lm
 endif
@@ -85,22 +87,20 @@ clean:
 	@rm -rf obj_bonus/
 	@$(MAKE) -C $(LIBFT) clean
 
-fclean: clean
+fclean: clean clean_mlx
 	@rm -f $(NAME)
 	@rm -f ./test
 	@$(MAKE) -C $(LIBFT) fclean
 	@$(MAKE) -C $(LIBMLX) clean
 
 clean_mlx:
-	@echo "$(RED)$(BOLD)Removing MLX build$(RESET)"
+	@echo "Removing MLX build"
 	@rm -rf libs/MLX42/build
-	@echo "$(RED)$(BOLD)MLX build removed. Rebuild with make build_mlx$(RESET)"
-
 
 build_mlx:
 ifeq ($(ARCH),arm64)
 	@echo "Building for arm64"
-	@cd libs/MLX42 && cmake -B build -DCMAKE_OSX_ARCHITECTURES=arm64 && cmake --build build --parallel --config Release --target install
+	@cd libs/MLX42 && cmake -B build -DCMAKE_OSX_ARCHITECTURES=arm64
 else
 	@echo "Building for x86"
 	@cd libs/MLX42 && cmake -B build
