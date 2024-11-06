@@ -1,5 +1,28 @@
+# MiniRT | CODAM Amsterdam
+
+## Introduction
+Implementation of a limited raytracer to create realistic images from scratch
+
+## Features
+- Create an image based on input .rt file
+- Change image (see Key Inputs)
+- Save image (see Key Inputs)
+
+## Requirements
+- Linux or MacOS
+- C compiler (tested with clang)
+- glfw
+- OpenGL (for linux)
+
+## Installation
+- Clone the repository: `git clone https://github.com/ccaljouw/codam_miniRT.git <new folder>`
+- Change directory: `cd <new folder>`
+- Compile: `make` or `make bonus`
+- Run the executable: `./miniRT <selected scene from scenes folder>`
 
 
+## Credits
+This MiniRT was created by Albert van Andel and Carien Caljouw as a project for CODAM programming school.
 
 # Key inputs
 
