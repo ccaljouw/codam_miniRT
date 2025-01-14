@@ -26,7 +26,7 @@ else ifeq ($(UNAME),Linux)
 endif
 
 ifeq ($(USER), cariencaljouw)
-	LIBFLAGS 	= -lglfw -L /opt/homebrew/Cellar/glfw/3.3.8/lib/ -framework Cocoa -framework OpenGL -framework IOKit
+	LIBFLAGS 	= -lglfw -L /opt/homebrew/Cellar/glfw/3.4/lib/ -framework Cocoa -framework OpenGL -framework IOKit
 # glfw library is expected to be in a standard library search path
 else ifeq ($(UNAME),Darwin)
 	LIBFLAGS 	= -lglfw  -framework Cocoa -framework OpenGL -framework IOKit	
